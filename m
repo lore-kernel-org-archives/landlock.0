@@ -1,58 +1,253 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+Received: from smtp-42ab.mail.infomaniak.ch (smtp-42ab.mail.infomaniak.ch [84.16.66.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8327F72
-	for <landlock@lists.linux.dev>; Fri,  7 May 2021 16:41:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
-	s=badeba3b8450; t=1620405717;
-	bh=Olf94nKSEJredak0W3IMVVhgAxnD5g/dCftOYBG4XuY=;
-	h=X-UI-Sender-Class:From:Date:Subject:To;
-	b=C+Fuk2lbelvVhP7jIx2Yh9r6+L/gnVxJbW0j6YDcZwwvyTo9AeIRUQlteV6GrqZWl
-	 aCb/y0Sg38qiGWGVbP6voCSmgdfnCBF1MqtndeYJer3DKra2kV2Mpygwsjtj37aeat
-	 NCieinx4ybjMZuE713Pe6bj2EeRZzyquOLa82F/M=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from [10.123.121.122] ([46.114.89.122]) by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1N8GMk-1lRuLt2Qq0-014Fe4 for
- <landlock@lists.linux.dev>; Fri, 07 May 2021 18:41:57 +0200
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-From: "..." <cillypitt@gmx.de>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 855B572
+	for <landlock@lists.linux.dev>; Fri,  7 May 2021 18:02:29 +0000 (UTC)
+Received: from smtp-3-0001.mail.infomaniak.ch (unknown [10.4.36.108])
+	by smtp-2-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4FcFs96qrnzMqVbq;
+	Fri,  7 May 2021 18:14:53 +0200 (CEST)
+Received: from ns3096276.ip-94-23-54.eu (unknown [23.97.221.149])
+	by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4FcFs939vfzlmrrs;
+	Fri,  7 May 2021 18:14:53 +0200 (CEST)
+From: =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>
+Subject: New mailing list for Landlock LSM user space discussions
+To: landlock@lists.linux.dev
+Cc: kernel-hardening@lists.openwall.com, linux-kernel@vger.kernel.org,
+ linux-security-module@vger.kernel.org, linux-hardening@vger.kernel.org
+References: <11a1adfd-d2e8-2181-81a-529792e4b6e5@namei.org>
+Message-ID: <92296246-9d24-8d64-3ace-e8a36e595d27@digikod.net>
+Date: Fri, 7 May 2021 18:15:44 +0200
+User-Agent:
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
 List-Subscribe: <mailto:landlock+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
-Mime-Version: 1.0 (1.0)
-Date: Fri, 7 May 2021 18:41:56 +0200
-Subject: join
-Message-Id: <1C6E12E5-8AF1-4CA1-B410-01F2A20CF1C1@gmx.de>
-To: landlock@lists.linux.dev
-X-Mailer: iPhone Mail (18D70)
-X-Provags-ID: V03:K1:YdVzAB1uCNyq6hmi9PrID7KoF8e7xfJPemMhSwzhcGPsdZ+VdGJ
- O7+CG9EyeQD/4XeVyQ2tixNK28JJw7lcRIx5PkDMaHKRVekclapaa/rhzPCAnYYALUB2hMG
- WmK6jEd2mO4ONUrteM3kxSvep64TCZ+flBn99THVzBZDNq/9TvB6gfGarlOqDi8yyGo9KMZ
- 3WEXRDbt+L3vAz4tkLp+Q==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:gtBwlNNC7Ms=:gdzrX0AgGFAjfe5Zux4raI
- 9umBuAgwfGcm+coz5vt9y7qeejZprFd58+ruhxAfjnSAufohupNSYsWf+gRVKnR8jwYsOLEYz
- ug5u8a/Dh2MyRmw1d3DO6kVJx5KShdU7b6q6b53nEZ3u16vNFu8usw1BLv9rZQDkr2/TWZEi2
- kgWd+BOb+Or46Udbp4CIjAVX+UXSp0C3s6HnWXiulj2zEWhFbN7WTpm6EcWYdtdsjwxpbPfbZ
- eZKliQU2/DkAEwTGzhJDAyj7Onnv6Lr7s8CKRk6/RMCPvs/by7tTDdcV6P5AiKZrorJe56a+E
- mbjk/IRxydjmg+KqPQYwf5GtisLdKLygW8GVziW+tV0NOwDxAZA/DGY0Y6NaiEI9ht1rOoUH2
- FbFi48DT+7FQBDcnfNUWjpCrs2HuuU6t9kK6fiWmFpoMJOJJXU9MdACpMeWC6MFpfuPMwKpBv
- fGDg68lJUIHdVI2oFvQCnWGGCJSUpGcVplMHp4W6LIWkG/6t0xtdBDvtW27HNyU/gy1je+Hx5
- ePhLxmY2ymepYvIirfgW3PkEkrrRGzfljpo23FhhoCkzFMzg9NEMkYVSGQjy1Pp7bMNyqbJYl
- 5HdOuIsqIszc4ZHsqTc8QutRt7OBZ0aZvkDK/GI7fPj8R0ptg3yC+iYzUG9HjmI7WGuV973BA
- YRYTVJXW7ss7Dfbf7L88Dagqo4FUjQNySAV6VNuQQ7OLzGkSZ8KiqvX8uTnw2LmbbzeXRIUeJ
- 2Q1Gyng1OoxoSO+XdIobXsks7niHAvq6X+DliqrBYmb75ik06fLsbm5wv7Y8aitGNwzp9TDpS
- DpcWEgDT+TQsqESkl/Ip1Xy5F3DXDAaEGuIHH7/Qk7pNjFFn1FT3VxHWORYfIXBDv9LmSEhy8
- f2osy9FA1XxR8TzlpU4JCKpBU9SL579EeIdfCr+aklKJsUNo92q95uHvM3Y8Wy73Ujp8BoV4C
- /3fkmxgFp5OAzcgADMIjG/3xUNNPHXAM1GTEEpdAFvSAMpC7Vpc4IPgKBs+386+NNB2Z1JFEX
- KTk2tuDWNnMSCDVEQVyVga/wV2L/eWZ/QwRXaLH7krSmAq23rfmzoCm+b9YYHhT4Ftj3U+6KK
- Cs1Lr1IK3Af6wN70snb9goltav0Ws9N3W17cfU4oI9BqCHC90+Fh1aOKJWxebdPBnlC7eCX5X
- bFWRGzifKVsJAfP5yC+mbDW7BaL5lzdepUuZMDU2QhU4iiKHxSDlW1o6J8hamFobd2eMg=
+MIME-Version: 1.0
+In-Reply-To: <11a1adfd-d2e8-2181-81a-529792e4b6e5@namei.org>
+Content-Type: text/plain; charset=iso-8859-15
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+
+Hi,
+
+Here is a new mailing list for application developers to ask questions
+about Landlock and collaborate. This mailing list is also a place to
+send patches to user space applications (in CC) to support Landlock. The
+linux-security-module@vger.kernel.org mailing list should still be used
+for kernel development though.
+
+You can subscribe or just freely send emails to
+landlock@lists.linux.dev: https://subspace.kernel.org/lists.linux.dev.html
+
+Regards,
+ Mickaël
 
 
+On 02/05/2021 04:02, pr-tracker-bot@kernel.org wrote:
+> The pull request you sent on Wed, 28 Apr 2021 12:54:22 +1000 (AEST):
+>
+>> git://git.kernel.org/pub/scm/linux/kernel/git/jmorris/linux-security.git tags/landlock_v34
+>
+> has been merged into torvalds/linux.git:
+> https://git.kernel.org/torvalds/c/17ae69aba89dbfa2139b7f8024b757ab3cc42f59
+>
+> Thank you!
+>
 
-Viele Gr=C3=BC=C3=9Fe=20
-Tolga=
-
+On 28/04/2021 04:54, James Morris wrote:
+> Hi Linus,
+> 
+> This patchset adds a new LSM called Landlock, from Mickaël Salaün.
+> 
+> Briefly, Landlock provides for unprivileged application sandboxing.
+> 
+>>From Mickaël's cover letter:
+> 
+>   The goal of Landlock is to enable to restrict ambient rights (e.g.
+>   global filesystem access) for a set of processes.  Because Landlock is a
+>   stackable LSM [1], it makes possible to create safe security sandboxes
+>   as new security layers in addition to the existing system-wide
+>   access-controls.  This kind of sandbox is expected to help mitigate the
+>   security impact of bugs or unexpected/malicious behaviors in user-space
+>   applications.  Landlock empowers any process, including unprivileged
+>   ones, to securely restrict themselves.
+> 
+>   Landlock is inspired by seccomp-bpf but instead of filtering syscalls
+>   and their raw arguments, a Landlock rule can restrict the use of kernel
+>   objects like file hierarchies, according to the kernel semantic.
+>   Landlock also takes inspiration from other OS sandbox mechanisms: XNU
+>   Sandbox, FreeBSD Capsicum or OpenBSD Pledge/Unveil.
+> 
+>   In this current form, Landlock misses some access-control features.
+>   This enables to minimize this patch series and ease review.  This series
+>   still addresses multiple use cases, especially with the combined use of
+>   seccomp-bpf: applications with built-in sandboxing, init systems,
+>   security sandbox tools and security-oriented APIs [2].
+> 
+>   [1] https://lore.kernel.org/lkml/50db058a-7dde-441b-a7f9-f6837fe8b69f@schaufler-ca.com/
+>   [2] https://lore.kernel.org/lkml/f646e1c7-33cf-333f-070c-0a40ad0468cd@digikod.net/
+> 
+> The cover letter and v34 posting is here:
+> https://lore.kernel.org/linux-security-module/20210422154123.13086-1-mic@digikod.net/
+> 
+> See also: https://landlock.io/
+> 
+> This code has had extensive design discussion and review over several 
+> years. The v33 code has been in next since April 9, and was updated last 
+> week to v34 with a relatively simple change. If you prefer to pull v33 
+> instead, please pull "tags/landlock_v33" instead, and we'll push the 
+> change through after merging.
+> 
+> There's a merge conflict in the syscall tables, with resolution by 
+> Stephen Rothwell:
+> https://lore.kernel.org/linux-next/20210409143954.22329cfa@canb.auug.org.au/
+> 
+> Al Viro raised some issues re. the VFS in v31:
+> https://lore.kernel.org/linux-security-module/YGUslUPwp85Zrp4t@zeniv-ca.linux.org.uk/
+> 
+> which were addressed in comments and in v33:
+> https://lore.kernel.org/linux-security-module/5f4dfa1-f9ac-f31f-3237-dcf976cabbfc@namei.org/
+> 
+> 
+> Please pull.
+> 
+> ---
+> 
+> The following changes since commit 1e28eed17697bcf343c6743f0028cc3b5dd88bf0:
+> 
+>   Linux 5.12-rc3 (2021-03-14 14:41:02 -0700)
+> 
+> are available in the Git repository at:
+> 
+>   git://git.kernel.org/pub/scm/linux/kernel/git/jmorris/linux-security.git tags/landlock_v34
+> 
+> for you to fetch changes up to 3532b0b4352ce79400b0aa68414f1a0fc422b920:
+> 
+>   landlock: Enable user space to infer supported features (2021-04-22 12:22:11 -0700)
+> 
+> ----------------------------------------------------------------
+> Add Landlock, a new LSM from Mickaël Salaün <mic@linux.microsoft.com>
+> 
+> ----------------------------------------------------------------
+> Casey Schaufler (1):
+>       LSM: Infrastructure management of the superblock
+> 
+> Mickaël Salaün (12):
+>       landlock: Add object management
+>       landlock: Add ruleset and domain management
+>       landlock: Set up the security framework and manage credentials
+>       landlock: Add ptrace restrictions
+>       landlock: Support filesystem access-control
+>       fs,security: Add sb_delete hook
+>       arch: Wire up Landlock syscalls
+>       landlock: Add syscall implementations
+>       selftests/landlock: Add user space tests
+>       samples/landlock: Add a sandbox manager example
+>       landlock: Add user and kernel documentation
+>       landlock: Enable user space to infer supported features
+> 
+>  Documentation/security/index.rst               |    1 +
+>  Documentation/security/landlock.rst            |   85 +
+>  Documentation/userspace-api/index.rst          |    1 +
+>  Documentation/userspace-api/landlock.rst       |  311 +++
+>  MAINTAINERS                                    |   15 +
+>  arch/Kconfig                                   |    7 +
+>  arch/alpha/kernel/syscalls/syscall.tbl         |    3 +
+>  arch/arm/tools/syscall.tbl                     |    3 +
+>  arch/arm64/include/asm/unistd.h                |    2 +-
+>  arch/arm64/include/asm/unistd32.h              |    6 +
+>  arch/ia64/kernel/syscalls/syscall.tbl          |    3 +
+>  arch/m68k/kernel/syscalls/syscall.tbl          |    3 +
+>  arch/microblaze/kernel/syscalls/syscall.tbl    |    3 +
+>  arch/mips/kernel/syscalls/syscall_n32.tbl      |    3 +
+>  arch/mips/kernel/syscalls/syscall_n64.tbl      |    3 +
+>  arch/mips/kernel/syscalls/syscall_o32.tbl      |    3 +
+>  arch/parisc/kernel/syscalls/syscall.tbl        |    3 +
+>  arch/powerpc/kernel/syscalls/syscall.tbl       |    3 +
+>  arch/s390/kernel/syscalls/syscall.tbl          |    3 +
+>  arch/sh/kernel/syscalls/syscall.tbl            |    3 +
+>  arch/sparc/kernel/syscalls/syscall.tbl         |    3 +
+>  arch/um/Kconfig                                |    1 +
+>  arch/x86/entry/syscalls/syscall_32.tbl         |    3 +
+>  arch/x86/entry/syscalls/syscall_64.tbl         |    3 +
+>  arch/xtensa/kernel/syscalls/syscall.tbl        |    3 +
+>  fs/super.c                                     |    1 +
+>  include/linux/lsm_hook_defs.h                  |    1 +
+>  include/linux/lsm_hooks.h                      |    4 +
+>  include/linux/security.h                       |    4 +
+>  include/linux/syscalls.h                       |    7 +
+>  include/uapi/asm-generic/unistd.h              |    8 +-
+>  include/uapi/linux/landlock.h                  |  137 ++
+>  kernel/sys_ni.c                                |    5 +
+>  samples/Kconfig                                |    7 +
+>  samples/Makefile                               |    1 +
+>  samples/landlock/.gitignore                    |    1 +
+>  samples/landlock/Makefile                      |   13 +
+>  samples/landlock/sandboxer.c                   |  238 ++
+>  security/Kconfig                               |   11 +-
+>  security/Makefile                              |    2 +
+>  security/landlock/Kconfig                      |   21 +
+>  security/landlock/Makefile                     |    4 +
+>  security/landlock/common.h                     |   20 +
+>  security/landlock/cred.c                       |   46 +
+>  security/landlock/cred.h                       |   58 +
+>  security/landlock/fs.c                         |  692 ++++++
+>  security/landlock/fs.h                         |   70 +
+>  security/landlock/limits.h                     |   21 +
+>  security/landlock/object.c                     |   67 +
+>  security/landlock/object.h                     |   91 +
+>  security/landlock/ptrace.c                     |  120 +
+>  security/landlock/ptrace.h                     |   14 +
+>  security/landlock/ruleset.c                    |  473 ++++
+>  security/landlock/ruleset.h                    |  165 ++
+>  security/landlock/setup.c                      |   40 +
+>  security/landlock/setup.h                      |   18 +
+>  security/landlock/syscalls.c                   |  451 ++++
+>  security/security.c                            |   51 +-
+>  security/selinux/hooks.c                       |   58 +-
+>  security/selinux/include/objsec.h              |    6 +
+>  security/selinux/ss/services.c                 |    3 +-
+>  security/smack/smack.h                         |    6 +
+>  security/smack/smack_lsm.c                     |   35 +-
+>  tools/testing/selftests/Makefile               |    1 +
+>  tools/testing/selftests/landlock/.gitignore    |    2 +
+>  tools/testing/selftests/landlock/Makefile      |   24 +
+>  tools/testing/selftests/landlock/base_test.c   |  266 +++
+>  tools/testing/selftests/landlock/common.h      |  183 ++
+>  tools/testing/selftests/landlock/config        |    7 +
+>  tools/testing/selftests/landlock/fs_test.c     | 2791 ++++++++++++++++++++++++
+>  tools/testing/selftests/landlock/ptrace_test.c |  337 +++
+>  tools/testing/selftests/landlock/true.c        |    5 +
+>  72 files changed, 6986 insertions(+), 77 deletions(-)
+>  create mode 100644 Documentation/security/landlock.rst
+>  create mode 100644 Documentation/userspace-api/landlock.rst
+>  create mode 100644 include/uapi/linux/landlock.h
+>  create mode 100644 samples/landlock/.gitignore
+>  create mode 100644 samples/landlock/Makefile
+>  create mode 100644 samples/landlock/sandboxer.c
+>  create mode 100644 security/landlock/Kconfig
+>  create mode 100644 security/landlock/Makefile
+>  create mode 100644 security/landlock/common.h
+>  create mode 100644 security/landlock/cred.c
+>  create mode 100644 security/landlock/cred.h
+>  create mode 100644 security/landlock/fs.c
+>  create mode 100644 security/landlock/fs.h
+>  create mode 100644 security/landlock/limits.h
+>  create mode 100644 security/landlock/object.c
+>  create mode 100644 security/landlock/object.h
+>  create mode 100644 security/landlock/ptrace.c
+>  create mode 100644 security/landlock/ptrace.h
+>  create mode 100644 security/landlock/ruleset.c
+>  create mode 100644 security/landlock/ruleset.h
+>  create mode 100644 security/landlock/setup.c
+>  create mode 100644 security/landlock/setup.h
+>  create mode 100644 security/landlock/syscalls.c
+>  create mode 100644 tools/testing/selftests/landlock/.gitignore
+>  create mode 100644 tools/testing/selftests/landlock/Makefile
+>  create mode 100644 tools/testing/selftests/landlock/base_test.c
+>  create mode 100644 tools/testing/selftests/landlock/common.h
+>  create mode 100644 tools/testing/selftests/landlock/config
+>  create mode 100644 tools/testing/selftests/landlock/fs_test.c
+>  create mode 100644 tools/testing/selftests/landlock/ptrace_test.c
+>  create mode 100644 tools/testing/selftests/landlock/true.c
+> 
