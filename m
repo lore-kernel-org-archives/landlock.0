@@ -1,45 +1,16 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-8fad.mail.infomaniak.ch (smtp-8fad.mail.infomaniak.ch [83.166.143.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E4F672
-	for <landlock@lists.linux.dev>; Thu, 29 Jul 2021 22:34:48 +0000 (UTC)
-Received: by mail-wr1-f49.google.com with SMTP id h14so8672338wrx.10
-        for <landlock@lists.linux.dev>; Thu, 29 Jul 2021 15:34:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=NJzJaENW4uciUcPuU9DFkvO0zp/1wtimx8cQMwu5W6U=;
-        b=qYPJN9HbCj2ZjhR2YzFMQXShSUL1641UI7LViNU4wHx/iDepkBq1WTEAE6ihu3hDCm
-         XHEVuDMvxHuvjEvttU/AwKWjLYC08OtnOHGRkATZypIDur7GwTsjkb0ud6AWxq+RPi3o
-         AMmTApNm7hhqGsnyEq88W2CcXWSU/JqsHU+XuZaDzra4m2+abbuPMW9Gvay1MBXtyL8i
-         nlP69WhdD4piG5zyt1W0OST5QWCmESY1JsSDp9OD9aI+nIoIOw92Rls3pJZBmNfOH/Zv
-         06KgweC4C9EosBu4i3UPCtWJ0vfoLG0JRORAMmI6C9gKHa96lBG07eMynJC9dyIVyUR/
-         jnfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=NJzJaENW4uciUcPuU9DFkvO0zp/1wtimx8cQMwu5W6U=;
-        b=g5fOc+tgFoTM1pbKEvD5cF7P3W9VqVtMBfA9R2ZqUht35J85ijV1O6otEhtowUH4Qq
-         Oi8W/suK06QfkOy/IqQSyXaFV8ugQ3ZlNe2ykZzSA+rDFQbBwl0MSzGvGF5b9vlEK5ww
-         F2Zj290m9MNjQTHClnm346M+YyI0plOEzpmiiCkstcYuY9R45214fBy5x4GQI5XcC4Pn
-         HOGWpOUA85AnPp4xTZQ+t05y201fwjCHTH2Hekb1wmcGsqsMuFLLOjHmJLlPuz2Zn/WK
-         BuLnZeHAABxXTTYxgUJAvPlydUzCWPDzQiyU3RgXJP9p1CP4kL7sm4RySLVl95TGKYIO
-         F+ug==
-X-Gm-Message-State: AOAM533H0VDIbm/CNAgex7/PjMKm+yj+ZwrNq8mtHFm3LVeoymb09eK9
-	nBQ7YPjHNmvUV7olxQcvNqU=
-X-Google-Smtp-Source: ABdhPJxZh7Z+sPwIh0PZrDpuViudC0sz2H5Ao4UjWw2VDTOWPmqUtUQ8VN0lyJCUpG1UJRMHhg093g==
-X-Received: by 2002:a5d:54c2:: with SMTP id x2mr7406305wrv.338.1627598086564;
-        Thu, 29 Jul 2021 15:34:46 -0700 (PDT)
-Received: from [10.8.0.10] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id e3sm5259084wrv.65.2021.07.29.15.34.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Jul 2021 15:34:46 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A5EE3483
+	for <landlock@lists.linux.dev>; Fri, 30 Jul 2021 12:14:03 +0000 (UTC)
+Received: from smtp-3-0000.mail.infomaniak.ch (unknown [10.4.36.107])
+	by smtp-2-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4GbmXM1jBCzMqLJM;
+	Fri, 30 Jul 2021 14:13:55 +0200 (CEST)
+Received: from ns3096276.ip-94-23-54.eu (unknown [23.97.221.149])
+	by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4GbmXK75bVzlh8TL;
+	Fri, 30 Jul 2021 14:13:53 +0200 (CEST)
 Subject: Re: [PATCH v2 1/4] landlock.7: Add a new page to introduce Landlock
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
- =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>
+To: "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
 Cc: Jann Horn <jannh@google.com>, Jonathan Corbet <corbet@lwn.net>,
  Kees Cook <keescook@chromium.org>, Randy Dunlap <rdunlap@infradead.org>,
  Vincent Dagonneau <vincent.dagonneau@ssi.gouv.fr>, landlock@lists.linux.dev,
@@ -50,158 +21,608 @@ Cc: Jann Horn <jannh@google.com>, Jonathan Corbet <corbet@lwn.net>,
 References: <20210712155745.831580-1-mic@digikod.net>
  <20210712155745.831580-2-mic@digikod.net>
  <3f1b943b-2477-2c4e-c835-d6616888176c@gmail.com>
- <20210729220129.ymfdnybbpvej4qck@localhost.localdomain>
-From: "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <9e97c060-f9b9-07ed-6502-3e1f716f3f06@gmail.com>
-Date: Fri, 30 Jul 2021 00:34:43 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+From: =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>
+Message-ID: <c5036c5c-37a1-57d2-e5dc-1f41a5ed0d31@digikod.net>
+Date: Fri, 30 Jul 2021 14:15:48 +0200
+User-Agent:
 Precedence: bulk
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
 List-Subscribe: <mailto:landlock+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <20210729220129.ymfdnybbpvej4qck@localhost.localdomain>
-Content-Type: text/plain; charset=windows-1252; format=flowed
+In-Reply-To: <3f1b943b-2477-2c4e-c835-d6616888176c@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-Hi Branden!
 
-
-On 7/30/21 12:01 AM, G. Branden Robinson wrote:
-> Hi, Alex!
+On 29/07/2021 16:56, Alejandro Colomar (man-pages) wrote:
+> Hi Mickaël,
 > 
-> [regrets for the huge CC--those not interested in English/linux-man
-> style issues can skip this]
-> 
-> At 2021-07-29T16:56:37+0200, Alejandro Colomar (man-pages) wrote:
->> On 7/12/21 5:57 PM, Micka�l Sala�n wrote:
->>> +For instance, one process's thread may apply Landlock rules to itself,
+> On 7/12/21 5:57 PM, Mickaël Salaün wrote:
+>> From: Mickaël Salaün <mic@linux.microsoft.com>
 >>
->> s/process's/process'/
+>>  From the user point of view, Landlock is a set of system calls enabling
+>> to build and enforce a set of access-control rules.  A ruleset can be
+>> created with landlock_create_ruleset(2), populated with
+>> landlock_add_rule(2) and enforced with landlock_restrict_self(2).  This
+>> man page gives an overview of the whole mechanism.  Details of these
+>> system calls are documented in their respective man pages.
+>>
+>> This is an adaptation of
+>> https://www.kernel.org/doc/html/v5.13/userspace-api/landlock.html
+>>
+>> Signed-off-by: Mickaël Salaün <mic@linux.microsoft.com>
+>> Link: https://lore.kernel.org/r/20210712155745.831580-2-mic@digikod.net
 > 
-> Many English language authorities would disagree with you, but I'll skip
-> digging up citations to them because the Linux man-pages project's
-> practice is already firmly in the other direction.
-> 
-> $ git grep "s's\>" | wc -l
-> 322
-> 
-> Moreover, "process's" is extensively attested as most of those...
-> 
-> $ git grep "process's" | wc -l
-> 320
+> Please see some comments below, mostly about formatting.
+> The text looks good to me.
 
-My bad.  It was correct.  I was wrong.
-
-I learnt today that the omission of "s" after the apostrophe is only in 
-the case of plural nouns (I don't remember having learnt that at school :/).
-
-I suspect I probably wrote that before learning that.
+Thanks for the review.
 
 > 
-> ...and a global change in the opposite direction from your
-> recommendation is credited to mtk in the Changes.old file.
+> Thanks,
 > 
-> $ grep -B2 "process' " Changes.old |head -n 3
-> A few files
->      mtk
->          s/process' /process's/
+> Alex
 > 
-> Finding examples of the opposite practice is complicated by the use of
-> apostrophes as single quotes (these usually _aren't_ confounded by code
-> examples, however, since it would be incorrect C language syntax to
-> quote a string literal with them).  There are many such occurrences in
-> Changes.old; I'll skip them.  The remainder are few enough that I'll
-> quote them here.
+>> ---
+>>
+>> Changes since v1:
+>> * Replace all ".I" with ".IR", except when used for titles.
 > 
-> $ git grep -E "s'(\s|$)" man*
-> man2/adjtimex.2:Linux uses David L.\& Mills' clock adjustment algorithm (see RFC\ 5905).
-> man2/move_pages.2:.\" FIXME Describe the result if pointers in the 'pages' array are
-> man2/utimensat.2:.\" given a 'times' array in which both tv_nsec fields are UTIME_NOW, which
-> man2/utimensat.2:.\" provides equivalent functionality to specifying 'times' as NULL, the
-> man3/getaddrinfo.3:.\" 2008-02-26, mtk; clarify discussion of NULL 'hints' argument; other
-> man3/printf.3:thousands' grouping character is used.
-> man3/printf.3:the output is to be grouped with thousands' grouping characters
-> man3/printf.3:.\" no thousands' separator, no NaN or infinity, no "%m$" and "*m$".
-> man3/scanf.3:This specifies that the input number may include thousands'
-> man3/xdr.3:the array elements' C form, and their external
-> man3/xdr.3:the array elements' C form, and their external
-> man5/elf.5:The array element is unused and the other members' values are undefined.
-> man5/proc.5:under the default overcommit 'guess' mode (i.e., 0 in
-> man5/proc.5:because other nodes' memory may be free,
-> man7/bootparam.7:The Linux kernel accepts certain 'command-line options' or 'boot time
-> man7/bootparam.7:parameters' at the moment it is started.
-> man7/bootparam.7:The option 'reboot=bios' will
-> man7/bootparam.7:A SCSI device can have a number of 'subdevices' contained within
-> man7/hier.7:Users' mailboxes.
-> man7/mount_namespaces.7:the root directory under several users' home directories.
-> man7/uri.7:schemes; see those tools' documentation for information on those schemes.
-> man7/uri.7:detects the users' environment (e.g., text or graphics,
-> man8/ld.so.8:and do not apply to those objects' children,
-> 
-> Of the above,
-> 
-> 1. most are correct uses of the English plural possessive ("nodes'");
-> 2. a few occur in comments, where they're fine if present as
->     commentary--if they're "commented out" chunks of man page source,
->     they should follow man page formatting rules in the event they
->     require "resurrection";
-> 3. we see some uses of apostrophes as quotation marks; and
-> 4. David L. Mills's name is marked as a plural possessive.  The
->     application of apostrophe+s to singular proper names ending in "s" is
->     a debated issue, and there is probably some room for personal
->     preference on the part of the bearer of the name.
-> 
-> Two side issues:
-> 
-> A. Regarding point 3, I'd say this illustrates advantages of using
-> special character escape sequences like \[lq] and \[rq] for quotation.
-> First, you will get paired quotation marks in UTF-8, PDF, and HTML
-> output.  Second, you won't encounter false positives in searches like
-> the above.  Third, you semantically enrich the content.  On the
-> downside, adopting special character escapes would likely mean having to
-> choose between U.S. and U.K. quotation styles[1].
+> Sorry, but I actually prefer the opposite: Use .I unless you really need
+> .IR
 
-I don't know what to do about this.  For searches, if you come up with a 
-complex enough regex, you can get rid of quotations.  If we use 
-different characters, then it will be really difficult to search for 
-actual quotations (I don't have them on my keyboard ;).
+When do we really need .IR? Isn't `.I "foo bar"` the same as `.IR foo
+bar`? What do you use roman for?
 
-But having nicer PDF/HTML pages would be an advantage.  However, I think 
-most usage of man-pages is in the terminal, so I'd focus on the terminal.
-
-What do you think about this?
+Where can we find these preferences? The best I found was
+https://www.man7.org/linux/man-pages/man7/groff_man.7.html but it
+doesn't explain what to use. The current man pages seems to use both
+interchangeably.
 
 > 
-> B. Regarding another active thread we're in, I observe
+> If there was a misunderstanding about this, I'm sorry.
 > 
-> man2/adjtimex.2:Linux uses David L.\& Mills' clock adjustment algorithm (see RFC\ 5905).
+>> * Append punctuation to ".IR" and ".BR" when it makes sense (requested
+>>    by Alejandro Colomar).
+>> * Cut lines according to the semantic newline rules (requested by
+>>    Alejandro Colomar).
+>> * Remove roman style from ".TP" section titles (requested by Alejandro
+>>    Colomar).
+>> * Add comma after "i.e." and "e.g.".
+>> * Move the example in a new EXAMPLES section.
+>> * Improve title.
+>> * Explain the LSM acronym at first use.
+>> ---
+>>   man7/landlock.7 | 356 ++++++++++++++++++++++++++++++++++++++++++++++++
+>>   1 file changed, 356 insertions(+)
+>>   create mode 100644 man7/landlock.7
+>>
+>> diff --git a/man7/landlock.7 b/man7/landlock.7
+>> new file mode 100644
+>> index 000000000000..c89f5b1cabb6
+>> --- /dev/null
+>> +++ b/man7/landlock.7
+>> @@ -0,0 +1,356 @@
+>> +.\" Copyright © 2017-2020 Mickaël Salaün <mic@digikod.net>
+>> +.\" Copyright © 2019-2020 ANSSI
+>> +.\" Copyright © 2021 Microsoft Corporation
+>> +.\"
+>> +.\" %%%LICENSE_START(VERBATIM)
+>> +.\" Permission is granted to make and distribute verbatim copies of this
+>> +.\" manual provided the copyright notice and this permission notice are
+>> +.\" preserved on all copies.
+>> +.\"
+>> +.\" Permission is granted to copy and distribute modified versions of
+>> this
+>> +.\" manual under the conditions for verbatim copying, provided that the
+>> +.\" entire resulting derived work is distributed under the terms of a
+>> +.\" permission notice identical to this one.
+>> +.\"
+>> +.\" Since the Linux kernel and libraries are constantly changing, this
+>> +.\" manual page may be incorrect or out-of-date.  The author(s)
+>> assume no
+>> +.\" responsibility for errors or omissions, or for damages resulting
+>> from
+>> +.\" the use of the information contained herein.  The author(s) may not
+>> +.\" have taken the same level of care in the production of this manual,
+>> +.\" which is licensed free of charge, as they might when working
+>> +.\" professionally.
+>> +.\"
+>> +.\" Formatted or processed versions of this manual, if unaccompanied by
+>> +.\" the source, must acknowledge the copyright and authors of this work.
+>> +.\" %%%LICENSE_END
+>> +.\"
+>> +.TH LANDLOCK 7 2021-06-27 Linux "Linux Programmer's Manual"
+>> +.SH NAME
+>> +Landlock \- unprivileged access-control
+>> +.SH DESCRIPTION
+>> +Landlock is an access-control system that enables any processes to //
+>> securely /J/
+
+Why adding a line break here? This line is 75 columns as stated by the
+documentation: https://man7.org/linux/man-pages/man7/man-pages.7.html
+I guess it helps for semantic newlines, right? If so, what are the rules?
+
 > 
-> as another case where \~ recommends itself over "\ "; this isn't even a
-> code example, and it illustrates the desirability of decoupling
-> non-breaking from participation in space adjustment.
+> I'll add some line breaks [//] and line joins [/J/] through the email.
+> 
+>> +restrict themselves and their future children.
+>> +Because Landlock is a stackable Linux Security Module (LSM),
+>> +it makes possible to create safe security sandboxes as new security
+>> layers
+> 
+> suggested wfix: "it makes it possible" or "it is possible"?
 
-Agreed.
+Ok
 
 > 
-> Popping the stack, have I persuaded you on the plural possessive front?
-> :)
+>> +in addition to the existing system-wide access-controls.
+>> +This kind of sandbox is expected to help mitigate // the security
+>> impact of /J/ > +bugs, // and unexpected or malicious behaviors in
+>> applications.
+> 
+> See line-break fixes above.
 
-Yup :)
+Ok
 
 > 
-> Best regards,
-> Branden
+>> +.PP
+>> +A Landlock security policy is a set of access rights
+>> +(e.g., open a file in read-only, make a directory, etc.)
+>> +tied to a file hierarchy.
+>> +Such policy can be configured and enforced by processes for themselves
+>> +using three system calls:
+>> +.IP \(bu 2
+>> +.BR landlock_create_ruleset (2)
+>> +creates a new ruleset;
+>> +.IP \(bu
+>> +.BR landlock_add_rule (2)
+>> +adds a new rule to a ruleset;
+>> +.IP \(bu
+>> +.BR landlock_restrict_self (2)
+>> +enforces a ruleset on the calling thread.
+>> +.PP
+>> +To be able to use these system calls,
+>> +the running kernel must support Landlock and // it must be enabled at
+>> boot /J/
+>> +time.
 > 
-> [1] https://man7.org/linux/man-pages/man7/groff_char.7.html (search for
->      "the apostrophe")
+> See line-break fixes above
+
+Ok
+
 > 
+>> +.\"
+>> +.SS Landlock rules
+>> +A Landlock rule describes an action on an object.
+>> +An object is currently a file hierarchy,
+>> +and the related filesystem actions are defined with access rights (see
+>> +.BR landlock_add_rule (2)).
+>> +A set of rules is aggregated in a ruleset, // which can /J/
+>> +then restrict the thread enforcing it, // and its future children.
+> 
+> See line-break fixes above.
+
+Ok
+
+> 
+>> +.\"
+>> +.SS Filesystem actions
+>> +These flags enable to restrict a sandboxed process to a // set of
+>> actions on /J/
+>> +files and directories. > +Files or directories opened before the
+>> sandboxing // are not subject 
+> to these /J/
+>> +restrictions.
+> 
+> See line-break fixes above.
+
+Ok
+
+> 
+>> +See
+>> +.BR landlock_add_rule (2)
+>> +and
+>> +.BR landlock_create_ruleset (2)
+>> +for more context.
+>> +.PP
+>> +A file can only receive these access rights:
+>> +.TP
+>> +.B LANDLOCK_ACCESS_FS_EXECUTE
+>> +Execute a file.
+>> +.TP
+>> +.B LANDLOCK_ACCESS_FS_WRITE_FILE
+>> +Open a file with write access.
+>> +.TP
+>> +.B LANDLOCK_ACCESS_FS_READ_FILE
+>> +Open a file with read access.
+>> +.PP
+>> +A directory can receive access rights related to files or directories.
+>> +The following access right is applied to the directory itself,
+>> +and the directories beneath it:
+>> +.TP
+>> +.B LANDLOCK_ACCESS_FS_READ_DIR
+>> +Open a directory or list its content.
+>> +.PP
+>> +However,
+>> +the following access rights only apply to the content of a directory,
+>> +not the directory itself:
+>> +.TP
+>> +.B LANDLOCK_ACCESS_FS_REMOVE_DIR
+>> +Remove an empty directory or rename one.
+>> +.TP
+>> +.B LANDLOCK_ACCESS_FS_REMOVE_FILE
+>> +Unlink (or rename) a file.
+>> +.TP
+>> +.B LANDLOCK_ACCESS_FS_MAKE_CHAR
+>> +Create (or rename or link) a character device.
+>> +.TP
+>> +.B LANDLOCK_ACCESS_FS_MAKE_DIR
+>> +Create (or rename) a directory.
+>> +.TP
+>> +.B LANDLOCK_ACCESS_FS_MAKE_REG
+>> +Create (or rename or link) a regular file.
+>> +.TP
+>> +.B LANDLOCK_ACCESS_FS_MAKE_SOCK
+>> +Create (or rename or link) a UNIX domain socket.
+>> +.TP
+>> +.B LANDLOCK_ACCESS_FS_MAKE_FIFO
+>> +Create (or rename or link) a named pipe.
+>> +.TP
+>> +.B LANDLOCK_ACCESS_FS_MAKE_BLOCK
+>> +Create (or rename or link) a block device.
+>> +.TP
+>> +.B LANDLOCK_ACCESS_FS_MAKE_SYM
+>> +Create (or rename or link) a symbolic link.
+>> +.\"
+>> +.SS Layers of file path access rights
+>> +Each time a thread enforces a ruleset on itself, // it updates its
+>> Landlock /J/
+> 
+> See line-break fixes above
+
+Ok
+
+> 
+>> +domain with a new layer of policy.
+>> +Indeed, this complementary policy is composed with the potentially other
+>> +rulesets already restricting this thread.
+>> +A sandboxed thread can then safely add more constraints to itself with a
+>> +new enforced ruleset.
+>> +.PP
+>> +One policy layer grants access to a file path // if at least one of
+>> its rules /J/
+>> +encountered on the path grants the access.
+>> +A sandboxed thread can only access a file path // if all its enforced
+>> policy /J/
+>> +layers grant the access // as well as all the other system access
+>> controls
+>> +(e.g., filesystem DAC, other LSM policies, etc.).
+> 
+> See line-break fixes above.
+
+Ok
+
+> 
+>> +.\"
+>> +.SS Bind mounts and OverlayFS
+>> +Landlock enables restricting access to file hierarchies,
+>> +which means that these access rights can be propagated with bind mounts
+>> +(cf.
+>> +.BR mount_namespaces (7))
+>> +but not with OverlayFS.
+>> +.PP
+>> +A bind mount mirrors a source file hierarchy to a destination.
+>> +The destination hierarchy is then composed of the exact same files,
+>> +on which Landlock rules can be tied, // either via the source or the /J/
+>> +destination path.
+>> +These rules restrict access when they are encountered on a path,
+>> +which means that they can restrict access to // multiple file
+>> hierarchies at /J/
+>> +the same time,
+>> +whether these hierarchies are the result of bind mounts or not.
+> 
+> 
+> See line-break fixes above.
+
+Ok
+
+> 
+>> +.PP
+>> +An OverlayFS mount point consists of upper and lower layers.
+>> +These layers are combined in a merge directory, result of the mount
+>> point.
+>> +This merge hierarchy may include files from the upper and lower layers,
+>> +but modifications performed on the merge hierarchy // only reflects
+>> on the /J/
+> 
+> s/reflects/reflect/
+
+Ok
+
+> 
+>> +upper layer.
+>> +From a Landlock policy point of view,
+>> +each OverlayFS layers and merge hierarchies are standalone and contains
+>> +their own set of files and directories,
+>> +which is different from bind mounts.
+> 
+> 
+> Incorrect mix of singular and plural, I think.
+
+Is it OK with s/contains/contain/?
+
+> 
+>> +A policy restricting an OverlayFS layer will not restrict the resulted
+>> +merged hierarchy, and vice versa.
+>> +Landlock users should then only think about file hierarchies they
+>> want to
+>> +allow access to, regardless of the underlying filesystem.
+>> +.\"
+>> +.SS Inheritance
+>> +Every new thread resulting from a
+>> +.BR clone (2)
+>> +inherits Landlock domain restrictions from its parent.
+>> +This is similar to the
+>> +.BR seccomp (2)
+>> +inheritance or any other LSM dealing with task's
+> 
+> Not sure:
+> 
+> s/task/a task/
+> or
+> s/task's/tasks'/
+
+I'll take "tasks'".
+
+> 
+>> +.BR credentials (7).
+>> +For instance, one process's thread may apply Landlock rules to itself,
+> 
+> s/process's/process'/
+
+As pointed out by Branden, this is correct.
+
+> 
+>> +but they will not be automatically applied to other sibling threads
+>> +(unlike POSIX thread credential changes, cf.
+>> +.BR nptl (7)).
+>> +.PP
+>> +When a thread sandboxes itself, // we have the guarantee that the
+>> related /J/
+>> +security policy // will stay enforced on all this thread's descendants.
+>> +This allows creating standalone and modular security policies // per /J/
+>> +application,
+>> +which will automatically be composed between themselves // according
+>> to their /J/
+>> +runtime parent policies.
+>> +.\"
+>> +.SS Ptrace restrictions
+>> +A sandboxed process has less privileges than a non-sandboxed process and
+>> +must then be subject to additional restrictions // when manipulating
+>> another /J/
+>> +process.
+>> +To be allowed to use
+>> +.BR ptrace (2)
+>> +and related syscalls on a target process,
+>> +a sandboxed process should have a subset of the target process rules,
+>> +which means the tracee must be in a sub-domain of the tracer.
+>> +.SH VERSIONS
+>> +Landlock was added in Linux 5.13.
+>> +.SH NOTES
+>> +Landlock is enabled by CONFIG_SECURITY_LANDLOCK.
+> 
+> .BR CONFIG_SECURITY_LANDLOCK .
+
+Ok
+
+> 
+>> +The
+>> +.IR lsm=lsm1,...,lsmN
+> 
+> s/.IR/.I/
+
+Ok
+
+> 
+>> +command line parameter controls the sequence of the initialization of
+>> +Linux Security Modules.
+>> +It must contain the string
+>> +.IR landlock
+> 
+> s/.IR/.I
+
+Ok
+
+> 
+>> +to enable Landlock.
+>> +If the command line parameter is not specified,
+>> +the initialization falls back to the value of the deprecated
+>> +.IR security=
+> 
+> s/.IR/.I/
+
+Ok
+
+> 
+>> +command line parameter and further to the value of CONFIG_LSM.
+>> +We can check that Landlock is enabled by looking for
+>> +.IR "landlock: Up and running."
+> 
+> s/.IR/.I/
+
+Ok
+
+> 
+>> +in kernel logs.
+>> +.PP
+>> +It is currently not possible to restrict some file-related actions
+>> +accessible through these syscall families:
+> 
+> When using syscall to refer to system call (not the function syscall(2)),
+> we use the extended form "system call".
+
+Ok
+
+> 
+>> +.BR chdir (2),
+>> +.BR truncate (2),
+>> +.BR stat (2),
+>> +.BR flock (2),
+>> +.BR chmod (2),
+>> +.BR chown (2),
+>> +.BR setxattr (2),
+>> +.BR utime (2),
+>> +.BR ioctl (2),
+>> +.BR fcntl (2),
+>> +.BR access (2).
+>> +Future Landlock evolutions will enable to restrict them.
+>> +.SH EXAMPLES
+> I'd prefer a complete example with a main function, if you can come up
+> with such one.  If not, this will be ok.
+
+I think it is clearer to not to use a full main to explain these basic
+steps. A full working example is linked though.
+
+> 
+> 
+>> +We first need to create the ruleset that will contain our rules.
+>> +For this example,
+>> +the ruleset will contain rules that only allow read actions,
+>> +but write actions will be denied.
+>> +The ruleset then needs to handle both of these kind of actions.
+>> +See below for the description of filesystem actions.
+>> +.PP
+>> +.in +4n
+>> +.EX
+>> +int ruleset_fd;
+>> +struct landlock_ruleset_attr ruleset_attr = {
+>> +    .handled_access_fs =
+>> +        LANDLOCK_ACCESS_FS_EXECUTE |
+>> +        LANDLOCK_ACCESS_FS_WRITE_FILE |
+>> +        LANDLOCK_ACCESS_FS_READ_FILE |
+>> +        LANDLOCK_ACCESS_FS_READ_DIR |
+>> +        LANDLOCK_ACCESS_FS_REMOVE_DIR |
+>> +        LANDLOCK_ACCESS_FS_REMOVE_FILE |
+>> +        LANDLOCK_ACCESS_FS_MAKE_CHAR |
+>> +        LANDLOCK_ACCESS_FS_MAKE_DIR |
+>> +        LANDLOCK_ACCESS_FS_MAKE_REG |
+>> +        LANDLOCK_ACCESS_FS_MAKE_SOCK |
+>> +        LANDLOCK_ACCESS_FS_MAKE_FIFO |
+>> +        LANDLOCK_ACCESS_FS_MAKE_BLOCK |
+>> +        LANDLOCK_ACCESS_FS_MAKE_SYM,
+>> +};
+>> +
+>> +ruleset_fd = landlock_create_ruleset(&ruleset_attr,
+>> sizeof(ruleset_attr), 0);
+>> +if (ruleset_fd < 0) {
+>> +    perror("Failed to create a ruleset");
+>> +    return 1;
+>> +}
+>> +.EE
+>> +.in
+>> +.PP
+>> +We can now add a new rule to this ruleset thanks to the returned file
+>> +descriptor referring to this ruleset.
+>> +The rule will only allow reading the file hierarchy
+>> +.IR /usr .
+
+Why ".IR" is correct here?
 
 
--- 
-Alejandro Colomar
-Linux man-pages comaintainer; https://www.kernel.org/doc/man-pages/
-http://www.alejandro-colomar.es/
+>> +Without another rule, write actions would then be denied by the ruleset.
+>> +To add
+>> +.IR /usr
+>> +to the ruleset, we open it with the
+>> +.IR O_PATH
+>> +flag and fill the
+>> +.IR "struct landlock_path_beneath_attr"
+>> +with this file descriptor.
+>> +.PP
+>> +.in +4n
+>> +.EX
+>> +int err;
+>> +struct landlock_path_beneath_attr path_beneath = {
+>> +    .allowed_access =
+>> +        LANDLOCK_ACCESS_FS_EXECUTE |
+>> +        LANDLOCK_ACCESS_FS_READ_FILE |
+>> +        LANDLOCK_ACCESS_FS_READ_DIR,
+>> +};
+>> +
+>> +path_beneath.parent_fd = open("/usr", O_PATH | O_CLOEXEC);
+>> +if (path_beneath.parent_fd < 0) {
+>> +    perror("Failed to open file");
+>> +    close(ruleset_fd);
+>> +    return 1;
+>> +}
+>> +err = landlock_add_rule(ruleset_fd, LANDLOCK_RULE_PATH_BENEATH,
+>> +                        &path_beneath, 0);
+>> +close(path_beneath.parent_fd);
+>> +if (err) {
+>> +    perror("Failed to update ruleset");
+>> +    close(ruleset_fd);
+>> +    return 1;
+>> +}
+>> +.EE
+>> +.in
+>> +.PP
+>> +We now have a ruleset with one rule allowing read access to
+>> +.IR /usr
+>> +while denying all other handled accesses for the filesystem.
+>> +The next step is to restrict the current thread from gaining more
+>> +privileges
+>> +(e.g., thanks to a set-user-ID binary).
+>> +.PP
+>> +.in +4n
+>> +.EX
+>> +if (prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0)) {
+>> +    perror("Failed to restrict privileges");
+>> +    close(ruleset_fd);
+>> +    return 1;
+>> +}
+>> +.EE
+>> +.in
+>> +.PP
+>> +The current thread is now ready to sandbox itself with the ruleset.
+>> +.PP
+>> +.in +4n
+>> +.EX
+>> +if (landlock_restrict_self(ruleset_fd, 0)) {
+>> +    perror("Failed to enforce ruleset");
+>> +    close(ruleset_fd);
+>> +    return 1;
+>> +}
+>> +close(ruleset_fd);
+>> +.EE
+>> +.in
+>> +.PP
+>> +If the
+>> +.BR landlock_restrict_self (2)
+>> +system call succeeds, the current thread is now restricted and this
+>> policy
+>> +will be enforced on all its subsequently created children as well.
+>> +Once a thread is landlocked, there is no way to remove its security
+>> policy;
+>> +only adding more restrictions is allowed.
+>> +These threads are now in a new Landlock domain, // merge of their
+>> parent one /J/
+>> +(if any) with the new ruleset.
+>> +.PP
+>> +Full working code can be found in
+>> +.UR
+>> https://git.kernel.org\:/pub\:/scm\:/linux\:/kernel\:/git\:/stable\:/linux.git\:/tree\:/samples\:/landlock\:/sandboxer.c
+>>
+>> +.UE
+>> +.SH SEE ALSO
+>> +.BR landlock_create_ruleset (2),
+>> +.BR landlock_add_rule (2),
+>> +.BR landlock_restrict_self (2)
+>> +.PP
+>> +.UR https://landlock.io\:/
+>> +.UE
+>>
+> 
+> 
