@@ -1,46 +1,46 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED1133486
-	for <landlock@lists.linux.dev>; Sat, 31 Jul 2021 10:51:34 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id a192-20020a1c7fc90000b0290253b32e8796so8584196wmd.0
-        for <landlock@lists.linux.dev>; Sat, 31 Jul 2021 03:51:34 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0811C3486
+	for <landlock@lists.linux.dev>; Sat, 31 Jul 2021 11:02:30 +0000 (UTC)
+Received: by mail-wr1-f41.google.com with SMTP id m12so9978814wru.12
+        for <landlock@lists.linux.dev>; Sat, 31 Jul 2021 04:02:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=3MbPGGFdc87JQ1GGBZR/+XaGAcjWM2QvN+yXxpzVnXM=;
-        b=uawVsHRrS+KLo4QAmbzJ420yZ44XyEr0r48bq9LyW6sWccOPUCS3RsnoB9rl8XCTVp
-         jRhiVpUBDMcxf5DDQrJ5KFn16tbY1WrNuSOUgPFBifEqi/uGz/N8G/E+sDkZ2ltkAy7o
-         YgE+nByORvBhXfLmF+MPL0RY5JZpv1MK+n/Sa2hyXrJGhoENJi3hRY0LPt777PK0UTlX
-         T7wDkJecRMY13UrfvblKqkO+C/FeCdIaHeYHN7UjKTFiQNohhdxLHOnNM0Ny7pBYix6/
-         2TfGPtWrUi4Y+m7ZvyGKVwg5BO4Xn4n/9e1/o6fynIh7J/nXR7+yqXZR1JUL/kw7jtfR
-         Yong==
+        bh=ON3nvX3vddf0hmRumtMP6cx5JmooyBU5uI8MMuLOd7U=;
+        b=kV9k61grhJ7MtURWjqOQbBqIH9x8k7DEEEnxJND+aQ7ltqHHuR3ebzuIRM492fVWoT
+         93qHxkZ+I1ig0KZXzCuMwH3uqurYdYlRP+MkpN/0RvLJZl11fKCG5XI1b5t2gwVoesGT
+         lRHGfKSFqBYcFhvAOnoJ7kNvsMGWnpPNPp+sMtPZ50lSBU3mpqaybPekDI2mbAkYcyGE
+         X1sGqzg/fG+ZM6Xgwg4N1fpECvVSbtXbX6NyRw0aZHmXWCoz0zGVZYwaDJVGleV7Oe8u
+         x82dCsa1qYfQjTyA1Y/0mj7l4WyYuJrZGMxoTlRdZoV4urjhklW8bomi/BMGsZw8ZfvM
+         fSPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=3MbPGGFdc87JQ1GGBZR/+XaGAcjWM2QvN+yXxpzVnXM=;
-        b=se2pyHcg+7rdPRvH8GTsNrHNO8H1EN9LJM1grfxdrEXtskidq4xYgKve6JQxCZH7YQ
-         6+7OG+HVvRoktxzKXvvwvt+UDrDRAIzZ8gtdXiSYwAWj8YfWp3ggT511o36Gmdma936I
-         1EmENptTwglKJxNOQwnVjOvaV7cGwpUEXwMfFKnpDO9T191i0C5bXUXbI6T7LFpP0Cm6
-         tV/x2VevJkEWZEBBxedmcQ9M660pWG+eLnvThA79pSLHpAJdiaCyNv6L6JGXIWu1ib7L
-         nKLECqmJru0fX/xVSAJ3O95xjl/8qWDrcONkBRYGDZjDh/rsq2nEB1emjC4H/0EvmyEH
-         n4wg==
-X-Gm-Message-State: AOAM531RI5OnXqR4QqOrKZ21fuU9xr0/EMOZo+z/U++/1tXwikzdilvi
-	geoNCzsEAEd23tIg/OMcRrk=
-X-Google-Smtp-Source: ABdhPJxemSUnxWWL0NEQXB6tuSxMeBE9xH+LXo9DK7/dOEMpxPDsskyXxIyACr8AE4U/r9FdvuGvZQ==
-X-Received: by 2002:a1c:3b07:: with SMTP id i7mr7806552wma.7.1627728693227;
-        Sat, 31 Jul 2021 03:51:33 -0700 (PDT)
+        bh=ON3nvX3vddf0hmRumtMP6cx5JmooyBU5uI8MMuLOd7U=;
+        b=b9jyVA5RURvQLS9O669fxTuT2mFZGpof4F6yS2Vl18fHOGXDz6u/EVFbnUi6E0lYw+
+         6oov9+cXtvNrFLllcNwtIk4ZTVGbTPs4md63b1GdRYRam2wz8M6Wkz7i0mDMUfO/V074
+         8khNkC716mgv+QNa3ICpHmO06pj3pdffFTnH3mPGlWQzSAROxf+U2pcpcrND9eFOiCIJ
+         0SOyWMWoHX0tJK1gdpaU6gSyt6POjoNar9+uaraEw7SfhnDdChYPU6ww2t1GctfIup2C
+         edzMCp7ep2Tn3QLA51P+hjEuLzqYZRx2vawjh5veNO1YqsOflorhBn0hCp7IM/VGUbyY
+         RMDA==
+X-Gm-Message-State: AOAM533oEmXLV2/kCE+oy5RZYzG+n5zhnacxuM+8K+zD44gABw3xan9A
+	BUSoQRNa872BIpYtPxrXa8E=
+X-Google-Smtp-Source: ABdhPJzat6RVLpZifMM7rHdf0LxW3i+5KZLCODu1ACd94uwWY7iV4ufKsY7CRRsSpu+sC9/wvPy8kQ==
+X-Received: by 2002:adf:ffca:: with SMTP id x10mr7835646wrs.221.1627729349327;
+        Sat, 31 Jul 2021 04:02:29 -0700 (PDT)
 Received: from [10.8.0.10] ([195.53.121.100])
-        by smtp.gmail.com with ESMTPSA id p22sm4300563wma.10.2021.07.31.03.51.31
+        by smtp.gmail.com with ESMTPSA id i5sm4554367wrw.13.2021.07.31.04.02.27
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 31 Jul 2021 03:51:32 -0700 (PDT)
+        Sat, 31 Jul 2021 04:02:29 -0700 (PDT)
 Subject: Re: [PATCH v2 1/4] landlock.7: Add a new page to introduce Landlock
-To: "G. Branden Robinson" <g.branden.robinson@gmail.com>,
- =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>
-Cc: Jann Horn <jannh@google.com>, Jonathan Corbet <corbet@lwn.net>,
+To: "G. Branden Robinson" <g.branden.robinson@gmail.com>
+Cc: =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>,
+ Jann Horn <jannh@google.com>, Jonathan Corbet <corbet@lwn.net>,
  Kees Cook <keescook@chromium.org>, Randy Dunlap <rdunlap@infradead.org>,
  Vincent Dagonneau <vincent.dagonneau@ssi.gouv.fr>, landlock@lists.linux.dev,
  linux-kernel@vger.kernel.org, linux-man@vger.kernel.org,
@@ -51,10 +51,12 @@ References: <20210712155745.831580-1-mic@digikod.net>
  <20210712155745.831580-2-mic@digikod.net>
  <3f1b943b-2477-2c4e-c835-d6616888176c@gmail.com>
  <c5036c5c-37a1-57d2-e5dc-1f41a5ed0d31@digikod.net>
- <20210730233931.lbtq67esmeuo4o6d@localhost.localdomain>
+ <a3b271e6-e03f-dab8-b04c-c76315cdd98e@gmail.com>
+ <1a698059-d9dd-5aa0-2765-42e704c3a697@gmail.com>
+ <20210731001529.ggiknccl74akaahk@localhost.localdomain>
 From: "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>
-Message-ID: <e88fe0d9-1330-3de4-53e1-4b72360ce7d3@gmail.com>
-Date: Sat, 31 Jul 2021 12:51:30 +0200
+Message-ID: <6c73ce9c-c8b3-426a-5c0a-f66b634210fb@gmail.com>
+Date: Sat, 31 Jul 2021 13:02:27 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.11.0
 Precedence: bulk
@@ -63,244 +65,118 @@ List-Id: <landlock.lists.linux.dev>
 List-Subscribe: <mailto:landlock+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-In-Reply-To: <20210730233931.lbtq67esmeuo4o6d@localhost.localdomain>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <20210731001529.ggiknccl74akaahk@localhost.localdomain>
+Content-Type: text/plain; charset=windows-1252; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Hi Branden, Mickaël,
+Hi Branden,
 
-On 7/31/21 1:39 AM, G. Branden Robinson wrote:
-> Hi, Mickaël!
+On 7/31/21 2:15 AM, G. Branden Robinson wrote:
+> Hi, Alex!
 > 
-> I'm going to rearrange your message to reply to it to put the shortest
-> point first, as I am nervous of people tiring of my info dumps,
-> especially with such an efflorescent CC list.
-> 
-> At 2021-07-30T14:15:48+0200, Mickaël Salaün wrote:
->>>> +The rule will only allow reading the file hierarchy
->>>> +.IR /usr .
+> At 2021-07-30T14:59:52+0200, Alejandro Colomar (man-pages) wrote:
+>> Yes, they were because of semantic newlines.
 >>
->> Why ".IR" is correct here?
-> 
-> Because you don't want a space or a line break in the output between
-> "/usr" and the period.
-> 
-> Line breaks in *roff input usually mean "insert a word break here".[1]
-> 
-> [the long version]
->> When do we really need .IR? Isn't `.I "foo bar"` the same as `.IR foo
->> bar`? What do you use roman for?
+>> The "rules" are:
 >>
->> Where can we find these preferences? The best I found was
->> https://www.man7.org/linux/man-pages/man7/groff_man.7.html but it
->> doesn't explain what to use. The current man pages seems to use both
->> interchangeably.
-> 
-> This is a good news/bad news situation for me.  As the maintainer of
-> that man page, I'm delighted to hear that you found it the best resource
-> of its type.  But that you came away still not knowing when or why to
-> use .IR tells me I still have work to do.
-> 
-> One of the things I did after the groff 1.22.4 release (December 2018)
-> was to split groff_man(7) into two pages.  The one you've linked is the
-> terser reference for seasoned (perhaps salty) man page writers.  Near
-> the top of it you'll find this.
-> 
->         This document presents the macros thematically; for those needing
->         only a quick reference, the following table lists them
->         alphabetically, with cross-references to appropriate subsections
->         below.
-> 
->         Man page authors and maintainers who are not already experienced
->         groff users should consult groff_man_style(7), an expanded
->         version of this document, for additional explanations and advice.
->         It covers only those concepts required for man page document
->         maintenance, and not the full breadth of the groff typesetting
->         system.
-
-Hmmmm, I can't find that text on my Debian Sid (with a bit of 
-experimental) groff_man(7).  Not even in the SEE ALSO.
-
-
-SEE ALSO
-        Groff:  The GNU Implementation of troff, by Trent A. Fisher
-        and Werner Lemberg, is the main groff  documentation.   You
-        can browse it interactively with “info groff”.
-
-        tbl(1),  eqn(1),  and  refer(1) are preprocessors used with
-        man pages.
-
-        man(1) describes the man page formatter on your system.
-
-        groff_mdoc(7) describes the groff version of the BSD‐origi‐
-        nated alternative macro package for man pages.
-
-        groff(7), groff_char(7), man(7)
-
-groff 1.22.4              27 January 2021             GROFF_MAN(7)
-
-> 
-> There, at <https://www.man7.org/linux/man-pages/man7/groff_man.7.html>,
-> I'd direct you to the following.
-> 
->     Font style macros
->         The man macro package is limited in its font styling options,
->         offering only bold (.B), italic (.I), and roman.  Italic text is
->         usually set underscored instead on terminal devices.  The .SM and
->         .SB macros set text in roman or bold, respectively, at a smaller
->         point size; these differ visually from regular-sized roman or
->         bold text only on typesetter devices.  It is often necessary to
->         set text in different styles without intervening space.  The
->         macros .BI, .BR, .IB, .IR, .RB, and .RI, where “B”, “I”, and “R”
->         indicate bold, italic, and roman, respectively, set their odd-
->         and even-numbered arguments in alternating styles, with no space
->         separating them.
-> [...]
->         .I [text]
->                Set text in italics.  If the macro is given no arguments,
->                the text of the next input line is set in italics.
-> 
->                Use italics for file and path names, for environment
->                variables, for enumeration or preprocessor constants in C,
->                for variable (user-determined) portions of syntax
->                synopses, for the first occurrence (only) of a technical
->                concept being introduced, for names of works of software
->                (including commands and functions, but excluding names of
->                operating systems or their kernels), and anywhere a
->                parameter requiring replacement by the user is
->                encountered.  An exception involves variable text in a
->                context that is already marked up in italics, such as file
->                or path names with variable components; in such cases,
->                follow the convention of mathematical typography: set the
->                file or path name in italics as usual but use roman for
->                the variable part (see .IR and .RI below), and italics
->                again in running roman text when referring to the variable
->                material.
-
-Re-reading this, we've been doing it wrong (as you pointed out in 
-another thread) with macro names with variable part.
-
-I wasn't very convinced by the current usage of the man pages, but it 
-was already current, so I just followed it :/
-
-I'll try to follow this from now.
-
-> [...]
->         Note what is not prescribed for setting in bold or italics above:
->         elements of “synopsis language” such as ellipses and brackets
->         around options; proper names and adjectives; titles of anything
->         other than works of literature or software; identifiers for
->         standards documents or technical reports such as CSTR #54,
->         RFC 1918, Unicode 13.0, or POSIX.1-2017; acronyms; and
->         occurrences after the first of a technical term or piece of
->         jargon.  Again, the names of operating systems and their kernels
->         are, by practically universal convention, set in roman.
-> 
->         Be frugal with italics for emphasis, and particularly with bold.
->         Brief runs of literal text, such as references to individual
->         characters or short strings, including section and subsection
->         headings of man pages, are suitable objects for quotation; see
->         the \(lq, \(rq, \(oq, and \(cq escapes in subsection
->         “Portability” below.
-> 
->         Unlike the above font style macros, the font style alternation
->         macros below accept only arguments on the same line as the macro
->         call.  Italic corrections are applied as appropriate.  If space
->         is required within one of the arguments, first consider whether
->         the same result could be achieved with as much clarity by using
->         the single-style macros on separate input lines.  When it cannot,
->         double-quote an argument containing embedded space characters.
->         Setting all three different styles within a word presents
->         challenges; it is possible with the \c and/or \f escapes, but see
->         subsection “Portability” below for caveats.
-
-Ahh, I missed this text, as it was neither under .I nor .IR, and only 
-had a fast read of the page.
-The 3rd paragraph hints that you should only use .IR when really needed, 
-and use .I otherwise.  But someone new to man-pages, who probably did 
-never read this page (or read some specific paragraphs of it when 
-needed), and found the extensive (and somewhat incorrect) usage of .IR 
-in place of .I in the current man pages, might be confused by all of 
-that inconsistency and hard-to-find (except by those who already know 
-where it is (reference to Pirates of the Caribbean intended :) )) 
-information.
-
-> [...]
->         .IR italic-text roman-text ...
->                Set each argument in italics and roman, alternately.
-> 
->                       This is the first command of the
->                       .IR prologue .
-> 
-> I'd appreciate feedback from anyone on how I can improve the above.
-
-I think it's great.  But unless one reads the page with some time (and 
-not only the bullets), one might think that the man page is incomplete. 
-  Maybe groff_man_style(7) is better suited for newbies, but I can't 
-tell...  I couldn't find it.
-
-> 
->>>> +upper layer.
->>>> +From a Landlock policy point of view,
->>>> +each OverlayFS layers and merge hierarchies are standalone and contains
->>>> +their own set of files and directories,
->>>> +which is different from bind mounts.
->>>
->>>
->>> Incorrect mix of singular and plural, I think.
+>> Follow mainly "semantic newlines" style (forgetting about the line
+>> length), which will give you a text that (mostly) fits into 75 or 80
+>> columns.
 >>
->> Is it OK with s/contains/contain/?
+>> If after doing that there are some lines that exceed the 75 or 80
+>> column right margin, consider fixing that line by breaking it at a
+>> different point or maybe breaking it further.  The 80 column limit is
+>> a hard limit (I can't read anything past the 80 col), while the 75
+>> limit is a bit softer (that's for allowing quotes in reviews) (if
+>> fitting a line into col 75 would break it in a weird way, don't do
+>> it).
+>>
+>> If I didn't explain myself enough, please tell me.
 > 
-> That's correct, but you also need s/their/its/.
+> I'm a little puzzled by the above.  Semantic newlines have little to do
+> with the output line length in *roff systems.  They arose due to a Bell
+> Labs Unix Room practice, popularized by Brian Kernighan.  Brandon Rhodes
+> has a backgrounder on this[1].
+> 
+> Man pages tend to be really flexible with respect to output line length.
+> This is one reason the groff man macros expose a user-settable LL
+> register.  The main limitations on line length are people using tbl(1)
+> tables or disabling filling (with the .nf request or in .EX/.EE
+> examples).  Another limitation is that as lines get shorter, it becomes
+> hard to set the page headers and footers without them overlapping.
+> 
+> For the first two points there is not much the macro package can do;
+> both tbl(1) and filling disablement leave the placement of line breaks
+> in the hands of the document author, and they can abuse that power by
+> "oversetting" a line; that is, making it longer than the configured line
+> length.
+> 
+> The third point is a problem the macro package can overcome with some
+> effort, by measuring the lengths of the components that go into a header
+> or footer an abbreviating them.  This is not a theoretical concern;
+> Erlang supplies some man pages with insanely long names[2], and you can
+> see the problem in footers today on the man-pages site for any page
+> groff ships, because Michael pulls from our Git repository (to my great
+> relief, because I fix documentation errors and make other improvements
+> all the time) and our version identifier has gotten crazily long because
+> we're on the order of one thousand commits since the last release
+> candidate, and gnulib's git-version-gen uses release tags, commit count
+> since the tag, _and_ an abbreviated commit ID to generate the version
+> string.  For my tree right now that's "1.23.0.rc1.999-7ae6d".
+> 
+> Here's a specimen of how that works out in a rendered page:
+> <https://man7.org/linux/man-pages/man1/neqn.1.html> (scroll to the
+> bottom).
+> 
+> I've fixed the problem for long page names for the next groff release,
+> but it involved some string-manipulation gymnastics[3].  I haven't yet
+> factored those out into their own (private) macro which I can also call
+> when preparing the page footer.
 
-I'm not sure, but maybe (I always get confused by these things)?:
+I think you misunderstood the context here.
 
-[
-each _of the_ OverlayFS layers and merge hierarchies _is_ standalone and 
-_contains_
-_its_ own set of files and directories,
-which is different from bind mounts.
-]
+I meant all of that about input, i.e., the text of the patch itself, 
+text to be added to a man page source text.
 
-And still I'm not sure about the last "mounts".
+What I meant is that when you break lines semantically (when writing a 
+patch),
+and initially forget about the 80 (or 75) column right margin,
+most of the lines you write will already (as a side effect of breaking 
+lines semantically) be within the 80 (or 75) right margin.
+
+For those that still don't fit into 80 characters after doing that, 
+break further (or at some other point that may also break nicely 
+semantically); otherwise, I won't see the text when editing the man page 
+on my 80-col terminal.
+
+For those that still don't fit into 75 characters after doing that,
+consider breaking further, but only if doing so seems easy and lines 
+break nicely.  I can still see after line 75, and I can do some effort 
+to scroll an email a few columns if needed (when many quotes move the 
+text further to the right).  So if the source code would break in a 
+weird way because of forcing a 75 col right margin, please ignore that 
+margin.
 
 
-Without s/each/each of the/ we still have layers and hierarchies 
-(plurals), which don't mix well with each (singular).
+I hope I was clear this time.
 
+
+BTW, thanks for your mail.  It wasn't related to what I meant, but was 
+interesting :=)
 
 Regards,
 
 Alex
 
-> 
-> A handy technique for resolving inflection/agreement problems in English
-> is to drop phrases from the sentence in a way that preserves its
-> structure; this usually makes clear what should be done.
-> 
-> In this case, "... Each ... contains its own set."
-> 
-> Native speakers screw this up even in simpler cases; e.g.,
-> 
->    *"The spaces in between leave room for you and I to grow."
-> 
-> We get thrown by the conjunction "and", which makes the language organ
-> in our brain think of plural number.  But no native speaker ever commits
-> the error
-> 
->    *"Will you buy a hamburger for I?"
-> 
-> unless for deliberate effect.  (Though there is probably some hamlet in
-> the West Midlands of England or something where this is standard. :-| )
+
 > 
 > Regards,
 > Branden
 > 
-> [1] "Usually."  In roff terms, this generalization applies to text lines
->      (not control lines; that is, lines starting with a control
->      character) that do not end with the output line continuation escape
->      sequence, '\c'.
+> [1] https://rhodesmill.org/brandon/2012/one-sentence-per-line/
+> [2] CosNotifyChannelAdmin_StructuredProxyPushSupplier(3erl)
+> [3] https://git.savannah.gnu.org/cgit/groff.git/commit/?id=b7f38e8a1d698e1078d7c215d08fde57d8e919b9
 > 
 
 
