@@ -1,77 +1,137 @@
-Received: from smtp-42aa.mail.infomaniak.ch (smtp-42aa.mail.infomaniak.ch [84.16.66.170])
+Received: from smtp-190a.mail.infomaniak.ch (smtp-190a.mail.infomaniak.ch [185.125.25.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC25A2FAF
-	for <landlock@lists.linux.dev>; Wed, 18 Aug 2021 17:09:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D0D372
+	for <landlock@lists.linux.dev>; Wed,  1 Sep 2021 18:14:57 +0000 (UTC)
 Received: from smtp-3-0000.mail.infomaniak.ch (unknown [10.4.36.107])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4GqXdx4HkpzMq01C;
-	Wed, 18 Aug 2021 17:59:33 +0200 (CEST)
-Received: from localhost (unknown [23.97.221.149])
-	by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4GqXdw51YGzlh8TL;
-	Wed, 18 Aug 2021 17:59:32 +0200 (CEST)
-From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
-To: Alejandro Colomar <alx.manpages@gmail.com>,
-	"G . Branden Robinson" <g.branden.robinson@gmail.com>,
-	Michael Kerrisk <mtk.manpages@gmail.com>
-Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
-	Jann Horn <jannh@google.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Kees Cook <keescook@chromium.org>,
-	Vincent Dagonneau <vincent.dagonneau@ssi.gouv.fr>,
-	landlock@lists.linux.dev,
-	linux-man@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@linux.microsoft.com>
-Subject: [PATCH v4 0/4] Add Landlock man pages
-Date: Wed, 18 Aug 2021 17:59:27 +0200
-Message-Id: <20210818155931.484070-1-mic@digikod.net>
-X-Mailer: git-send-email 2.32.0
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4H08dP5cbkzMqtqB;
+	Wed,  1 Sep 2021 18:28:57 +0200 (CEST)
+Received: from ns3096276.ip-94-23-54.eu (unknown [23.97.221.149])
+	by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4H08dP2QBMzlhH3V;
+	Wed,  1 Sep 2021 18:28:57 +0200 (CEST)
+From: =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>
+Subject: Landlock news #1
+To: landlock@lists.linux.dev
+Cc: linux-security-module <linux-security-module@vger.kernel.org>
+Message-ID: <2df4887a-1710-bba2-f49c-cd5b785bb565@digikod.net>
+Date: Wed, 1 Sep 2021 18:30:09 +0200
+User-Agent:
 Precedence: bulk
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
 List-Subscribe: <mailto:landlock+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-15
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-
-From: MickaÃ«l SalaÃ¼n <mic@linux.microsoft.com>
 
 Hi,
 
-These four documents give a global overview of Landlock and explain each
-system calls.  This is mainly a formatting of the current kernel
-documentation with some new additional details.
+Landlock landed in Linux 5.13 and here is an overview of the ongoing
+developments.
 
-This fourth patch series fixes spelling issues pointed out by Alejandro
-Colomar and Branden Robinson.  I also removed some recipients.
+User space
+----------
 
-This patch series can be found in a Git repository:
-https://github.com/landlock-lsm/man-pages/commits/landlock-v4
+### Rust library
 
-Previous version:
-https://lore.kernel.org/landlock/20210730144116.332091-1-mic@digikod.net/
+This Rust library enables to manage Landlock in a best-effort way. It is
+still a work-in-progress, but we plan to release a new major version in
+the coming weeks, including documentation. Feedback is welcome!
+https://github.com/landlock-lsm/rust-landlock
+
+### Go library
+
+We are pleased to welcome Günther Noack and his Go library which enables
+to create sandboxes with Landlock. This will be useful for any projects
+developed in Go.
+https://github.com/landlock-lsm/go-landlock
+
+### Open Container Initiative Runtime Specification
+
+This project is intended to be a shared specification amongst container
+runtimes (e.g. Docker/runc). Thanks to H. Vetinari for bringing the
+subject and to Kailun Qin, Günther Noack, Konstantin Meskhidze, Aleksa
+Sarai, Akihiro Suda for working on this and giving feedback!
+https://github.com/opencontainers/runtime-spec/pull/1111
+
+### runc
+
+Bringing Landlock support to runc has started.
+https://github.com/opencontainers/runc/pull/3194
+
+### strace
+
+strace 5.13 (2021-07-19) now supports Landlock syscalls and especially
+their argument decoding. We can now easily debug programs using
+Landlock. Thanks to Eugene Syromyatnikov and Dmitry V. Levin!
+https://github.com/strace/strace/commit/7592a0eeab2588162c1741077053f8a052c8418f
+
+### glibc
+
+glibc 2.34 (2021-08-01) now includes Landlock system call IDs, which are
+required to properly use Landlock in C and C++ programs.
+https://sourceware.org/git/?p=glibc.git;a=commit;h=b1b4f7209ecaad4bf9a5d0d2ef1338409d364bac
+
+### musl libc
+
+A patch series is under review for musl libc to include Landlock system
+call IDs in this alternative libc.
+https://www.openwall.com/lists/musl/2021/07/10/12
+
+### Man Pages
+
+Four manual pages dedicated to Landlock are being reviewed by Alejandro
+Colomar and G. Branden Robinson. Thanks to them! This documentation is
+splitted into a general overview landlock(7) and one page per syscall.
+https://lore.kernel.org/linux-man/20210818155931.484070-1-mic@digikod.net/
+
+Conferences
+-----------
+
+I'm glad that two (complementary) Landlock talks have been accepted to
+the Open Source Summit and to the Linux Security Summit. I have given a
+few talks in the last years but Landlock has changed drastically since
+then (i.e. no more eBPF). These talks will unfortunately be virtual, but
+I'll still be available for questions. See you at the end of the month!
+
+### Open Source Summit 2021 - Sandboxing Applications with Landlock
+
+This talk focuses on the use of Landlock by user space, explaining the
+rationale behind the design, how backward and forward compatibility is
+handled, what features are currently available and what could come next.
+https://sched.co/lAVl
+
+### Linux Security Summit 2021 - Deep Dive into Landlock Internals
+
+This talk first explains the goal of Landlock and the related
+consequences. This will enable to explain the kernel implementation
+constraints, the choices that led to the current design, and the
+potential and limits of the current and future features.
+https://sched.co/ljRQ
+
+Roadmap (kernel-side)
+---------------------
+
+Last but not least, here is an overview of the roadmap for Landlock.
+We'll add a proper dedicated page to the website soon: https://landlock.io
+
+Short term:
+* improve kernel performance for the current features;
+* add the ability to change the parent directory of files (see current
+Landlock limitations).
+
+Medium term:
+* add audit features to ease debugging;
+* extend filesystem access-control types to address the current limitations;
+* add the ability to follow a deny listing approach, which is required
+for some use cases.
+
+Long term:
+* add minimal network access-control types;
+* add the ability to create (file descriptor) capabilities compatible
+with Capsicum.
 
 Regards,
-
-MickaÃ«l SalaÃ¼n (4):
-  landlock.7: Add a new page to introduce Landlock
-  landlock_create_ruleset.2: Document new syscall
-  landlock_add_rule.2: Document new syscall
-  landlock_restrict_self.2: Document new syscall
-
- man2/landlock_add_rule.2       | 144 +++++++++++++
- man2/landlock_create_ruleset.2 | 139 +++++++++++++
- man2/landlock_restrict_self.2  | 133 ++++++++++++
- man7/landlock.7                | 361 +++++++++++++++++++++++++++++++++
- 4 files changed, 777 insertions(+)
- create mode 100644 man2/landlock_add_rule.2
- create mode 100644 man2/landlock_create_ruleset.2
- create mode 100644 man2/landlock_restrict_self.2
- create mode 100644 man7/landlock.7
-
-
-base-commit: 7127973e0c8ca36fda1f5d2d0adae04d61fa0d01
--- 
-2.32.0
-
+ Mickaël
