@@ -1,51 +1,63 @@
-Received: from mail-il1-f179.google.com (mail-il1-f179.google.com [209.85.166.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-42a8.mail.infomaniak.ch (smtp-42a8.mail.infomaniak.ch [84.16.66.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BF7D72
-	for <landlock@lists.linux.dev>; Sun, 14 Nov 2021 22:34:47 +0000 (UTC)
-Received: by mail-il1-f179.google.com with SMTP id x9so14608589ilu.6
-        for <landlock@lists.linux.dev>; Sun, 14 Nov 2021 14:34:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:from:date:message-id:subject:to;
-        bh=Qy3WCIS91kwuKhRIsLL7o4f9RXGQVzdLFw4VqKRLkcM=;
-        b=UR1ya4exQQa7eJWnJ/y6UM2m3vyguUWyTEWPNvUi5ubJE+xjkdu5O3WHdmFzBS7ogX
-         qZZM3sbX1MrE/hUEuIO25S5PnQLSenz24t24ROHsbTkRZse+wpFNkKoBFFDq+FcdAhn4
-         imxT3aB+Uv3JvWVaBkQvdI9LR0rrexuyXN8B6Xd54KV5CbGXJnbEvtBs/eTsUAoOSFze
-         vPPaTwW1DnkqWmF5+uTIwPLym0uHX/82ei1ohhRLGZgCSSIcRtzDdRq5I1mWGyAdScdX
-         Y7pa9RqlFhkOsC/JK//MD7FknhzktHZ6oaYkGvPCNpnysu0cK1IFVqI7CF1R5WwIqx28
-         nZQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
-        bh=Qy3WCIS91kwuKhRIsLL7o4f9RXGQVzdLFw4VqKRLkcM=;
-        b=Yj28uMTj/aa1i8A4AlCFcQ0xd2esg8bp4l23mfhP6OK2gfRkbTkikx0eyHChhfTrHZ
-         jQ7VRxdsjfmnEqrnLLcH1a8x6szoBTvo0Hwrq50hDLwlkpm3tJ2y12zTCXWYz/C5cVhw
-         hz1PmjUqLbcJg2/mfvJvnld7/wU6TBLrsu7UapGHKKp+U5qUgNXxiWFID01C01TgMpLW
-         /3gTi3JS1a+Pvl8SxxtuNNpRe4uF3/xZOHGN3RNPH94G6nknTlwD+B3ODNnSyy199gRK
-         aUfERMWcGo3QA6lKTFpp4+MTy2S0Q8vSPrrcQNFTjCUdqFn3a1c1o/wvw+ay1bwRUtnq
-         q3UQ==
-X-Gm-Message-State: AOAM530W5bSBs3rm7iZsJ3xQ17etzyNpsWszPw45xHHymzqp2QR7eBe7
-	lIoWUKjiy71n2D2efbkBKatmxDo83pyBogYo1OL9Hh+G5le7SA==
-X-Google-Smtp-Source: ABdhPJzu25lWh7cQRP8cv9uU73A7ZmnuZyDsapH9s+6eKGtzkWfuvXbET4C9I8RPTp78JJCKeLcTjZj4+41hVZAFNGY=
-X-Received: by 2002:a05:6e02:1a2c:: with SMTP id g12mr19324093ile.62.1636929286332;
- Sun, 14 Nov 2021 14:34:46 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 037A72CA2
+	for <landlock@lists.linux.dev>; Fri,  3 Dec 2021 18:58:51 +0000 (UTC)
+Received: from smtp-3-0001.mail.infomaniak.ch (unknown [10.4.36.108])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4J5MNr4NlczMqT4M;
+	Fri,  3 Dec 2021 19:51:24 +0100 (CET)
+Received: from localhost (unknown [23.97.221.149])
+	by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4J5MNr1f4Lzlh8TJ;
+	Fri,  3 Dec 2021 19:51:23 +0100 (CET)
+From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+To: kernel-team@lists.ubuntu.com
+Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+	Tyler Hicks <code@tyhicks.com>,
+	landlock@lists.linux.dev
+Subject: [PATCH v1 0/1] Enable Landlock by default
+Date: Fri,  3 Dec 2021 19:52:25 +0100
+Message-Id: <20211203185226.1957311-1-mic@digikod.net>
+X-Mailer: git-send-email 2.33.1
 Precedence: bulk
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
 List-Subscribe: <mailto:landlock+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-From: Gautam Sidhu <sidhuat@gmail.com>
-Date: Sun, 14 Nov 2021 22:34:35 +0000
-Message-ID: <CAMjdiSBUao9WyRnQ6OHzCCAkXk2yep=e1RjtE3BV5U2rGc4jcg@mail.gmail.com>
-Subject: request to join distribution list
-To: landlock@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-hi,
-May I please request to join/subscribe to the distribution list of
-'landlock project?
+Hi,
 
-Kind Regards,
-Gautam
+The Landlock security feature is built in Ubuntu kernel since 5.13 which
+is great!  However, it is not enough to enable the
+CONFIG_SECURITY_LANDLOCK option as described in the related help.  The
+CONFIG_LSM option needs to be prepended by "landlock," to make Landlock
+system calls available without modifying the kernel boot arguments.
+
+Could you please apply the attached patch to make this feature more
+broadly available?
+
+This can be validated with the tests provided by the kernel sources:
+
+fakeroot make -C tools/testing/selftests TARGETS=landlock gen_tar
+tar -xf
+tools/testing/selftests/kselftest_install/kselftest-packages/kselftest.tar.gz
+# as root:
+./run_kselftest.sh
+
+If Yama is enabled, half of the ptrace tests may failed, which is OK.
+
+Regards,
+
+Mickaël Salaün (1):
+  UBUNTU: [Config] Enable Landlock by default
+
+ debian.master/config/config.common.ubuntu | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+
+base-commit: 86d5f4d4ce66d96657de67b735dacb25b8ab8a1b
+-- 
+2.33.1
+
