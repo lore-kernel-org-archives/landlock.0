@@ -1,72 +1,66 @@
-Received: from smtp-42a8.mail.infomaniak.ch (smtp-42a8.mail.infomaniak.ch [84.16.66.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com [209.85.217.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34FAE2C9C
-	for <landlock@lists.linux.dev>; Wed, 22 Dec 2021 14:26:41 +0000 (UTC)
-Received: from smtp-3-0000.mail.infomaniak.ch (unknown [10.4.36.107])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4JJsRV6YzvzMpwDW;
-	Wed, 22 Dec 2021 13:03:34 +0100 (CET)
-Received: from ns3096276.ip-94-23-54.eu (unknown [23.97.221.149])
-	by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4JJsRV127BzlhRrp;
-	Wed, 22 Dec 2021 13:03:33 +0100 (CET)
-Message-ID: <5ea7940a-ea59-d930-1e5b-8d839209fb5a@digikod.net>
-Date: Wed, 22 Dec 2021 13:06:03 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB2F82CA6;
+	Tue,  1 Feb 2022 15:44:03 +0000 (UTC)
+Received: by mail-vs1-f52.google.com with SMTP id x13so16616893vsl.10;
+        Tue, 01 Feb 2022 07:44:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:from:date:message-id:subject:to:cc;
+        bh=bIkL3j1SUti+mxRknWXsGzjEHfZ++LfAOrCAj6OvBfk=;
+        b=XlaBX5xf2kC2PYFh91EO4ufBvcLkfsBOS665OsIpRa9DQkpb7u+LxrdpNGJzxoAnJ0
+         6Zrb97yEFwak4wNM5a0BjH3AdPWqIlAwjxrNKkSzysr8CFAIoYhUPvJm6Qcznt67FGJa
+         7c9Sj9fxgdbh2vhCp424CZvvJ1UrpoZyojJwNagTfy7FdayiBCXf6mVeEEvxUs5vhht/
+         f371R1RqGkTBAQFf/gEHEAhojKs0nS5FarjH5vHJG+n5BYFkMvHQorqXLR+d0iWDZ/HK
+         EHDUCIDj5zcbSEABUPNFWoSmIlD5wghMJe3kzeG7eFpipQf7kXFiZVWg4C44VU3TC3nw
+         cf+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+        bh=bIkL3j1SUti+mxRknWXsGzjEHfZ++LfAOrCAj6OvBfk=;
+        b=zGWqDVvgo3fGsbJUB2qbvIbUvH3FmLFGHUe7O4oCMYpBJrFkJCMIFK//PeeEY27dNW
+         FJVH1D5lPoQIz/HYt1J6kvF3pumRsxJkVeDU4C+xGHfUTDHjzdDZ8Uq1yx/0rOlveP4T
+         OqlidV41qr9eNTbit0xjltpYkU8QE+ls6bENMCclSvCx05KpvL/Ar/ZVXM88n0WgBAsY
+         +GroZfSt5PL4L5Ci1iO9pDFt2A7B9n4uPRi28XozFi78gmHfKEqDBDz/U38CEePTzvPV
+         YgTe9grvQVGyD4R9AUGkfYdVM7kI6c1zcD0gfTmAfx1A0Sbc6mrVYsNFvC/PZCbJDXyr
+         C0EA==
+X-Gm-Message-State: AOAM532vhLytiotCRPAVTS3NkTMQHmEYmql1TzuqJLZI0zqU5xd8LK1I
+	GvHOROknFivWqBaI3vJmXBH7IStEIbb3TxGL5j4yUdNuUQuRxbH4ZY2xgQ==
+X-Google-Smtp-Source: ABdhPJwhlWLLV81lekh4LZE/fQYhJPXbW4owMGw7muEEAo0II3hymR3KzIUfuse9+LlQjTToAGFxAtsFrBNFhnqhg+w=
+X-Received: by 2002:a67:ca0d:: with SMTP id z13mr10443702vsk.9.1643730242915;
+ Tue, 01 Feb 2022 07:44:02 -0800 (PST)
 Precedence: bulk
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
 List-Subscribe: <mailto:landlock+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-User-Agent:
-Content-Language: en-US
-To: Andrea Righi <andrea.righi@canonical.com>
-Cc: kernel-team@lists.ubuntu.com, Tyler Hicks <code@tyhicks.com>,
- landlock@lists.linux.dev
-References: <20211203185226.1957311-1-mic@digikod.net>
- <YboEZixLVr2BnUX5@arighi-desktop>
-From: =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>
-Subject: Re: APPLIED[J]: [PATCH v1 0/1] Enable Landlock by default
-In-Reply-To: <YboEZixLVr2BnUX5@arighi-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: sanita retan <sanitaretan@gmail.com>
+Date: Tue, 1 Feb 2022 16:43:50 +0100
+Message-ID: <CABLemWhTUqqM=_vEScEc6i=rEAnhtUrQm6-XQOgAxrr3A8p5Qg@mail.gmail.com>
+Subject: subscribe
+To: sanitaretan@gmail.com
+Cc: chrome-platform+subscribe@lists.linux.dev, chrome-platform@lists.linux.dev, 
+	connman+subscribe@lists.linux.dev, connman@lists.linux.dev, 
+	containers+subscribe@lists.linux.dev, containers@lists.linux.dev, 
+	ell+subscribe@lists.linux.dev, ell@lists.linux.dev, 
+	iwd+subscribe@lists.linux.dev, iwd@lists.linux.dev, 
+	ksummit+subscribe@lists.linux.dev, ksummit@lists.linux.dev, 
+	landlock+subscribe@lists.linux.dev, landlock@lists.linux.dev, 
+	linux-coco+subscribe@lists.linux.dev, linux-coco@lists.linux.dev, 
+	linux-staging+subscribe@lists.linux.dev, linux-staging@lists.linux.dev, 
+	linux-sunxi+subscribe@lists.linux.dev, linux-sunxi@lists.linux.dev, 
+	llvm+subscribe@lists.linux.dev, llvm@lists.linux.dev, 
+	mhi+subscribe@lists.linux.dev, mhi@lists.linux.dev, 
+	mptcp+subscribe@lists.linux.dev, mptcp@lists.linux.dev, 
+	ntb+subscribe@lists.linux.dev, ntb@lists.linux.dev, 
+	ntfs3+subscribe@lists.linux.dev, ntfs3@lists.linux.dev, 
+	nvdimm+subscribe@lists.linux.dev, nvdimm@lists.linux.dev, 
+	ofono+subscribe@lists.linux.dev, ofono@lists.linux.dev, 
+	patches+subscribe@lists.linux.dev, patches@lists.linux.dev, 
+	regressions+subscribe@lists.linux.dev, regressions@lists.linux.dev, 
+	linux-somesuch@lists.linux.dev, postmaster@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-
-On 15/12/2021 16:06, Andrea Righi wrote:
-> On Fri, Dec 03, 2021 at 07:52:25PM +0100, Mickaël Salaün wrote:
->> Hi,
->>
->> The Landlock security feature is built in Ubuntu kernel since 5.13 which
->> is great!  However, it is not enough to enable the
->> CONFIG_SECURITY_LANDLOCK option as described in the related help.  The
->> CONFIG_LSM option needs to be prepended by "landlock," to make Landlock
->> system calls available without modifying the kernel boot arguments.
->>
->> Could you please apply the attached patch to make this feature more
->> broadly available?
->>
->> This can be validated with the tests provided by the kernel sources:
->>
->> fakeroot make -C tools/testing/selftests TARGETS=landlock gen_tar
->> tar -xf
->> tools/testing/selftests/kselftest_install/kselftest-packages/kselftest.tar.gz
->> # as root:
->> ./run_kselftest.sh
->>
->> If Yama is enabled, half of the ptrace tests may failed, which is OK.
->>
->> Regards,
->>
->> Mickaël Salaün (1):
->>    UBUNTU: [Config] Enable Landlock by default
-> 
-> It makes sense to enable this security feature by default to me, it's
-> also what upstream is doing.
-> 
-> Applied to jammy:linux (with an additional change to update CONFIG_LSM
-> in debian.master/config/annotations).
-> 
-> Thanks,
-> -Andrea
-> 
-
-Thanks Andrea!
+subscribe
