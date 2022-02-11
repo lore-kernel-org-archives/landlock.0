@@ -1,34 +1,26 @@
-Received: from mail.omarpolo.com (mail.omarpolo.com [144.91.116.244])
+Received: from einhorn-mail-out.in-berlin.de (einhorn.in-berlin.de [192.109.42.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3351629CA
-	for <landlock@lists.linux.dev>; Thu, 10 Feb 2022 22:07:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=omarpolo.com;
-	s=20200327; t=1644530442;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CKMtawaCEB7xpZlbN6Zixdg90YTi2ujgup1idjvuTD8=;
-	b=yH6nMz74d8tRRWMrgmT7evJTarinz8P1+cvlPDB9FTSO6LXZrAZlIGC9Uhg8ILUMf3cr8I
-	Zt5vf2KcYpKUinIh1HHoGB8uAWYKl+JLti4jg2uPUjS1L9j88GCTIYBSn6KWbkvbrS2vWc
-	iM8fbcxNu82KLOmT6Def5XuCSWQjURU=
-Received: from localhost (host-79-25-234-113.retail.telecomitalia.it [79.25.234.113])
-	by mail.omarpolo.com (OpenSMTPD) with ESMTPSA id 8342e3a8 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
-	Thu, 10 Feb 2022 23:00:42 +0100 (CET)
-Received: from venera (localhost [127.0.0.1])
-	by localhost (OpenSMTPD) with ESMTP id 434e8b95;
-	Thu, 10 Feb 2022 23:00:40 +0100 (CET)
-References: <1dd9e03e-0f04-4722-0874-fb3b1757b7bb@digikod.net>
-User-agent: mu4e 1.6.10; emacs 29.0.50
-From: Omar Polo <op@omarpolo.com>
-To: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-Cc: gameoftrees@openbsd.org, Thomas Adam <thomas@xteddy.org>,
- landlock@lists.linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D6512F26
+	for <landlock@lists.linux.dev>; Fri, 11 Feb 2022 10:49:07 +0000 (UTC)
+X-Envelope-From: stsp@stsp.name
+Received: from authenticated.user (localhost [127.0.0.1]) by einhorn.in-berlin.de  with ESMTPSA id 21BAd9AT030738
+        (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 11 Feb 2022 11:39:10 +0100
+Received: from localhost (benson.stsp.name [local])
+	by benson.stsp.name (OpenSMTPD) with ESMTPA id 72ebbcd7;
+	Fri, 11 Feb 2022 11:39:09 +0100 (CET)
+Date: Fri, 11 Feb 2022 11:39:09 +0100
+From: Stefan Sperling <stsp@stsp.name>
+To: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>
+Cc: gameoftrees@openbsd.org, Omar Polo <op@openbsd.org>,
+        Thomas Adam <thomas@xteddy.org>, landlock@lists.linux.dev
 Subject: Re: GoT Landlock fixes
-Date: Thu, 10 Feb 2022 22:52:05 +0100
-In-reply-to: <1dd9e03e-0f04-4722-0874-fb3b1757b7bb@digikod.net>
-Message-ID: <87k0e28jqv.fsf@omarpolo.com>
+Message-ID: <YgY8zTm7sqrDL6xK@benson.stsp.name>
+Mail-Followup-To: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
+	gameoftrees@openbsd.org, Omar Polo <op@openbsd.org>,
+	Thomas Adam <thomas@xteddy.org>, landlock@lists.linux.dev
+References: <1dd9e03e-0f04-4722-0874-fb3b1757b7bb@digikod.net>
 Precedence: bulk
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
@@ -36,51 +28,40 @@ List-Subscribe: <mailto:landlock+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <1dd9e03e-0f04-4722-0874-fb3b1757b7bb@digikod.net>
 
-Hello,
-
-Micka=C3=ABl Sala=C3=BCn <mic@digikod.net> writes:
-
+On Thu, Feb 10, 2022 at 06:34:54PM +0100, Mickaël Salaün wrote:
 > Hi,
->
-> I noticed Omar Polo added support for Landlock to the Linux version of
-> Game Of Trees [1]. This is great! However, the handled filesystem
-> access is only LANDLOCK_ACCESS_FS_READ_FILE, and it will still be
-> allowed to do multiple filesystem-related actions (e.g. write to
-> files, remove files=E2=80=A6). I don't know much about Game Of Trees but,
-> according to the commit message, I think you would like to revoke any
-> (currently supported) filesystem access. You should then add the 12
-> remaining access rights [2]. There is also a typo in the errno check,
-> it should be EOPNOTSUPP (not ENOTSUP). You'll find a small patch
-> attached. Let me know if I can help.
->
-> In a nutshell, the ruleset's handled_access_fs is required for
-> backward and forward compatibility (i.e. the kernel and user space may
-> not know each other's supported restrictions), hence the need to be
-> explicit about the denied-by-default access rights.
+> 
+> I noticed Omar Polo added support for Landlock to the Linux version of Game
+> Of Trees [1]. This is great! However, the handled filesystem access is only
+> LANDLOCK_ACCESS_FS_READ_FILE, and it will still be allowed to do multiple
+> filesystem-related actions (e.g. write to files, remove files…). I don't
+> know much about Game Of Trees but, according to the commit message, I think
+> you would like to revoke any (currently supported) filesystem access. You
+> should then add the 12 remaining access rights [2]. There is also a typo in
+> the errno check, it should be EOPNOTSUPP (not ENOTSUP). You'll find a small
+> patch attached. Let me know if I can help.
 
-Yes, the original diff had all the actions, but when I picked that up
-again before it got committed I got confused and dropped the others (I
-was sure the checks not listed there were dropped by default.)  I humbly
-apologies to everyone for the incredibly stupid mistake, I don't have
-any excuse.
+Thank you for looking at this Mickaël, it helps us a great deal!
+ 
+> In a nutshell, the ruleset's handled_access_fs is required for backward and
+> forward compatibility (i.e. the kernel and user space may not know each
+> other's supported restrictions), hence the need to be explicit about the
+> denied-by-default access rights.
 
-Regarding the ENOTSUP/EOPNOTSUPP mistake, I thought that on linux the
-two errno were defined to the same value, but I agree on the change
-obviously (this point was raised by Brian too recently.)
+I suspect Omar trimmed down the list of fs flags was in response to
+a question I asked during code review. The code initially followed
+the example given in your docs, but we ended up diverging from it.
 
-Thanks a lot for reviewing the diff and fixing my mistake!
+If the point you made above was explained in your docs it would be
+much easier to understand why there is a long list of access rules
+in struct rndlock_ruleset_attr, many of which may not seem relevant
+to the application's purposes. Character or block devices will rarely
+be needed by applications, for example. The name "handled_access_fs"
+does not immediately bring to mind that this could be a default deny list.
 
-> Regards,
->  Micka=C3=ABl
->
->
-> [1]
-> https://git.gameoftrees.org/gitweb/?p=3Dgot-portable.git;a=3Dcommit;h=3D9=
-7799ccd4b67a81f97039305d4fdd66588da9962
-> [2] https://docs.kernel.org/userspace-api/landlock.html#filesystem-flags
->
-> [2. text/x-patch; 0001-portable-extend-support-for-Landlock-and-fix-error=
--h.patch]...
-
+Cheers,
+Stefan
