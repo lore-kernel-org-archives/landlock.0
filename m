@@ -1,23 +1,23 @@
-Received: from smtp-8fa8.mail.infomaniak.ch (smtp-8fa8.mail.infomaniak.ch [83.166.143.168])
+Received: from smtp-42aa.mail.infomaniak.ch (smtp-42aa.mail.infomaniak.ch [84.16.66.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AA34179
-	for <landlock@lists.linux.dev>; Fri, 13 May 2022 10:31:53 +0000 (UTC)
-Received: from smtp-2-0000.mail.infomaniak.ch (unknown [10.5.36.107])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4L04h14ySGzMpvsl;
-	Fri, 13 May 2022 12:31:45 +0200 (CEST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C05477A
+	for <landlock@lists.linux.dev>; Wed, 15 Jun 2022 11:42:07 +0000 (UTC)
+Received: from smtp-3-0001.mail.infomaniak.ch (unknown [10.4.36.108])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4LNHCf1vHczMqPJN;
+	Wed, 15 Jun 2022 09:35:42 +0200 (CEST)
 Received: from ns3096276.ip-94-23-54.eu (unknown [23.97.221.149])
-	by smtp-2-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4L04h11kmFzlhSMk;
-	Fri, 13 May 2022 12:31:45 +0200 (CEST)
+	by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4LNHCd60yRzln2Gl;
+	Wed, 15 Jun 2022 09:35:41 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=digikod.net;
-	s=20191114; t=1652437905;
-	bh=3ABnhzECGn9GwsF/1hS/yO0KOSkIR3q45drWULZjatE=;
-	h=Date:From:To:Cc:References:Subject:In-Reply-To:From;
-	b=068b7fqymNYadgiVsojF8k/poIra8wpsozpXJ9SR13G7BJ/B6Rx53j9e6pfvjVMNK
-	 BHACzWTxqxuA6hubXFGzmkOINBLFpmh5G1kteFg/CJ2iip2yxRm+PahHiCXuDIKlKo
-	 4ViN2aFjIOQ92ocsknKOMUdki2Dw8BvhQM5Wf8NU=
-Message-ID: <7065bba8-faf4-75c7-8f2e-08fd30f4419f@digikod.net>
-Date: Fri, 13 May 2022 12:31:44 +0200
+	s=20191114; t=1655278542;
+	bh=PNXMw7X/b5rpwW17cONp59+cX+lfHxQ87NYoqqGAlgo=;
+	h=Date:To:Cc:References:From:Subject:In-Reply-To:From;
+	b=v11LT/z3oBlKWDPivjl/IWokR8leGlsTdqbZeuVCpTVONp9fNuMVM2AqmW2CRIFch
+	 cXpv7+OQAYy5uCdE0D62BzYMZs2J/Iumhv8Sw7GpvU7Y05w+yLku8fBf0EfK3Eb/gz
+	 VaYoMUczOdi3ilVCX/nC7CJSB+viIxjc2nBbLEWo=
+Message-ID: <ec159458-a863-3852-babd-aa758f9b6849@digikod.net>
+Date: Wed, 15 Jun 2022 09:35:41 +0200
 Precedence: bulk
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
@@ -26,59 +26,70 @@ List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 User-Agent:
 Content-Language: en-US
+To: Alejandro Colomar <alx.manpages@gmail.com>
+Cc: linux-man <linux-man@vger.kernel.org>, landlock@lists.linux.dev
+References: <20220523161245.2451265-1-mic@digikod.net>
+ <165342401733.5255.6026414404497432650.pr-tracker-bot@kernel.org>
+ <71967548-c0d6-2997-4058-20bad59e7084@gmail.com>
 From: =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>
-To: "S.M Mukarram Nainar" <theone@sm2n.ca>, landlock@lists.linux.dev
-Cc: TaylorPhebillo@gmail.com
-References: <87v8x83rhz.fsf@bentou.i-did-not-set--mail-host-address--so-tickle-me>
- <155b9df6-8557-cd3e-1a59-6a852340a3d7@digikod.net>
- <87sfsb4ya5.fsf@bentou.i-did-not-set--mail-host-address--so-tickle-me>
- <115f32a0-fb96-3598-a52a-48c1f1346d76@digikod.net>
- <87pmne4mmm.fsf@bentou.i-did-not-set--mail-host-address--so-tickle-me>
- <4951c6da-eaa4-b729-59e3-a2c539ddc1fb@digikod.net>
- <87ley03r70.fsf@bentou.i-did-not-set--mail-host-address--so-tickle-me>
- <2dfeb951-8630-60e4-644b-6f621e4b3f24@digikod.net>
-Subject: Re: Landlock and O_PATH
-In-Reply-To: <2dfeb951-8630-60e4-644b-6f621e4b3f24@digikod.net>
+Subject: Re: [GIT PULL] Landlock changes for v5.19
+In-Reply-To: <71967548-c0d6-2997-4058-20bad59e7084@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+Hi Alex,
 
-On 25/02/2022 10:22, Mickaël Salaün wrote:
+On 03/06/2022 18:35, Alejandro Colomar wrote:
+> Hi Mickaël,
 > 
-> On 24/02/2022 22:11, S.M Mukarram Nainar wrote:
->>> Correct, a given Landlock flag/command/attribute will not change
->>> behavior over time, as (in theory) all Linux interfaces. If a flag is
->>> not enough, extensible structs used by the Landlock syscalls can be
->>> used:
->>> https://lpc.events/event/7/contributions/657/attachments/639/1159/extensible_syscalls.pdf 
->>>
+> On 5/24/22 22:26, pr-tracker-bot@kernel.org wrote:
+>> The pull request you sent on Mon, 23 May 2022 18:12:45 +0200:
 >>
->> That makes sense. One (hopefully) final question: What is Landlock's
->> policy around future changes in the kernel? Taking the earlier example,
->> O_PATH was apparently added in Linux 2.6.39. If Landlock had existed
->> prior to that, and LANDLOCK_ACCESS_FS_WALK as well, would the flag have
->> been extended to cover that usecase? To be maybe more clear, I'm
->> wondering if I can trust Landlock policies to always restrict a given
->> action, irrespective of what new ways to do it may be introduced in
->> the future?
+>>> git://git.kernel.org/pub/scm/linux/kernel/git/mic/linux.git 
+>>> tags/landlock-5.19-rc1
+>>
+>> has been merged into torvalds/linux.git:
+>> https://git.kernel.org/torvalds/c/cb44e4f061e16be65b8a16505e121490c66d30d0 
+>>
+>>
 > 
-> Landlock uses the LSM framework, which defines a set of hooks according 
-> to access semantic. O_PATH and chdir is not currently supported for 
-> path-based LSMs but it is handled for inode-based LSMs such as SELinux 
-> and Smack. The underlying idea of these LSM hooks is that they should be 
-> used for every new Linux interfaces doing similar things, so that LSMs 
-> don't have to be updated specifically for new UAPI change. So yes, you 
-> can trust Landlock policies to always restrict a given action. If, for 
-> whatever reason, it happens that a new Linux interface is added without 
-> the appropriate LSM hook or if Landlock doesn't support it somehow, then 
-> we can define a new Landlock access right defining this new action. 
-> There is a bunch of tests covering the several actions (handled or not) 
-> and they must pass for every kernel releases: 
-> https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/tools/testing/selftests/landlock 
+> Do we need any update in the manual page?  Is this already covered by 
+> patches that I applied from you?
 
-FYI, I added new tests to make sure the O_PATH handling will never 
-change: https://lore.kernel.org/r/20220506160820.524344-8-mic@digikod.net
+Yes, this new release brings some changes and the man pages need update.
+
+Documentation fixes:
+* Fix landlock_add_rule(2) documentation: 
+https://git.kernel.org/torvalds/c/a13e248ff90e81e9322406c0e618cf2168702f4e
+* Reduce the maximum number of layers to 16: 
+https://git.kernel.org/torvalds/c/75c542d6c6cc48720376862d5496d51509160dfd
+
+New features:
+* Add support for file reparenting with LANDLOCK_ACCESS_FS_REFER: 
+https://git.kernel.org/torvalds/c/b91c3e4ea756b12b7d992529226edce1cfd854d7
+* Document LANDLOCK_ACCESS_FS_REFER and ABI versioning: 
+https://git.kernel.org/torvalds/c/6f59abfae35fbbe688ff790ff9638576956d760c
+
+Documentation improvements:
+* Document good practices about filesystem policies: 
+https://git.kernel.org/torvalds/c/09340cf4135f942d56742b36aaa3c37738aba000
+* Explain how to support Landlock: 
+https://git.kernel.org/torvalds/c/5e469829baa1b1320e843adf3631edef1d6d2cf2
+
+For a complete overview: 
+https://git.kernel.org/torvalds/c/cb44e4f061e16be65b8a16505e121490c66d30d0
+
+It would be easier to have a way to easily/automatically synchronize the 
+kernel documentation and the man pages.
 
 
-> Regards,
->   Mickaël
+> 
+> The latest one I have applied from you regarding landlock is 
+> <http://www.alejandro-colomar.es/src/alx/linux/man-pages/man-pages.git/commit/?id=38454e3fcd7876dcd3441f4bb86246b9f3b8f9da>. 
+> 
+> 
+> 
+> Cheers,
+> 
+> Alex
+> 
