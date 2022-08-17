@@ -1,23 +1,23 @@
-Received: from smtp-8faa.mail.infomaniak.ch (smtp-8faa.mail.infomaniak.ch [83.166.143.170])
+Received: from smtp-bc0b.mail.infomaniak.ch (smtp-bc0b.mail.infomaniak.ch [45.157.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F98C2563
-	for <landlock@lists.linux.dev>; Fri,  5 Aug 2022 17:29:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ED0D6D19
+	for <landlock@lists.linux.dev>; Wed, 17 Aug 2022 19:45:55 +0000 (UTC)
 Received: from smtp-2-0000.mail.infomaniak.ch (unknown [10.5.36.107])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4Lzs8y0FKxzMq56D;
-	Fri,  5 Aug 2022 18:52:50 +0200 (CEST)
+	by smtp-2-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4M7DWx1mbZzMpp3C;
+	Wed, 17 Aug 2022 18:49:49 +0200 (CEST)
 Received: from ns3096276.ip-94-23-54.eu (unknown [23.97.221.149])
-	by smtp-2-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4Lzs8x0jm7zlqwrw;
-	Fri,  5 Aug 2022 18:52:49 +0200 (CEST)
+	by smtp-2-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4M7DWw5fxgzlqwwc;
+	Wed, 17 Aug 2022 18:49:48 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=digikod.net;
-	s=20191114; t=1659718370;
-	bh=cdGXypd+d4RH8r/XjdoNhbwVLkTv/TpGNRxhbwTMQ2M=;
-	h=Date:To:Cc:References:From:Subject:In-Reply-To:From;
-	b=e9gW4KIkXktf2YcBcmi4Q7CR68su5hZsXctmXXnO938FUB/xOsjxtH4dQq9LNagv5
-	 09eOZSaaK4tmgU8dXvgk4EV/Qxux7gDb6rfTMVN8zYi0fh6ICytRPd1xQTvsrmLZYZ
-	 jWfRohF+vraIS18sqqQL8R2GKJT/djN6cgt3OaeU=
-Message-ID: <7290b021-c90f-76e9-7868-ed612595b411@digikod.net>
-Date: Fri, 5 Aug 2022 18:52:48 +0200
+	s=20191114; t=1660754989;
+	bh=nq1DdW2pNinPQGbPhawokMPbx8tQLJR7cigpQW/6b6o=;
+	h=Date:From:To:Cc:Subject:From;
+	b=TEmgI5+0rqKSnzHmE7BPW+0rAcWhBYoh27IoMb9ynzssj18Ug0HjD7db7SYSuPRg9
+	 wGSBfBQ6Lm5J/ETZXm6TnayCpmMyU+LmYk0np7c8SBUtSPcQnDT0efmIUqgkt6cOfM
+	 yP5iazGYIQf1WN0iZk9aUBXbmkzZnBvhQu3XsvA0=
+Message-ID: <441bd1cd-03fd-8e30-c370-3d0f0263d564@digikod.net>
+Date: Wed, 17 Aug 2022 18:49:48 +0200
 Precedence: bulk
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
@@ -26,141 +26,214 @@ List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 User-Agent:
 Content-Language: en-US
-To: =?UTF-8?Q?G=c3=bcnther_Noack?= <gnoack3000@gmail.com>
-Cc: linux-security-module@vger.kernel.org,
- Konstantin Meskhidze <konstantin.meskhidze@huawei.com>,
- "Alejandro Colomar (man-pages)" <alx.manpages@gmail.com>,
- landlock@lists.linux.dev
-References: <20220707200612.132705-1-gnoack3000@gmail.com>
- <dbb0cd04-72a8-b014-b442-a85075314464@digikod.net> <YsqihF0387fBeiVa@nuc>
- <b7ee2d01-2e33-bf9c-3b56-b649e2fde0fb@digikod.net> <YuvvXI5Y2azqiQyU@nuc>
 From: =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>
-Subject: Landlock best-effort
-In-Reply-To: <YuvvXI5Y2azqiQyU@nuc>
+To: landlock@lists.linux.dev
+Cc: linux-security-module@vger.kernel.org, oss-security@lists.openwall.com
+Subject: Landlock news #2
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Adding the Landlock mailing list because it might be of interest for 
-some users.
+Hi,
 
-Original thread to support a new "truncate" access right: 
-https://lore.kernel.org/all/YuvvXI5Y2azqiQyU@nuc/
+Here is the second Landlock newsletter! It's been a while and there is
+some news to catch up.
 
+Official website: https://landlock.io
+Previews newsletter:
+https://lore.kernel.org/landlock/2df4887a-1710-bba2-f49c-cd5b785bb565@digikod.net/
 
-On 04/08/2022 18:10, Günther Noack wrote:
-> On Fri, Jul 29, 2022 at 01:58:17PM +0200, Mickaël Salaün wrote:
+Kernel
+------
 
-[...]
+### Linux distributions
 
->>> (On the side, as you know from the discussion on the go-landlock
->>> library, I have some suspicion that the "best effort"
->>> backwards-compatibility approach in the sample tool is not the right
->>> one for the "refer" right, but that might be better suited for a
->>> separate patch. Maybe it'll be simpler to just not support a
->>> best-effort downgrade in the sample tool.)
->>
->> Please share your though about the "refer" right.
-> 
-> The sample tool implements a "best effort" approach by removing the
-> access rights from all bitmasks passed to the kernel -- but this means
-> different things for the refer right than it does for other rights
-> like truncate:
-> 
-> * In the case of truncate, removing the truncate right from the
->    handled rights means that truncate *will* be permitted after
->    enforcement.
-> 
-> * In the case of "refer", removing the refer right from the handled
->    rights means that the "refer" operations *will not* be permitted
->    after enforcement.
-> 
-> Consequently, the approach of downgrading these needs to be different.
-> 
-> If the caller *asks* for the "refer" right to be permitted for a file
-> hierarchy, this cannot be done with Landlock ABI v1. Therefore, the
-> "best effort" downgrade will have to fall back to "doing nothing".
-> 
-> I've described this previously in this document:
-> https://docs.google.com/document/d/1SkFpl_Xxyl4E6G2uYIlzL0gY2PFo-Nl8ikblLvnpvlU/edit
+Landlock is now supported by default in major Linux distributions:
+* Alpine Linux
+* Arch Linux
+* chromeOS (including for Linux 5.10)
+* Debian Sid
+* Fedora 35
+* Ubuntu 20.04 LTS
 
-Thanks for the document, it's a great overview!
+### New features for Linux 5.19
 
-Here are my though on the open questions (extracted from your document):
+Linux 5.19 is now released, and it includes some Landlock changes:
+https://git.kernel.org/torvalds/c/cb44e4f061e1
+The main one being full renaming and linking support thanks to the new
+LANDLOCK_ACCESS_FS_REFER access right. This lift one major limitation
+that was blocking for more generic sandboxing (e.g., container
+runtimes).
 
-> Problem: The 🔵 always-permitted operations are a gap in Landlock’s security.
- >
-> I assume the current best practice is to band-aid over these operations
-> with a seccomp-filter rule, because many programs do not need
-> path-based control over them in practice.
- >
-> - Problem: This is cumbersome, architecture dependent, and lists of
-> syscalls are a moving target.
+This comes with a second Landlock ABI version that should be checked to
+leverage Landlock in a best-effort way. See the updated documentation:
+https://docs.kernel.org/userspace-api/landlock.html
+If developers don't change their ruleset's handled access rights, a
+sandboxed application will not change. If they add the new
+LANDLOCK_ACCESS_FS_REFER right, then they should first check the ABI
+version to make sure it will work as expected:
 
-Indeed, seccomp-bpf would be the alternative to block some syscall 
-families, but there is some issues using it. This is well explained in 
-your blog post: https://blog.gnoack.org/post/pledge-on-linux/
+int abi = landlock_create_ruleset(NULL, 0, LANDLOCK_CREATE_RULESET_VERSION);
+if (abi < 2) {
+     ruleset_attr.handled_access_fs &= ~LANDLOCK_ACCESS_FS_REFER;
+}
+path_beneath_attr.allowed_access &= ruleset_attr.handled_access_fs;
 
+### Backports
 
-> > Naive proposal: Can we introduce flags for these operations already, and
-> accept them in landlock_ruleset_attr.handled_access_fs, but
-> not in landlock_path_beneath_attr.allowed_access?
- >
-> - Upside: It would become trivial to blanket-deny or blanket-allow
-> the use of truncate() and the other, slightly more obscure
-> operations.
-> - Upside: Support for file-hierarchy-based allow-listing can still be
-> added in later versions.
-> - Downside: It complicates the userspace libraries a bit to keep
-> track of which ABI versions can deal with which allowed_access
-> flags, in addition to the already existing ABI information.
+A too-restrictive filesystem control for a rare corner case was fixed
+and backported down to Linux 5.13:
+https://git.kernel.org/stable/c/8ba0005ff418
+The backports also include more tests to check ABI stability, and the
+maximum number of nested sandboxes is now down to 16:
+https://git.kernel.org/stable/c/75c542d6c6cc
 
-I see two downsides for this proposal:
+User space
+----------
 
-1/ That would require to know the exact future access rights names, 
-which is not possible or would be too risky.
+We are currently brainstorming about how to make libraries properly and
+easily handle compatibility for several kernel versions:
+https://lore.kernel.org/landlock/7290b021-c90f-76e9-7868-ed612595b411@digikod.net/
 
-2/ If this is what you meant, using different flags in a user space 
-library compared to the kernel interface would not be a good idea.
+### Go library
 
- From a kernel point of view, I don't want to just block context-less 
-actions but instead I prefer to implement a way to control such actions 
-according to their "objects" (e.g. file hierarchies, TCP ports, set of 
-processes…).
+As described by Günther Noack, go-landlock added support for Landlock
+ABI v2 and the LANDLOCK_ACCESS_FS_REFER flag. Usage example:
 
-However, for user space libraries, we could add a dedicated list of 
-coarse-grained virtual access rights that will mainly cover these 
-syscall families: chdir(2), truncate(2), stat(2), flock(2), chmod(2), 
-chown(2), setxattr(2), utime(2), ioctl(2), fcntl(2), access(2) and 
-rename/link. This list could be used to determine if the sandboxing 
-should be applied or not. I'm still not sure how this could evolve though.
+err := landlock.V2.RestrictPaths(
+     landlock.RWDirs("/src", "/dest").WithRefer(),
+)
 
-This may not be required though. Indeed, if the latest version of the 
-kernel cannot allow some actions that are required by an application 
-(e.g. create mount points), the developer of this application will just 
-not use Landlock for now. When Landlock will handle this missing 
-controlled actions, the developer can use the latest user space library 
-that should nicely handle a best-effort approach for this action.
+See the documentation:
+https://pkg.go.dev/github.com/landlock-lsm/go-landlock/landlock
 
-It doesn't answer all the questions but here is how I would handle 
-compatibility issues with the Rust library: 
-https://github.com/landlock-lsm/rust-landlock/pull/12/ cf. commit 
-"compat: Switch from set_best_effort() to set_compatibility()".
-There is three CompatLevel: BestEffort, SoftRequirement and 
-HardRequirement. This enables developers to tune this library, if they 
-want to, according to their use case.
+### Rust library
 
+There is some work going on for the Rust library. There is new
+documentation, test coverage improvements, CI checks with different
+kernel versions, API improvements, and new helpers to make it easier for
+common use cases (while leveraging the strong type system). Usage
+example:
 
-> 
-> Admittedly, this line of reasoning is more relevant to the proper
-> Landlock libraries than it is to the sample tool. However, the sample
-> tool is the place that people look at to understand the API... maybe
-> there should at least be a comment about it.
+let abi = ABI::V1;
+let status = Ruleset::new()
+     .handle_access(AccessFs::from_all(abi))?
+     .create()?
+     // Read-only access to /usr, /etc and /dev.
+     .add_rules(path_beneath_rules(&["/usr", "/etc", "/dev"], 
+AccessFs::from_read(abi)))?
+     // Read-write access to /home and /tmp.
+     .add_rules(path_beneath_rules(&["/home", "/tmp"], 
+AccessFs::from_all(abi)))?
+     .restrict_self()?;
 
-Right
+There is still some room for improvements with syntactic sugar, but the
+priority is to make the compatibility (with different kernel versions)
+flexible, easy to handle and future-proof:
+https://github.com/landlock-lsm/rust-landlock/pull/12
 
-> 
-> But as I said, this problem existed before the truncate patch already,
-> so it's probably best discussed separately; I'm happy to send a
-> separate patch if you agree with this line of reasoning.
+We plan to release a new version in the coming weeks, but in the
+meantime, you can try the development branch which is much easier to use
+than the currently released version:
+https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html#specifying-dependencies-from-git-repositories
+See the new documentation: https://landlock.io/rust-landlock/landlock/
 
-Yes please, that would be nice.
+### New Landlock users
+
+New sandbox manager and library support:
+* A Pledge and Unveil implementation for Linux (with the Cosmopolitan
+   libc): https://justine.lol/pledge/
+* Minijail:
+ 
+https://source.chromium.org/chromiumos/chromiumos/codesearch/+/main:src/platform/minijail/landlock_util.h
+* exile.h (header-only sandboxing library):
+   https://github.com/quitesimpleorg/exile.h
+
+New open-source software using or working on supporting Landlock:
+* Game of Trees (version control system):
+ 
+https://git.gameoftrees.org/gitweb/?p=got-portable.git;a=blob;f=compat/landlock.c
+* Suricata (network IDS): https://github.com/OISF/suricata/pull/7697
+* Landlock Make (zero-configuration sandboxing for hermetic builds):
+   https://justine.lol/make/
+
+Please let me know if I missed other Landlock users.
+
+Conferences
+-----------
+
+I gave two talks about Landlock. One about the new Landlock features
+brought by Linux 5.19 and the other about practical example of how to
+sandbox an application.
+
+### Update on Landlock: Lifting the File Reparenting Limits and 
+Supporting Network Rules
+
+The Linux Security Summit North America talk is about the lifting of
+some Landlock limitations due to incremental development. One of the
+most annoying limitations, especially for generic containers, is the
+inability to change the parent directory of a file e.g., with rename(2)
+or link(2). In the first part, we explain what the related challenges
+were and how we can now use the new LANDLOCK_ACCESS_FS_REFER right to
+allow renaming and linking without risking bypassing the security
+policy. File system access control is required to protect data, but
+network access control is also very important. In the second part, we
+talk about the upcoming network access control support that will enable
+us to create simple app-centric or container firewalls.
+https://sched.co/11MXq
+https://youtu.be/MWjW-QwK_ZA
+
+### Sandboxing your application with Landlock, illustration with the 
+p7zip case
+
+The Pass the Salt talk quickly introduces the main Landlock properties,
+and we then explain how to sandbox your own application. We use p7zip, a
+C++ archive manager, as a practical example.
+https://cfp.pass-the-salt.org/pts2022/talk/BGQGZC/
+
+Unconstrained access and ongoing development
+--------------------------------------------
+
+One important thing to keep in mind about Landlock is that it is an
+incremental development, and it is not complete yet, but still useful
+(especially in combination with seccomp to deny some access types). See
+the Pledge implementation on Linux for such example. It should be noted
+that this also has limits: https://blog.gnoack.org/post/pledge-on-linux/
+
+One step in this journey is to control access to truncate operations.
+Günther Noack is implementing such a feature which should be merged
+soon:
+https://lore.kernel.org/all/20220814192603.7387-1-gnoack3000@gmail.com/
+
+Konstantin Meskhidze is working on the initial network implementation
+which will bring two new access rights (TCP_BIND and TCP_CONNECT):
+https://lore.kernel.org/all/20220621082313.3330667-1-konstantin.meskhidze@huawei.com/
+
+There are still some unanswered questions about the best approach to
+restrict UDP:
+https://lore.kernel.org/all/a5ef620d-0447-3d58-d9bd-1220b8411957@digikod.net/
+Feel free to reply to this thread.
+
+Roadmap
+-------
+
+And finally, an update on the Landlock kernel roadmap.
+
+Short term:
+* add audit features to ease debugging;
+* add minimal network access-control types;
+* add minimal process signaling access-control types;
+* improve kernel performance for the current features;
+
+Medium term:
+* extend filesystem access-control types to address the current
+   limitations;
+* add the ability to follow a deny listing approach, which is required
+   for some use cases.
+* extend network access-control types;
+
+Long term:
+* add the ability to create (file descriptor) capabilities compatible
+   with Capsicum.
+
+Regards,
+  Mickaël
