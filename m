@@ -1,78 +1,54 @@
-Received: from smtp-bc0c.mail.infomaniak.ch (smtp-bc0c.mail.infomaniak.ch [45.157.188.12])
+Received: from mail-0301.mail-europe.com (mail-0301.mail-europe.com [188.165.51.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 740B14A2B
-	for <landlock@lists.linux.dev>; Wed, 31 Aug 2022 17:29:06 +0000 (UTC)
-Received: from smtp-3-0001.mail.infomaniak.ch (unknown [10.4.36.108])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4MHr9y024VzMprmY;
-	Wed, 31 Aug 2022 19:04:06 +0200 (CEST)
-Received: from ns3096276.ip-94-23-54.eu (unknown [23.97.221.149])
-	by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4MHr9x37C6zMpnPl;
-	Wed, 31 Aug 2022 19:04:05 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=digikod.net;
-	s=20191114; t=1661965445;
-	bh=Wj24NrbD1hJZR0Ys57o8agQHln/5/C31kPGTLhL1IU0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=g+mRwIF/RGdna3Sc5T8ZAyfr6vLDS+AWWwRP0yYhsvm255XW3CVtoSRMldN83qXn6
-	 WbF5X8+UmWj0S1qkniO8VlQLUhOS9CrBDusL+wXUDajCt0MGZlPCTd6JWEwIA2w8TC
-	 4kRw2a0G4r7DT0sbzUmg06YOqT1UTvxczYWf73lY=
-Message-ID: <f080f12f-4a51-d47c-83bd-a72d755f999f@digikod.net>
-Date: Wed, 31 Aug 2022 19:04:04 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F7B07C
+	for <landlock@lists.linux.dev>; Mon, 19 Sep 2022 14:44:30 +0000 (UTC)
+Date: Mon, 19 Sep 2022 14:44:15 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1663598660; x=1663857860;
+	bh=FbZfHcpSW9oYZ8bqVllZ2cjFqc93PTwZDtqIvsokp5I=;
+	h=Date:To:From:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID;
+	b=OLsn+zd1KkAJd6HORyANi+AKY464zk/sf7s8QwpVV4P/4RndNGkca/fq1/pp/L/tw
+	 dmn+OsXkKqwbcBKyOZ+QoMt5+BZXCaCot0hLMw/Fsrb+JpYGtpYvyEl7EZ57ovd0mZ
+	 isMGOwU3Q1JBodp4GZ/Hx/hEIIwXDAbTI19BSDBijMNXr9m7L2XRrrBXrKfKt723sm
+	 egd70g6SEON+xrCcPMw+zfo08pQTfCXu+YP72Care2jUVjO4SRxZVakYguQlii0Q57
+	 ZdziHnCBaPoTf+vrQvYKzHdBx0NDsA0F3SwjsLlJyruZatn1pzqPZiyiXuMnur4YeB
+	 9iAjaxDxPZm1g==
+To: "landlock@lists.linux.dev" <landlock@lists.linux.dev>
+From: devnull <devnull771992@proton.me>
+Subject: Example code instructions
+Message-ID: <-9ppKooZaoDsv4FW6d6Q5iiA4mC4yyqc-i-bNOKZ-Mflu5OXpqP2ZaSw3awBrLxeQPNljs4FDzhYbXxzQ7iSbwnWjBV7Vxjr3VI4qaBNOfA=@proton.me>
+Feedback-ID: 53425385:user:proton
 Precedence: bulk
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
 List-Subscribe: <mailto:landlock+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-User-Agent:
-Subject: Re: current landlock limitations and what it means for sandboxer
-Content-Language: en-US
-To: Jay Freyensee <why2jjj.linux@gmail.com>, Jeff Xu <jeffxu@chromium.org>,
- landlock@lists.linux.dev
-Cc: Jorge Lucangeli Obes <jorgelo@chromium.org>
-References: <CABi2SkXXshnGiV7Tm3C-kvRn5+z26LPFdrmjT=GT39QmHSbHEw@mail.gmail.com>
- <2801fc80-f946-4124-7b16-cb1095ab6b5f@digikod.net>
- <97130959-6f3e-b155-9acc-943025374cdf@gmail.com>
-From: =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>
-In-Reply-To: <97130959-6f3e-b155-9acc-943025374cdf@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+I am trying to figure out how to use landlock to implement into userspace a=
+pplications and came across this example code
+https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/sampl=
+es/landlock/sandboxer.c
+
+However, I find myself unable to successfully build the example code
+
+Perhaps this is an obvious issue for any full time C developer, but it woul=
+d help increase the use of landlock if there is an example code with step b=
+y step instruction on how to actually build it.
+
+So far, any attempt to compile the example "sandboxer.c" (using clang or gc=
+c) will result in the following error:
+
+sandboxer.c:163:9: error: =E2=80=98LANDLOCK_ACCESS_FS_REFER=E2=80=99 undecl=
+ared (first use in this function)
 
 
-On 31/08/2022 17:48, Jay Freyensee wrote:
-> 
-> On 8/31/22 6:31 AM, Mickaël Salaün wrote:
->>
->> On 31/08/2022 02:22, Jeff Xu wrote:
->>> Hello, Mickaël
->>
->> Hello Jeff,
->>
->> Thanks for these interesting questions.
->>
->>>
->>> I would like to dig into the limitation of landlock, to understand
->>> more about the design approach of using landlock for sandboxing user
->>> space applications.
-> 
-> 
-> This has spurred a long standing curiosity with meon landlock.  Can
-> landlock quarrantine a bad-acting binary discovered during machine
-> operation?  The way I've understood landlock is it can be used to
-> restrict a set of unprivileged processes to sandboxes known on say,
-> machine boot up.   But what if during normal operation an anti-malware
-> program flags a suspect binary running on a system, but it isn't 100%
-> sure that binary is malicious?  Could landlock "lock away" and sandbox
-> the suspect-binary for analysis by an admin to determine that suspect
-> binary is in fact malicious and should be deleted from the system?  And
-> if the suspect binary is determined to be harmless can it be
-> unsandboxed/put-back?
+The affected system is running linux 5.19.8 with landlock enabled.
 
-For now, a process can only sandbox itself, the same way seccomp works. 
-Such process is then stuck in the sandbox for its whole lifetime.
-
-I think, being able to dynamically move a process in or out of a 
-(dedicated) sandbox could be implemented leveraging cgroups, but there 
-is some challenge to make it efficient.
-
-fanotify(7) might be interesting for this anti-malware case though.
+There may just be a missing compile flag to get it working but I have not f=
+ound any documentation about it.
+Any hints would be appreciated, thank you
