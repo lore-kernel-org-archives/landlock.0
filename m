@@ -1,84 +1,69 @@
-Received: from smtp-42a8.mail.infomaniak.ch (smtp-42a8.mail.infomaniak.ch [84.16.66.168])
+Received: from saaz.rutschle.net (saaz.rutschle.net [51.15.243.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EB996138
-	for <landlock@lists.linux.dev>; Mon, 19 Sep 2022 16:48:28 +0000 (UTC)
-Received: from smtp-3-0001.mail.infomaniak.ch (unknown [10.4.36.108])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4MWTHM5KlFzMqD5R;
-	Mon, 19 Sep 2022 17:34:07 +0200 (CEST)
-Received: from ns3096276.ip-94-23-54.eu (unknown [23.97.221.149])
-	by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4MWTHM39hNzMpnPk;
-	Mon, 19 Sep 2022 17:34:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=digikod.net;
-	s=20191114; t=1663601647;
-	bh=Pd2VuXr5ds0+NRsTO+f70K5ZOHlRHEt2BDzcvPfaJ6s=;
-	h=Date:Subject:To:References:Cc:From:In-Reply-To:From;
-	b=G87WrBA0p4NZF7X3HFMv0ZfMBctNMNmSPAwS/xSKMCX1shVRCX3M7FN3A4CFoKp5w
-	 Brw20pyETliN4L4EtlJ3VgACq36q9HYFwOIpxb01vz1B9Q64RIXamyBErB2Gf6WDvc
-	 NR6at/woU4ujCEtWJJGh5tOrZh5akTF/6hHxRlU4=
-Message-ID: <cca35af9-97c0-1226-6d80-05ad2d23f278@digikod.net>
-Date: Mon, 19 Sep 2022 17:34:06 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0970912293
+	for <landlock@lists.linux.dev>; Mon,  7 Nov 2022 17:47:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=rutschle.net; s=20170610; h=Content-Type:MIME-Version:Message-ID:Subject:To
+	:From:Date:Sender:Reply-To:Cc:Content-Transfer-Encoding:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=MnRHjYAydl30DSjYWJq7rzHKXYszsPSA16F886FaCcU=; b=fmfyI7iAja1qgWD+skYxuUtztU
+	NLECw7q03iQFLsKjWNTiNTf0XbUy2zHao0ju1DD74hkcNByKkcbQ47tR2w+1Eav80aev1uY90+eWU
+	yIOmwQVjHNV+64+cUc3KJoFsMcRkDHUYLoEiWviSXCEW1rCe7QK3HkO1jWSjJ+x6gjfo=;
+Received: from yves by saaz.rutschle.net with local (Exim 4.92)
+	(envelope-from <yves@rutschle.net>)
+	id 1os5pA-0004Zi-37
+	for landlock@lists.linux.dev; Mon, 07 Nov 2022 17:22:16 +0000
+Date: Mon, 7 Nov 2022 17:22:16 +0000
+From: Yves Rutschle <landlock@rutschle.net>
+To: landlock@lists.linux.dev
+Subject: Landlock setup
+Message-ID: <20221107172216.GA10688@rutschle.net>
+Mail-Followup-To: landlock@lists.linux.dev
 Precedence: bulk
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
 List-Subscribe: <mailto:landlock+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-User-Agent:
-Subject: Re: Example code instructions
-Content-Language: en-US
-To: devnull <devnull771992@proton.me>
-References: <-9ppKooZaoDsv4FW6d6Q5iiA4mC4yyqc-i-bNOKZ-Mflu5OXpqP2ZaSw3awBrLxeQPNljs4FDzhYbXxzQ7iSbwnWjBV7Vxjr3VI4qaBNOfA=@proton.me>
-Cc: landlock@lists.linux.dev
-From: =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>
-In-Reply-To: <-9ppKooZaoDsv4FW6d6Q5iiA4mC4yyqc-i-bNOKZ-Mflu5OXpqP2ZaSw3awBrLxeQPNljs4FDzhYbXxzQ7iSbwnWjBV7Vxjr3VI4qaBNOfA=@proton.me>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/1.10.1 (2018-07-13)
 
-Hi,
+Hello everyone,
 
-On 19/09/2022 16:44, devnull wrote:
-> I am trying to figure out how to use landlock to implement into userspace applications and came across this example code
-> https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/samples/landlock/sandboxer.c
-> 
-> However, I find myself unable to successfully build the example code
+Following Mickael's presentation of Landlock at
+Pass-the-Salt 2022, I intend to add support for it to sslh.
 
-The simple solution to build this sample is to run `make 
-samples/landlock/` in the Linux source directory or simply `make` in the 
-sample directory. You need to download the whole kernel source though.
+I'm starting from the beginning: compiling and running the
+example, which so far complains the LSM is not loaded, when
+the kernel tells me it is...
 
-> 
-> Perhaps this is an obvious issue for any full time C developer, but it would help increase the use of landlock if there is an example code with step by step instruction on how to actually build it.
+I'm running a stock Debian where I manually add landlock to
+the command line:
 
-Two external C header files are needed:
-- an up-to-date unistd.h with the appropriate __NR_landlock_* declarations;
-- an up-to-date linux/landlock.h with all the LANDLOCK_ACCESS_* 
-declarations.
+[    0.000000] Command line: BOOT_IMAGE=/boot/vmlinuz-5.18.0-3-amd64 root=UUID=79c3bdf6-4be2-46d6-b006-bb17170247b1 ro quiet lsm=landlock
 
-These files should be in sync with the kernel provided by your distro. 
-If it is not the case, you should report this issue.
+the kernel indicates the LSM is started:
 
-Otherwise, you can still use your own header files, preferably provided 
-by a dedicated package (e.g. linux-libc-dev_*.deb or 
-kernel-headers-*.rpm). These files are in the include/uapi/ directory 
-from the kernel source.
+[    0.076550] LSM: Security Framework initializing
+[    0.076559] landlock: Up and running.
 
-> 
-> So far, any attempt to compile the example "sandboxer.c" (using clang or gcc) will result in the following error:
-> 
-> sandboxer.c:163:9: error: ‘LANDLOCK_ACCESS_FS_REFER’ undeclared (first use in this function)
 
-This means that the landlock.h file used by the compiler doesn't have 
-this declaration, which was added with Linux 5.19 .
+Yet running the example fails:
 
-> 
-> 
-> The affected system is running linux 5.19.8 with landlock enabled.
+# LL_FS_RO="/bin:/lib:/usr:/proc:/etc:/dev/urandom" LL_FS_RW="/dev/null:/dev/full:/dev/zero:/dev/pts:/tmp" ./lock bash -i
+Failed to check Landlock compatibility: Function not implemented
+Hint: Landlock is not supported by the current kernel. To support it, build the kernel with CONFIG_SECURITY_LANDLOCK=y and prepend "landlock," to the content of CONFIG_LSM.
 
-Are you using a custom kernel or one provided by your distro? You may be 
-missing a related header/dev package.
 
-> 
-> There may just be a missing compile flag to get it working but I have not found any documentation about it.
-> Any hints would be appreciated, thank you
-> 
+
+What would I be doing wrong?
+
+Cheers,
+Y.
+
+
+
