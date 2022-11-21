@@ -1,63 +1,143 @@
-Received: from saaz.rutschle.net (saaz.rutschle.net [51.15.243.174])
+Received: from JPN01-OS0-obe.outbound.protection.outlook.com (mail-os0jpn01olkn2109.outbound.protection.outlook.com [40.92.98.109])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17E4B8C12
-	for <landlock@lists.linux.dev>; Tue,  8 Nov 2022 17:15:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=rutschle.net; s=20170610; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:To:From:Date:Sender:
-	Reply-To:Cc:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=02J/K0YfQykEZlGJovPIqlVTY+W1VzuE/Ax7g4mvQj0=; b=NtUF2qrI9Mc6Q/RTuR9gmyahmd
-	D51KWfhFJblX2ly49jMiRtVg/3hZ+YOgccA4zMBzLz7BERUAabox1/si4sF9XJxHotyz2G6R4u1YO
-	17Ym17fpR3Mibmf5QyJLFEdwaFB4FX5Yjith/ZWULJ/hcT+KdDSsryPySojuyaNsaQKI=;
-Received: from yves by saaz.rutschle.net with local (Exim 4.92)
-	(envelope-from <yves@rutschle.net>)
-	id 1osSBy-0005bQ-5i; Tue, 08 Nov 2022 17:15:18 +0000
-Date: Tue, 8 Nov 2022 17:15:18 +0000
-From: Yves Rutschle <landlock@rutschle.net>
-To: Yves Rutschle <landlock@rutschle.net>, landlock@lists.linux.dev
-Subject: Re: Landlock setup
-Message-ID: <20221108171518.GC10688@rutschle.net>
-Mail-Followup-To: Yves Rutschle <landlock@rutschle.net>,
-	landlock@lists.linux.dev
-References: <20221107172216.GA10688@rutschle.net>
- <78f7af34-cbd7-eb25-60fb-64385d118d90@digikod.net>
- <20221108112722.GB10688@rutschle.net>
- <f0b57f51-e7c8-41f6-28eb-5dcb11686cc2@digikod.net>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B33687E6
+	for <landlock@lists.linux.dev>; Mon, 21 Nov 2022 01:41:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PSgcVRE71L4Eprhq2aBIjLFvpvPUOh9EVP6vho7E4OfMdlO9mUcUWhJKRYnt8ZOT+sgyLXCE/+yJo0bHlSUWElqL1FT9C/0IDGulvh82tp5kYGbr9sIiJB9/MdlrbaImehDOWNC2CISu3y4cuNp/Vsxq6mAOxdCrdpAlw/V74AiIBF7ZxyCQBdtFtUt1HwKmEJqMuim0Pju8/42fUbfrOOVcWKA7qVnKCvTEuaONR05RgAU9OknBz20DW+e9PU+2P/zT264tZqw24fcdY0f6+7Hpm5d+8s5V70PApUZGeG7AeT5PQg0nKFl0OPn3mUKiXOAx6/XsVfU3kKiNWfdANA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=trI4oLHig7OQFQDdNzaIgeadtol0P1kMtTJUlPm+HNY=;
+ b=JQl+bheQQCil94rSZGcsYFJt6azxkRZH9uZXp5vKnh8KzphClJ5rOZfN52FEL9tc7sSB+14y9KCkExEjluf3mU0qIuwX26zjlsK5TQNOsyRuXfwZ9AFYliUBKnR40C31WDYg8WbyYNSMyIkeC+yLSGGjZi6K1RRkOWZOIVnD8QyOw6P21rc1cmr8DV7BLV8k1xXBqkTcuaDGi4gdSd3CcaTDCACExzS7MPE/QU0LpF81vBjt/ydwT747W5Owg5mcmUvYlLosb+JnBc6VSTmh83tOA/juLszkqYhrUzVivs/u0Cj3H2mFiOEpoizkcNX7Y/HBpxymbg0pSroiDXrmpw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=trI4oLHig7OQFQDdNzaIgeadtol0P1kMtTJUlPm+HNY=;
+ b=UUhcB9Nq56QSg0BRzfodkRpKz6NANFS6ssIpZHn8luaMb03hi2ljIgCJsqeU65NEFqZoUh9Y5I/axfzTQFkdmugsGj2X7ejaVGuUsgKIJcEidqSb4dRj6OqTc7JCkMZxYuZt7/noSIU5a+VLw9o0QBkeQkus2dF3Y2x8XOheXK7TCVcuFwC5zWKhhKjfl+mwQhuRIY+rDe5lnNKfTsFqSPfFPoXYrsUztcLnzkY9dSMXNsYnu8SlagTktTElojC8JxHihxEznk1787DBn5ZFNqzORqHjqPjdxRfQohuzz0wE3Pn40IRmxCIl3DyfiuIj5SlR7QPZejfVrfEMdnCy9g==
+Received: from OSZP286MB1725.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:1b9::12)
+ by OSZP286MB2379.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:15e::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.15; Mon, 21 Nov
+ 2022 01:41:00 +0000
+Received: from OSZP286MB1725.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::eefb:61f0:c4d2:56ca]) by OSZP286MB1725.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::eefb:61f0:c4d2:56ca%3]) with mapi id 15.20.5834.015; Mon, 21 Nov 2022
+ 01:41:00 +0000
+From: Anquan Wu <leiqi96@hotmail.com>
+To: "landlock@lists.linux.dev" <landlock@lists.linux.dev>
+Subject: questions about ruleset and rule 
+Thread-Topic: questions about ruleset and rule 
+Thread-Index: AQHY/UpKEWI4eZ2eFUi25x0UYiCcYg==
+Date: Mon, 21 Nov 2022 01:41:00 +0000
+Message-ID:
+ <OSZP286MB1725B55A57C254DEFA0F6F9CB80A9@OSZP286MB1725.JPNP286.PROD.OUTLOOK.COM>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+x-tmn: [mgT6PdnakRKMT6RtilmUFXbnH7uMdpOw]
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: OSZP286MB1725:EE_|OSZP286MB2379:EE_
+x-ms-office365-filtering-correlation-id: 9845aefd-d6fb-479b-b976-08dacb617196
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ kBsTwuJ07q54wx1TgygcUJehwdNdNKzi3QdsPRZwuH06cwrk2K7ShjcF/WoLOC5LNy4OdL/j2tNF1Id0ANyfaw+TGj/beoaGBD0l7Dp/aUi8zxolUnExPJ+CWLP/2DEpvXqinwhe9dtnl8QJpD+s8aD7JOlhZ1b5FeTVxkKbu3piVR8TwyaBCnte7EcRK0rE5f8Bha9xYiSSGZmiQB3YS2YZit6vJwtSDNheMRpyvpfgGPtCNPVCkp6e6I9tsQKS2RV6i5yvNKeH0PysSAOG5Ll7SWttar7TgTnZEW7fsKmwwNswDeCV7xCxl/dky8MJXoyyV7YaVs2vhG4DRazs5b4hv9lgaA3R433QhYtZaJ7lpi/LdPGh21npP1Cf74Y4DkyXjKH/1kcX4CkUru5IqQsH2jds7Gq0zs2HfRhAMy/JBTPeA5fMHF1eF5Mts2ETPzwmygZnYzOh3F05iA4MaOiZt16vAHwfIv4zcxyNMbeZch3Fv+27uYUILMU8kedGNp/R+ZtcDdqFT8UiU7+FGfr7ngGJiWRWJMzUfj82XlZOP6n5b3/U1y3y4DYOuP8qgDiudPOXy9YQ3LO7JqEltg==
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?gb2312?B?VEZKcXozT2hOY1dBUHYrSVFvdFhCbnhCZGpuTzhUaEwxcEpYTUFoeWZuSFpo?=
+ =?gb2312?B?WHM2blZWck9xQm9pNlcyOU9ZNENXMllaZEoxcEJ6MGpZOUErblVRK0F4ckNo?=
+ =?gb2312?B?cVh3UEtQWU1yRGlvbHE0R2tKVzg2emduTHhFc1F2WmNmUDFGOE5uUm9RSnNI?=
+ =?gb2312?B?TENONnZtV2t3bmU2TGJvUlVNZS9yT09xbndad0NtQ09wL3pVakRaUnNoWUM2?=
+ =?gb2312?B?dyt0L29laVZFa0FzWDFOL3V4NW8zbEJUaEFoUld4L2EyRUwxeTBpVHpEY0hs?=
+ =?gb2312?B?M3BwSDlEMGZMTU5RY0p3b3dSd1JmY3lWb0NLMVhUbzFHajEreUp0TnhTTm9o?=
+ =?gb2312?B?anBCNGJrOVduby9SaFB1ODRNUVJwcWZuVERVVGVvb2lGQ3FaaTJyZHh5ZDBv?=
+ =?gb2312?B?bjF4UGlkVXJzaDFTZ3F4NU95aFRhak1TV1BPbVhDRDVCcjlPMlNpVTRBM3B2?=
+ =?gb2312?B?K1hiRkYxdDZtbUUzd0VTZDlsenJBbmhjcDY1WnBjL0p6ZjV6SDNxWmNJSDR5?=
+ =?gb2312?B?NWFjakRFcmdBQ1FxSU45dDVnS3J3SUpGK0wyUVY2YXhodzJiQm5pejZ0enl0?=
+ =?gb2312?B?Z0tjY2pKME5RcVBJL3ZSL25HYmNGYW13RElvdklJQUE3bm0zSUNnT1h1c0Rt?=
+ =?gb2312?B?bWVPYXoxMmpmMW93K0RQNU1RTTc1QU0waHl5MGR6OXBwbHJtWmxTZVVhbXU3?=
+ =?gb2312?B?ZkJEZ2NaTDkxVmkxcXk0TGp3djh5MVR4bktSSGJIelJQbkw0ZjJDRDE2YmNr?=
+ =?gb2312?B?dTdmazJZMTd0bnpPQU1IcU85Vlh2WnJtTG9obkVZbXY3VUZWV0VnR3NFSkc3?=
+ =?gb2312?B?dTlTaDA3TUFpOXB4ODBjTGhUZkFLUjd6TVdNbnV3dCsvQ3BWVi9zMHJIclNS?=
+ =?gb2312?B?VGsrWTcyMEpSaWd5eGNVdWw5bUpVVDZaSTdORGoxR09WT3dhQU1vVk02YzFB?=
+ =?gb2312?B?alJzOWZKOW9Gb2NaR2VCZlhla1NsRHAreTY1MVdVQjJJZzI1QTFEWTNEeWJh?=
+ =?gb2312?B?QnEzM0hlTG9kb3FyOG42NkRmdisyeWpsSmVjOGp6K2VhUHNtYWxOcVRkNC95?=
+ =?gb2312?B?M1U4M3JISEIwMDNWaVBOL05IV2o2cGdpdndnZWRvSTIxak5rQ0tFUllPUWJq?=
+ =?gb2312?B?eTJqYUtIZy9jS3cvblViNWVsYmtQc1QySVlvd0MvYWlER2NFbDlSL1ZnSHZv?=
+ =?gb2312?B?Z1ljN21yc08rWitZZVhZRThqeEIyRnlpVGE3RC9DNTdZQ095OGlyUlh4dW04?=
+ =?gb2312?B?T2hYUlNFQ0tLelBUT0dxWFM5bmZOcEtuVWE0Z1k0MFp2b0ZyMGRFM1VaWXdj?=
+ =?gb2312?B?dFZRUml0Vk1LRUo4OGd5QXd0T0lHOXhteU5CQksrRUNpK2VWelU5eEswcjd2?=
+ =?gb2312?B?dUMybTJjdHdPUVR5QWVWOUJCM25VUld6Q2dnbTlMcWJ2dHhJYkFhVU1MenpC?=
+ =?gb2312?B?cjNvMHYyNjFZZTR4UURGaVR6ajRsdkFZcW02R3ZXbmFleTZ3ZnMwc2hQcVZQ?=
+ =?gb2312?B?MU5TU0ZUd0RZVmE2cXN0Y0VXcUVWbWV5a3JwQzFpZG9mcW1oL0VHV3VSa1Jn?=
+ =?gb2312?B?MitxMnFBMFVXdzdwUDREMTc1L3BwdGdFRGFGMTR3bW9QT0VqRWs1ZDVhZHQ0?=
+ =?gb2312?B?VlJnaEZUc251UUQ3SU9sVnpvVGZmOE9DSGw3WGdJcllRdlFFa1c4aW5QV2Nv?=
+ =?gb2312?Q?Nk+shHg1KU0M2ry3UU8g?=
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
 List-Subscribe: <mailto:landlock+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-15
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <f0b57f51-e7c8-41f6-28eb-5dcb11686cc2@digikod.net>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+X-OriginatorOrg: sct-15-20-4755-11-msonline-outlook-05f45.templateTenant
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: OSZP286MB1725.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9845aefd-d6fb-479b-b976-08dacb617196
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Nov 2022 01:41:00.3847
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSZP286MB2379
 
-On Tue, Nov 08, 2022 at 03:13:39PM +0100, Mickaël Salaün wrote:
-> If you see "landlock: Up and running." in the running kernel log, I don't
-> see any reason why the kernel would return ENOSYS for the Landlock syscalls.
-> 
-> The default kernel for Debian 11 is Linux 5.10, which doesn't support
-> Landlock. I tested with linux-image-5.18.0-0.deb11.4-amd64 and
-> linux-image-6.0.0-0.deb11.2-amd64-unsigned and it works fine.
-> 
-> On which architecture are you?
-
-Ah, the mystery thickens, as I have a more recent version:
-
-Package: linux-image-5.18.0-3-amd64
-Version: 5.18.14-1
-
-# uname -a
-Linux hallertau 5.18.0-3-amd64 #1 SMP PREEMPT_DYNAMIC Debian 5.18.14-1 (2022-07-23) x86_64 GNU/Linux
-
-My bad about the version, I guess I upgraded only the kernel
-from Sid at some point.
-
-Y.
-
+aGVsbG8sIEkgaGF2ZSBzb21lIHF1ZXN0aW9ucyBhYm91dCBydWxlc2V0IGFuZCBydWxlLCBDYW4g
+YW55b25lIGhlbHAgbWWjvwoKCgoxLiBGcm9tIHdlYnNpdGUgaHR0cHM6Ly93d3cua2VybmVsLm9y
+Zy9kb2MvaHRtbC9sYXRlc3QvdXNlcnNwYWNlLWFwaS9sYW5kbG9jay5odG1sLAoKaXQgc2FpZCB0
+aGF0ICJXZSBmaXJzdCBuZWVkIHRvIGRlZmluZSB0aGUgcnVsZXNldCB0aGF0IHdpbGwgY29udGFp
+biBvdXIgcnVsZXMuIEZvciB0aGlzIGV4YW1wbGUsIHRoZSBydWxlc2V0IHdpbGwgY29udGFpbiBy
+dWxlcyB0aGF0IG9ubHkgYWxsb3cgcmVhZCBhY3Rpb25zLCBidXQgd3JpdGUgYWN0aW9ucyB3aWxs
+IGJlIGRlbmllZC4gVGhlIHJ1bGVzZXQgdGhlbiBuZWVkcyB0byBoYW5kbGUgYm90aCBvZiB0aGVz
+ZSBraW5kIG9mIGFjdGlvbnMuIFRoaXMgaXMgcmVxdWlyZWQgZm9yIGJhY2t3YXJkIGFuZCBmb3J3
+YXJkIGNvbXBhdGliaWxpdHkgKGkuZS4gdGhlIGtlcm5lbCBhbmQgdXNlciBzcGFjZSBtYXkgbm90
+IGtub3cgZWFjaCBvdGhlcqGvcyBzdXBwb3J0ZWQgcmVzdHJpY3Rpb25zKSwgaGVuY2UgdGhlIG5l
+ZWQgdG8gYmUgZXhwbGljaXQgYWJvdXQgdGhlIGRlbmllZC1ieS1kZWZhdWx0IGFjY2VzcyByaWdo
+dHMuIi4KCkNhbiBJIGludGVycHJldCB0aGlzIHNlbnRlbmNlIGluIHRoaXMgd2F5PwotLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KdGhlIGZzX2FjY2Vzc19tYXNr
+cyBvZiBydWxlc2V0IGlzIHRoZSBkZWZhdWx0IGFsbG93IGFjdGlvbqOsdGhlIHJ1bGUgaXMgdGhl
+IGZpbmUtZ3JhaW5lZCBydWxlcy4KCndoZW4gYSBwcm9jZXNzIG9wZW5zIGEgZmlsZSwgbGFuZGxv
+Y2sgZW5mb3JjZXMgdGhlIGZpbmUtZ3JhaW5lZCBydWxlcy4gSWYgdGhlcmUgYXJlIG5vIHJ1bGVz
+IHRvIG1hdGNoIGluIHRoZSBmaW5lLWdyYWluZWQgcnVsZXOjrCB0aGUgZGVmYXVsdCBwb2xpY2Uo
+ZnNfYWNjZXNzX21hc2tzIG9mIHJ1bGVzZXQpIGlzIGV4ZWN1dGVkLgpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KCklmIHRoZSBhYm92ZSBp
+cyByaWdodKOsaXMgdGhlIGJlbG93IExBTkRMT0NLX0FDQ0VTU19GU19XUklURV9GSUxFIG9mIHJ1
+bGVzZXRfYXR0ciB0byBiZSByZW1vdmVkLgoKc3RydWN0IGxhbmRsb2NrX3J1bGVzZXRfYXR0ciBy
+dWxlc2V0X2F0dHIgPSB7CiAgICAuaGFuZGxlZF9hY2Nlc3NfZnMgPQogICAgICAgIExBTkRMT0NL
+X0FDQ0VTU19GU19FWEVDVVRFIHwKICAgICAgICBMQU5ETE9DS19BQ0NFU1NfRlNfV1JJVEVfRklM
+RSB8ICAgIC8vIGhlcmUKICAgICAgICBMQU5ETE9DS19BQ0NFU1NfRlNfUkVBRF9GSUxFIHwKICAg
+ICAgICBMQU5ETE9DS19BQ0NFU1NfRlNfUkVBRF9ESVIgfAogICAgICAgIExBTkRMT0NLX0FDQ0VT
+U19GU19SRU1PVkVfRElSIHwKICAgICAgICBMQU5ETE9DS19BQ0NFU1NfRlNfUkVNT1ZFX0ZJTEUg
+fAogICAgICAgIExBTkRMT0NLX0FDQ0VTU19GU19NQUtFX0NIQVIgfAogICAgICAgIExBTkRMT0NL
+X0FDQ0VTU19GU19NQUtFX0RJUiB8CiAgICAgICAgTEFORExPQ0tfQUNDRVNTX0ZTX01BS0VfUkVH
+IHwKICAgICAgICBMQU5ETE9DS19BQ0NFU1NfRlNfTUFLRV9TT0NLIHwKICAgICAgICBMQU5ETE9D
+S19BQ0NFU1NfRlNfTUFLRV9GSUZPIHwKICAgICAgICBMQU5ETE9DS19BQ0NFU1NfRlNfTUFLRV9C
+TE9DSyB8CiAgICAgICAgTEFORExPQ0tfQUNDRVNTX0ZTX01BS0VfU1lNIHwKICAgICAgICBMQU5E
+TE9DS19BQ0NFU1NfRlNfUkVGRVIsCn07CklmIG5vdCwgSG93IHRvIHVuZGVyc3RhbmQgdGhlIGZz
+X2FjY2Vzc19tYXNrcyBvZiBydWxlc2V0IGFuZCBydWxlPwoKCjIuIElmIHRoZXJlIGFyZSBubyBy
+dWxlcyBpbiB0aGUgcnVsZXNldKOsd2hhdCBhY3Rpb25zIGZvciBhIHByb2Nlc3Mgd2l0aCB0aGUg
+cnVsZXNldCB3aWxsIGxhbmRsb2NrIHBlcmZvcm0uCgoKCgoKCjMuIApJZiBhIHJ1bGUgKCIvaG9t
+ZS9hLnR4dCIgLCAicnciKSBpcyBmb3IgcHJvY2VzcyBQMSBhbmQgUDIgaXMgYSBjaGlsZCBwcm9j
+ZXNzIG9mIFAxLAoKQ2FuIFAyIHNldCBhIG5ldyBydWxlKCIvaG9tZS9hLnR4dCIsICJybyIpCgpJ
+ZiBhIHJ1bGUgKCIvaG9tZS9hLnR4dCIgLCAicm8iKSBpcyBmb3IgcHJvY2VzcyBQMSBhbmQgUDIg
+aXMgYSBjaGlsZCBwcm9jZXNzIG9mIFAxLApDYW4gUDIgc2V0IGEgbmV3IHJ1bGUoIi9ob21lL2Eu
+dHh0IiwgInJ3IikKCgoKCgp0aGFua3MuCgo=
