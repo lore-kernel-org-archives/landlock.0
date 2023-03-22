@@ -1,22 +1,22 @@
-Received: from smtp-1908.mail.infomaniak.ch (smtp-1908.mail.infomaniak.ch [185.125.25.8])
+Received: from smtp-bc08.mail.infomaniak.ch (smtp-bc08.mail.infomaniak.ch [45.157.188.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27121D505
-	for <landlock@lists.linux.dev>; Tue, 21 Mar 2023 18:54:29 +0000 (UTC)
-Received: from smtp-2-0001.mail.infomaniak.ch (unknown [10.5.36.108])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4Ph0DG2scGzMrCRT;
-	Tue, 21 Mar 2023 19:16:30 +0100 (CET)
-Received: from unknown by smtp-2-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4Ph0DF4m7rzMsmJw;
-	Tue, 21 Mar 2023 19:16:29 +0100 (CET)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50F271FB1
+	for <landlock@lists.linux.dev>; Wed, 22 Mar 2023 08:15:19 +0000 (UTC)
+Received: from smtp-3-0001.mail.infomaniak.ch (unknown [10.4.36.108])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4PhLqz68gxzMqsJ6;
+	Wed, 22 Mar 2023 09:15:11 +0100 (CET)
+Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4PhLqz39V8zMtj7X;
+	Wed, 22 Mar 2023 09:15:11 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=digikod.net;
-	s=20191114; t=1679422590;
-	bh=SExsR16XCgyMAqbuSM0sJKtdFLVWin9yFJ9p3JYsOHA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=tuoeucrs9/7efetPKzQOxTlNAcxWW2zlLLZq7yXWFV9ZNXlwK9GIFeovz3Zn+ue5p
-	 9IuabRhYKIUiihW7d+zgv8Wr3ZIEwk9mokwDW8+64AME9y9a6tvvP2mtTINzYic0R5
-	 SOqBxYNAF06bdGBk3AXdJnaULshdKs8j04zP6CpM=
-Message-ID: <42ffeef4-e71f-dd2b-6332-c805d1db2e3f@digikod.net>
-Date: Tue, 21 Mar 2023 19:16:28 +0100
+	s=20191114; t=1679472911;
+	bh=Wtcw18eZNfAX1lbiqFkdWm7KmZJTDnAJuh/ffp9RyOo=;
+	h=Date:From:To:Subject:From;
+	b=WI/fZwMkjh3n5euVJIpf/lxN+F07e65jy9xkiLMbs8H6dOqs7NekRLjO+cOwD0I4d
+	 +THcZM1S1RALM2GcFkSvPAwhkC6ZHahdOXx2tpy8GeLhd51UoWeMqFshXGV7eFxj3W
+	 ZK+khzcMlBlBFBbIWyMNYKSi4KmvX8vT3rJwvJ5c=
+Message-ID: <d4ed5733-d07b-5548-2534-a63e22906778@digikod.net>
+Date: Wed, 22 Mar 2023 09:15:10 +0100
 Precedence: bulk
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
@@ -24,71 +24,200 @@ List-Subscribe: <mailto:landlock+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 User-Agent:
-Subject: Re: Does Landlock not work with eCryptfs?
 Content-Language: en-US
-To: Christian Brauner <brauner@kernel.org>
-Cc: =?UTF-8?Q?G=c3=bcnther_Noack?= <gnoack3000@gmail.com>,
- landlock@lists.linux.dev, Tyler Hicks <code@tyhicks.com>,
- linux-security-module <linux-security-module@vger.kernel.org>,
- Linux-Fsdevel <linux-fsdevel@vger.kernel.org>,
- Al Viro <viro@zeniv.linux.org.uk>
-References: <20230319.2139b35f996f@gnoack.org>
- <c1c9c688-c64d-adf2-cc96-dc2aaaae5944@digikod.net>
- <20230320.c6b83047622f@gnoack.org>
- <5d415985-d6ac-2312-3475-9d117f3be30f@digikod.net>
- <e70f7926-21b6-fbce-c5d6-7b3899555535@digikod.net>
- <20230321172450.crwyhiulcal6jvvk@wittgenstein>
 From: =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>
-In-Reply-To: <20230321172450.crwyhiulcal6jvvk@wittgenstein>
+To: landlock@lists.linux.dev
+Subject: Landlock news #3
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Infomaniak-Routing: alpha
 
+Here is the third Landlock newsletter!
 
-On 21/03/2023 18:24, Christian Brauner wrote:
-> On Tue, Mar 21, 2023 at 05:36:19PM +0100, Mickaël Salaün wrote:
->> There is an inconsistency between ecryptfs_dir_open() and ecryptfs_open().
->> ecryptfs_dir_open() actually checks access right to the lower directory,
->> which is why landlocked processes may not access the upper directory when
->> reading its content. ecryptfs_open() uses a cache for upper files (which
->> could be a problem on its own). The execution flow is:
->>
->> ecryptfs_open() -> ecryptfs_get_lower_file() -> ecryptfs_init_lower_file()
->> -> ecryptfs_privileged_open()
->>
->> In ecryptfs_privileged_open(), the dentry_open() call failed if access to
->> the lower file is not allowed by Landlock (or other access-control systems).
->> Then wait_for_completion(&req.done) waits for a kernel's thread executing
->> ecryptfs_threadfn(), which uses the kernel's credential to access the lower
->> file.
->>
->> I think there are two main solutions to fix this consistency issue:
->> - store the mounter credentials and uses them instead of the kernel's
->> credentials for lower file and directory access checks (ecryptfs_dir_open
->> and ecryptfs_threadfn changes);
->> - use the kernel's credentials for all lower file/dir access check,
->> especially in ecryptfs_dir_open().
->>
->> I think using the mounter credentials makes more sense, is much safer, and
->> fits with overlayfs. It may not work in cases where the mounter doesn't have
->> access to the lower file hierarchy though.
->>
->> File creation calls vfs_*() helpers (lower directory) and there is not path
->> nor file security hook calls for those, so it works unconditionally.
->>
->>  From Landlock end users point of view, it makes more sense to grants access
->> to a file hierarchy (where access is already allowed) and be allowed to
->> access this file hierarchy, whatever it belongs to a specific filesystem
->> (and whatever the potential lower file hierarchy, which may be unknown to
->> users). This is how it works for overlayfs and I'd like to have the same
->> behavior for ecryptfs.
-> 
-> So given that ecryptfs is marked as "Odd Fixes" who is realistically
-> going to do the work of switching it to a mounter's credentials model,
-> making sure this doesn't regress anything, and dealing with any
-> potential bugs caused by this. It might be potentially better to just
-> refuse to combine Landlock with ecryptfs if that's possible.
+Official website: https://landlock.io
+Previews newsletter: 
+https://lore.kernel.org/landlock/441bd1cd-03fd-8e30-c370-3d0f0263d564@digikod.net/
 
-If Tyler is OK with the proposed solutions, I'll get a closer look at it 
-in a few months. If anyone is interested to work on that, I'd be happy 
-to review and test (the Landlock part).
+Kernel
+------
+
+### Linux distributions
+
+Landlock is now supported by default in new Linux distributions:
+* chromeOS's VM (Termina)
+* WSL2
+* CBL-Mariner
+
+### New features for Linux 6.2
+
+Linux 6.2 is now starting to roll to up-to-date distros: 
+https://git.kernel.org/torvalds/c/299e2b1967578b1442128ba8b3e86ed3427d3651
+This new release supports a new access rights developed by Günther 
+Noack: LANDLOCK_ACCESS_FS_TRUNCATE.  This enables to fully control file 
+data changes (combined with LANDLOCK_ACCESS_FS_WRITE_FILE). This might 
+look like a simple access right but due to the nature of file truncation 
+in Linux, especially through file descriptors, this work led to a new 
+way to enforce Landlock rules, which could be leveraged by future access 
+rights.
+When opening a file, the availability of the LANDLOCK_ACCESS_FS_TRUNCATE 
+right is associated with the newly created file descriptor and will be 
+used for subsequent truncation attempts using ftruncate(2). The behavior 
+is similar to opening a file for reading or writing, where permissions 
+are checked during open(2), but not during the subsequent read(2) and 
+write(2) calls.
+See https://docs.kernel.org/userspace-api/landlock.html#truncating-files
+
+### Test improvements
+
+Mark Brown kept pushing for the Landlock kselftest suite to be part of 
+KernelCI, and after 6 months it was merged: 
+https://github.com/kernelci/kernelci-core/pull/1236
+This is great because this means that different kernel flavors on 
+several architectures will be tested against a lot of development kernel 
+trees.
+For the list of tests for v6.3-rc2, see 
+https://staging.kernelci.org/test/plan/id/640ef62de2325f9e299d58e5/
+
+Jeff Xu updated the tests to make them run on systems without overlayfs 
+support, and with Yama enabled, which is the case for chromeOS:
+* Yama support: 
+https://lore.kernel.org/all/20230114020306.1407195-1-jeffxu@google.com/
+* non-overlayfs support: 
+https://lore.kernel.org/all/20230113053229.1281774-1-jeffxu@google.com/
+
+### Documentation
+
+At the same time he is improving the kernel documentation, Günther Noack 
+is also updating the Landlock man pages, with the new features and 
+improved examples:
+https://lore.kernel.org/linux-man/20230310220851.22261-1-gnoack3000@gmail.com/
+
+Kees Cook added Landlock to the KSPP recommended settings:
+https://kernsec.org/wiki/index.php/Kernel_Self_Protection_Project/Recommended_Settings
+
+Landlock libraries
+------------------
+
+### Rust
+
+At the FOSDEM event, I gave feedback about the development of a security 
+library that needs to deal with backward and forward compatibility, 
+because of security features tied to specific kernel versions, handling 
+different use cases in a safe and secure way. We explain patterns that 
+we used to make it possible to fine tune the requested (optional) 
+features while providing a safe default behavior. For simple use cases, 
+the idea is to provide a best-effort security approach for potentially 
+unsupported kernel features: use available features and ignore others. 
+However, in more complex use cases, we may want to make some features 
+depend on others. We may also want to handle errors differently based on 
+unsupported features.
+See 
+https://fosdem.org/2023/schedule/event/rust_backward_and_forward_compatibility_for_security_features/
+
+Version 0.2.0 was released, which makes available a first milestone. 
+There is still work going on to improve the backward and forward 
+interface, but that would be for the next major version.
+
+### Go
+
+Günther Noack gave a nice talk at the Zurich Gophers Meetup about 
+Landlock and how to use it with the Go library: 
+https://blog.gnoack.org/post/go-landlock-talk/
+
+The Go library now supports Linux 6.2 with the new truncate access 
+right: https://blog.gnoack.org/post/landlock-truncate/
+
+### Haskell
+
+Nicolas Trangez is actively working on a Haskell library for Landlock. 
+New versions are released regularly: 
+https://hackage.haskell.org/package/landlock
+
+New Landlock user space developments
+------------------------------------
+
+Birdcage is a cross-platform embeddable sandboxing library allowing 
+restrictions to Filesystem and Network operations using native operating 
+system APIs: https://github.com/phylum-dev/birdcage
+
+Keysas, a USB malware cleaning station: https://github.com/r3dlight/keysas
+
+A WebAssembly runtime with Landlock support: 
+https://github.com/micheleberetta98/rust-wasm-landlock
+
+Nicolas Bouchinet is working on bringing Landlock support to PAM: 
+https://github.com/linux-pam/linux-pam/pull/486
+
+Articles and conferences
+------------------------
+
+Günther Noack wrote about the challenges of the best-effort approach: 
+How to make your use of Landlock backwards compatible with older kernels?
+One of Landlock's strengths is that you can deploy the same program on 
+multiple kernel versions, and make it use the best available sandboxing 
+on each. This "best effort" approach is already implemented for you in 
+the Go-Landlock library and in the Rust Landlock library. But what if 
+you need to implement it yourself?
+See https://blog.gnoack.org/post/landlock-best-effort/
+
+I gave a talk at the Netdev conference about the steps to sandbox the 
+lighttpd server: 
+https://netdevconf.info/0x16/session.html?How-to-sandbox-a-network-application-with-Landlock
+Nicolas Bouchinet helped improve the tutorial material which is now 
+available here: https://github.com/landlock-lsm/tuto-lighttpd
+
+Outreachy internship
+--------------------
+
+Outreachy provides internships in open source to people subject to 
+systemic bias and impacted by underrepresentation in the technical 
+industry where they are living. The Linux kernel proposed 4 projects, 
+and one of them is related to Landlock. Here is the description of 
+"Improve Landlock tests and thread management":
+
+Work will start by refactoring some tests to move the TEST_F_FORK helper 
+to the kselftests harness library. Indeed, this helper is a fork of the 
+TEST_F one, and code duplication should be avoided for maintenance reasons.
+The second task is to improve Landlock ruleset merges with the thread's 
+Landlock domain to avoid domains without any direct thread to them. To 
+make sure that the current behavior is kept as is, new tests will be 
+added (thanks to the kselftests or the KUnit framework).
+If the work progress relatively quickly, a more complex task is to add a 
+new feature similar to seccomp's TSYNC: being able to safely restrict 
+the entire process instead of the current thread. This task would 
+require a better understanding of thread
+management.
+An alternative task is to improve Landlock test coverage thanks to 
+kernel fault injection. This would make it possible to cover kernel 
+internal errors (e.g., memory allocation, user copy) that cannot be 
+tested otherwise.
+See https://www.outreachy.org/communities/cfp/linux-kernel/
+
+Ongoing patch series
+--------------------
+
+Konstantin Meskhidze is working on the TCP port access control for 
+Landlock. The code is almost ready, and we are tackling the latest 
+issues around user space interface and tests. We'll use an unsigned 
+64-bit integer with host endianness to define a port because of 
+simplicity, padding, and extensibility reasons. We are also thinking 
+about a new feature to block full network protocols from being used.
+See 
+https://lore.kernel.org/all/20230116085818.165539-1-konstantin.meskhidze@huawei.com/
+
+Shervin Oloumi proposed a way to identify landlocked processes. That 
+would be useful for chromeOS to make sure that services are properly 
+sandboxed. That might be the beginning of a more advanced audit and 
+debug set of tools.
+See 
+https://lore.kernel.org/all/20230302185257.850681-1-enlightened@chromium.org/
+
+I sent patches to support the User-Mode Linux architecture, which would 
+be useful for tests: 
+https://lore.kernel.org/all/20230309165455.175131-1-mic@digikod.net/
+
+
+Thanks to all the contributors!
+
+Regards,
+  Mickaël
