@@ -1,131 +1,156 @@
-Received: from smtp-8faf.mail.infomaniak.ch (smtp-8faf.mail.infomaniak.ch [83.166.143.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7D8E20F8
-	for <landlock@lists.linux.dev>; Sun, 26 Mar 2023 22:49:39 +0000 (UTC)
-Received: from smtp-3-0001.mail.infomaniak.ch (unknown [10.4.36.108])
-	by smtp-2-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4Pl82x2FVFzMqsLX;
-	Sun, 26 Mar 2023 23:19:21 +0200 (CEST)
-Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4Pl82w3QZ1zMsFWW;
-	Sun, 26 Mar 2023 23:19:20 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=digikod.net;
-	s=20191114; t=1679865561;
-	bh=ZD83hN6SuR76iYpeMGyGAtgY8BuqDrMxZZSjIbx0wOg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=MCmIxZAhFCyXPz7HcDPEs52NENsNQwRNDYPj5i2F0OEWJ14revjVkP7q7baBS94Y6
-	 ylT2HJMKsVZe3ZHgF1YL1Hqpj3vJkRiZrhPQhvm08w6dyfsKAGcgwFMVKTjMYXLTXh
-	 mPniioGKKLFB2A1XdLvFMpOB88kkrfvGHy5u7g94=
-Message-ID: <fbaa6222-255d-57fa-c2fe-f69752a4cb35@digikod.net>
-Date: Sun, 26 Mar 2023 23:19:19 +0200
-Precedence: bulk
-X-Mailing-List: landlock@lists.linux.dev
-List-Id: <landlock.lists.linux.dev>
-List-Subscribe: <mailto:landlock+subscribe@lists.linux.dev>
-List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
-MIME-Version: 1.0
-User-Agent:
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 570B179CE
+	for <landlock@lists.linux.dev>; Mon, 27 Mar 2023 21:01:21 +0000 (UTC)
+Received: by mail-lj1-f181.google.com with SMTP id h9so10461038ljq.2
+        for <landlock@lists.linux.dev>; Mon, 27 Mar 2023 14:01:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1679950879;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=fgkDasYPMzaBbgNL+DqfU6jbIrTRjZPA7BY9S1xa4jY=;
+        b=buhGNkCzJU577oYyFubhiOOgwekEvLD3Exu1r4Ax/65utihU2sccc0WWlkHRy3ZUt/
+         0Z425iEFB/QHddim7/J2/y8lxK3lks42lOj3HgCWHJOoAvjDpndZvhAjCWxf21wl32BT
+         6zkjh5l84C1u5Pmt9+LBnli3V7fEpc3pqu+D8IllrCl5LqfwrY3d6Vrl3b02VbTyEhp5
+         JHGYFyXabsu6XtM8xQ6qtNm2kLC77gE7ObrhXuarKoWKZaAZExtqwGpTAsNsR7Uw4xsz
+         59AidY9SjEnLweOSNLxQL2d//2H43cbZA4IWWBTAnMXV+7kb2ww00gFSoIvLp0zJyquQ
+         junQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1679950879;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=fgkDasYPMzaBbgNL+DqfU6jbIrTRjZPA7BY9S1xa4jY=;
+        b=v5S3p12gZjZjgTmngvuFLPjoE41bvEmL2PWdxN8D79ZzLIZNwbF+/8wg6G9LPpACn/
+         xV+HNizaafMlmMm0jDBRF54RZviDmDB92/Rn2S8DplHbTqCIHXOSFbvNCKlZGp5XDkM9
+         EOWmpd5+Y2n63Gjszn8XGSM6VUM2GWJQOxkt/klDzV3kfvylBkEci5ZxXDko2gQTq/3K
+         zEZnPzebjCdR4VUhC1LP2rIgQPHEHz3igsQxFcxbeGL47mTsNgX6FnKdroqmtbeoPUm7
+         JqJZ6SM6HFvJl1U/E6odlAQhzxFlQZ8H7dUBkKYB3AtstPdKrO9rZO+TryrIqUXkgWqg
+         q9bA==
+X-Gm-Message-State: AAQBX9eOAO2HT8mvMP/SJJAFi54/qdURdb7InpdPMALwtN1iFUTTLCQe
+	6HSBmho9Trz1Ym1D9mk7ZXg=
+X-Google-Smtp-Source: AKy350bdQOG5ybFFh9LJzYSc6zXxEoX9RGfivIawJ42vOrw8T5lGt3DWwetPCE0dzHm+3bb6uHyX4Q==
+X-Received: by 2002:a2e:8785:0:b0:2a5:ff82:178a with SMTP id n5-20020a2e8785000000b002a5ff82178amr350287lji.33.1679950879210;
+        Mon, 27 Mar 2023 14:01:19 -0700 (PDT)
+Received: from localhost ([2a02:168:633b:1:9d6a:15a4:c7d1:a0f0])
+        by smtp.gmail.com with ESMTPSA id r10-20020a2eb60a000000b002945b851ea5sm4784219ljn.21.2023.03.27.14.01.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Mar 2023 14:01:18 -0700 (PDT)
+Date: Mon, 27 Mar 2023 23:01:13 +0200
+From: =?iso-8859-1?Q?G=FCnther?= Noack <gnoack3000@gmail.com>
+To: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>
+Cc: Tyler Hicks <code@tyhicks.com>, Christian Brauner <brauner@kernel.org>,
+	landlock@lists.linux.dev,
+	linux-security-module <linux-security-module@vger.kernel.org>,
+	Linux-Fsdevel <linux-fsdevel@vger.kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>
 Subject: Re: Does Landlock not work with eCryptfs?
-Content-Language: en-US
-To: Tyler Hicks <code@tyhicks.com>
-Cc: Christian Brauner <brauner@kernel.org>,
- =?UTF-8?Q?G=c3=bcnther_Noack?= <gnoack3000@gmail.com>,
- landlock@lists.linux.dev,
- linux-security-module <linux-security-module@vger.kernel.org>,
- Linux-Fsdevel <linux-fsdevel@vger.kernel.org>,
- Al Viro <viro@zeniv.linux.org.uk>
+Message-ID: <20230327.bddbc828c0ec@gnoack.org>
 References: <20230319.2139b35f996f@gnoack.org>
  <c1c9c688-c64d-adf2-cc96-dc2aaaae5944@digikod.net>
  <20230320.c6b83047622f@gnoack.org>
  <5d415985-d6ac-2312-3475-9d117f3be30f@digikod.net>
  <e70f7926-21b6-fbce-c5d6-7b3899555535@digikod.net>
  <20230321172450.crwyhiulcal6jvvk@wittgenstein>
- <42ffeef4-e71f-dd2b-6332-c805d1db2e3f@digikod.net> <ZB4p4DXwgByYCt5O@sequoia>
-From: =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>
-In-Reply-To: <ZB4p4DXwgByYCt5O@sequoia>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ <42ffeef4-e71f-dd2b-6332-c805d1db2e3f@digikod.net>
+ <ZB4p4DXwgByYCt5O@sequoia>
+ <fbaa6222-255d-57fa-c2fe-f69752a4cb35@digikod.net>
+Precedence: bulk
+X-Mailing-List: landlock@lists.linux.dev
+List-Id: <landlock.lists.linux.dev>
+List-Subscribe: <mailto:landlock+subscribe@lists.linux.dev>
+List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Infomaniak-Routing: alpha
+In-Reply-To: <fbaa6222-255d-57fa-c2fe-f69752a4cb35@digikod.net>
 
+Hello!
 
-On 24/03/2023 23:53, Tyler Hicks wrote:
-> On 2023-03-21 19:16:28, Mickaël Salaün wrote:
->>
->> On 21/03/2023 18:24, Christian Brauner wrote:
->>> On Tue, Mar 21, 2023 at 05:36:19PM +0100, Mickaël Salaün wrote:
->>>> There is an inconsistency between ecryptfs_dir_open() and ecryptfs_open().
->>>> ecryptfs_dir_open() actually checks access right to the lower directory,
->>>> which is why landlocked processes may not access the upper directory when
->>>> reading its content. ecryptfs_open() uses a cache for upper files (which
->>>> could be a problem on its own). The execution flow is:
->>>>
->>>> ecryptfs_open() -> ecryptfs_get_lower_file() -> ecryptfs_init_lower_file()
->>>> -> ecryptfs_privileged_open()
->>>>
->>>> In ecryptfs_privileged_open(), the dentry_open() call failed if access to
->>>> the lower file is not allowed by Landlock (or other access-control systems).
->>>> Then wait_for_completion(&req.done) waits for a kernel's thread executing
->>>> ecryptfs_threadfn(), which uses the kernel's credential to access the lower
->>>> file.
->>>>
->>>> I think there are two main solutions to fix this consistency issue:
->>>> - store the mounter credentials and uses them instead of the kernel's
->>>> credentials for lower file and directory access checks (ecryptfs_dir_open
->>>> and ecryptfs_threadfn changes);
->>>> - use the kernel's credentials for all lower file/dir access check,
->>>> especially in ecryptfs_dir_open().
->>>>
->>>> I think using the mounter credentials makes more sense, is much safer, and
->>>> fits with overlayfs. It may not work in cases where the mounter doesn't have
->>>> access to the lower file hierarchy though.
->>>>
->>>> File creation calls vfs_*() helpers (lower directory) and there is not path
->>>> nor file security hook calls for those, so it works unconditionally.
->>>>
->>>>   From Landlock end users point of view, it makes more sense to grants access
->>>> to a file hierarchy (where access is already allowed) and be allowed to
->>>> access this file hierarchy, whatever it belongs to a specific filesystem
->>>> (and whatever the potential lower file hierarchy, which may be unknown to
->>>> users). This is how it works for overlayfs and I'd like to have the same
->>>> behavior for ecryptfs.
->>>
->>> So given that ecryptfs is marked as "Odd Fixes" who is realistically
->>> going to do the work of switching it to a mounter's credentials model,
->>> making sure this doesn't regress anything, and dealing with any
->>> potential bugs caused by this. It might be potentially better to just
->>> refuse to combine Landlock with ecryptfs if that's possible.
->>
->> If Tyler is OK with the proposed solutions, I'll get a closer look at it in
->> a few months. If anyone is interested to work on that, I'd be happy to
->> review and test (the Landlock part).
+On Sun, Mar 26, 2023 at 11:19:19PM +0200, Mickaël Salaün wrote:
+> On 24/03/2023 23:53, Tyler Hicks wrote:
+> > On 2023-03-21 19:16:28, Mickaël Salaün wrote:
+> > > If Tyler is OK with the proposed solutions, I'll get a closer look at it in
+> > > a few months. If anyone is interested to work on that, I'd be happy to
+> > > review and test (the Landlock part).
+> > 
+> > I am alright with using the mounter creds but eCryptfs is typically
+> > mounted as root using a PAM module so the mounter is typically going to
+> > be more privileged than the user accessing the eCryptfs mount (in the
+> > common case of an encrypted home directory).
+> > 
+> > But, as Christian points out, I think it might be better to make
+> > Landlock refuse to work with eCryptfs. Would you be at ease with that
+> > decision if we marked eCryptfs as deprecated with a planned removal
+> > date?
 > 
-> I am alright with using the mounter creds but eCryptfs is typically
-> mounted as root using a PAM module so the mounter is typically going to
-> be more privileged than the user accessing the eCryptfs mount (in the
-> common case of an encrypted home directory).
+> The only way to make Landlock "refuse" to work with eCryptfs would be to add
+> exceptions according to the underlying filesystem when creating rules.
+> Furthermore, to be consistent, this would need to be backported. I don't
+> want to go in such direction to fix an eCryptfs issue.
+
+Here is an example where the Landlock LSM can't detect eCryptfs:
+
+  mkdir -p /foo/bar/baz /foo/secret
+  landlock-restrict -ro / -rw /foo/bar -- /bin/bash
+  
+  # finally, in a different terminal:
+  mount.ecryptfs /foo/secret /foo/bar/baz
+
+The shell is supposed to have access to /foo/bar and everything below
+it, but at the time of creating the Landlock ruleset, it can't tell
+yet that this directory will contain an eCryptfs mount later.
+
+Admittedly, the example is obscure, but it's strictly speaking
+supposed to work according to the Landlock documentation.  (Only the
+landlocked process can't use mount(2) any more, but other processes
+still can.)
+
+Note on the side: Even when mount.ecryptfs happens before the Landlock
+restriction, the Landlock LSM would have to traverse the existing
+mounts to see if there is an eCryptfs mount *below* /foo/bar.
+
+> Doing nothing would go against the principle of least astonishment because
+> of unexpected and inconsistent behavior when using Landlock with eCryptfs.
+> Indeed, Landlock users (e.g. app developers) may not know how, where, and on
+> which kernel their sandboxed applications will run. This means that at best,
+> developers will (potentially wrongly) check if eCryptfs is available/used
+> and then disable sandboxing, and at worse the (opportunistically) sandboxed
+> apps will break (because of denied access). In any case, it goes against
+> user's interests.
+
+I agree, I also believe that a kernel-side fix is needed.
+
+I don't think this is feasible to do in a good way in userspace, even
+if we want to resort to "falling back to doing nothing" in best effort
+mode if eCryptfs file hierarchies are affected.
+
+I have pondered these userspace approaches how to detect eCryptfs, but
+they are both lacking:
+
+* Looking for eCryptfs in /proc/mounts might not work
+  if we are layering multiple Landlock rulesets.
+
+* stat(2) also does not give away whether a file is on eCryptfs
+  (the device number is just a generic kernel internal one)
+
+Finally, it all falls apart anyway if we want to support the case
+where eCryptfs is mounted after enabling the sandbox.  (Obscure, but
+possible.)
+
+> Even if eCryptfs is marked as deprecated, it will be available for years (a
+> lot for LTS) and (legitimate) bug reports will keep coming.
 > 
-> But, as Christian points out, I think it might be better to make
-> Landlock refuse to work with eCryptfs. Would you be at ease with that
-> decision if we marked eCryptfs as deprecated with a planned removal
-> date?
+> Instead, I'd like to fix the eCryptfs inconsistent behavior (highlighted by
+> Landlock and other LSMs). I think it's worth trying the first proposed
+> solution, which might not be too difficult to implement, and will get
+> eCryptfs closer to the overlayfs semantic.
 
-The only way to make Landlock "refuse" to work with eCryptfs would be to 
-add exceptions according to the underlying filesystem when creating 
-rules. Furthermore, to be consistent, this would need to be backported. 
-I don't want to go in such direction to fix an eCryptfs issue.
++1. As you also said: I think it's important to fix it in the LTS
+releases, so that we can tell people to use Landlock without having to
+think about these corner cases.
 
-Doing nothing would go against the principle of least astonishment 
-because of unexpected and inconsistent behavior when using Landlock with 
-eCryptfs. Indeed, Landlock users (e.g. app developers) may not know how, 
-where, and on which kernel their sandboxed applications will run. This 
-means that at best, developers will (potentially wrongly) check if 
-eCryptfs is available/used and then disable sandboxing, and at worse the 
-(opportunistically) sandboxed apps will break (because of denied 
-access). In any case, it goes against user's interests.
-
-Even if eCryptfs is marked as deprecated, it will be available for years 
-(a lot for LTS) and (legitimate) bug reports will keep coming.
-
-Instead, I'd like to fix the eCryptfs inconsistent behavior (highlighted 
-by Landlock and other LSMs). I think it's worth trying the first 
-proposed solution, which might not be too difficult to implement, and 
-will get eCryptfs closer to the overlayfs semantic.
+–Günther
