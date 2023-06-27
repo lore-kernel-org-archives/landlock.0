@@ -1,156 +1,80 @@
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 570B179CE
-	for <landlock@lists.linux.dev>; Mon, 27 Mar 2023 21:01:21 +0000 (UTC)
-Received: by mail-lj1-f181.google.com with SMTP id h9so10461038ljq.2
-        for <landlock@lists.linux.dev>; Mon, 27 Mar 2023 14:01:21 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8AD619BDF
+	for <landlock@lists.linux.dev>; Tue, 27 Jun 2023 16:14:44 +0000 (UTC)
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-676f16e0bc4so1622011b3a.0
+        for <landlock@lists.linux.dev>; Tue, 27 Jun 2023 09:14:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1679950879;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=fgkDasYPMzaBbgNL+DqfU6jbIrTRjZPA7BY9S1xa4jY=;
-        b=buhGNkCzJU577oYyFubhiOOgwekEvLD3Exu1r4Ax/65utihU2sccc0WWlkHRy3ZUt/
-         0Z425iEFB/QHddim7/J2/y8lxK3lks42lOj3HgCWHJOoAvjDpndZvhAjCWxf21wl32BT
-         6zkjh5l84C1u5Pmt9+LBnli3V7fEpc3pqu+D8IllrCl5LqfwrY3d6Vrl3b02VbTyEhp5
-         JHGYFyXabsu6XtM8xQ6qtNm2kLC77gE7ObrhXuarKoWKZaAZExtqwGpTAsNsR7Uw4xsz
-         59AidY9SjEnLweOSNLxQL2d//2H43cbZA4IWWBTAnMXV+7kb2ww00gFSoIvLp0zJyquQ
-         junQ==
+        d=gmail.com; s=20221208; t=1687882484; x=1690474484;
+        h=content-transfer-encoding:subject:from:content-language:to
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=g6WnFLX6p7LWYlsVpAeHLXWRKM18zOLvNi4cSmub9L8=;
+        b=SQ1R98KqaOirT+L42CwOYBghYpwBZkPfKCzUwOry03k/5iQ+yBVSSo0ZTuLQjw7T3+
+         VgaF5irlF53E678xCYoSAG/l1DlB00Cw7dw9x/lSuUEN1AQt3TKuyq6UdfBgYt9rUt5y
+         PdWMcvlLU3Dz2FrpwGSWnxF7Y35UKZSyOu1tPJiY5SRUpsLHLmZZHw9e3HqeBh+b9Fac
+         xUwh8eOZgMRRa8RMfVBD4CKHFe/sj1m7nE6IDQrk1LXGWNNg8mXOIo31M8CLxUGQkqLG
+         V7CGJANkXWZbmfbAp+I92cVkq9r6GgntUkWd3OBTP4CMSgGcAgwSIzaQtKD7MWg6C4Ie
+         hKUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679950879;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=fgkDasYPMzaBbgNL+DqfU6jbIrTRjZPA7BY9S1xa4jY=;
-        b=v5S3p12gZjZjgTmngvuFLPjoE41bvEmL2PWdxN8D79ZzLIZNwbF+/8wg6G9LPpACn/
-         xV+HNizaafMlmMm0jDBRF54RZviDmDB92/Rn2S8DplHbTqCIHXOSFbvNCKlZGp5XDkM9
-         EOWmpd5+Y2n63Gjszn8XGSM6VUM2GWJQOxkt/klDzV3kfvylBkEci5ZxXDko2gQTq/3K
-         zEZnPzebjCdR4VUhC1LP2rIgQPHEHz3igsQxFcxbeGL47mTsNgX6FnKdroqmtbeoPUm7
-         JqJZ6SM6HFvJl1U/E6odlAQhzxFlQZ8H7dUBkKYB3AtstPdKrO9rZO+TryrIqUXkgWqg
-         q9bA==
-X-Gm-Message-State: AAQBX9eOAO2HT8mvMP/SJJAFi54/qdURdb7InpdPMALwtN1iFUTTLCQe
-	6HSBmho9Trz1Ym1D9mk7ZXg=
-X-Google-Smtp-Source: AKy350bdQOG5ybFFh9LJzYSc6zXxEoX9RGfivIawJ42vOrw8T5lGt3DWwetPCE0dzHm+3bb6uHyX4Q==
-X-Received: by 2002:a2e:8785:0:b0:2a5:ff82:178a with SMTP id n5-20020a2e8785000000b002a5ff82178amr350287lji.33.1679950879210;
-        Mon, 27 Mar 2023 14:01:19 -0700 (PDT)
-Received: from localhost ([2a02:168:633b:1:9d6a:15a4:c7d1:a0f0])
-        by smtp.gmail.com with ESMTPSA id r10-20020a2eb60a000000b002945b851ea5sm4784219ljn.21.2023.03.27.14.01.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Mar 2023 14:01:18 -0700 (PDT)
-Date: Mon, 27 Mar 2023 23:01:13 +0200
-From: =?iso-8859-1?Q?G=FCnther?= Noack <gnoack3000@gmail.com>
-To: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>
-Cc: Tyler Hicks <code@tyhicks.com>, Christian Brauner <brauner@kernel.org>,
-	landlock@lists.linux.dev,
-	linux-security-module <linux-security-module@vger.kernel.org>,
-	Linux-Fsdevel <linux-fsdevel@vger.kernel.org>,
-	Al Viro <viro@zeniv.linux.org.uk>
-Subject: Re: Does Landlock not work with eCryptfs?
-Message-ID: <20230327.bddbc828c0ec@gnoack.org>
-References: <20230319.2139b35f996f@gnoack.org>
- <c1c9c688-c64d-adf2-cc96-dc2aaaae5944@digikod.net>
- <20230320.c6b83047622f@gnoack.org>
- <5d415985-d6ac-2312-3475-9d117f3be30f@digikod.net>
- <e70f7926-21b6-fbce-c5d6-7b3899555535@digikod.net>
- <20230321172450.crwyhiulcal6jvvk@wittgenstein>
- <42ffeef4-e71f-dd2b-6332-c805d1db2e3f@digikod.net>
- <ZB4p4DXwgByYCt5O@sequoia>
- <fbaa6222-255d-57fa-c2fe-f69752a4cb35@digikod.net>
+        d=1e100.net; s=20221208; t=1687882484; x=1690474484;
+        h=content-transfer-encoding:subject:from:content-language:to
+         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=g6WnFLX6p7LWYlsVpAeHLXWRKM18zOLvNi4cSmub9L8=;
+        b=E6ICj5P8AxhL7gVONo8mJn6rZ8dFRf7lROr1zqKMMgibhA/nGe+bMzGDQPQn7OkxmW
+         GvGzkMBV00Vf9ufMvcli0dcu+G6LYqqjQj5qMOeqKhN+HxByuavvTVjlb08v4NYViSeo
+         qUR5T5suikf0HCOcSDjUvprhiJRE39tJuZ9dF7DAUlc4xrtqRKirhEL9kB5xYX4UInOh
+         PGzB9nbY5MQeqWHNSKQCbAq3p7fRjAqQOOiIXlfXW8n+TAM0D7pNx1ZHnimy1OKOkkZ2
+         r5Edn1fvqFBDtRqOiNJN3VMA5fdoPkHxYkt9M+qzO/yKjfI4y2vlNMAP8p82YO8fWkU2
+         88BA==
+X-Gm-Message-State: AC+VfDxhfbSqmcPY5aZdKR1h3e5HzmkzyDbDdy3PmPQ2mZkpuqh5GAdB
+	k2Pygea8cIvA8k+G6PaACTZfZOx+xoQ=
+X-Google-Smtp-Source: ACHHUZ5X+EEWJGC6rA1V2rlrZxUdB4gUAlO/OBbNNycrnS6Hf5YVs4MnlSTloydCZla+EEXmGgnyQw==
+X-Received: by 2002:a05:6a21:7885:b0:129:c38e:cdd7 with SMTP id bf5-20020a056a21788500b00129c38ecdd7mr3856911pzc.38.1687882483665;
+        Tue, 27 Jun 2023 09:14:43 -0700 (PDT)
+Received: from [192.168.1.180] ([50.46.170.246])
+        by smtp.gmail.com with ESMTPSA id jw21-20020a170903279500b001b80ed7b66fsm3100796plb.94.2023.06.27.09.14.42
+        for <landlock@lists.linux.dev>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Jun 2023 09:14:43 -0700 (PDT)
+Message-ID: <480a4459-dcfe-e5ce-bce8-6fc59cb89b9e@gmail.com>
+Date: Tue, 27 Jun 2023 09:14:42 -0700
 Precedence: bulk
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
 List-Subscribe: <mailto:landlock+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.12.0
+To: landlock@lists.linux.dev
+Content-Language: en-US
+From: Jay Freyensee <why2jjj.linux@gmail.com>
+Subject: self protect process with landlock to getting killed
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <fbaa6222-255d-57fa-c2fe-f69752a4cb35@digikod.net>
 
-Hello!
+Hi I had a question for someone. Is there a way to protect a landlocked 
+process from being killed by a non-landlock process?  Does that 
+protection include root protection and root not being able to kill that 
+landlocked process?
 
-On Sun, Mar 26, 2023 at 11:19:19PM +0200, Mickaël Salaün wrote:
-> On 24/03/2023 23:53, Tyler Hicks wrote:
-> > On 2023-03-21 19:16:28, Mickaël Salaün wrote:
-> > > If Tyler is OK with the proposed solutions, I'll get a closer look at it in
-> > > a few months. If anyone is interested to work on that, I'd be happy to
-> > > review and test (the Landlock part).
-> > 
-> > I am alright with using the mounter creds but eCryptfs is typically
-> > mounted as root using a PAM module so the mounter is typically going to
-> > be more privileged than the user accessing the eCryptfs mount (in the
-> > common case of an encrypted home directory).
-> > 
-> > But, as Christian points out, I think it might be better to make
-> > Landlock refuse to work with eCryptfs. Would you be at ease with that
-> > decision if we marked eCryptfs as deprecated with a planned removal
-> > date?
-> 
-> The only way to make Landlock "refuse" to work with eCryptfs would be to add
-> exceptions according to the underlying filesystem when creating rules.
-> Furthermore, to be consistent, this would need to be backported. I don't
-> want to go in such direction to fix an eCryptfs issue.
+What about is there a way to protect the directory the landlock process 
+sits in from being tampered/written-to by a non-landlock process?
 
-Here is an example where the Landlock LSM can't detect eCryptfs:
+I came up with the question from reading this comment in the kernel docs:
 
-  mkdir -p /foo/bar/baz /foo/secret
-  landlock-restrict -ro / -rw /foo/bar -- /bin/bash
-  
-  # finally, in a different terminal:
-  mount.ecryptfs /foo/secret /foo/bar/baz
+"Once a thread is landlocked, there is no way to remove its security 
+policy; only adding more restrictions is allowed."
 
-The shell is supposed to have access to /foo/bar and everything below
-it, but at the time of creating the Landlock ruleset, it can't tell
-yet that this directory will contain an eCryptfs mount later.
+I believe you can get this protection through SELinux I was just curious 
+if the landlocked gave you that as well; SELinux can be confusing to 
+work with.
 
-Admittedly, the example is obscure, but it's strictly speaking
-supposed to work according to the Landlock documentation.  (Only the
-landlocked process can't use mount(2) any more, but other processes
-still can.)
 
-Note on the side: Even when mount.ecryptfs happens before the Landlock
-restriction, the Landlock LSM would have to traverse the existing
-mounts to see if there is an eCryptfs mount *below* /foo/bar.
+Thank you,
 
-> Doing nothing would go against the principle of least astonishment because
-> of unexpected and inconsistent behavior when using Landlock with eCryptfs.
-> Indeed, Landlock users (e.g. app developers) may not know how, where, and on
-> which kernel their sandboxed applications will run. This means that at best,
-> developers will (potentially wrongly) check if eCryptfs is available/used
-> and then disable sandboxing, and at worse the (opportunistically) sandboxed
-> apps will break (because of denied access). In any case, it goes against
-> user's interests.
+Jay
 
-I agree, I also believe that a kernel-side fix is needed.
-
-I don't think this is feasible to do in a good way in userspace, even
-if we want to resort to "falling back to doing nothing" in best effort
-mode if eCryptfs file hierarchies are affected.
-
-I have pondered these userspace approaches how to detect eCryptfs, but
-they are both lacking:
-
-* Looking for eCryptfs in /proc/mounts might not work
-  if we are layering multiple Landlock rulesets.
-
-* stat(2) also does not give away whether a file is on eCryptfs
-  (the device number is just a generic kernel internal one)
-
-Finally, it all falls apart anyway if we want to support the case
-where eCryptfs is mounted after enabling the sandbox.  (Obscure, but
-possible.)
-
-> Even if eCryptfs is marked as deprecated, it will be available for years (a
-> lot for LTS) and (legitimate) bug reports will keep coming.
-> 
-> Instead, I'd like to fix the eCryptfs inconsistent behavior (highlighted by
-> Landlock and other LSMs). I think it's worth trying the first proposed
-> solution, which might not be too difficult to implement, and will get
-> eCryptfs closer to the overlayfs semantic.
-
-+1. As you also said: I think it's important to fix it in the LTS
-releases, so that we can tell people to use Landlock without having to
-think about these corner cases.
-
-–Günther
