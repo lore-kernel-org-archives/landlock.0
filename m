@@ -1,46 +1,45 @@
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8AD619BDF
-	for <landlock@lists.linux.dev>; Tue, 27 Jun 2023 16:14:44 +0000 (UTC)
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-676f16e0bc4so1622011b3a.0
-        for <landlock@lists.linux.dev>; Tue, 27 Jun 2023 09:14:44 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2509AC2D9
+	for <landlock@lists.linux.dev>; Wed, 28 Jun 2023 15:21:00 +0000 (UTC)
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-1b80b3431d2so84315ad.1
+        for <landlock@lists.linux.dev>; Wed, 28 Jun 2023 08:21:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1687882484; x=1690474484;
-        h=content-transfer-encoding:subject:from:content-language:to
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=g6WnFLX6p7LWYlsVpAeHLXWRKM18zOLvNi4cSmub9L8=;
-        b=SQ1R98KqaOirT+L42CwOYBghYpwBZkPfKCzUwOry03k/5iQ+yBVSSo0ZTuLQjw7T3+
-         VgaF5irlF53E678xCYoSAG/l1DlB00Cw7dw9x/lSuUEN1AQt3TKuyq6UdfBgYt9rUt5y
-         PdWMcvlLU3Dz2FrpwGSWnxF7Y35UKZSyOu1tPJiY5SRUpsLHLmZZHw9e3HqeBh+b9Fac
-         xUwh8eOZgMRRa8RMfVBD4CKHFe/sj1m7nE6IDQrk1LXGWNNg8mXOIo31M8CLxUGQkqLG
-         V7CGJANkXWZbmfbAp+I92cVkq9r6GgntUkWd3OBTP4CMSgGcAgwSIzaQtKD7MWg6C4Ie
-         hKUg==
+        d=gmail.com; s=20221208; t=1687965660; x=1690557660;
+        h=content-transfer-encoding:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=uipbLliP+qXOyVyt3+YYbav3BSMc4u1+fHDEGeHaxJ0=;
+        b=anY8y3KlPgA/Mu919woFGYD9N2wxyEb1rl17hKU77oEbeMAuXxf6hm6M27Fn26iMsm
+         osC2s4GkskHnEhZJSrtyt8ietsM4M+yZ4NBSnT6A6ClZ9sV0WR4u05Zb5SDemxUczhr1
+         irbOIhibsWZWi8fx6YhOUMT0PrTtr4J2nvlzmEbr445ABiPxQNBTFGBxSuav5azt+/iU
+         I1vLpYeGF2twbG/xWcMFWihwaOWsn5FSOJHz73CVl/4KSdlW6QtQ/SxGyx78iKu+6kI8
+         JxB56ymnSF2QRapwzSdRolEmbT+9xu7XGhvC4ZLl5HojY3AlMjQVJo1q27RriIQcjW6L
+         j3Hw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1687882484; x=1690474484;
-        h=content-transfer-encoding:subject:from:content-language:to
-         :user-agent:mime-version:date:message-id:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=g6WnFLX6p7LWYlsVpAeHLXWRKM18zOLvNi4cSmub9L8=;
-        b=E6ICj5P8AxhL7gVONo8mJn6rZ8dFRf7lROr1zqKMMgibhA/nGe+bMzGDQPQn7OkxmW
-         GvGzkMBV00Vf9ufMvcli0dcu+G6LYqqjQj5qMOeqKhN+HxByuavvTVjlb08v4NYViSeo
-         qUR5T5suikf0HCOcSDjUvprhiJRE39tJuZ9dF7DAUlc4xrtqRKirhEL9kB5xYX4UInOh
-         PGzB9nbY5MQeqWHNSKQCbAq3p7fRjAqQOOiIXlfXW8n+TAM0D7pNx1ZHnimy1OKOkkZ2
-         r5Edn1fvqFBDtRqOiNJN3VMA5fdoPkHxYkt9M+qzO/yKjfI4y2vlNMAP8p82YO8fWkU2
-         88BA==
-X-Gm-Message-State: AC+VfDxhfbSqmcPY5aZdKR1h3e5HzmkzyDbDdy3PmPQ2mZkpuqh5GAdB
-	k2Pygea8cIvA8k+G6PaACTZfZOx+xoQ=
-X-Google-Smtp-Source: ACHHUZ5X+EEWJGC6rA1V2rlrZxUdB4gUAlO/OBbNNycrnS6Hf5YVs4MnlSTloydCZla+EEXmGgnyQw==
-X-Received: by 2002:a05:6a21:7885:b0:129:c38e:cdd7 with SMTP id bf5-20020a056a21788500b00129c38ecdd7mr3856911pzc.38.1687882483665;
-        Tue, 27 Jun 2023 09:14:43 -0700 (PDT)
+        d=1e100.net; s=20221208; t=1687965660; x=1690557660;
+        h=content-transfer-encoding:in-reply-to:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=uipbLliP+qXOyVyt3+YYbav3BSMc4u1+fHDEGeHaxJ0=;
+        b=bzsjNg5PD9ipT6jjJPCOyie1WvUJHSArZTBLDWxXm0aUwHhIkZIqYkASPbMsnGbesG
+         rSw73CISqXaZJR+8xmx+5hfXPogGDs4e5esxhE3XIebPGw0DQxR/eC9FMUrcVyS3GdMb
+         pYrQpJ02HDkVCnsjLvGlL9AQsES4e34QFS6vGExqGi/HP81w8wbAxQwlJmtU0AUPhEIS
+         ftx6L5/SWOHd8P/34R4U3DeV2ME6oy2AxO+2FqhtdaTGNjv97Ri9HLiyRWlNVdS4YT9S
+         5arenWds1Gm2P90LOZuubD1JJayKu8PXrSftXvxLZvXK9LcK9ECrqEZzeJCwbqX/hYxj
+         Mfmg==
+X-Gm-Message-State: AC+VfDwnSNyo1Iw/SebYrd1BqYR1mlk2MS9x1Mo6cgDHMnPq4gZItN2b
+	18W4u8vburdlsKpqPfdWLLGIGkL2WE8=
+X-Google-Smtp-Source: ACHHUZ7IoevSaC+khQHER82H7hHdKvj1NJptxKWl2Q+KfYhOo8A9dHIGt9peeh+v6B3EjX9gk3/8xA==
+X-Received: by 2002:a17:902:e883:b0:1b6:8b5b:4dd7 with SMTP id w3-20020a170902e88300b001b68b5b4dd7mr10209362plg.38.1687965660149;
+        Wed, 28 Jun 2023 08:21:00 -0700 (PDT)
 Received: from [192.168.1.180] ([50.46.170.246])
-        by smtp.gmail.com with ESMTPSA id jw21-20020a170903279500b001b80ed7b66fsm3100796plb.94.2023.06.27.09.14.42
-        for <landlock@lists.linux.dev>
+        by smtp.gmail.com with ESMTPSA id iy15-20020a170903130f00b001a69dfd918dsm2543390plb.187.2023.06.28.08.20.59
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Jun 2023 09:14:43 -0700 (PDT)
-Message-ID: <480a4459-dcfe-e5ce-bce8-6fc59cb89b9e@gmail.com>
-Date: Tue, 27 Jun 2023 09:14:42 -0700
+        Wed, 28 Jun 2023 08:20:59 -0700 (PDT)
+Message-ID: <efc094bd-97b3-62fb-09d0-1082b51bfc20@gmail.com>
+Date: Wed, 28 Jun 2023 08:20:58 -0700
 Precedence: bulk
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
@@ -49,32 +48,36 @@ List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.12.0
-To: landlock@lists.linux.dev
+Subject: Re: self protect process with landlock to getting killed
 Content-Language: en-US
+To: =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>,
+ landlock@lists.linux.dev
+References: <480a4459-dcfe-e5ce-bce8-6fc59cb89b9e@gmail.com>
+ <f2a1ac61-fc93-50d2-cccd-9485ada0b047@digikod.net>
 From: Jay Freyensee <why2jjj.linux@gmail.com>
-Subject: self protect process with landlock to getting killed
+In-Reply-To: <f2a1ac61-fc93-50d2-cccd-9485ada0b047@digikod.net>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi I had a question for someone. Is there a way to protect a landlocked 
-process from being killed by a non-landlock process?  Does that 
-protection include root protection and root not being able to kill that 
-landlocked process?
-
-What about is there a way to protect the directory the landlock process 
-sits in from being tampered/written-to by a non-landlock process?
-
-I came up with the question from reading this comment in the kernel docs:
-
-"Once a thread is landlocked, there is no way to remove its security 
-policy; only adding more restrictions is allowed."
-
-I believe you can get this protection through SELinux I was just curious 
-if the landlocked gave you that as well; SELinux can be confusing to 
-work with.
 
 
-Thank you,
+>
+>>
+>> What about is there a way to protect the directory the landlock process
+>> sits in from being tampered/written-to by a non-landlock process?
+>
+> The same principle applies: this is not possible with Landlock itself. 
+> The potential malicious processes should be sandboxed.
+>
+>
+Thanks for the response Mickael.  In this case, this would kind of be 
+like a zero-day use case, that we wouldn't know all the malicious 
+processes tampering with that process's directory up-front, we just know 
+that we wouldn't want any non-landlocked process (known and unknown) 
+tampering with the directory the landlocked process sits in.
+
+Thanks,
 
 Jay
+
 
