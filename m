@@ -1,74 +1,91 @@
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 841DD14F9C
-	for <landlock@lists.linux.dev>; Mon,  4 Dec 2023 11:55:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D401A63DF
+	for <landlock@lists.linux.dev>; Tue,  5 Dec 2023 06:09:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JVaE/E9A"
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-50be03cc8a3so3130413e87.1
-        for <landlock@lists.linux.dev>; Mon, 04 Dec 2023 03:55:59 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DGLxcZV9"
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-54ca339ae7aso2868727a12.3
+        for <landlock@lists.linux.dev>; Mon, 04 Dec 2023 22:09:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1701690957; x=1702295757; darn=lists.linux.dev;
-        h=content-transfer-encoding:to:subject:message-id:date:from
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=hS0xMudJo4aE9yIwGigy+FlEwijf7u0akAKlmPNC6eM=;
-        b=JVaE/E9A7Vgze3KVPrE9GMhHk4zkSEGi3CAzc/fUjRX3n49NC4SpExqwB757ZEW2Ui
-         2MtlNpRwHIMCeIVJZjat6yzpPd2pZEb/70hbDnEO3f/+utV2bYLWqm1LW5Bl7uFVMO1h
-         Ln5mPCwB1o3JqvzavaJFR8pldXmMD1QeASNavXxamqWILV3xjWVI/d77e4UmJ60zQ6gW
-         NP31vwQF+x+sWQESvLg0B2VKfns/Pcc5obcQnONMwItMYM64BoWVjPXHuKLKuvUR9+Uz
-         Hvs8aYU4G83aPSeWTUY5MCOf6LG5Qrgx9Ln2hXDksfALKJ+co5p27XkckC0uKg+oWOaI
-         9HcA==
+        d=gmail.com; s=20230601; t=1701756550; x=1702361350; darn=lists.linux.dev;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=cJwZKf9lPeV+36ZA+RdCyyrn7yhr0tXP2JSZv2brSg4=;
+        b=DGLxcZV9YFO2tA8i390y7epGYb9bxL7zkE0y1seznkdnsNYXbs3DllU/uxbWRAKOUt
+         ihUBdOqZHWUYqOnBTOzIYf7YDsyGVHTS8BBavDlJ8r3mXn/NmzwcX5EL9cSS4ln3S3fn
+         NvhzwQyoUPjkgWHOlf+upOHmS+hOYM2sq8MHxET17xBmF4tOq3CT/ybSCO9R/9dStZrP
+         82VWLcfHuhY/PgLhgXQxZm+9ALu9dMrP4oRfkHeeFH84zRg0ylZ8IMrzUw5pp+ZPxdXK
+         oyoVdWJtgFulcsZVo4+OJ81WmVj3LmZATQpxc6RE1XebKFGsQR55eBgx+eP+aXWNIo9J
+         TEhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701690957; x=1702295757;
-        h=content-transfer-encoding:to:subject:message-id:date:from
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=hS0xMudJo4aE9yIwGigy+FlEwijf7u0akAKlmPNC6eM=;
-        b=nP/f6h06iHX9YKSvns4R4w4E/Tzz2U/gDTreTWd2qwVQfbK06EV5ktAe85ctgSFdaj
-         xWrA5QEBNA3Ii1YcHcozRUba2MTolv3tsftcDIAl4EFhAUAskpf0CV8P3v9yZHX/aIun
-         /wGMZgQiLt3eZ1ytt1jabY1RnlcOeIOtpxpb4l3NBeDjQJEuvK5em1obd/JrKjIskylk
-         Xqd51/yKr35DR953+weya80ekN9oMIfIW7fbQk9BvEvQXFAyN38iDGpPyVEcC4Ls56JM
-         +ox818IOODAUAsDvKBIsG6ljn7GQVnRc4QuQQOFIXEEOUy7TgQyFDnV5JVMdtf7vaxBy
-         A6uA==
-X-Gm-Message-State: AOJu0YwpK5eOYmG/ReuFQmhGom940vC3TSSp7Zu37XVwoThdO65Wkvyp
-	1wLkpQ2qVQqqgXWJPt88T+QV3BSqn/mxWBpD+kyEozWw+Pc=
-X-Google-Smtp-Source: AGHT+IH5A1OYzcBM/4LWLuyA+x4g42DDJuTLOL032N8k1eXPaNKiG5wrU1hCRP+4d4LJp4i1qUBSk2Yj0yr2TleZFbs=
-X-Received: by 2002:a05:6512:6c6:b0:50a:72e6:96c7 with SMTP id
- u6-20020a05651206c600b0050a72e696c7mr3129615lff.3.1701690957099; Mon, 04 Dec
- 2023 03:55:57 -0800 (PST)
+        d=1e100.net; s=20230601; t=1701756550; x=1702361350;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=cJwZKf9lPeV+36ZA+RdCyyrn7yhr0tXP2JSZv2brSg4=;
+        b=MZ7GEyvu1McOD2OlGQnXcBWuwKNp3wyH7EXlgxgcoIb+0+9mRc6Rzmrxugp0Lmq6+Q
+         GAjsRnK+di42Fw3nmRONlkt1judllzVQmdiKCJIy4BiZExHoP4AYJXtVfziV10Ci8kfp
+         LyxV1riJFn4LM6vIbUtGLjHE94cUL7ylMs2A1LWi+AnnrZ4MYJDx5Z8rWwhFzabLg+7W
+         QoEEWE4A4+ky/nCvK+VBRvFH14zrrz8kdxx/7HZcje6AsSFVZq5TRbuDIrq7YCTiCm2K
+         2J3+Pza0b9h5viwOSvRZ+D2nh40nNpLHoawo8vQolBQH8nrmd5pcqlBEcifeNeE3L177
+         R6fg==
+X-Gm-Message-State: AOJu0Yze1ZzMTzGikGl1geMpK9rNxfa+paP1i/FSfA23nK8YrlU3qZ+e
+	KAJv50C4776W/qJi94MhDRA=
+X-Google-Smtp-Source: AGHT+IFrh4GHu8LOP5I5BpQLbT0NFENyeUGrAGO1HTytPMW9toMIiJVKsgj+VymcDYktoZ6UntZyuQ==
+X-Received: by 2002:a17:906:2a05:b0:a00:b4ab:cb6d with SMTP id j5-20020a1709062a0500b00a00b4abcb6dmr4027207eje.69.1701756549717;
+        Mon, 04 Dec 2023 22:09:09 -0800 (PST)
+Received: from localhost ([2a02:168:633b:1:9d6a:15a4:c7d1:a0f0])
+        by smtp.gmail.com with ESMTPSA id p4-20020a170906140400b00a1b61096ce6sm2847829ejc.129.2023.12.04.22.09.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 04 Dec 2023 22:09:09 -0800 (PST)
+Date: Tue, 5 Dec 2023 07:09:07 +0100
+From: =?iso-8859-1?Q?G=FCnther?= Noack <gnoack3000@gmail.com>
+To: =?iso-8859-1?Q?Vin=EDcius?= dos Santos Oliveira <vini.ipsmaker@gmail.com>
+Cc: landlock@lists.linux.dev
+Subject: Re: Landlock support landed into Emilua
+Message-ID: <20231205.2bd704a93e21@gnoack.org>
+References: <CAK9RveLxro4zUG4jfFB=UNgcv5gdc8JuzNhMt=YbNhH=35ADzg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
 List-Subscribe: <mailto:landlock+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-From: =?UTF-8?Q?Vin=C3=ADcius_dos_Santos_Oliveira?= <vini.ipsmaker@gmail.com>
-Date: Mon, 4 Dec 2023 08:55:41 -0300
-Message-ID: <CAK9RveLxro4zUG4jfFB=UNgcv5gdc8JuzNhMt=YbNhH=35ADzg@mail.gmail.com>
-Subject: Landlock support landed into Emilua
-To: landlock@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAK9RveLxro4zUG4jfFB=UNgcv5gdc8JuzNhMt=YbNhH=35ADzg@mail.gmail.com>
 
-Emilua 0.5.0 was released with Landlock support:
-https://docs.emilua.org/api/0.5/changelog.html
+Hello Vinícius,
 
-Emilua is an execution engine with support for async IO for LuaJIT. It
-allows the creation of concurrent Lua programs. It also supports
-running separate Lua VMs for extracting parallelism.
+On Mon, Dec 04, 2023 at 08:55:41AM -0300, Vinícius dos Santos Oliveira wrote:
+> Emilua 0.5.0 was released with Landlock support:
+> https://docs.emilua.org/api/0.5/changelog.html
+> 
+> Emilua is an execution engine with support for async IO for LuaJIT. It
+> allows the creation of concurrent Lua programs. It also supports
+> running separate Lua VMs for extracting parallelism.
+> 
+> Starting from the previous version, it added the ability to spawn Lua
+> VMs in their own processes isolated in their own Linux namespaces for
+> sandboxing purposes. However Linux namespaces are too convoluted and
+> it became clear how inappropriate they really are to just create
+> sandboxes.
+> 
+> Starting from the just newly released version, Landlock and Capsicum
+> were added as alternatives to Linux namespaces.
 
-Starting from the previous version, it added the ability to spawn Lua
-VMs in their own processes isolated in their own Linux namespaces for
-sandboxing purposes. However Linux namespaces are too convoluted and
-it became clear how inappropriate they really are to just create
-sandboxes.
+This looks great, thanks for sharing!
 
-Starting from the just newly released version, Landlock and Capsicum
-were added as alternatives to Linux namespaces.
+I am not very proficient in Lua, but I a appreciate your well-written
+introduction into sandboxing in your documentation (and also that you
+are quoting Xkcd 1200 ;-))
 
+Please do not hold back feedback if you run into any surprises or
+questions!
 
---=20
-Vin=C3=ADcius dos Santos Oliveira
-https://vinipsmaker.github.io/
+–Günther
