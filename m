@@ -1,166 +1,115 @@
-Received: from smtp-bc0f.mail.infomaniak.ch (smtp-bc0f.mail.infomaniak.ch [45.157.188.15])
+Received: from wfhigh5-smtp.messagingengine.com (wfhigh5-smtp.messagingengine.com [64.147.123.156])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB82C152162
-	for <landlock@lists.linux.dev>; Wed,  3 Apr 2024 16:57:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.157.188.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 667216BB50
+	for <landlock@lists.linux.dev>; Thu,  4 Apr 2024 08:04:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=64.147.123.156
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1712163436; cv=none; b=hZfWEJHr8IUK1wL0G/O+HcgvJy6yULEsVNBF1WZCvNG7pe4Ny1SKP6J962A2sIxjpdImS/mPjFej6hlVNAJrWyFPv0y8PlK1+ATor1Wqh9Fl0Y18zOH6VjM9N2QpuAkgD82+fBwg/bs70SOCrRhn4s1rio2LJR1SewmQUv1vvRg=
+	t=1712217862; cv=none; b=UbMkNZFl0tNu1+xXsLpOZFWq7N6hs/I8V+g4EKeyWSmig8OWyJM+n37hMUinOzSdz69RNp+wxVV6mVM9Zcbs+GBBWHSSb+iPp8sTzXVAtcu7N+AuDMX717dVQVP3JlxQrElETWBiSup/Q9egTzAkD+15WDm9c4RzApBFfWfRk+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1712163436; c=relaxed/simple;
-	bh=d3cKz532nHRMCZlZp/DBOe0h2rNW+rT7NsaSu8FeLk4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J3XoZJvwVBsIy9hN9ZdFmRALZS8MaHBnEf2S5bQUTWAhrUDLvrz+G7nbD3GoF/tcJRdtG5UqVFoqZSCI1z8A9bh/1mgUChiCl6MTllzcWO0s4kakVW846aQJGfTAZNz3476iTHXwtHRK3L2AxHhBE7LDptYczkg7I962ftdClG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=xCcoXFLa; arc=none smtp.client-ip=45.157.188.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+	s=arc-20240116; t=1712217862; c=relaxed/simple;
+	bh=S5fSTUeKo8DYNl8WUFVRCdNukQNI+l4L+Sdnog4lHRg=;
+	h=MIME-Version:Message-Id:In-Reply-To:References:Date:From:To:Cc:
+	 Subject:Content-Type; b=a3X2wolx1oLvSPMJOGghvTvPzV/vnmvqt1V/3j87l//b54i3muFVOfuGYEK5+glZo0I1D0gU7WqBDLnPg1b6wyYHbdds0JHRzV7YxBhqeKc0Hc2XOYa5G7ZCcl4tIghU7VKndnmMdIo1iHADsuM4mhSvUU955KkIOSpmV5vwwnw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=supakeen.com; spf=pass smtp.mailfrom=supakeen.com; dkim=pass (2048-bit key) header.d=supakeen.com header.i=@supakeen.com header.b=O6lkFlwT; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=txyx1sYI; arc=none smtp.client-ip=64.147.123.156
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=supakeen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=supakeen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="xCcoXFLa"
-Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch [10.4.36.108])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4V8rWl2pR4zPZT;
-	Wed,  3 Apr 2024 18:57:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=digikod.net;
-	s=20191114; t=1712163427;
-	bh=d3cKz532nHRMCZlZp/DBOe0h2rNW+rT7NsaSu8FeLk4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=xCcoXFLaOKNrAk+Udo5TksruXbC83kE8sJt4ASymGR1PdtjRCv5PZVUhmjZKR8x3Q
-	 0dj66gjLWRjtHwG9a63GNgivwsBV90RSc3dORzzRSpkpES/SWEJjoMOXPBktgD8MHa
-	 WBvMj1vjq17RsilHtu/YjAKAK12MS1OmUPAQVcdQ=
-Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4V8rWl04wCzXM9;
-	Wed,  3 Apr 2024 18:57:06 +0200 (CEST)
-Date: Wed, 3 Apr 2024 18:57:06 +0200
-From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-To: Vitaly Chikunov <vt@altlinux.org>
-Cc: landlock@lists.linux.dev
-Subject: Re: R/O protection for lower level dirs
-Message-ID: <20240403.Taip4yae2ohn@digikod.net>
-References: <20240401160614.32py2wrijdp5yots@altlinux.org>
- <20240402.quaQuieyohd9@digikod.net>
- <20240403152043.fc5gpqu2ghlahyyj@altlinux.org>
+	dkim=pass (2048-bit key) header.d=supakeen.com header.i=@supakeen.com header.b="O6lkFlwT";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="txyx1sYI"
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+	by mailfhigh.west.internal (Postfix) with ESMTP id 21CA118000B0;
+	Thu,  4 Apr 2024 04:04:19 -0400 (EDT)
+Received: from imap44 ([10.202.2.94])
+  by compute1.internal (MEProxy); Thu, 04 Apr 2024 04:04:19 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=supakeen.com; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1712217858;
+	 x=1712304258; bh=S5fSTUeKo8DYNl8WUFVRCdNukQNI+l4L+Sdnog4lHRg=; b=
+	O6lkFlwT3Pwt/fnFPnxhvLJegfoTV6cxAyRrE0us5FdvZRzq56fR2Hqfir7rtmkx
+	FRn4+Zh1Rb+NGI6OuX9qkqOTmrhHonwJyFwcvb65iRtCIM6EIFphGXQuUKFKuJrd
+	c6R3Iv7/PPsl9VQ9YowagVeGmOtSjVxewibUTkID+wIYiUKYxnTwUaUX9isqCg6H
+	SuafAOk/M8V0/nTfYoOagDQFiA3zP8MlVZNfM7aatt3NZ4HI7E6N0Zx3PpilF+vX
+	bZC4UQgJ8mLkKh81surnTOdJw0PRZT8zlyJC28TrqsgyAlsGK4Gdd3CY+BmMHdoX
+	p+7QqC06p5cL5Khe4WdrEw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1712217858; x=
+	1712304258; bh=S5fSTUeKo8DYNl8WUFVRCdNukQNI+l4L+Sdnog4lHRg=; b=t
+	xyx1sYIQ/ETNsTRXalE5/T3kbIEOawHatlhIYR1lbuhNqxE+gIgBnQcoq9HMdMwa
+	/370xgplWrfAp3OW+zl9fUNZgbJGN3Ay5ZI31i02roXXtx17NunJk+VEbdILP4s0
+	/mxuHkFPod/9Y3yoxKtzx+HlfGkzt06HDkTnQhDRTWWYm/WTmJ3L1MpeKoBgaYOK
+	WOfLJUvfIFHDgbriJnuYMEZsVNH0nSe/65QZCWpXGWom5NWD5q/HgyHeg/RmtVk9
+	lcABTeI12OydXPH13tgSld9CYJIyiJ6HZaTyQuNESQ67iR+bEYqrv6BiltC4W18f
+	K8aCRU1zwejGDh+pucUAg==
+X-ME-Sender: <xms:Al8OZkpg2Xgth50DzUY4W7IP1hz1uoLtNaVkvpc-i8S9zcFnrdqeWw>
+    <xme:Al8OZqqXPvmAqlttS3Woo-OGRzLXsPg_Sk5YjNnbnUzoctyOxri_hgeoYtq48ms_S
+    P8KGVL57bB-P1yvfQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrudefkecutefuodetggdotefrodftvfcurf
+    hrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecuuegr
+    ihhlohhuthemuceftddtnecunecujfgurhepofgfggfkjghffffhvfevufgtgfesthhqre
+    dtreerjeenucfhrhhomhepfdfuihhmohhnucguvgcugghlihgvghgvrhdfuceotghmughr
+    sehsuhhprghkvggvnhdrtghomheqnecuggftrfgrthhtvghrnhepkefhhfejgeefvdegue
+    evkeevuefgleduiefgveelhfejhfffffeukedvueeitdeknecuvehluhhsthgvrhfuihii
+    vgeptdenucfrrghrrghmpehmrghilhhfrhhomheptghmughrsehsuhhprghkvggvnhdrtg
+    homh
+X-ME-Proxy: <xmx:Al8OZpOnAZDzxWGLtLf8LaiRquE1teNgR7v3W3O4oxlJmIpU8v6ERA>
+    <xmx:Al8OZr7XqQeUR7MSuLaorAG0IAgs0i4KxfGUJyhvIBisA3EKUn8uYw>
+    <xmx:Al8OZj5Ukb6aa9W8Tc7Zcz8SUnfgnbj-8UbMhgpZ9Lu7muVRwz52Ww>
+    <xmx:Al8OZrgun6O_YdvizIMNuBqDmkZL_p5qwEcJx4aVJAyMeHkfk9Y7-A>
+    <xmx:Al8OZlmzyeNCdEKEX9K658nLxBhuHOAjiMAig1gsaNNxNaMxSfHLyaOh>
+Feedback-ID: i11d94492:Fastmail
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+	id 1620D36A0079; Thu,  4 Apr 2024 04:04:18 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.11.0-alpha0-333-gbfea15422e-fm-20240327.001-gbfea1542
 Precedence: bulk
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
 List-Subscribe: <mailto:landlock+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+Message-Id: <b48e2839-cfa9-4a42-a54f-2f5f03687fc6@app.fastmail.com>
 In-Reply-To: <20240403152043.fc5gpqu2ghlahyyj@altlinux.org>
-X-Infomaniak-Routing: alpha
+References: <20240401160614.32py2wrijdp5yots@altlinux.org>
+ <20240402.quaQuieyohd9@digikod.net>
+ <20240403152043.fc5gpqu2ghlahyyj@altlinux.org>
+Date: Thu, 04 Apr 2024 10:03:57 +0200
+From: "Simon de Vlieger" <cmdr@supakeen.com>
+To: "Vitaly Chikunov" <vt@altlinux.org>,
+ =?UTF-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+Cc: landlock@lists.linux.dev
+Subject: Re: R/O protection for lower level dirs
+Content-Type: text/plain;charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Apr 03, 2024 at 06:20:43PM +0300, Vitaly Chikunov wrote:
-> Mickaël,
-> 
-> On Tue, Apr 02, 2024 at 11:11:39AM +0200, Mickaël Salaün wrote:
-> > On Mon, Apr 01, 2024 at 07:06:14PM +0300, Vitaly Chikunov wrote:
-> > > 
-> > > I want to ensure that some deeper directory is write protected (as a non
-> > > security measure but so that some post-install processing do not
-> > > accidentally touch installed files).  Is there a way to achieve this
-> > > with Landlock?
-> > 
-> > Landlock follows a deny-by-default policy, which is a good practice for
-> > access control.  In your example, you'll need to identify the set of
-> > file hierarchies that should be legitimately allowed, and set the
-> > appropriate access rights on them, not the other way around.
-> > 
-> > > 
-> > > For example, if we do R/W access to / (root tree is already protected
-> > > enough with DAC) and then R/O access to /home we still get full R/W access
-> > > everywhere and /home seems not restricted. Also, Landlock does not warn for
-> > > such configuration, silently accepting it as valid.
-> > > 
-> > > Practical example:
-> > > 
-> > >   ~$ LL_FS_RW=/ LL_FS_RO=/home sandboxer touch a
-> > >   Executing the sandboxed command...
-> > >   ~$ ls -l a
-> > >   -rw-r--r-- 1 vt vt 0 Apr  1 15:53 a
-> > 
-> > Because there may have several ways to reach a file (e.g. hard links,
-> > bind mounts), it would be difficult to get, remember, and track all the
-> > related parent file hierarchies.
-> > 
-> > Landlock ties (ephemeral) permissions to inodes, which means that one
-> > inode with enough rights in the file hierarchy is enough to grant access
-> > for such rights to the files beneath it.  This is checked when accessing
-> > a file, which makes security policies light and flexible (e.g. handles
-> > file renaming, linking, and bind mounting).
-> > 
-> > In your example, / grants read-write access to all files beneath it, and
-> > /home grants read access to all files beneath it.  When user space
-> > request to write to /home/foo, / grants write permission.
-> > 
-> > This configuration is then valid, and it makes sure that the security
-> > policy doesn't break user space because of unknown directories nesting
-> > (e.g. setting different access rights on $HOME and $TMPDIR, for which
-> > developers don't have a way to know which one is beneath the other).
-> > 
-> > For your use case, you'd need to have different file hierarchies and tie
-> > them with specific permissions.  For instance, you could have /usr,
-> > /var/tmp/pkg/postinst, /tmp, /etc .  Keep in mind that you can also
-> > create nested sandboxes or run different stages of the package
-> > installation in dedicated sandboxes (e.g. one for the install step with
-> > access to /usr in read-write, another for the post installation with
-> > access to /var/tmp/pkg/postinst in read-write and /usr in read).
-> > 
-> > Nicolas is working on a complementary way that would ease sandboxing for
-> > some use cases: https://github.com/landlock-lsm/linux/issues/28
-> > This will help users to quickly sandbox their application instances but
-> > application developers should already be able to implement a more secure
-> > deny-by-default policy without this feature.
-> 
-> Thanks for the answer.
-> 
-> Looks like it's currently impossible to create more restricted hierarchy
-> inside of less restricted. I think this isn't consequence of 'deny by
-> default' approach but sort of additivity of allowed permissions.
-> Positive permissions of wider hierarchy will be added to more
-> restrictive sub-hierarchy and supersede them.
+Hey Vitaly,
 
-Correct for the same ruleset.
+On Wed, Apr 3, 2024, at 5:20 PM, Vitaly Chikunov wrote:
 
-All rules in the same ruleset are ORed whatever their file hierarchy,
-but nested sandboxes (i.e. sequential calls to landlock_restrict_self())
-can only add more restrictions in relation to their parent sandboxes.
-
-> 
 > To add more detail, what I tried to achieve: rpmbuild installs into so
 > called 'buildroot', which is (for ALT) '/usr/src/tmp/name-buildroot'
-> directory inside of '/usr/src/tmp' TMPDIR (and '/usr/src' is a HONE). When
+> directory inside of '/usr/src/tmp' TMPDIR (and '/usr/src' is a HONE). =
+When
 > %check section is performed some scripts may inadvertently modify
-> buildroot content which I thought to block. But because TMPDIR should be
+> buildroot content which I thought to block. But because TMPDIR should =
+be
 > unrestricted (and / and HOME are not need to be restricted) it is not
 > possible by any means to restrict buildroot.
 
-The issue is that tmp is nested in src (and of course everything is
-nested in /).  What about using different file hierarchies like this:
-* /usr/pkg/src
-* /usr/pkg/tmp
-* /usr/pkg/root (which would be a bind mount of /, if this is really
-  needed)
+As Micka=C3=ABl mentions this can be achieved by re-arranging the direct=
+ory
+structure. However I'd like to point out a second option (which doesn't
+directly involve landlock) and that is to create a new overlay between
+`%build` and `%check` which you throw away again before `%install`.
 
-I'm wondering why buildroot needs access to / though.  Could we identify
-which resources it really needs?
+Any inadvertent changes during `%check` would then be irrelevant for the
+`%install` section.
 
-> 
-> It is not possible, for example, to permit R/W to all existing entities
-> of TMPDIR excluding 'name-buildroot', because in that case TMPDIR itself
-> should have R/O permissions (it's needed to not supersede
-> name-buildroot) and this will defy TMPDIR purpose.
+Regards,
 
-What about creating dedicated directories beneath TMPDIR?
-
-> 
-> That work of Nicolas looks promising for the goal I wanted to achieve
-> and overall Landlock flexibility.
-> 
-> Thanks,
-> 
-> 
-> > 
-> > > 
-> > > Thanks,
-> > > 
-> 
+Simon
