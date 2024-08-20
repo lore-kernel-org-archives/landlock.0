@@ -1,135 +1,258 @@
-Received: from smtp-190d.mail.infomaniak.ch (smtp-190d.mail.infomaniak.ch [185.125.25.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D1B227735
-	for <landlock@lists.linux.dev>; Sat, 17 Aug 2024 16:15:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.25.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F6E619148F
+	for <landlock@lists.linux.dev>; Tue, 20 Aug 2024 12:16:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1723911325; cv=none; b=d4XqidePdKsQRWQ87RNzxG/zQOvk3FGKtMeunjJAutlNKHTINlRWiwa3cMJBDFeYq4bhe5SVBUO0wZrgPEx7lwXuV9M5BNZGIbuoQuR3ZoBDXtZaEf7YOxOuJGmgv5ZNMMZVqUHen1SEc4PqqQdfXBji6VDapiauh5+ALwsbZrM=
+	t=1724156163; cv=none; b=LjqiDRSyiSKp4fjpD8w0TaG+XmOrIbhcKvC6o7qgn7xqTQ0ePQM562JgId1rmsifD6qS21XettvNGTGtPG4Z4mfsqRT077vvlMKOZ6/8Cz0VCtXr+8A73ceRsGEyDNMtmHy4votGrSURsiz/1zspsJ1OrB8aD+9Qik6demTOeUg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1723911325; c=relaxed/simple;
-	bh=4wS9wZSgmNqpZU3hiXgfvkGGfmC4w3gRWJqw8PfIWrU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aUPhsPPgJBjX8OkzJwV339KEw3eaodf+fU1WNYG3YyvTZLAp3LvIZXk4M70YLV2G/sMLwRL41TOamn359ec7bE/Y3Hxv5ACGYEiSE0RRH1SLZmm1m8eW5luXXzTtBJYz23/+/VUT4XGeQcRxO5aK8oxDnkvFHjbt+PMIHm23ckQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=Xoc11i2p; arc=none smtp.client-ip=185.125.25.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+	s=arc-20240116; t=1724156163; c=relaxed/simple;
+	bh=xGci0JkBAPgPovJhlPSivfoL8yR0prS7zmPbagrtdBQ=;
+	h=Message-ID:Date:MIME-Version:Subject:References:To:From:
+	 In-Reply-To:Content-Type; b=M3OvJgOIk9J7yzkqqTaOqA1w8fPF9Z42Vf11Wk+EevjpCoSPbgr78nPaIAad2fqa1T/M6/9YKrPdW7G/ftk78J7U9W6xuuq8AlfNhakjK/C5rasXKe4lRQOHcFoSlIuL1PR+7wkkqIRrZj0zqM+WCzAEx+ZKuBwUweDVh9g/gCk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=UnviJ2VU; arc=none smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="Xoc11i2p"
-Received: from smtp-4-0001.mail.infomaniak.ch (smtp-4-0001.mail.infomaniak.ch [10.7.10.108])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4WmNkj0BVszS9L;
-	Sat, 17 Aug 2024 17:56:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1723910172;
-	bh=FW4Rtyh8r6fKpJGsz9C2GsN1N9DDm5fwxdou/Sd1Gf8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Xoc11i2p2N434ckky24HXkjOzqrVWYsNNl5e/7melw7Ro1aP476Sm1bITVRumqhfL
-	 sZLHDOL20OjWkUdxoKsqIKvVDpcRdAFIuR0gTMTk19niDAGcyr9bfhiW+gQ89jL/7V
-	 HeA9Gfz4c8lH7sRgQx5/Zwf+juHaVqA2gpCjb1/c=
-Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4WmNkh27S2z9Yt;
-	Sat, 17 Aug 2024 17:56:12 +0200 (CEST)
-Date: Sat, 17 Aug 2024 17:56:11 +0200
-From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-To: landlock@lists.linux.dev, oss-security@lists.openwall.com
-Cc: Jann Horn <jannh@google.com>, 
-	=?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>, Paul Moore <paul@paul-moore.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-security-module@vger.kernel.org
-Subject: Landlock Houdini fix: CVE-2024-42318
-Message-ID: <20240817.shahka3Ee1iy@digikod.net>
-References: <2024081754-CVE-2024-42318-f0c9@gregkh>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="UnviJ2VU"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-a7ac469e4c4so932933066b.0
+        for <landlock@lists.linux.dev>; Tue, 20 Aug 2024 05:16:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1724156159; x=1724760959; darn=lists.linux.dev;
+        h=content-transfer-encoding:in-reply-to:from:to:content-language
+         :references:subject:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=QmtMO3Pqt7/Bm9NdQ+bfR3hrywpEbeY5Rx4A3CVX1G8=;
+        b=UnviJ2VU3K68wm8+3h6GIbM/er0Ju9ij0HtyzAAOj4KvueBKqYV2QYfXJ5tNBMi1FO
+         dl3M6DxREGe3yyGaRCVI723KLq1atrpDiDOaEGdByd/nMNaigUzv/PAO0PqhfKnBqsZM
+         rvhb6OK9hTc9mZZR4O2gVFSfiVWurnGyzu10Dtvvm5MbPG7lBmU4PtapeUlWZCq+11hC
+         QcuUQglq2FG94u5AvJ1C8wcYAy2/XjIztt7lLy8PAvMXrYUAc70xJ3V9gidsxl/h9TOW
+         YA1sXuPRQr3QHGAbKtr/uuLOwcfgqN1y0dI68c6hj7rKw1AjruhqtlDAQzj2cc4To5uW
+         ZEJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1724156159; x=1724760959;
+        h=content-transfer-encoding:in-reply-to:from:to:content-language
+         :references:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=QmtMO3Pqt7/Bm9NdQ+bfR3hrywpEbeY5Rx4A3CVX1G8=;
+        b=kUwP9F8AshjvQdTCiip60hSPa83s1Nmf8JJ3FZTca1diGeii/5lbYjE5YsGmo765zH
+         WsLykDJERRXxgki57Qeh0jVGkiQG4pUKp12p2Sdso9zZ82iY24413hoZzH88MhzOwSq+
+         gwEF9B9r8lLz3CIn4fbBl3A34cVQa8DEp0snOX5UAugWKkhtruecc38aFg+Tw/TWALuC
+         fg4qnex/0KYd+03eILSVlN9OoE7tVESzOOREorO5XrhAT/5bGs01d9IdvhqByWrrMVkN
+         tQT0IvUBGixkR2YViaD3msRlTCKQnwu8Zc3LqqxRTqGGj3VNysw1AIkkOkVb1aaLcNTH
+         6rWg==
+X-Gm-Message-State: AOJu0Yx9RC7CyZZNNUrbkGj4DtwZAy0PbfN3brNGdLOCJ3Z75qo7SQ3c
+	rM/syD0dK068DNiwyaGYXCxYNkBTk/bArijjHAjgxeryJ41GgXp3KU3w5gbHw5LTZm6U6vGOzAt
+	9o4duMw==
+X-Google-Smtp-Source: AGHT+IFBuaBkQ+oXfOqE8QCw4dei3USItblKdoXWobQR8P93+hw/LXfwltHzO0XAdNrIhbs2A9xflA==
+X-Received: by 2002:a17:906:c111:b0:a6f:e7a0:91cf with SMTP id a640c23a62f3a-a8643ffb8e5mr262777566b.24.1724156158105;
+        Tue, 20 Aug 2024 05:15:58 -0700 (PDT)
+Received: from [10.232.133.86] ([88.128.88.174])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-a83838cfb18sm757580066b.60.2024.08.20.05.15.57
+        for <landlock@lists.linux.dev>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Aug 2024 05:15:57 -0700 (PDT)
+Message-ID: <6e5b9e52-8db1-47d6-b288-0e34a3c0224d@suse.com>
+Date: Tue, 20 Aug 2024 14:15:57 +0200
 Precedence: bulk
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
 List-Subscribe: <mailto:landlock+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <2024081754-CVE-2024-42318-f0c9@gregkh>
-X-Infomaniak-Routing: alpha
+User-Agent: Mozilla Thunderbird
+Subject: Fwd: [PATCH] Add landlock07 test
+References: <20240820-landlock_houdini-v1-1-ff3bffc93eaa@suse.com>
+Content-Language: en-US
+To: landlock@lists.linux.dev
+From: Andrea Cervesato <andrea.cervesato@suse.com>
+In-Reply-To: <20240820-landlock_houdini-v1-1-ff3bffc93eaa@suse.com>
+X-Forwarded-Message-Id: <20240820-landlock_houdini-v1-1-ff3bffc93eaa@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi,
+FYI
 
-On July 24, Jann Horn reported [1] a security issue in Landlock [2].  He
-provided a fix and a proof of concept.  Many thanks for all this work!
-He discovered a logical bug that makes it possible for a process to
-escape its sandbox and bypass any Landlock restrictions.  This is due to
-a missing LSM hook implementation for the special case of keyctl(2)'s
-KEYCTL_SESSION_TO_PARENT.  This issue is now identified as
-CVE-2024-42318 [2].
 
-[1] https://bugs.chromium.org/p/project-zero/issues/detail?id=2566
-[2] https://landlock.io/
-[3] https://cve.org/CVERecord/?id=CVE-2024-42318
 
-The issue was fixed a few hours later [4] and we developed a dedicated
-test [5] to make sure the fix works as expected and that the issue never
-happens again. This was merged in Linux 6.11-rc1 [6] published July 28.
+-------- Forwarded Message --------
+Subject: 	[PATCH] Add landlock07 test
+Date: 	Tue, 20 Aug 2024 14:09:31 +0200
+From: 	Andrea Cervesato <andrea.cervesato@suse.de>
+To: 	ltp@lists.linux.it
+CC: 	Andrea Cervesato <andrea.cervesato@suse.com>
 
-[4] https://git.kernel.org/torvalds/c/39705a6c29f8a2b93cf5b99528a55366c50014d1
-[5] https://git.kernel.org/torvalds/c/cc374782b6ca0fd634482391da977542443d3368
-[6] https://git.kernel.org/torvalds/c/86b405ad8d0d2994a7ffbacb8fcf83be8afb952c
 
-The fix has also been backported to:
-- Linux 6.10.3 (released on August 3)
-- Linux 6.6.44 (released on August 3)
-- Linux 6.1.103 (released on August 3)
-- Linux 5.15.165 (will be released in a few days, but in the meantime
-  you can cherry-pick
-  https://git.kernel.org/stable/c/0d74fd54db0bd0c0c224bef0da8fc95ea9c9f36c)
 
-This vulnerability only impacts sandboxing put in place by Landlock, but
-the kernel is not at risk, nor system services.  The impact is limited
-thanks to the stackable LSM infrastructure.
+From: Andrea Cervesato <andrea.cervesato@suse.com>
 
-To fix this vulnerability, only the kernel needs to be updated, not the
-sandboxed programs which will automatically be well-sandboxed with an
-up-to-date kernel.  Sandboxing with Landlock is really an investment to
-leverage current and future Landlock features.
+This test is a reproducer for the CVE-2024-42318 bug, also known as
+landlock Houdini.
 
-To exploit this vulnerability, an attacker needs to have full code
-execution including the ability to perform arbitrary syscalls,
-especially keyctl(2).  Complementary security mechanisms can be put in
-place to avoid arbitrary code execution or arbitrary syscalls (e.g.
-with seccomp filters).
+More information at:
+https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-42318
 
-To test the fix, here are simple steps to run on an up-to-date kernel
-source tree (Linux 6.6.44 to run these tests with an unprivileged user):
-  make alldefconfig
-  make TARGETS=landlock kselftest-install
-  ./tools/testing/selftests/kselftest_install/landlock/base_test
-  # The global.cred_transfer test should pass.
+Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
+---
+More information at:
+https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-42318
+---
+runtest/syscalls | 1 +
+testcases/kernel/syscalls/landlock/.gitignore | 1 +
+testcases/kernel/syscalls/landlock/landlock07.c | 114 
+++++++++++++++++++++++++
+3 files changed, 116 insertions(+)
 
-Landlock is a defense-in-depth security mechanism.  Even if it is
-already useful to protect users and applications, it should not be the
-only security layer for the system, mainly because it is not a full
-feature access control system yet.  As explained in the documentation
-[7], some actions may not be restricted yet, which may also be the case
-for other security modules.  We are working to extend the access control
-types [8], but it takes time and resources to build a new unprivileged
-access control system properly handling Linux specificities.
+diff --git a/runtest/syscalls b/runtest/syscalls
+index fea0c9828..a9fc8c432 100644
+--- a/runtest/syscalls
++++ b/runtest/syscalls
+@@ -706,6 +706,7 @@ landlock03 landlock03
+landlock04 landlock04
+landlock05 landlock05
+landlock06 landlock06
++landlock07 landlock07
+lchown01 lchown01
+lchown01_16 lchown01_16
+diff --git a/testcases/kernel/syscalls/landlock/.gitignore 
+b/testcases/kernel/syscalls/landlock/.gitignore
+index 315ac1dca..db11bff2f 100644
+--- a/testcases/kernel/syscalls/landlock/.gitignore
++++ b/testcases/kernel/syscalls/landlock/.gitignore
+@@ -5,3 +5,4 @@ landlock03
+landlock04
+landlock05
+landlock06
++landlock07
+diff --git a/testcases/kernel/syscalls/landlock/landlock07.c 
+b/testcases/kernel/syscalls/landlock/landlock07.c
+new file mode 100644
+index 000000000..f82442329
+--- /dev/null
++++ b/testcases/kernel/syscalls/landlock/landlock07.c
+@@ -0,0 +1,114 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Copyright (C) 2024 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
++ */
++
++/**
++ * [Description]
++ *
++ * CVE-2024-42318
++ *
++ * Test to check if sysem is affected by Landlock Houdini bug:
++ * https://www.suse.com/security/cve/CVE-2024-42318.html
++ *
++ * Kernel bug fixed in:
++ *
++ * commit 39705a6c29f8a2b93cf5b99528a55366c50014d1
++ * Author: Jann Horn <jannh@google.com>
++ * Date: Wed Jul 24 14:49:01 2024 +0200
++ *
++ * landlock: Don't lose track of restrictions on cred_transfer
++ */
++
++#include "tst_test.h"
++#include "lapi/prctl.h"
++#include "lapi/keyctl.h"
++#include "lapi/landlock.h"
++#include "tst_test_macros.h"
++
++static struct landlock_ruleset_attr *ruleset_attr;
++static int ruleset_fd;
++
++static void create_keyring(const int operation)
++{
++ TEST(keyctl(operation, NULL, 0, 0, 0));
++ if (TST_RET == -1)
++ tst_brk(TERRNO | TBROK, "keyctl() failed");
++}
++
++static pid_t spawn_houdini(void)
++{
++ pid_t pid;
++
++ create_keyring(KEYCTL_JOIN_SESSION_KEYRING);
++
++ pid = SAFE_FORK();
++ if (!pid) {
++ create_keyring(KEYCTL_JOIN_SESSION_KEYRING);
++ create_keyring(KEYCTL_SESSION_TO_PARENT);
++ exit(0);
++ }
++
++ return pid;
++}
++
++static void run(void)
++{
++ pid_t pid_houdini;
++
++ if (SAFE_FORK())
++ return;
++
++ SAFE_PRCTL(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0);
++ SAFE_LANDLOCK_RESTRICT_SELF(ruleset_fd, 0);
++
++ TST_EXP_FAIL(open("/dev/null", O_WRONLY), EACCES);
++ if (TST_RET != -1) {
++ SAFE_CLOSE(TST_RET);
++ return;
++ }
++
++ pid_houdini = spawn_houdini();
++ SAFE_WAITPID(pid_houdini, NULL, 0);
++
++ TST_EXP_FAIL(open("/dev/null", O_WRONLY), EACCES);
++ if (TST_RET != -1)
++ SAFE_CLOSE(TST_RET);
++
++ exit(0);
++}
++
++static void setup(void)
++{
++ ruleset_attr->handled_access_fs = LANDLOCK_ACCESS_FS_WRITE_FILE;
++ ruleset_fd = SAFE_LANDLOCK_CREATE_RULESET(
++ ruleset_attr,
++ sizeof(struct landlock_ruleset_attr),
++ 0);
++}
++
++static void cleanup(void)
++{
++ if (ruleset_fd != -1)
++ SAFE_CLOSE(ruleset_fd);
++}
++
++static struct tst_test test = {
++ .test_all = run,
++ .setup = setup,
++ .cleanup = cleanup,
++ .forks_child = 1,
++ .bufs = (struct tst_buffers []) {
++ {&ruleset_attr, .size = sizeof(struct landlock_ruleset_attr)},
++ {},
++ },
++ .caps = (struct tst_cap []) {
++ TST_CAP(TST_CAP_REQ, CAP_SYS_ADMIN),
++ {}
++ },
++ .tags = (const struct tst_tag[]) {
++ {"linux-git", "39705a6c29f8"},
++ {"CVE", "2024-42318"},
++ {}
++ }
++};
 
-[7] https://docs.kernel.org/userspace-api/landlock.html#filesystem-flags
-[8] https://github.com/orgs/landlock-lsm/projects/1
+---
+base-commit: c02d8ddc5f9d312ca5c384317141e213412a5c42
+change-id: 20240820-landlock_houdini-f244f52e87c3
 
-Looking at the other side, it is interesting to note that Landlock can
-also limit the impact of similar potential vulnerabilities affecting
-other access control systems.
+Best regards,
 
-This issue also started a discussion to improve (or remove) the
-KEYCTL_SESSION_TO_PARENT special case [9].
+-- 
+Andrea Cervesato <andrea.cervesato@suse.com>
 
-[9] https://lore.kernel.org/r/20240805-remove-cred-transfer-v2-0-a2aa1d45e6b8@google.com
-
-We are two official reviewers for Landlock, but contributors and other
-reviewers such as Jann (who previously reviewed the initial Landlock
-code) also work on making changes as safe and secure as possible.  The
-Linux kernel needs more eyes, time, and experts to proactively find
-these kind of issues.  If you are interested, reward programs [10] may
-help.
-
-[10] https://alpha-omega.dev/
-
-Regards,
- Mickaël
