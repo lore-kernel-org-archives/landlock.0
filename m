@@ -1,258 +1,145 @@
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F6E619148F
-	for <landlock@lists.linux.dev>; Tue, 20 Aug 2024 12:16:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7099E3F9C5
+	for <landlock@lists.linux.dev>; Wed, 21 Aug 2024 12:04:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1724156163; cv=none; b=LjqiDRSyiSKp4fjpD8w0TaG+XmOrIbhcKvC6o7qgn7xqTQ0ePQM562JgId1rmsifD6qS21XettvNGTGtPG4Z4mfsqRT077vvlMKOZ6/8Cz0VCtXr+8A73ceRsGEyDNMtmHy4votGrSURsiz/1zspsJ1OrB8aD+9Qik6demTOeUg=
+	t=1724241877; cv=none; b=dJMwqGtyVKIFz6nHRRFrMUi6m4RUgv/kKxkVIRJBkQEwsKt7yrESXw5izT+Op7B2MRJRVCajmRnXs6qVmzsJksmcvU/MyQlSgjDz8Grg5Jvy00QQnp8mLfU8nbYkWrIxDxPK3v8AwAKfaVgXsbBgMRHOzfgy7maWwDWX0G9jIlM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1724156163; c=relaxed/simple;
-	bh=xGci0JkBAPgPovJhlPSivfoL8yR0prS7zmPbagrtdBQ=;
-	h=Message-ID:Date:MIME-Version:Subject:References:To:From:
-	 In-Reply-To:Content-Type; b=M3OvJgOIk9J7yzkqqTaOqA1w8fPF9Z42Vf11Wk+EevjpCoSPbgr78nPaIAad2fqa1T/M6/9YKrPdW7G/ftk78J7U9W6xuuq8AlfNhakjK/C5rasXKe4lRQOHcFoSlIuL1PR+7wkkqIRrZj0zqM+WCzAEx+ZKuBwUweDVh9g/gCk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=UnviJ2VU; arc=none smtp.client-ip=209.85.218.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1724241877; c=relaxed/simple;
+	bh=G4sAW2IMgEBA54U81GyIUcqqlRJfUo5l5jbUjqBEZf4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=LhxOpOWiyQTrCbFwpPO4wVsOzRS+024e3qSol9ZQd/GpgGixZhUsZkLCiQ3D2/WAb/qhUyqJCl9kead38oow51uaODkLqETPCADyaJ9WFQyCY9FDr7cTlziozir+77qwsLF7VJKVyl+D8opvYlmhfKXC5T2mxwF1xIVm4BPBSQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Tlj2X5L3; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Qw4L1B+c; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Tlj2X5L3; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Qw4L1B+c; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="UnviJ2VU"
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-a7ac469e4c4so932933066b.0
-        for <landlock@lists.linux.dev>; Tue, 20 Aug 2024 05:16:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1724156159; x=1724760959; darn=lists.linux.dev;
-        h=content-transfer-encoding:in-reply-to:from:to:content-language
-         :references:subject:user-agent:mime-version:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=QmtMO3Pqt7/Bm9NdQ+bfR3hrywpEbeY5Rx4A3CVX1G8=;
-        b=UnviJ2VU3K68wm8+3h6GIbM/er0Ju9ij0HtyzAAOj4KvueBKqYV2QYfXJ5tNBMi1FO
-         dl3M6DxREGe3yyGaRCVI723KLq1atrpDiDOaEGdByd/nMNaigUzv/PAO0PqhfKnBqsZM
-         rvhb6OK9hTc9mZZR4O2gVFSfiVWurnGyzu10Dtvvm5MbPG7lBmU4PtapeUlWZCq+11hC
-         QcuUQglq2FG94u5AvJ1C8wcYAy2/XjIztt7lLy8PAvMXrYUAc70xJ3V9gidsxl/h9TOW
-         YA1sXuPRQr3QHGAbKtr/uuLOwcfgqN1y0dI68c6hj7rKw1AjruhqtlDAQzj2cc4To5uW
-         ZEJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1724156159; x=1724760959;
-        h=content-transfer-encoding:in-reply-to:from:to:content-language
-         :references:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=QmtMO3Pqt7/Bm9NdQ+bfR3hrywpEbeY5Rx4A3CVX1G8=;
-        b=kUwP9F8AshjvQdTCiip60hSPa83s1Nmf8JJ3FZTca1diGeii/5lbYjE5YsGmo765zH
-         WsLykDJERRXxgki57Qeh0jVGkiQG4pUKp12p2Sdso9zZ82iY24413hoZzH88MhzOwSq+
-         gwEF9B9r8lLz3CIn4fbBl3A34cVQa8DEp0snOX5UAugWKkhtruecc38aFg+Tw/TWALuC
-         fg4qnex/0KYd+03eILSVlN9OoE7tVESzOOREorO5XrhAT/5bGs01d9IdvhqByWrrMVkN
-         tQT0IvUBGixkR2YViaD3msRlTCKQnwu8Zc3LqqxRTqGGj3VNysw1AIkkOkVb1aaLcNTH
-         6rWg==
-X-Gm-Message-State: AOJu0Yx9RC7CyZZNNUrbkGj4DtwZAy0PbfN3brNGdLOCJ3Z75qo7SQ3c
-	rM/syD0dK068DNiwyaGYXCxYNkBTk/bArijjHAjgxeryJ41GgXp3KU3w5gbHw5LTZm6U6vGOzAt
-	9o4duMw==
-X-Google-Smtp-Source: AGHT+IFBuaBkQ+oXfOqE8QCw4dei3USItblKdoXWobQR8P93+hw/LXfwltHzO0XAdNrIhbs2A9xflA==
-X-Received: by 2002:a17:906:c111:b0:a6f:e7a0:91cf with SMTP id a640c23a62f3a-a8643ffb8e5mr262777566b.24.1724156158105;
-        Tue, 20 Aug 2024 05:15:58 -0700 (PDT)
-Received: from [10.232.133.86] ([88.128.88.174])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-a83838cfb18sm757580066b.60.2024.08.20.05.15.57
-        for <landlock@lists.linux.dev>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Aug 2024 05:15:57 -0700 (PDT)
-Message-ID: <6e5b9e52-8db1-47d6-b288-0e34a3c0224d@suse.com>
-Date: Tue, 20 Aug 2024 14:15:57 +0200
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Tlj2X5L3";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Qw4L1B+c";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Tlj2X5L3";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Qw4L1B+c"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 805CD22290;
+	Wed, 21 Aug 2024 12:04:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1724241873; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=o5GkRdaCbK6AU7b5UPus/8FaTCN2tTjBesaxaeFDlD4=;
+	b=Tlj2X5L3KvzcyRZaXN7ger7TSwnOMrsrFj+1GD2Q6YzB6/qRGsajdfSl/spxOVMgT5VUFF
+	77QXCoJou11jlVqSBR6n4THBAZZv7f6nQoylK9MkEfogWszc/PjQ8bjj8DgLAhcSX4cCwf
+	rfcvNIbcCzPd8oIb21Qauw82Vp2lxv0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1724241873;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=o5GkRdaCbK6AU7b5UPus/8FaTCN2tTjBesaxaeFDlD4=;
+	b=Qw4L1B+c6ypxEKSEtEGOgsE36adfHaHKiql0XaEPh1H+Nuc1OGyu25MUJK4DFqaQyQRLVB
+	fDoukkXDsKyk+jAw==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1724241873; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=o5GkRdaCbK6AU7b5UPus/8FaTCN2tTjBesaxaeFDlD4=;
+	b=Tlj2X5L3KvzcyRZaXN7ger7TSwnOMrsrFj+1GD2Q6YzB6/qRGsajdfSl/spxOVMgT5VUFF
+	77QXCoJou11jlVqSBR6n4THBAZZv7f6nQoylK9MkEfogWszc/PjQ8bjj8DgLAhcSX4cCwf
+	rfcvNIbcCzPd8oIb21Qauw82Vp2lxv0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1724241873;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=o5GkRdaCbK6AU7b5UPus/8FaTCN2tTjBesaxaeFDlD4=;
+	b=Qw4L1B+c6ypxEKSEtEGOgsE36adfHaHKiql0XaEPh1H+Nuc1OGyu25MUJK4DFqaQyQRLVB
+	fDoukkXDsKyk+jAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6251A139C2;
+	Wed, 21 Aug 2024 12:04:33 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id Gxz7FdHXxWaTBgAAD6G6ig
+	(envelope-from <andrea.cervesato@suse.de>); Wed, 21 Aug 2024 12:04:33 +0000
+From: Andrea Cervesato <andrea.cervesato@suse.de>
+Subject: [PATCH v2 0/2] Reproducer for the landlock houdini bug
+Date: Wed, 21 Aug 2024 14:04:24 +0200
+Message-Id: <20240821-landlock_houdini-v2-0-b46211ca64f9@suse.com>
 Precedence: bulk
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
 List-Subscribe: <mailto:landlock+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Fwd: [PATCH] Add landlock07 test
-References: <20240820-landlock_houdini-v1-1-ff3bffc93eaa@suse.com>
-Content-Language: en-US
-To: landlock@lists.linux.dev
-From: Andrea Cervesato <andrea.cervesato@suse.com>
-In-Reply-To: <20240820-landlock_houdini-v1-1-ff3bffc93eaa@suse.com>
-X-Forwarded-Message-Id: <20240820-landlock_houdini-v1-1-ff3bffc93eaa@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-
-FYI
-
-
-
--------- Forwarded Message --------
-Subject: 	[PATCH] Add landlock07 test
-Date: 	Tue, 20 Aug 2024 14:09:31 +0200
-From: 	Andrea Cervesato <andrea.cervesato@suse.de>
-To: 	ltp@lists.linux.it
-CC: 	Andrea Cervesato <andrea.cervesato@suse.com>
-
-
-
-From: Andrea Cervesato <andrea.cervesato@suse.com>
-
-This test is a reproducer for the CVE-2024-42318 bug, also known as
-landlock Houdini.
+X-B4-Tracking: v=1; b=H4sIAMjXxWYC/32NQQ7CIBBFr9LMWgylGKsr72EagzBjJ1YwYImm4
+ e5iD+DyveS/v0DCyJjg2CwQMXPi4CuoTQN2NP6Ggl1lUFJp2SspJuPdFOz9MobZsWdBSmvaKez
+ 3toM6e0Ykfq/J81B55PQK8bM+5PZn/8RyK1pB1F2J7KFDY05pTri14QFDKeULT1YLpq8AAAA=
+To: ltp@lists.linux.it
+Cc: landlock@lists.linux.dev
+X-Mailer: b4 0.14.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1724241873; l=913;
+ i=andrea.cervesato@suse.com; s=20240812; h=from:subject:message-id;
+ bh=G4sAW2IMgEBA54U81GyIUcqqlRJfUo5l5jbUjqBEZf4=;
+ b=j5M3rk4YMKrkoUqBqFebr9KPGaXDf1Y57+66iSiqlezjY1u3Bl6RmI0To4dxuTiuo9tiBo3hB
+ +orIgLvdnddDdsraHutBMojEkrLyVN1H9DDnh7jZj35Pq/DOuxjjwFg
+X-Developer-Key: i=andrea.cervesato@suse.com; a=ed25519;
+ pk=RG/nLJ5snb1tLKGwSORQXBJ5XA4juT0WF2Pc/lq9meo=
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_TWO(0.00)[2];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FUZZY_BLOCKED(0.00)[rspamd.com];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_NONE(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid]
+X-Spam-Score: -4.30
+X-Spam-Flag: NO
 
 More information at:
 https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-42318
 
 Signed-off-by: Andrea Cervesato <andrea.cervesato@suse.com>
 ---
-More information at:
-https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-42318
----
-runtest/syscalls | 1 +
-testcases/kernel/syscalls/landlock/.gitignore | 1 +
-testcases/kernel/syscalls/landlock/landlock07.c | 114 
-++++++++++++++++++++++++
-3 files changed, 116 insertions(+)
-
-diff --git a/runtest/syscalls b/runtest/syscalls
-index fea0c9828..a9fc8c432 100644
---- a/runtest/syscalls
-+++ b/runtest/syscalls
-@@ -706,6 +706,7 @@ landlock03 landlock03
-landlock04 landlock04
-landlock05 landlock05
-landlock06 landlock06
-+landlock07 landlock07
-lchown01 lchown01
-lchown01_16 lchown01_16
-diff --git a/testcases/kernel/syscalls/landlock/.gitignore 
-b/testcases/kernel/syscalls/landlock/.gitignore
-index 315ac1dca..db11bff2f 100644
---- a/testcases/kernel/syscalls/landlock/.gitignore
-+++ b/testcases/kernel/syscalls/landlock/.gitignore
-@@ -5,3 +5,4 @@ landlock03
-landlock04
-landlock05
-landlock06
-+landlock07
-diff --git a/testcases/kernel/syscalls/landlock/landlock07.c 
-b/testcases/kernel/syscalls/landlock/landlock07.c
-new file mode 100644
-index 000000000..f82442329
---- /dev/null
-+++ b/testcases/kernel/syscalls/landlock/landlock07.c
-@@ -0,0 +1,114 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright (C) 2024 SUSE LLC Andrea Cervesato <andrea.cervesato@suse.com>
-+ */
-+
-+/**
-+ * [Description]
-+ *
-+ * CVE-2024-42318
-+ *
-+ * Test to check if sysem is affected by Landlock Houdini bug:
-+ * https://www.suse.com/security/cve/CVE-2024-42318.html
-+ *
-+ * Kernel bug fixed in:
-+ *
-+ * commit 39705a6c29f8a2b93cf5b99528a55366c50014d1
-+ * Author: Jann Horn <jannh@google.com>
-+ * Date: Wed Jul 24 14:49:01 2024 +0200
-+ *
-+ * landlock: Don't lose track of restrictions on cred_transfer
-+ */
-+
-+#include "tst_test.h"
-+#include "lapi/prctl.h"
-+#include "lapi/keyctl.h"
-+#include "lapi/landlock.h"
-+#include "tst_test_macros.h"
-+
-+static struct landlock_ruleset_attr *ruleset_attr;
-+static int ruleset_fd;
-+
-+static void create_keyring(const int operation)
-+{
-+ TEST(keyctl(operation, NULL, 0, 0, 0));
-+ if (TST_RET == -1)
-+ tst_brk(TERRNO | TBROK, "keyctl() failed");
-+}
-+
-+static pid_t spawn_houdini(void)
-+{
-+ pid_t pid;
-+
-+ create_keyring(KEYCTL_JOIN_SESSION_KEYRING);
-+
-+ pid = SAFE_FORK();
-+ if (!pid) {
-+ create_keyring(KEYCTL_JOIN_SESSION_KEYRING);
-+ create_keyring(KEYCTL_SESSION_TO_PARENT);
-+ exit(0);
-+ }
-+
-+ return pid;
-+}
-+
-+static void run(void)
-+{
-+ pid_t pid_houdini;
-+
-+ if (SAFE_FORK())
-+ return;
-+
-+ SAFE_PRCTL(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0);
-+ SAFE_LANDLOCK_RESTRICT_SELF(ruleset_fd, 0);
-+
-+ TST_EXP_FAIL(open("/dev/null", O_WRONLY), EACCES);
-+ if (TST_RET != -1) {
-+ SAFE_CLOSE(TST_RET);
-+ return;
-+ }
-+
-+ pid_houdini = spawn_houdini();
-+ SAFE_WAITPID(pid_houdini, NULL, 0);
-+
-+ TST_EXP_FAIL(open("/dev/null", O_WRONLY), EACCES);
-+ if (TST_RET != -1)
-+ SAFE_CLOSE(TST_RET);
-+
-+ exit(0);
-+}
-+
-+static void setup(void)
-+{
-+ ruleset_attr->handled_access_fs = LANDLOCK_ACCESS_FS_WRITE_FILE;
-+ ruleset_fd = SAFE_LANDLOCK_CREATE_RULESET(
-+ ruleset_attr,
-+ sizeof(struct landlock_ruleset_attr),
-+ 0);
-+}
-+
-+static void cleanup(void)
-+{
-+ if (ruleset_fd != -1)
-+ SAFE_CLOSE(ruleset_fd);
-+}
-+
-+static struct tst_test test = {
-+ .test_all = run,
-+ .setup = setup,
-+ .cleanup = cleanup,
-+ .forks_child = 1,
-+ .bufs = (struct tst_buffers []) {
-+ {&ruleset_attr, .size = sizeof(struct landlock_ruleset_attr)},
-+ {},
-+ },
-+ .caps = (struct tst_cap []) {
-+ TST_CAP(TST_CAP_REQ, CAP_SYS_ADMIN),
-+ {}
-+ },
-+ .tags = (const struct tst_tag[]) {
-+ {"linux-git", "39705a6c29f8"},
-+ {"CVE", "2024-42318"},
-+ {}
-+ }
-+};
+Changes in v2:
+- add SAFE_KEYCTL macro
+- verify in setup that landlock is activated
+- Link to v1: https://lore.kernel.org/r/20240820-landlock_houdini-v1-1-ff3bffc93eaa@suse.com
 
 ---
-base-commit: c02d8ddc5f9d312ca5c384317141e213412a5c42
+Andrea Cervesato (2):
+      Add SAFE_KEYCTL macro
+      Add landlock07 test
+
+ include/lapi/keyctl.h                           |  26 +++++-
+ runtest/syscalls                                |   1 +
+ testcases/kernel/syscalls/landlock/.gitignore   |   1 +
+ testcases/kernel/syscalls/landlock/landlock07.c | 109 ++++++++++++++++++++++++
+ 4 files changed, 136 insertions(+), 1 deletion(-)
+---
+base-commit: edc79222abdcf32a344c806275a30a5c7cbf1ef3
 change-id: 20240820-landlock_houdini-f244f52e87c3
 
 Best regards,
-
 -- 
 Andrea Cervesato <andrea.cervesato@suse.com>
 
