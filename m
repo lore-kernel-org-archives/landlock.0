@@ -1,61 +1,81 @@
-Received: from saaz.rutschle.net (saaz.rutschle.net [51.15.243.174])
+Received: from smtp-190a.mail.infomaniak.ch (smtp-190a.mail.infomaniak.ch [185.125.25.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33A39EACD
-	for <landlock@lists.linux.dev>; Sun,  8 Sep 2024 15:47:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.15.243.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D43E426281
+	for <landlock@lists.linux.dev>; Sun,  8 Sep 2024 18:35:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.25.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1725810432; cv=none; b=dyGK2qdOFlLaO2kRekOmn9wx0D7Zq54sbMY0cSeiYGsfRZ7h6LIkdiXI9/uW6szbrc/XOgrmYQjIP5BRam74Ls1ZrmcuUEdave49aI7kml1C7xUmC8/r0/W0j6AM6622SmdaKbrlNytXoK+LdNYneU9hhz/vD5LU6SuqFrH51qc=
+	t=1725820514; cv=none; b=aPu1/0EHkA9G5tFt76ORe/HHa79gxMhBZV03RG7EMNloxy78Bj+G2KPFA/+Qr4EZqMrVUaOS769Rq2KaQVTp2C3SlTSZcu2JurcL+M0RejKbAz5Pn5WFaAAUAz/EbmKh9KN1Exzst8+R6WarEx6AeHovFlAPpxHLyewBzcWOLyc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1725810432; c=relaxed/simple;
-	bh=Ydh0LSuBkeTj7lC5B76xarism3SMev/Y8X6HLfNN7H0=;
-	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=sybJfJSP72pC//sYSEjBfvkThB5TO0uX6LQHLz7CAC5Kh9IF+akfXPOk+xfzzZV3746CaJiyu6d2O/SxWAispEnMuJaDDEA+m0TVPIds7Hgp7nOrUOAMJ9zg5b/BNkU91D9DWGssegISxTNPvvVf4iMuKWclNnra2hO4O0jD9/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rutschle.net; spf=pass smtp.mailfrom=rutschle.net; dkim=pass (1024-bit key) header.d=rutschle.net header.i=@rutschle.net header.b=pHVExZH2; arc=none smtp.client-ip=51.15.243.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rutschle.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rutschle.net
+	s=arc-20240116; t=1725820514; c=relaxed/simple;
+	bh=M/rFQ4hmtD9C0fFHSZ7HCfJFLRmA0LXTYzkmaNfESx0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qvLFKPow6AQgRLRBHRBBgqrVGCgzoSjeEI0zWVqI3g7rOKHA0YafuTtxu6UTOWq/xfABDOESLUN2k2WItZItAnxtmc5Bv5ydasdDV0wPEQ07JDXIYDjcXnrpaQQtFzuRrj8++ok+/+vAA7swINto46dQA1axlLHBbVEV/WkE/e0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=QA56xpE2; arc=none smtp.client-ip=185.125.25.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rutschle.net header.i=@rutschle.net header.b="pHVExZH2"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=rutschle.net; s=20170610; h=Content-Type:MIME-Version:Message-ID:Subject:To
-	:From:Date:Sender:Reply-To:Cc:Content-Transfer-Encoding:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=Ydh0LSuBkeTj7lC5B76xarism3SMev/Y8X6HLfNN7H0=; b=pHVExZH2hGl7rKC+WhotoUduZa
-	NhzKLrkyAtMkYpB5DHucoKZtyNrJ3W10V19BYK6LCIbb4HEmOEXzznskNpYYJUclR33FAMtY3AbTP
-	GYB9Xe2p/dqEnCMRjT2yGPusG81167oULF5+KUIqZyi5t/iLnp9bnszlfbqbNGJG7OFM=;
-Received: from yves by localhost with local (Exim 4.96)
-	(envelope-from <yves@rutschle.net>)
-	id 1snJTB-005bGS-2f
-	for landlock@lists.linux.dev;
-	Sun, 08 Sep 2024 15:04:53 +0000
-Date: Sun, 8 Sep 2024 15:04:53 +0000
-From: Yves Rutschle <landlock@rutschle.net>
-To: landlock@lists.linux.dev
-Subject: Closing after landlock_add_rule?
-Message-ID: <Zt29FXgAR3e5Uzb-@rutschle.net>
-Mail-Followup-To: landlock@lists.linux.dev
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="QA56xpE2"
+Received: from smtp-3-0000.mail.infomaniak.ch (smtp-3-0000.mail.infomaniak.ch [10.4.36.107])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4X1yNk2v1bzGp2;
+	Sun,  8 Sep 2024 19:57:42 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1725818262;
+	bh=+K5PCxVLvUmff25naKGX63dx1jiTDPDlX7woLUgPKEY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=QA56xpE2miGDKFgRdTKLTBQxBY55plR9gASzwEveoSb0VWou0MOlAMtmYnpdy2UfO
+	 trbHUbDPRj6rRUR9KjYKG0g2Jn4fLHvoRLC30BhFCF/UJHM9lya3HgCaMnIIx00QY0
+	 91a/eO0V7nKaxvmW6F4IPlBYzpsmICfxEvsCtVT4=
+Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4X1yNj5sCdzdTX;
+	Sun,  8 Sep 2024 19:57:41 +0200 (CEST)
+Date: Sun, 8 Sep 2024 19:57:35 +0200
+From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+To: Yves Rutschle <landlock@rutschle.net>
+Cc: landlock@lists.linux.dev
+Subject: Re: Closing after landlock_add_rule?
+Message-ID: <20240908.Thu1cekagh2o@digikod.net>
+References: <Zt29FXgAR3e5Uzb-@rutschle.net>
 Precedence: bulk
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
 List-Subscribe: <mailto:landlock+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <Zt29FXgAR3e5Uzb-@rutschle.net>
+X-Infomaniak-Routing: alpha
 
-Hello all,
+Hi Yves,
 
-So far my code did not close the filehandles it uses to
-create the fuleset using landlock_add_rule(). I recently
-received a commit to close the file descriptors.
+As for any other kind of file descriptor, a Landlock ruleset should be
+closed when it is not used.  However, such a file descriptor cannot
+change currently enforced rulesets, so it would not be a security issue
+to "leak" it.
 
-Does landlock use the file handles after the ruleset is
-created, or is it ok to close them after? The man page does
-not discuss this.
+File descriptors used to define a Landlock rules (e.g. file opened for a
+path_beneath rule) should be closed once the rule is added to the
+Landlock ruleset, and leaking such file descriptor could let a sandboxed
+process to still read/write such *opened* file.  To avoid such risk, it
+is advised to open such files with O_PATH.
 
-Cheers,
-Y.
+Regards,
+ Mickaël
 
-
+On Sun, Sep 08, 2024 at 03:04:53PM +0000, Yves Rutschle wrote:
+> Hello all,
+> 
+> So far my code did not close the filehandles it uses to
+> create the fuleset using landlock_add_rule(). I recently
+> received a commit to close the file descriptors.
+> 
+> Does landlock use the file handles after the ruleset is
+> created, or is it ok to close them after? The man page does
+> not discuss this.
+> 
+> Cheers,
+> Y.
+> 
+> 
+> 
