@@ -1,138 +1,216 @@
-Received: from smtp-8fab.mail.infomaniak.ch (smtp-8fab.mail.infomaniak.ch [83.166.143.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B3FE222594
-	for <landlock@lists.linux.dev>; Thu,  4 Sep 2025 18:55:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.166.143.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B6DF2EAB72
+	for <landlock@lists.linux.dev>; Mon, 17 Nov 2025 13:09:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1757012117; cv=none; b=gJ9+ck6CHpOSXUzyQZtIPWa47nW/CmKb8G9MKQ1hUVAQUXuyyPu0g0tSlB3HVAb3fMSoYhrl3SIatMbasOp6UigaOCCvtmYfAFmg6Jbq4m7doOheMM3hzKu2M81xjNGX9vweKz4mALB3S+xD+AfRnNMtqat7ZS/3te1hN04zHB8=
+	t=1763384977; cv=none; b=rsOWQg4yx9SaBJ9AWvfrw8+3jEK3CW2P3Ox8YN5yF+eKMb9r26n5fyUCBeiGwzVfKHlKg4WVjqrcei9zE2Oj0FZrTGWpbU527WrZMgMVg1B+hr6ljTdb8FonjBCMSQcfNtNlppSgJru0+y0f9+OPF9kUqFG7NCzzl4n+nQ6xB/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1757012117; c=relaxed/simple;
-	bh=3w9ufJX/Wp4arR6T2oEI1m4xMyNAnL0vZDdZxT2OceU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NyJLvYgU1Tga3dClENKYQVhlnDx5dqYaCUogET0fWiuMUPjFI5t5N+p3zvC+SZI4s2nyXakbpkjqmF2vtATuOio/CnKl5sr9l4Y5pUxPP+YXA+1WNln41tZbBERdgEWGtzyE/p7AbVaTlcNPtpJC+WKioscwFTX0CUc9sbBLGAw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=CaShtB6t; arc=none smtp.client-ip=83.166.143.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+	s=arc-20240116; t=1763384977; c=relaxed/simple;
+	bh=86BSsIh2mbJnufFwZx2mKV1CtRVqQSNGePDbP1hOzeI=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
+	 In-Reply-To:Content-Type; b=qUZgksWo2419CANasIUpgeWpXl2B5l3G82RmSr7xDWyzzyn504bSVFDlUM7EU4xct6dJ4zQWG/LacfiQ1ReA9GL6Y97QqVKcnO5LVVBwDUtJM2g3sRTRsvaqNc+mj/A0I+4rAdSCrXzx+zdFtMo8A4qgX+KAQchhCdSqNZjh4js=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BFUfogI0; arc=none smtp.client-ip=209.85.128.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="CaShtB6t"
-Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch [10.7.10.107])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4cHpCW6PCnzrgP;
-	Thu,  4 Sep 2025 20:38:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1757011127;
-	bh=XnJX/BALytZOcOriUSV9FKkQcAFrIPa7+2hCJBMVqjI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=CaShtB6tL7wkP6CMCpXuNJ5vsnMzJRTne4ED6d82Ht0o1GCcnOHL6HpnwZIWgZvh0
-	 bLnvskDm5fZGQAadnVfc9VIWKzbTDemMmGx1nVJQ2mwESO1nWy6XQEsb+XRqW9V10S
-	 DOnGK31E8WoBPTWHBjLYyPQ6HnFJgdu8NoTsEhX4=
-Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4cHpCW1NJbzpJR;
-	Thu,  4 Sep 2025 20:38:47 +0200 (CEST)
-Date: Thu, 4 Sep 2025 20:38:46 +0200
-From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-To: =?utf-8?B?5aea5bmz?= <yaoping@vivo.com>
-Cc: "landlock@lists.linux.dev" <landlock@lists.linux.dev>, 
-	Tingmao Wang <m@maowtm.org>
-Subject: Re: landlock not works well on FUSE filesystem?
-Message-ID: <20250904.pei6EiFaibo4@digikod.net>
-References: <OSQPR06MB7181A053FE55DC0348750713D43BA@OSQPR06MB7181.apcprd06.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BFUfogI0"
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-787d5555274so41393447b3.1
+        for <landlock@lists.linux.dev>; Mon, 17 Nov 2025 05:09:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1763384974; x=1763989774; darn=lists.linux.dev;
+        h=content-transfer-encoding:in-reply-to:from:content-language:subject
+         :references:cc:to:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=c0dXT30veEakeSVZxbz1QIlJ8eVNfIbZwRp+HWpn1P0=;
+        b=BFUfogI0pdXnJOswOcqm9QlpaIE3Y9E39ZRgnvk1Z3HnVX83zyblU6/F0ORjb2RF3L
+         dLKucCb+ewXyLT0TvL8+Mmz5RkuONWBb2bTrJhxD+y08SLIfj45cNSMWLdsaDdKTqc75
+         VPwFI2sfRAJ4uNFRgYGgt2EmdfdR4m1nNfXSqJYIUbXFI/PksOoh5Ykqt1+Uv8XdgFxU
+         bFkUZZYpypz5c35RUMlTTiEsRNlvRX3AbkoppzbZ0njvITIJGU8tYRX8Qs2om2Cyzinl
+         KCkQVIT/OG0sJwNRwckN6kH3dRUz6tf7SotraBjLwLMKf2mzbk2DaXG0/OChhsnBfH/1
+         TbZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1763384974; x=1763989774;
+        h=content-transfer-encoding:in-reply-to:from:content-language:subject
+         :references:cc:to:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=c0dXT30veEakeSVZxbz1QIlJ8eVNfIbZwRp+HWpn1P0=;
+        b=p63RjrTesHVdDH7fKdyGyA+YFeMLD/RnRFZNkoJ+bUGznroWiLfbmBRF3CMpezPDrB
+         SFte9++MS8zQJ/LnbcyYgoxKipcBqj5qHkjibF/cjL0Uw0JdIxF6xMtBwUfVpP12KVdC
+         sd5dVjOB29X8QKhMEWceh4yH+1Kq4ROnQO9Jz+t34Ra/t8i+91VhEdUbgDA1ZgCitQ6d
+         5WRnxD204BfdZgQ6ZrGoAg2vqClz1nbvcPyWp2bq3JXSSH56So+guZ0RgR2baF2fpWML
+         tzF6i2cL+VMTk3h3Z4zCc63orvoTgyQTsVbcUKxDlRitiEAIw7e0+koiQA/Z1m7wxHiV
+         BcQA==
+X-Gm-Message-State: AOJu0YzdkCJZqPwfj+Pf7mI80vR2DAoQT603VSgsWbdud6ec+578CeRe
+	m1uvC5Pxxi/cMthM93idsnI3EblAENXDOxD6cCZYdK4Cf2SG7CVlUB8J
+X-Gm-Gg: ASbGncsbGcvpxUjT3YKlA6RCnlrO5XpgTXpyx6ZGwO2wjRTl9FF/gxhgPQ+NEZCw/kx
+	qcSI00Ct4EKSfN7q9Rn4oTtWEd4UM5Sjeeg5rTUbIm1BdgO2VPCJ+RbfkZG1zDFx6gQ9PwkF5V2
+	CJCMqMDg0BVs8TbTLbf/b8BYk/7UsPYM+kCPurLzCVciFXAnmIHbwnlI1iRUNRbPyKVOFXPaj8w
+	TeVzUR0A57nB37bbchldfFxThtmQewRCa+t24C7Cxo9TX/6ilqzrEE05J/V5BswtmNrha+6pm1Z
+	G3CcZD8C5LVqIg5q7yz8IcfdtJm68FKsCLzYw43MieR/tnPBNwBXqW7Nul/vR+m7Bk2zyj7lxyb
+	+BEt9mLpy7h89TKatnZIKn6C45V33R0KjFxn8lT52kjrZWLuzbcHWZZWULnu761URWkYZV1dXzg
+	IQazFirrDmFFUf6auONEeq/pUQtm/XFCV6Bjb+S4qJTw/lR+wgpNN6HgLoYaYFp5vBHV1GWA==
+X-Google-Smtp-Source: AGHT+IGNtFL4kQD34q8KQ3Yng7sJN594YBx6Cn4eH8B7Jjw45ePq7+kbxVaOP5+JhLN/PkP6PELaZQ==
+X-Received: by 2002:a05:690e:251b:20b0:63f:ad90:ad45 with SMTP id 956f58d0204a3-641e74b050bmr8838407d50.1.1763384974120;
+        Mon, 17 Nov 2025 05:09:34 -0800 (PST)
+Received: from [10.10.10.50] (71-132-185-69.lightspeed.tukrga.sbcglobal.net. [71.132.185.69])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6410ea037besm4630188d50.9.2025.11.17.05.09.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 17 Nov 2025 05:09:33 -0800 (PST)
+Message-ID: <c015dfbc-9f0d-4711-a72e-9df5566da78c@gmail.com>
+Date: Mon, 17 Nov 2025 08:09:33 -0500
 Precedence: bulk
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
 List-Subscribe: <mailto:landlock+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+To: mic@digikod.net
+Cc: landlock@lists.linux.dev, vt@altlinux.org, m@maowtm.org
+References: <20240406.baeVa4ugh9Ve@digikod.net>
+Subject: Re: R/O protection for lower level dirs
+Content-Language: en-US
+From: Justin Suess <utilityemal77@gmail.com>
+In-Reply-To: <20240406.baeVa4ugh9Ve@digikod.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <OSQPR06MB7181A053FE55DC0348750713D43BA@OSQPR06MB7181.apcprd06.prod.outlook.com>
-X-Infomaniak-Routing: alpha
 
 Hi,
 
-On Thu, Aug 28, 2025 at 01:49:08AM +0000, 姚平 wrote:
-> Hi, all.
-> 
-> I’m trying to use landlock on android 15 which uses kernel 6.6, but meet some troubles when enable landlock on files in fuse filesystem. Here is what I did:
-> 
-> I use https://elixir.bootlin.com/linux/v6.6.101/source/samples/landlock/sandboxer.c to build a sandboxer and a very simple program sandboxer-test as the sandboxed target.
-> The simple target program just reads first line from a file and writes a line to another file.
-> I run tests in /data/local/tmp with SELinux disabled. In each test, I enable Landlock with a ruleset, both including and excluding the filepath being tested.
-> 
-> Test1: test files on /data, landlock works like a charm
-> ===Ruleset includes tested files:
-> >LL_FS_RO="/apex/:/linkerconfig:/data/local/tmp/sandbox:" LL_FS_RW="/data/local/tmp/files" /data/local/tmp/sandboxer /data/local/tmp/sandbox/sandboxer-test /data/local/tmp/files/ro/readme.txt /data/local/tmp/files/rw/writeme.txt
-> First line from input file '/data/local/tmp/files/ro/readme.txt':
-> hello there~~~
-> 
-> writed to output file '/data/local/tmp/files/rw/writeme.txt':
-> hello world
-> 
-> ===Ruleset excludes test files:
-> > LL_FS_RO="/apex/:/linkerconfig:/data/local/tmp/sandbox:" LL_FS_RW="/data/local/tmp/sandbox" /data/local/tmp/sandboxer /data/local/tmp/sandbox/sandboxer-test /data/local/tmp/files/ro/readme.txt /data/local/tmp/files/rw/writeme.txt
+I have a working tree that implements this feature. It's implemented in 
+a flag named LANDLOCK_ADD_RULE_NO_INHERIT.
 
-This would not change your test but LL_FS_RW should point to something
-else than the sandboxer binary.  Well, we should probably allow this
-variable to not be set.
+It's the successor to the first patch I submitted here:
 
-> Error opening input file '/data/local/tmp/files/ro/readme.txt': Permission denied
-> Error opening output file '/data/local/tmp/files/rw/writeme.txt': Permission denied
-> 
-> Test2: test files on /tmp, landlock works like a charm
-> ===Ruleset includes tested files:
-> > LL_FS_RO="/apex/:/linkerconfig:/data/local/tmp/sandbox:"LL_FS_RW="/tmp" /data/local/tmp/sandboxer /data/local/tmp/sandbox/sandboxer-test /tmp/ro.txt /tmp/rw.txt
-> First line from input file '/tmp/ro.txt':
-> hello there~~
-> 
-> writed to output file '/tmp/rw.txt':
-> hello world
-> 
-> ===Ruleset excludes test files:
-> > LL_FS_RO="/apex/:/linkerconfig:/data/local/tmp/sandbox:"LL_FS_RW="/data" /data/local/tmp/sandboxer /data/local/tmp/sandbox/sandboxer-test /tmp/ro.txt /tmp/rw.txt
-> Error opening input file '/tmp/ro.txt': Permission denied
-> Error opening output file '/tmp/rw.txt': Permission denied
-> 
-> Test3: test files on /storage/emulated, landlock not works.
-> ===Ruleset includes tested files:
-> >LL_FS_RO="/apex/:/linkerconfig:/data/local/tmp/sandbox:"LL_FS_RW="/storage/emulated/0/Android/data/com.vivo.nativetest/files" /data/local/tmp/sandboxer /data/local/tmp/sandbox/sandboxer-test /storage/emulated/0/Android/data/com.vivo.nativetest/files/ro.txt /storage/emulated/0/Android/data/com.vivo.nativetest/files/rw.txt
-> Error opening input file '/storage/emulated/0/Android/data/com.vivo.nativetest/files/ro.txt': Permission denied
-> Error opening output file '/storage/emulated/0/Android/data/com.vivo.nativetest/files/rw.txt': Permission denied
-> 
-> ===Ruleset excludes tested files:
-> >LL_FS_RO="/apex/:/linkerconfig:/data/local/tmp/sandbox:"LL_FS_RW="/data" /data/local/tmp/sandboxer /data/local/tmp/sandbox/sandboxer-test /storage/emulated/0/Android/data/com.test.nativetest/files/ro.txt /storage/emulated/0/Android/data/com.test.nativetest/files/rw.txt
-> Error opening input file '/storage/emulated/0/Android/data/com.test.nativetest/files/ro.txt': Permission denied
-> Error opening output file '/storage/emulated/0/Android/data/com.test.nativetest/files/rw.txt': Permission denied
-> 
-> Here are the mount infos:
-> 
-> /dev/block/dm-57 on /data type f2fs (rw,lazytime,seclabel,nosuid,nodev,noatime,background_gc=on,nogc_merge,discard,discard_unit=block,user_xattr,inline_xattr,acl,inline_data,inline_dentry,noflush_merge,barrier,extent_cache,mode=adaptive,active_logs=6,reserve_root=134217,resuid=0,resgid=1065,inlinecrypt,alloc_mode=default,checkpoint_merge,fsync_mode=nobarrier,compress_algorithm=zstd:1,compress_log_size=3,compress_mode=user,compress_cache,memory=normal,errors=continue)
-> /dev/fuse on /storage/emulated type fuse (rw,lazytime,nosuid,nodev,noexec,noatime,user_id=0,group_id=0,allow_other)
-> tmpfs on /tmp type tmpfs (rw,seclabel,relatime,size=5604712k,nr_inodes=1401178)
-> 
-> As you can see, the only difference in the 3 tests is the tested file’s location. I’m not sure if this related to the filesystem type or I did something wrong.
+v1: 
+https://lore.kernel.org/linux-security-module/20251105180019.1432367-1-utilityemal77@gmail.com/T/#t
 
-Yes, it might be related to the sdcard FUSE implementation.
+The above first implemented version patch implemented the flag without 
+any parent directory protections.
 
-Could you please adapt a bit tools/testing/selftests/landlock/fs_test.c
-(in the kernel source tree) and patch it with
-https://lore.kernel.org/all/20250704171345.1393451-1-mic@digikod.net/
-to check that the layout3_fs tests with FUSE work as expected?
-You can just remove the non-layout3_fs tests, change the mount point
-for FUSE, build and run fs_test.
+Both the old version of the patch and my new version build on Tingmao 
+Wang's patch to add LANDLOCK_ADD_RULE_QUIET, which helpfully added a 
+rule with similar flag propagation logic.
 
-My tests with another FUSE FS seems to work fine, but they may be
-incomplete, or maybe the sdcard FUSE FS has a bug.
+v3: 
+https://lore.kernel.org/linux-security-module/cover.1761511023.git.m@maowtm.org/
 
-Also, see this patch to run all Landlock FS tests against a specified
-directory/FS:
-https://lore.kernel.org/all/20250830034753.186551-1-m@maowtm.org/
+I still have to break it out into a patch and implement the kunit and 
+flesh out the selftests, but you can find my new implementation and 
+build it yourself here: 
+https://github.com/RazeLighter777/linux-landlock-no-inherit
 
-> 
-> Can someone help me to solve this problem?
-> 
-> thanks a lot.
-> 
-> ________________________________
-> 本邮件及其附件内容可能含有机密和/或隐私信息，仅供指定个人或机构使用。若您非发件人指定收件人或其代理人，请勿使用、传播、复制或存储此邮件之任何内容或其附件。如您误收本邮件，请即以回复或电话方式通知发件人，并将原始邮件、附件及其所有复本删除。谢谢。
-> The contents of this message and any attachments may contain confidential and/or privileged information and are intended exclusively for the addressee(s). If you are not the intended recipient of this message or their agent, please note that any use, dissemination, copying, or storage of this message or its attachments is not allowed. If you receive this message in error, please notify the sender by reply the message or phone and delete this message, any attachments and any copies immediately.
-> Thank you
+And you can see the relevant recent discussion on this issue: 
+https://github.com/landlock-lsm/linux/issues/28
+
+There is a newer version of Tingmao Wang's patch (v4) that I will rebase 
+off soon, but it mostly concerned adding new tests so it shouldn't be 
+difficult.
+
+Rules tagged with LANDLOCK_ADD_RULE_NO_INHERIT attribute have the 
+following properties:
+
+1.  Access grants from a rule on a parent inode on the same 
+mountpoint will not be propagated downward to child inodes. So a grant 
+on /a = rw and /a/b = ro + LANDLOCK_ADD_RULE_NO_INHERIT will not grant 
+/a/b write permissions.
+
+2. Refer operations in the direct parent path of the inode (up to the 
+mountpoint root) will be blocked if they operate directly on said path. 
+So if /a/b/c/d = ro + LANDLOCK_ADD_RULE_NO_INHERIT, moving a,b,c or d, 
+creating links to these files, renaming them, or removing them will be 
+disallowed. This prevents breaking the file topology and preventing 
+sandbox restart attacks.
+
+3. LANDLOCK_ADD_RULE_NO_INHERIT propagates to child layers and is merged 
+correctly across domains.
+
+The use cases for this patch could be:
+
+1. Granting access to /home/user, but restricting sensitive directories 
+like /home/user/.ssh
+
+2. More fine grained restrictions on USB or other devices in /dev. So 
+you could a program to allow /dev/usb, but forbid a specific device 
+/dev/usb/hiddev3 for instance.
+
+Here's a demo of the patch. LL_FS_RO_NO_INHERIT is a landlock-sandboxer 
+environment variable I added in which just creates an ro + 
+LANDLOCK_ADD_RULE_NO_INHERIT rule on an inode.
+
+Demo:
+
+~ # LL_FS_RO="" LL_FS_RW="/" LL_FS_RO_NO_INHERIT="/a/b/c" 
+landlock-sandboxer sh
+Executing the sandboxed command...
+~ # ls
+a      dev    init   root   sys    tmp
+bin    etc    proc   sbin   tests  usr
+~ # rm -rf a/
+rm: can't remove 'a/b/c': Permission denied
+~ # mv a b
+mv: can't rename 'a': Permission denied
+~ # cd a/
+/a # ls
+b
+/a # mv b bad
+mv: can't rename 'b': Permission denied
+/a # ln b bad
+ln: bad: Operation not permitted
+/a # ln bad b
+ln: bad: No such file or directory
+/a # rm -rf b
+rm: can't remove 'b/c': Permission denied
+/a # cd b
+/a/b # ls
+c
+/a/b # rm -rf c
+rm: can't remove 'c': Permission denied
+/a/b # mv c bad
+mv: can't rename 'c': Permission denied
+/a/b # touch c/bad
+touch: c/bad: Permission denied
+/a/b # cd c
+/a/b/c # ls
+/a/b/c # ls -al
+total 0
+drwxr-xr-x    2 0        0               40 Nov  9 14:46 .
+drwxr-xr-x    3 0        0               60 Nov  9 14:46 ..
+/a/b/c # mount --bind /tmp .
+mount: permission denied (are you root?)
+/a/b/c # cd ..
+/a/b # touch fi
+/a/b # ls
+c   fi
+/a/b # mkdir good
+/a/b # touch good/test
+/a/b # rm -rf good/
+/a/b #
+
+Some things I'd like to hear feedback on:
+
+1. Should parent directory refer operation restrictions apply on parent 
+directories above the mountpoint? Currently they only propagate up to 
+the mountpoint, so you if you had /a/b/c = ro + 
+LANDLOCK_ADD_RULE_NO_INHERIT and / = rw, if /a/b was on a different 
+mountpoint than /, you could still move /a to /unrelated for instance. 
+This wouldn't be difficult to fix, but would add some complexity.
+
+2. Potential for extension to other scopes? It's unclear how this flag 
+could be useful for other cases such as network and signal restrictions, 
+but if somebody can think of something interesting it might be worth a look.
+
+3. Any edge cases that should be tested for that I might have missed / 
+that need addressing.
+
+I'd also love to hear feedback from Nicholas and see their work and 
+incorporate any lessons learned from them.
+
+Kind Regards,
+
+Justin Suess
+
+
+
