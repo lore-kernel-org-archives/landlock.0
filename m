@@ -1,216 +1,166 @@
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B6DF2EAB72
-	for <landlock@lists.linux.dev>; Mon, 17 Nov 2025 13:09:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFFFE296BBB
+	for <landlock@lists.linux.dev>; Wed, 19 Nov 2025 21:19:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1763384977; cv=none; b=rsOWQg4yx9SaBJ9AWvfrw8+3jEK3CW2P3Ox8YN5yF+eKMb9r26n5fyUCBeiGwzVfKHlKg4WVjqrcei9zE2Oj0FZrTGWpbU527WrZMgMVg1B+hr6ljTdb8FonjBCMSQcfNtNlppSgJru0+y0f9+OPF9kUqFG7NCzzl4n+nQ6xB/I=
+	t=1763587191; cv=none; b=Sa1ZIZ8Z+blgOfOnyE9rxL/WbcQGCA0CZjExPfw7cNDYOjm2dzNXXfndNTqTiKJJyNHFvytOIh+N3A7yl97GZKqtvuz3w4FjpOk71lZ/F1L/fE/02U1tld65EQtACWrl4884THfxOog0pQ2MlfFNkqHhwEXSzQI4fObvOo+4Zy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1763384977; c=relaxed/simple;
-	bh=86BSsIh2mbJnufFwZx2mKV1CtRVqQSNGePDbP1hOzeI=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:Subject:From:
-	 In-Reply-To:Content-Type; b=qUZgksWo2419CANasIUpgeWpXl2B5l3G82RmSr7xDWyzzyn504bSVFDlUM7EU4xct6dJ4zQWG/LacfiQ1ReA9GL6Y97QqVKcnO5LVVBwDUtJM2g3sRTRsvaqNc+mj/A0I+4rAdSCrXzx+zdFtMo8A4qgX+KAQchhCdSqNZjh4js=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BFUfogI0; arc=none smtp.client-ip=209.85.128.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1763587191; c=relaxed/simple;
+	bh=l/CJ0rPr/nn40uDYN2Y+Sh5UrW9PvXMM9FXWJTnPYKI=;
+	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type; b=OBApuY0wjWqYnsQBkPBtyRGVk3ZSMpQpy0FhEWT4iTUTjiOd8yMV7+AEWEOCv0SIYJLpEe5SZJ4FAEJMowLD3BGtSQ+AGY+7qiuGvcwwHbgVhGqTiXkllsnlRmXr1Ogbpppx7MktKhmdpCKR+U5lbSb0TGNRzYvBg75oUbitzpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=mk16.de; spf=none smtp.mailfrom=mk16.de; dkim=pass (2048-bit key) header.d=mk16.de header.i=@mk16.de header.b=KcNeJxas; arc=none smtp.client-ip=188.68.63.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=mk16.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mk16.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BFUfogI0"
-Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-787d5555274so41393447b3.1
-        for <landlock@lists.linux.dev>; Mon, 17 Nov 2025 05:09:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1763384974; x=1763989774; darn=lists.linux.dev;
-        h=content-transfer-encoding:in-reply-to:from:content-language:subject
-         :references:cc:to:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=c0dXT30veEakeSVZxbz1QIlJ8eVNfIbZwRp+HWpn1P0=;
-        b=BFUfogI0pdXnJOswOcqm9QlpaIE3Y9E39ZRgnvk1Z3HnVX83zyblU6/F0ORjb2RF3L
-         dLKucCb+ewXyLT0TvL8+Mmz5RkuONWBb2bTrJhxD+y08SLIfj45cNSMWLdsaDdKTqc75
-         VPwFI2sfRAJ4uNFRgYGgt2EmdfdR4m1nNfXSqJYIUbXFI/PksOoh5Ykqt1+Uv8XdgFxU
-         bFkUZZYpypz5c35RUMlTTiEsRNlvRX3AbkoppzbZ0njvITIJGU8tYRX8Qs2om2Cyzinl
-         KCkQVIT/OG0sJwNRwckN6kH3dRUz6tf7SotraBjLwLMKf2mzbk2DaXG0/OChhsnBfH/1
-         TbZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1763384974; x=1763989774;
-        h=content-transfer-encoding:in-reply-to:from:content-language:subject
-         :references:cc:to:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=c0dXT30veEakeSVZxbz1QIlJ8eVNfIbZwRp+HWpn1P0=;
-        b=p63RjrTesHVdDH7fKdyGyA+YFeMLD/RnRFZNkoJ+bUGznroWiLfbmBRF3CMpezPDrB
-         SFte9++MS8zQJ/LnbcyYgoxKipcBqj5qHkjibF/cjL0Uw0JdIxF6xMtBwUfVpP12KVdC
-         sd5dVjOB29X8QKhMEWceh4yH+1Kq4ROnQO9Jz+t34Ra/t8i+91VhEdUbgDA1ZgCitQ6d
-         5WRnxD204BfdZgQ6ZrGoAg2vqClz1nbvcPyWp2bq3JXSSH56So+guZ0RgR2baF2fpWML
-         tzF6i2cL+VMTk3h3Z4zCc63orvoTgyQTsVbcUKxDlRitiEAIw7e0+koiQA/Z1m7wxHiV
-         BcQA==
-X-Gm-Message-State: AOJu0YzdkCJZqPwfj+Pf7mI80vR2DAoQT603VSgsWbdud6ec+578CeRe
-	m1uvC5Pxxi/cMthM93idsnI3EblAENXDOxD6cCZYdK4Cf2SG7CVlUB8J
-X-Gm-Gg: ASbGncsbGcvpxUjT3YKlA6RCnlrO5XpgTXpyx6ZGwO2wjRTl9FF/gxhgPQ+NEZCw/kx
-	qcSI00Ct4EKSfN7q9Rn4oTtWEd4UM5Sjeeg5rTUbIm1BdgO2VPCJ+RbfkZG1zDFx6gQ9PwkF5V2
-	CJCMqMDg0BVs8TbTLbf/b8BYk/7UsPYM+kCPurLzCVciFXAnmIHbwnlI1iRUNRbPyKVOFXPaj8w
-	TeVzUR0A57nB37bbchldfFxThtmQewRCa+t24C7Cxo9TX/6ilqzrEE05J/V5BswtmNrha+6pm1Z
-	G3CcZD8C5LVqIg5q7yz8IcfdtJm68FKsCLzYw43MieR/tnPBNwBXqW7Nul/vR+m7Bk2zyj7lxyb
-	+BEt9mLpy7h89TKatnZIKn6C45V33R0KjFxn8lT52kjrZWLuzbcHWZZWULnu761URWkYZV1dXzg
-	IQazFirrDmFFUf6auONEeq/pUQtm/XFCV6Bjb+S4qJTw/lR+wgpNN6HgLoYaYFp5vBHV1GWA==
-X-Google-Smtp-Source: AGHT+IGNtFL4kQD34q8KQ3Yng7sJN594YBx6Cn4eH8B7Jjw45ePq7+kbxVaOP5+JhLN/PkP6PELaZQ==
-X-Received: by 2002:a05:690e:251b:20b0:63f:ad90:ad45 with SMTP id 956f58d0204a3-641e74b050bmr8838407d50.1.1763384974120;
-        Mon, 17 Nov 2025 05:09:34 -0800 (PST)
-Received: from [10.10.10.50] (71-132-185-69.lightspeed.tukrga.sbcglobal.net. [71.132.185.69])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6410ea037besm4630188d50.9.2025.11.17.05.09.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 17 Nov 2025 05:09:33 -0800 (PST)
-Message-ID: <c015dfbc-9f0d-4711-a72e-9df5566da78c@gmail.com>
-Date: Mon, 17 Nov 2025 08:09:33 -0500
+	dkim=pass (2048-bit key) header.d=mk16.de header.i=@mk16.de header.b="KcNeJxas"
+Received: from mors-relay-8202.netcup.net (localhost [127.0.0.1])
+	by mors-relay-8202.netcup.net (Postfix) with ESMTPS id 4dBZB35M6kz4C3t
+	for <landlock@lists.linux.dev>; Wed, 19 Nov 2025 22:19:39 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mk16.de; s=key2;
+	t=1763587179; bh=l/CJ0rPr/nn40uDYN2Y+Sh5UrW9PvXMM9FXWJTnPYKI=;
+	h=Date:From:To:Subject:From;
+	b=KcNeJxasY4NenB/cB27K336CggzssvDX0eBj1Q2SaJeOs6D85yd2mQV7+2AGAzsUL
+	 h1Zq7foUpiecMgo4jEdr2D+HTMY7vxiSJ4xcSSf1giugxX4H95gsHsJTORsv0B1Zfm
+	 AtfSbpe0Noul8eY0g+mesj15zeQW3dtVGKAU8A4GoQz/f0+gnOdOVdjLYfe1NhfUD2
+	 pCEZM6Je9urceijvabQe0rKsNII6pE13IsyUKl7GX/Lai9t8q3oACeb9KiLakisGyz
+	 DHrbc9Yy67egmI+Q+23Ex3r9YEnYrDYxMry2uJpnAbALqkY0n5k9EZzrHIbi+y+RMn
+	 vLDco53whyasg==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-8202.netcup.net (Postfix) with ESMTPS id 4dBZB34fSXz4C1l
+	for <landlock@lists.linux.dev>; Wed, 19 Nov 2025 22:19:39 +0100 (CET)
+Received: from mxe87b.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4dBZB327vJz8scM
+	for <landlock@lists.linux.dev>; Wed, 19 Nov 2025 22:19:39 +0100 (CET)
+Received: from ciel (dynamic-2a02-3100-814b-9a01-1524-a8a9-acba-e96e.310.pool.telefonica.de [IPv6:2a02:3100:814b:9a01:1524:a8a9:acba:e96e])
+	by mxe87b.netcup.net (Postfix) with ESMTPSA id 20EE11C0048;
+	Wed, 19 Nov 2025 22:19:38 +0100 (CET)
+Authentication-Results: mxe87b;
+        spf=pass (sender IP is 2a02:3100:814b:9a01:1524:a8a9:acba:e96e) smtp.mailfrom=m.k@mk16.de smtp.helo=ciel
+Received-SPF: pass (mxe87b: connection is authenticated)
+Date: Wed, 19 Nov 2025 21:19:37 +0000
+From: Marek =?UTF-8?B?S8O8dGhl?= <m.k@mk16.de>
+To: landlock@lists.linux.dev
+Subject: Question about using Landlock
+Message-ID: <20251119211937.52cd76a3@ciel>
 Precedence: bulk
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
 List-Subscribe: <mailto:landlock+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: mic@digikod.net
-Cc: landlock@lists.linux.dev, vt@altlinux.org, m@maowtm.org
-References: <20240406.baeVa4ugh9Ve@digikod.net>
-Subject: Re: R/O protection for lower level dirs
-Content-Language: en-US
-From: Justin Suess <utilityemal77@gmail.com>
-In-Reply-To: <20240406.baeVa4ugh9Ve@digikod.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; boundary="Sig_/othNkk7hQ9GIp7C7o8luXcX";
+ protocol="application/pgp-signature"; micalg=pgp-sha512
+X-PPP-Message-ID: 
+ <176358717842.1374998.14817458035712674824@mxe87b.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: 20EE11C0048
+X-NC-CID: e+vVkuRHDmPADM1nAUaZFiRnafvJ+Tbby7PF
 
-Hi,
+--Sig_/othNkk7hQ9GIp7C7o8luXcX
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-I have a working tree that implements this feature. It's implemented in 
-a flag named LANDLOCK_ADD_RULE_NO_INHERIT.
+Hello,
 
-It's the successor to the first patch I submitted here:
+I would like to use Landlock in my program to improve security under
+Linux. I have a few questions about this:
 
-v1: 
-https://lore.kernel.org/linux-security-module/20251105180019.1432367-1-utilityemal77@gmail.com/T/#t
+1. The documentation uses the Landlock functions without syscall. [1]
+For example, `landlock_create_ruleset` instead of `int
+syscall(SYS_landlock_create_ruleset, ...)`. In which header file are
+these landlock_* functions declared? My compiler says it cannot find
+them. As a workaround, I currently check whether these functions exist
+when configuring the project [2], and if not, I create them [3].
+However, this workaround also has problems: syscall returns a long and
+the Landlock functions return int, which means I have to perform a
+conversion, but there is a possible loss of information from long to
+int.
 
-The above first implemented version patch implemented the flag without 
-any parent directory protections.
+2. I don't quite understand how to add rules to Lockland's rule set.
+When accessing the file system, I'm supposed to specify the fd of the
+file, but then I already have that file open. And that's exactly what
+Lockland is supposed to control. Another problem is that I work with
+several libraries: for example, `yaml-cpp` to read my configuration
+file, `libtuntap` to create a TAP device, and boost.asio to read and
+write from this TAP device. These libraries create files without me
+controlling this with my own syscall. How could I integrate Lockland
+there?
 
-Both the old version of the patch and my new version build on Tingmao 
-Wang's patch to add LANDLOCK_ADD_RULE_QUIET, which helpfully added a 
-rule with similar flag propagation logic.
+For example, I create the TAP device (before Lockland controls it) and
+then try to restrict access with Lockland. [4] However, I am unsure
+whether I am using Lockland correctly.
+```
+tun_tap dev(config.get_device_name(), tun_tap_mode::tap);
+[...]
+landlock_ruleset_loop.add_path_beneath_rule(LANDLOCK_ACCESS_FS_WRITE_FILE
+| LANDLOCK_ACCESS_FS_READ_FILE | LANDLOCK_ACCESS_FS_IOCTL_DEV,
+dev.native_handler());
+landlock_ruleset_loop.restrict_self();
+[...]
+const Crazytrace ct(io.get_executor(), ::dup(dev.native_handler()),
+nodecontainer);
+io.run();
+```
 
-v3: 
-https://lore.kernel.org/linux-security-module/cover.1761511023.git.m@maowtm.org/
+3. Lockland introduces scoped access control starting with ABI 6. To
+avoid getting warnings from the compiler (and linter), I need to know
+whether the struct landlock_ruleset_attr has scoped access control or
+not when programming. Since I only want to support the case where this
+is true, I would like to check the ABI version at compile time and
+generate a more meaningful error. How can I check the ABI version at
+compile time? Is there a macro for this?
+Currently, I am using a check to see if the compiler can compile the
+struct with `scoped`. [5] However, I don't think this is very elegant.
 
-I still have to break it out into a patch and implement the kunit and 
-flesh out the selftests, but you can find my new implementation and 
-build it yourself here: 
-https://github.com/RazeLighter777/linux-landlock-no-inherit
+I hope it's okay for me, as a landlocked newbie, to ask questions like
+this here. In any case, I would really appreciate any answers!
 
-And you can see the relevant recent discussion on this issue: 
-https://github.com/landlock-lsm/linux/issues/28
+Best regards,
+Marek K=C3=BCthe
 
-There is a newer version of Tingmao Wang's patch (v4) that I will rebase 
-off soon, but it mostly concerned adding new tests so it shouldn't be 
-difficult.
+[1] https://docs.kernel.org/userspace-api/landlock.html
+[2]
+https://codeberg.org/mark22k/crazytrace/src/commit/c9b3a0e51fadece1228f1f92=
+522dccf0115df84d/meson.build#L101
+[3]
+https://codeberg.org/mark22k/crazytrace/src/commit/c9b3a0e51fadece1228f1f92=
+522dccf0115df84d/src/landlock.hpp#L14
+[4]
+https://codeberg.org/mark22k/crazytrace/src/commit/c9b3a0e51fadece1228f1f92=
+522dccf0115df84d/src/main.cpp#L163
+[5]
+https://codeberg.org/mark22k/crazytrace/src/commit/2580137d0d57b7261bd0e22e=
+11853e9e75c2c2a7/meson.build#L122
 
-Rules tagged with LANDLOCK_ADD_RULE_NO_INHERIT attribute have the 
-following properties:
+--=20
+Marek K=C3=BCthe
+m.k@mk16.de
+er/ihm he/him
 
-1.  Access grants from a rule on a parent inode on the same 
-mountpoint will not be propagated downward to child inodes. So a grant 
-on /a = rw and /a/b = ro + LANDLOCK_ADD_RULE_NO_INHERIT will not grant 
-/a/b write permissions.
+--Sig_/othNkk7hQ9GIp7C7o8luXcX
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
 
-2. Refer operations in the direct parent path of the inode (up to the 
-mountpoint root) will be blocked if they operate directly on said path. 
-So if /a/b/c/d = ro + LANDLOCK_ADD_RULE_NO_INHERIT, moving a,b,c or d, 
-creating links to these files, renaming them, or removing them will be 
-disallowed. This prevents breaking the file topology and preventing 
-sandbox restart attacks.
+-----BEGIN PGP SIGNATURE-----
 
-3. LANDLOCK_ADD_RULE_NO_INHERIT propagates to child layers and is merged 
-correctly across domains.
+iQIzBAEBCgAdFiEEmqKBWfzrPNg7whIBfoaRRmmRCMcFAmkeNGkACgkQfoaRRmmR
+CMcqZg/+LopRDXWziRPm8iPFgdkgFjs+/i/RRMazqX27QLIuidt06NO0Xogjmus+
+HExfw+IWetMjbmCROQme4qj7LFLu7meYWZLnyMflqjqu7Xe1o6W53Xt0xQ9uP/Li
+VTKWTMK7BfEWTd0LWL6stykJrwyRiHXBXQSQFKp+u9r3LqcIdFGIfAPSaoT0xxh0
+Kzxo0QRv9jdh3KTdHx5dwl1/idLgAKgwrHHL1xS6lE60Vc1VA/GSn6/AhzSTYnRz
+KLfqNEwHjy4nlP0tekLg/4Uh/y8VU52NyaD5QSsLvDcuCmgm43Th0KNncz/hBdC4
+CUN2wxoMzNsXbHkxcg4yjC5rJHgtzGsNWqF3o/igo+yH6m6+Q8iEM6ocNx271I7l
+ImR/Et+Rn59a8Fx46c57aOEuuBuO38K8MW534vP0pVr6R1T3zeW989S+Ydlp0D4O
+y3XJykx9K3l84EybsNWdnAh6xoBBRA4KXCrWFEFJNIYX8TK8o4b8pmRAOKW+dB9V
+2perdiMxTJ09PKSGWRPq5l2cJCPhPJPbH2ZE4rri9qzzqtzNnRBDWhQwkUXFFo6L
+jo5ecFVRcQRW1bVcqF/0TjD0+ZR92ulziDwjjvq2cw7nlaFSo6uGNPs4OsIggW7g
+HqLos2c7pkXSOtJWqC3bjVNwEhr8K39VpWly9MOIXZj8vyyPVn8=
+=T3fZ
+-----END PGP SIGNATURE-----
 
-The use cases for this patch could be:
-
-1. Granting access to /home/user, but restricting sensitive directories 
-like /home/user/.ssh
-
-2. More fine grained restrictions on USB or other devices in /dev. So 
-you could a program to allow /dev/usb, but forbid a specific device 
-/dev/usb/hiddev3 for instance.
-
-Here's a demo of the patch. LL_FS_RO_NO_INHERIT is a landlock-sandboxer 
-environment variable I added in which just creates an ro + 
-LANDLOCK_ADD_RULE_NO_INHERIT rule on an inode.
-
-Demo:
-
-~ # LL_FS_RO="" LL_FS_RW="/" LL_FS_RO_NO_INHERIT="/a/b/c" 
-landlock-sandboxer sh
-Executing the sandboxed command...
-~ # ls
-a      dev    init   root   sys    tmp
-bin    etc    proc   sbin   tests  usr
-~ # rm -rf a/
-rm: can't remove 'a/b/c': Permission denied
-~ # mv a b
-mv: can't rename 'a': Permission denied
-~ # cd a/
-/a # ls
-b
-/a # mv b bad
-mv: can't rename 'b': Permission denied
-/a # ln b bad
-ln: bad: Operation not permitted
-/a # ln bad b
-ln: bad: No such file or directory
-/a # rm -rf b
-rm: can't remove 'b/c': Permission denied
-/a # cd b
-/a/b # ls
-c
-/a/b # rm -rf c
-rm: can't remove 'c': Permission denied
-/a/b # mv c bad
-mv: can't rename 'c': Permission denied
-/a/b # touch c/bad
-touch: c/bad: Permission denied
-/a/b # cd c
-/a/b/c # ls
-/a/b/c # ls -al
-total 0
-drwxr-xr-x    2 0        0               40 Nov  9 14:46 .
-drwxr-xr-x    3 0        0               60 Nov  9 14:46 ..
-/a/b/c # mount --bind /tmp .
-mount: permission denied (are you root?)
-/a/b/c # cd ..
-/a/b # touch fi
-/a/b # ls
-c   fi
-/a/b # mkdir good
-/a/b # touch good/test
-/a/b # rm -rf good/
-/a/b #
-
-Some things I'd like to hear feedback on:
-
-1. Should parent directory refer operation restrictions apply on parent 
-directories above the mountpoint? Currently they only propagate up to 
-the mountpoint, so you if you had /a/b/c = ro + 
-LANDLOCK_ADD_RULE_NO_INHERIT and / = rw, if /a/b was on a different 
-mountpoint than /, you could still move /a to /unrelated for instance. 
-This wouldn't be difficult to fix, but would add some complexity.
-
-2. Potential for extension to other scopes? It's unclear how this flag 
-could be useful for other cases such as network and signal restrictions, 
-but if somebody can think of something interesting it might be worth a look.
-
-3. Any edge cases that should be tested for that I might have missed / 
-that need addressing.
-
-I'd also love to hear feedback from Nicholas and see their work and 
-incorporate any lessons learned from them.
-
-Kind Regards,
-
-Justin Suess
-
-
-
+--Sig_/othNkk7hQ9GIp7C7o8luXcX--
