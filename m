@@ -1,42 +1,40 @@
-Received: from smtp-1908.mail.infomaniak.ch (smtp-1908.mail.infomaniak.ch [185.125.25.8])
+Received: from smtp-8fa9.mail.infomaniak.ch (smtp-8fa9.mail.infomaniak.ch [83.166.143.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75E17204F93
-	for <landlock@lists.linux.dev>; Tue,  2 Dec 2025 19:02:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.25.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 261752BD036
+	for <landlock@lists.linux.dev>; Fri,  5 Dec 2025 11:22:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.166.143.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1764702147; cv=none; b=grzS9YNr2LdG7y+Jn47E+DN7VUXb2EnoVBe3docDer5RttzBZuwu9l9uclMM0/EhDwOKzefYG89Hg7+zqVgg8L2QgePM7kr3jEWk0NNEo+PrkMbDDs/jZwQ7JLwOyo6vcU4CbtG+ESdmn1f5AiSdA3ZFCykL57tL6vMOhKjo8ns=
+	t=1764933769; cv=none; b=bc0+ZIW8X1O3zh7mwU9t4vn61GBT1GY4jiICMUr5HJAH5BJELFCML1QOWj9L2qmSa7skrEfEQxVy6pO/qO/odLPYXnPLAaNUGc5tRrhujv5B4zBZEniTO2nF2gpS0mhflVXb3lD5Ti5UlIc/GjE72QVBlqjgd0RWGaLdcgQ+gJQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1764702147; c=relaxed/simple;
-	bh=EgU2pB7CqW+o/ELIX/Coo+tDj1bri/KQAL7JY2nGlWA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GWZ7Fc/J0QZwUn7X0czlSe+DvEMOB+gKrlQjEpuL/pEc8HQ9wN96e8+tJd9lkXMHZ9yGCo/CkvZY0hvFep7rYDkQAYODFbaMDIOoCwpHCKweCU5wdYND/wAlk6QLlyzAOOBWYDHIhwPRdz//HwUy8tB+hBPa8YBL16pK1ei9Ke0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=MH+RUUsI; arc=none smtp.client-ip=185.125.25.8
+	s=arc-20240116; t=1764933769; c=relaxed/simple;
+	bh=oJFbKKZFPUtKDtfFc5ZkZLzx5D0XO1U0HGAmgB8977w=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=N42HU9FeGoERPlkna+78LZdB0VKDEQRgAcrnhGCmLe433Zyc6ymzvAORF/yX4ZPt3G7ja/GtOiJKBR+vDiugdUZjgsu/KJDl6K41FsQY3FGfRgZqXHsFZ6LplzfKN+4L7M1EY0qtsrw7B61wcITPdj0UyqeXj5zCVDySaoBt4Gs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=vqE0mVUn; arc=none smtp.client-ip=83.166.143.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="MH+RUUsI"
-Received: from smtp-3-0000.mail.infomaniak.ch (smtp-3-0000.mail.infomaniak.ch [10.4.36.107])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4dLVWR6S8TzHP5;
-	Tue,  2 Dec 2025 20:02:11 +0100 (CET)
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="vqE0mVUn"
+Received: from smtp-4-0001.mail.infomaniak.ch (smtp-4-0001.mail.infomaniak.ch [10.7.10.108])
+	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4dN89k1rXFz9Tl;
+	Fri,  5 Dec 2025 12:22:34 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1764702131;
-	bh=1iPJwre5xtF1W+TRRN8GOvD0kMftQ86HhUUqxCmF9wE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=MH+RUUsIZD8rOM4UTNefLgO9C0VlOr3xAhPXg8VQ7JZ33jUKneS3NowuweJpvD+Is
-	 0IIaXyYTrHVZHR1s0RegKOOhmfrvdrvArxKqjXSlbJ/UyiNk0HZX21Rp/rsgpr0fSn
-	 WwuStG/ZVRKoAchhBuHfROdrX8/iVKb7P8P7vJpw=
-Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4dLVWR0k1Gzk9y;
-	Tue,  2 Dec 2025 20:02:11 +0100 (CET)
-Date: Tue, 2 Dec 2025 20:02:08 +0100
+	s=20191114; t=1764933754;
+	bh=P7/SNAvxehwVySP+J4NNT2Hdq+hxaMMqD0lo7cddUcc=;
+	h=Date:From:To:Cc:Subject:From;
+	b=vqE0mVUnSM4UZCPZcgCu2F4xkyPs5mQT0Y/VaW24U024sffblrIcwmoPed7J0jh3y
+	 VpxN9jqrBz2Z2qQDQUOquhBhALXPsG+T8lmDhiu9JOkKQ/naYc7StSj3Z2i8m3/29a
+	 z/Bm+nXLgFKydnOHNr6NbmvV9PQz1bk1rNveBxxE=
+Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4dN89j4GJxzTs2;
+	Fri,  5 Dec 2025 12:22:33 +0100 (CET)
+Date: Fri, 5 Dec 2025 12:22:28 +0100
 From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-To: Max <max.lists@mxzero.net>
-Cc: Marek =?utf-8?B?S8O8dGhl?= <m.k@mk16.de>, landlock@lists.linux.dev
-Subject: Re: Question about using Landlock
-Message-ID: <20251202.Iphie5shoov9@digikod.net>
-References: <20251119211937.52cd76a3@ciel>
- <20251120.aeC5eePhof6e@digikod.net>
- <cjfmz2jynazcxgu7bckxty7n4ndoaev2hsamehyp7c7b2qmnep@dltjwu4j5yt4>
+To: landlock@lists.linux.dev
+Cc: oss-security@lists.openwall.com, linux-security-module@vger.kernel.org, 
+	lwn@lwn.net
+Subject: Island: Sandboxing tool powered by Landlock
+Message-ID: <20251205.saiZ2Pauleew@digikod.net>
 Precedence: bulk
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
@@ -46,35 +44,33 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <cjfmz2jynazcxgu7bckxty7n4ndoaev2hsamehyp7c7b2qmnep@dltjwu4j5yt4>
 X-Infomaniak-Routing: alpha
 
-On Fri, Nov 21, 2025 at 04:06:16PM +0100, Max wrote:
-> Hi,
-> 
-> On 2025 Nov 20 18:36, Mickaël Salaün wrote:
-> [... snip ]
-> > 
-> > Please keep us updated about new sandboxed programs.
-> > 
-> 
-> Do you maintain a list of programs that use landlock?
-> I'm only aware of zathura [0] that uses landlock (and/or libseccomp) to
-> implement a sandbox.
-> I briefly looked at https://landlock.io/ but couldn't find anything there.
+Hi,
 
-There were no comprehensive list of sandboxed programs but only
-the Landlock newsletters and talks mentioning new ones.
+I just released Island, a sandboxing tool powered by Landlock:
+https://github.com/landlock-lsm/island
 
-I wrote a new page to help with that and it's now online:
-https://landlock.io/integrations/
+Island makes Landlock practical for everyday workflows by acting as a
+high-level wrapper and policy manager.  Developed alongside the kernel
+feature and its Rust libraries, it bridges the gap between raw security
+mechanisms and user activity through:
+- Zero-code integration: Runs existing binaries without modification.
+- Declarative policies: Uses TOML profiles instead of code-based rules.
+- Context-aware activation: Automatically applies security profiles
+  based on your current working directory.
+- Full environment isolation: Manages isolated workspaces (XDG
+  directories, TMPDIR) in addition to access control.
+- Transparent shell integration: Automatically sandboxes commands in
+  your shell without changing your workflow.
+- Zero-privilege operation: No root access or special capabilities
+  required.
+- Layered protection: Multiple profiles compose cleanly with
+  deterministic ordering.
 
-Feel free to send pull requests to add new projects.
+It's a work in progress, so be careful.
 
+Feedback welcome!
+
+Regards,
  Mickaël
-
-> 
-> [0] https://github.com/pwmt/zathura
-> 
-> -Max
-> 
