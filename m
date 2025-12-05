@@ -1,76 +1,90 @@
-Received: from smtp-8fa9.mail.infomaniak.ch (smtp-8fa9.mail.infomaniak.ch [83.166.143.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-outbound4.duck.com (smtp-outbound4.duck.com [20.67.222.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 261752BD036
-	for <landlock@lists.linux.dev>; Fri,  5 Dec 2025 11:22:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.166.143.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55A813090E6
+	for <landlock@lists.linux.dev>; Fri,  5 Dec 2025 12:36:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=20.67.222.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1764933769; cv=none; b=bc0+ZIW8X1O3zh7mwU9t4vn61GBT1GY4jiICMUr5HJAH5BJELFCML1QOWj9L2qmSa7skrEfEQxVy6pO/qO/odLPYXnPLAaNUGc5tRrhujv5B4zBZEniTO2nF2gpS0mhflVXb3lD5Ti5UlIc/GjE72QVBlqjgd0RWGaLdcgQ+gJQ=
+	t=1764938170; cv=none; b=bPgGmrVY9yYifERyUt7dKINIzWqk1EAjrJHBgAZol9OzqxGWJLQ4wZYTEFmaa/pzjzmf4gXUNswvg+8AlmnFGFi8QxTcZdl5/Bkt8rdrV1vQ/S/mQH+PpoI5/NQKwx6dYzmowGoTc50p6ej1bB71x/yNHWLAMYwhnZeF5czSQ0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1764933769; c=relaxed/simple;
-	bh=oJFbKKZFPUtKDtfFc5ZkZLzx5D0XO1U0HGAmgB8977w=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=N42HU9FeGoERPlkna+78LZdB0VKDEQRgAcrnhGCmLe433Zyc6ymzvAORF/yX4ZPt3G7ja/GtOiJKBR+vDiugdUZjgsu/KJDl6K41FsQY3FGfRgZqXHsFZ6LplzfKN+4L7M1EY0qtsrw7B61wcITPdj0UyqeXj5zCVDySaoBt4Gs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=vqE0mVUn; arc=none smtp.client-ip=83.166.143.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+	s=arc-20240116; t=1764938170; c=relaxed/simple;
+	bh=Hx3WVft33VG5sni4+hebJOysxL8mSnognrrBb4rEePM=;
+	h=Subject:References:MIME-Version:Content-Type:To:Cc:Message-ID:
+	 Date:From; b=W39vODmYQsZyBte6Qbc86FFO0Wcre2GNP+mhv9xrh2uwPuxI+gD0DaaP/Ier1Ox8/QFCuM3Wq3/DJvAupo2ipnjmhwldE2/QqvcMgy92tfaXUp4ieqAsg99Wga/bD0tf+rjKvqfm9o8/x4baxPMkZzXEfIxUXieYF4bT0bEOEXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=duck.com; spf=pass smtp.mailfrom=duck.com; dkim=pass (1024-bit key) header.d=duck.com header.i=@duck.com header.b=iP3Tj1op; arc=none smtp.client-ip=20.67.222.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=duck.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=duck.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="vqE0mVUn"
-Received: from smtp-4-0001.mail.infomaniak.ch (smtp-4-0001.mail.infomaniak.ch [10.7.10.108])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4dN89k1rXFz9Tl;
-	Fri,  5 Dec 2025 12:22:34 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1764933754;
-	bh=P7/SNAvxehwVySP+J4NNT2Hdq+hxaMMqD0lo7cddUcc=;
-	h=Date:From:To:Cc:Subject:From;
-	b=vqE0mVUnSM4UZCPZcgCu2F4xkyPs5mQT0Y/VaW24U024sffblrIcwmoPed7J0jh3y
-	 VpxN9jqrBz2Z2qQDQUOquhBhALXPsG+T8lmDhiu9JOkKQ/naYc7StSj3Z2i8m3/29a
-	 z/Bm+nXLgFKydnOHNr6NbmvV9PQz1bk1rNveBxxE=
-Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4dN89j4GJxzTs2;
-	Fri,  5 Dec 2025 12:22:33 +0100 (CET)
-Date: Fri, 5 Dec 2025 12:22:28 +0100
-From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-To: landlock@lists.linux.dev
-Cc: oss-security@lists.openwall.com, linux-security-module@vger.kernel.org, 
-	lwn@lwn.net
-Subject: Island: Sandboxing tool powered by Landlock
-Message-ID: <20251205.saiZ2Pauleew@digikod.net>
+	dkim=pass (1024-bit key) header.d=duck.com header.i=@duck.com header.b="iP3Tj1op"
+Subject: Re: [oss-security] Island: Sandboxing tool powered by Landlock
+References: <20251205.saiZ2Pauleew@digikod.net> <303DA753-37EF-4530-AA63-4C3579E9A454.1@smtp-inbound1.duck.com>
 Precedence: bulk
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
 List-Subscribe: <mailto:landlock+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-X-Infomaniak-Routing: alpha
+Content-Type: text/plain;
+	charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Rspamd-Bar: -
+X-Rspamd-Report: DMARC_POLICY_ALLOW(-0.5) R_DKIM_ALLOW(-0.2) MIME_GOOD(-0.1) R_SPF_ALLOW(-0.2)
+X-Rspamd-Score: -1
+X-Rspamd-Action: no action
+To: "oss-security@lists.openwall.com" <oss-security@lists.openwall.com>
+Cc: "landlock@lists.linux.dev" <landlock@lists.linux.dev>,
+ "linux-security-module@vger.kernel.org" <linux-security-module@vger.kernel.org>,
+ "lwn@lwn.net" <lwn@lwn.net>
+Received: by smtp-inbound1.duck.com; Fri, 05 Dec 2025 07:36:03 -0500
+Message-ID: <F42D1895-AB49-469F-926F-222D0BE1CAAD.1@smtp-inbound1.duck.com>
+Date: Fri, 05 Dec 2025 07:36:03 -0500
+From: kf503bla@duck.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=duck.com; h=From:
+ Date: Message-ID: Cc: To: Content-Transfer-Encoding: Content-Type:
+ MIME-Version: References: Subject; q=dns/txt; s=postal-KpyQVw;
+ t=1764938164; bh=Hx3WVft33VG5sni4+hebJOysxL8mSnognrrBb4rEePM=;
+ b=iP3Tj1opcIMDPEfPAv4PctTDpVKC2HocLpW7kg4JdJ4INN5uuIXeu2vXKaPZ6Z9kXsHscRzoZ
+ wRWaAM28J/FWJSp9dKKfc1hrdlXyUsXa1MMKWtsi1azpC6Rwx/0sOVcHD2qgQqGxxVvfndFHWsx
+ XBnnuQ8+OEnXF5rd8o8NyiM=
 
-Hi,
+Why would you publish it on github? Please consider codeberg or src hut.
 
-I just released Island, a sandboxing tool powered by Landlock:
-https://github.com/landlock-lsm/island
 
-Island makes Landlock practical for everyday workflows by acting as a
-high-level wrapper and policy manager.  Developed alongside the kernel
-feature and its Rust libraries, it bridges the gap between raw security
-mechanisms and user activity through:
-- Zero-code integration: Runs existing binaries without modification.
-- Declarative policies: Uses TOML profiles instead of code-based rules.
-- Context-aware activation: Automatically applies security profiles
-  based on your current working directory.
-- Full environment isolation: Manages isolated workspaces (XDG
-  directories, TMPDIR) in addition to access control.
-- Transparent shell integration: Automatically sandboxes commands in
-  your shell without changing your workflow.
-- Zero-privilege operation: No root access or special capabilities
-  required.
-- Layered protection: Multiple profiles compose cleanly with
-  deterministic ordering.
 
-It's a work in progress, so be careful.
 
-Feedback welcome!
+Sent with Proton Mail secure email.
 
-Regards,
- Mickaël
+On Friday, December 5th, 2025 at 5:14 PM, Micka=C3=ABl Sala=C3=BCn =
+<mic_at_digikod.net_kf503bla@duck.com> wrote:
+
+>=20
+>=20
+> Hi,
+>=20
+> I just released Island, a sandboxing tool powered by Landlock:
+> https://github.com/landlock-lsm/island
+>=20
+> Island makes Landlock practical for everyday workflows by acting as a
+> high-level wrapper and policy manager. Developed alongside the kernel
+> feature and its Rust libraries, it bridges the gap between raw security
+> mechanisms and user activity through:
+> - Zero-code integration: Runs existing binaries without modification.
+> - Declarative policies: Uses TOML profiles instead of code-based rules.
+> - Context-aware activation: Automatically applies security profiles
+> based on your current working directory.
+> - Full environment isolation: Manages isolated workspaces (XDG
+> directories, TMPDIR) in addition to access control.
+> - Transparent shell integration: Automatically sandboxes commands in
+> your shell without changing your workflow.
+> - Zero-privilege operation: No root access or special capabilities
+> required.
+> - Layered protection: Multiple profiles compose cleanly with
+> deterministic ordering.
+>=20
+> It's a work in progress, so be careful.
+>=20
+> Feedback welcome!
+>=20
+> Regards,
+> Micka=C3=ABl
+
