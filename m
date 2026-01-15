@@ -1,212 +1,162 @@
-Received: from smtp-190c.mail.infomaniak.ch (smtp-190c.mail.infomaniak.ch [185.125.25.12])
+Received: from GVZP280CU018.outbound.protection.outlook.com (mail-swedencentralazolkn19012068.outbound.protection.outlook.com [52.103.35.68])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CC9D335067
-	for <landlock@lists.linux.dev>; Mon, 15 Dec 2025 11:45:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.25.12
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1765799123; cv=none; b=ZzxW4bSzxJQD47w77hzRulPAmDXPl260g8vIeENvyMtFL+UIA98DBgHCqynBSO0DBA0uP+LoRqhBnsUviaWLXvmw7oZSMjBLV9I7ByLETmsA2FeH6ZFp5FM9CY5Exxoe6TWFhD1eYOC+F8U32B/Yq/0jpd9BF+JGzHeyprGFqEc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1765799123; c=relaxed/simple;
-	bh=ZyBIaG+lG8vPxwAdZxxTp/Zsp33JbnblFQsOln6KmLk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PG3WHsmv57UbNOc9er+kK/cljZkHdnT2ij5hvJrA6vlW0jcOAp4nVPUsjc3ORsO6WWXZd+reaPBso2HvtlzcJDxCf+PfQMu0L2tzPD5itgR/P7Cg+ZI53Fh+2fZi7lnsIoSXypGdA5S5ZHAjIpceH6vBl4FeoRmeObtWsck7xts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=YXH/zicO; arc=none smtp.client-ip=185.125.25.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF65F322A15
+	for <landlock@lists.linux.dev>; Thu, 15 Jan 2026 21:39:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.35.68
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1768513194; cv=fail; b=KnVuDxBlggaafC1IyNwIoCoRmPuY5NIBS3zaZywn6D8Tzyar9OiBMaQVKmztCjRtf8BfXHCZsxQJsixGwML56mfRE4ksEZCQS772s+zG/cMqzklsPvnVin4c92ktpMei42/77OixJU/kNr8uQKJRxTAqnr36SLWUOF/oNXikdK0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1768513194; c=relaxed/simple;
+	bh=ElNqLmUqq2TD6EQAbENxnEgwTW73/e2p9BN9pihO1xw=;
+	h=From:To:Subject:Date:Message-ID:Content-Type:MIME-Version; b=CHXMmGG3KnKeWgQKotFraJCbu1JjLWfgdK4Fd6WINrSagZUc24M4IxSk+Up7naR0gSorlM4eMMX4W8/pqibHg+hawJdFVyeg9CvKzutAbOYb2SOFEIjfZziQ8IMZRTq3IGcnX75Zxho9OodBOJbz3oqA50MDvIAVZmMSp739JRg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=urb5JNQb; arc=fail smtp.client-ip=52.103.35.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="YXH/zicO"
-Received: from smtp-3-0001.mail.infomaniak.ch (unknown [IPv6:2001:1600:4:17::246c])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4dVHpT0Q90z2fl;
-	Mon, 15 Dec 2025 12:27:13 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1765798032;
-	bh=VO3ERMjg7lf1h+aBSm8JMyUIbIGpq7gPo9rDAvIPZgs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YXH/zicO5DwPzUyzLRG4pdjRABIqpGo3xh00ul0wwUcm7jjZjQa8tP+G/LgS680Uf
-	 sHTodTXsoS+USwUJEWwkqZ+6tQ4a+zk46GmhU+Hy4UAfYtFbKjbHWUdibQt5tvCHlO
-	 LO5V/fVOZa1qkWf9yqVv21wIgYOGMYULA7qbQUlI=
-Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4dVHpS24KPzTF4;
-	Mon, 15 Dec 2025 12:27:12 +0100 (CET)
-Date: Mon, 15 Dec 2025 12:27:07 +0100
-From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-To: Demi Marie Obenour <demiobenour@gmail.com>
-Cc: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>, 
-	Alyssa Ross <hi@alyssa.is>, Spectrum OS Development <devel@spectrum-os.org>, 
-	linux-security-module@vger.kernel.org, landlock@lists.linux.dev, 
-	"Ryan B. Sullivan" <ryanbakersullivan@gmail.com>, =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
-Subject: Re: [PATCH] host/roots: Sandbox xdg-desktop-portal-spectrum-host
-Message-ID: <20251215.igh0yobahc8E@digikod.net>
-References: <20251212-sandbox-dbus-portal-v1-1-522705202482@gmail.com>
- <87o6o25h6y.fsf@alyssa.is>
- <cfab1f24-65ad-40ed-b4a6-17f0aad8dc60@gmail.com>
- <87ikea5a8x.fsf@alyssa.is>
- <00256266-26db-40cf-8f5b-f7c7064084c2@gmail.com>
- <87bjk16dvv.fsf@alyssa.is>
- <515ff0f4-2ab3-46de-8d1e-5c66a93c6ede@gmail.com>
- <20251214.aiW5oc2izaxa@digikod.net>
- <20251215.5d7e473daa34@gnoack.org>
- <2a681b48-bc6e-4257-8e0f-3b6aff25ac67@gmail.com>
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="urb5JNQb"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=baYzufz4V5DjAJ+VdNs7eytMA/DAlQ4/R3b/0+B2kzswJZslbySVHyQcnfVRUb0DRb+p03E+RqrTQgfdThoQEdAD8rOw7WIL1spGkE8Azvpc9gy6ePPlhFIQ8U+5JpJWlTN2CXvkc7Ge8WiuP/r3MlHAFtA+oVragnxW9zwowXr5DuJ+trHTwBDKWDnBmgdrAXDZXpfMvGRrmJ9oiY1vy65rKGR/fszhwjFO5nQweWxiniGgt06f2T/CmtPq/rfQImJI8Z0o2r4Fs8Xkeo8YfO5dZ0I2hDSN8H5/FJ4p/y4Q4ENpZUpePKmoAv+yuDMxSFXdPE4UeS8JlYntExDa0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ElNqLmUqq2TD6EQAbENxnEgwTW73/e2p9BN9pihO1xw=;
+ b=OHyVUje27nXcSiZoFeAZ72cJqyduQVQidkuxf1SL2Sl6f0s6JFLSvAFpyO756fx499x2xvAox27FpI3rI4oiKeSaUGxiZyUYlCJEE+1IBD7dXMeBvG0Hh+2s9y/SIEd04+kUjxqZ6wUbe7UBqWCT264Lw/kZ7qDIJpkoGhG+CBHfFZSK0JhHYlpyuCO8lzr2AcRrhhf8pDG55I14tyMiBAG4iScmauNj2Nf909FNNFTVHAcwAsTv6JjkBBUBoqwn06AzMmDQQYoXHC2wKZgzCDkaFDvGjdWRBplQDFxIomuGyUcZqgY3CCVePPWusKrIrtAS63mVqWQeFh/gGar1aQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ElNqLmUqq2TD6EQAbENxnEgwTW73/e2p9BN9pihO1xw=;
+ b=urb5JNQbVJkvQs9F2bn3q8nb2X09PSOlG0BcNm9dEoKBlMRJYuLnha66pB9eUK5iXm78hbntytNhMM2UvfNtm7CNZJzL7OkcsE5ll6m68LL643xqWp2vsJCoAOmaUb94iIJo3x0lAsMzK6RXgaUB/txr48atzXxR/N4NSqtgzvsksajej8/HWcVDAKOGebgq0DbH8WbyeTz8T5djyow5LqZ46Qv/YXGEIOfFhCQzFBV90aN/iBLlOnlx2oXPJ1RhIh7G8fOoDhVlbPDbl665jDgXp8GCgHEaNZQ15FpXUMuVpdAEHmsS5UteC9MT1pRZSrtuYiwy8d3fkB8NC9T5sA==
+Received: from MM0P280MB0897.SWEP280.PROD.OUTLOOK.COM (2603:10a6:190:1::13) by
+ GVYP280MB0816.SWEP280.PROD.OUTLOOK.COM (2603:10a6:150:eb::9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9520.6; Thu, 15 Jan 2026 21:39:50 +0000
+Received: from MM0P280MB0897.SWEP280.PROD.OUTLOOK.COM
+ ([fe80::8a32:ef8a:8be8:f315]) by MM0P280MB0897.SWEP280.PROD.OUTLOOK.COM
+ ([fe80::8a32:ef8a:8be8:f315%3]) with mapi id 15.20.9520.005; Thu, 15 Jan 2026
+ 21:39:50 +0000
+From: Gerhard de Clercq <gerharddeclercq@outlook.com>
+To: "landlock@lists.linux.dev" <landlock@lists.linux.dev>
+Subject: Landlock for sandboxing containers
+Thread-Topic: Landlock for sandboxing containers
+Thread-Index: AQHchmcrKmIH5n3i4UqE7UAOc5D+Dg==
+Date: Thu, 15 Jan 2026 21:39:49 +0000
+Message-ID:
+ <MM0P280MB0897D3124F7B068D6DAF459CB88CA@MM0P280MB0897.SWEP280.PROD.OUTLOOK.COM>
+Accept-Language: en-US, en-ZA
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MM0P280MB0897:EE_|GVYP280MB0816:EE_
+x-ms-office365-filtering-correlation-id: 0dadcc23-2209-4d26-ece6-08de547e9c5d
+x-ms-exchange-slblob-mailprops:
+ cMYiyfCW+t47Rh5u2KvI1CPTOnmzfxX/Kk2uxtREEivJKXNFnj6RYJnPqpPPJlWB3u9O5FEyURTuUym+LEP7YGBfuQ3i83sPa9yR4ccZORrV/irday38iXZKswq78DnjwYeH1suigp8oQXCEbcDhirACcihlGITZflBC2kLTvQCPg3QOQPTzPgikyASKYwvvkIbjJSeKCOEJma8pZnHmBBaEwEImQmLxpXzryG+CLqO5KRHT1ftmq8NiDcPJ8Dmqv1tseY3s36rvk7wJIOmn8Jz8UoJ91omRVIJpzMlCHwpvEaZSEqJ9lbHnWst4KylzGDv9NwyB7CuTceRoI2UxstI6kxspHXrh7mWiqasAUMBntGC0R9ylKataGaD80Z/vauD3KrRL+Ue7J24bhrULlZPUi+MWYJByEuRvXyuU7gQI/vL14RN6ahWSw0fj6weavsk9kfzDW7YtBclVD1m3oo9uiu9Tua9nQe79PW51XhtZGs4W/ASr/PYwWjps3F3319GF0QBrkHewhNuubpYm/FBwVV2ZexS4+7DxQIynpb1gNQUyjPSBGpTY2O3yO86GlYRyLJ95Rd/wnvg4ehsYpgpHFheQ+mjCUC1X5Bz9h7Er9kHh5VEeTsAtK+Q/Lf2TSdckYO5OGbKLQZdGUrOEIGmrW5pVjOt7u/S72eHFpmoZ7ntF7hJSs7JpbqRYOxTTl471Mn2SXX7IfRtyXl8998nJuk87WGSI5/w88gVuXsKVQQphSkJPGeEH3+eNMpCQttWnii3TlFzRoW9rjfbRIA==
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|461199028|15080799012|15030799006|19110799012|8060799015|51005399006|8062599012|31061999003|3412199025|4302099013|440099028|40105399003|10035399007|102099032|1602099012;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?2kU8zHkYMrG3NOC96snVVyiYMYBGcYjQqFQGmVB8BS3S9ifLUUtiU1Byvq?=
+ =?iso-8859-1?Q?U/yXpNFHO6XNlo/nEzzk5bV8D2J2E5MFQhV0YxP6Pou7tzzCK08n39l8QE?=
+ =?iso-8859-1?Q?tljatgd7W1trkT/c9Gd/nAwi/hoyVxFnffyoUjUY993wRfjtXOLEi31i0d?=
+ =?iso-8859-1?Q?XcvgbhLGJRkjt5pJ5Q0KpRy1Y1RYvRAvzn2ualKLQLqB7BXZ6mD0QQpnsV?=
+ =?iso-8859-1?Q?Cs6K2VyKpZKVWYcjPcE/VpdiE1dVjldQIO3FxiMLk6xiAJeQmVhYnNEmJa?=
+ =?iso-8859-1?Q?Y12dtQXVS13wI7mw57NriI/guozSzvsHeYdfMiFTvECGRKVNWNoE57HR3X?=
+ =?iso-8859-1?Q?gI4nEzyO1Nir/Gg+n+v5wioSEtKarhWs54J5mVh/DFViOWrqcA3Hj/c9Xv?=
+ =?iso-8859-1?Q?5dQadhahXUFHw6C1UxfbHrdI/2t96rAZsK8GzS8EX3dZYHz7EsrP93usM1?=
+ =?iso-8859-1?Q?+dt6dnEbAYsJg0C/W45hHw7YStGOBxRTwc0GWTJ1hVLm7KLQxB8y8WNJmE?=
+ =?iso-8859-1?Q?pZDTTvNht58mmEwnTqfawx2Ijm+1gtjkedny23EeMn5SL++yN++PtIyfLQ?=
+ =?iso-8859-1?Q?JI5Hne2n8TiXknY6Ik6IKPY/Um+xEY24baleJWoChgKFCFn1jEDpc3iGnW?=
+ =?iso-8859-1?Q?s3XVBfDV990IiL9GR/LeYyNlHFxrvCkx+P5iFXgsCcCX9B0tG9dVjS+yDN?=
+ =?iso-8859-1?Q?TEtdeZnJ7mhxF4Es7H1Nj47bb3HwSmREIz4BISeYfciHKMSU5+7u8Pkuc9?=
+ =?iso-8859-1?Q?1Rr3HP0dk8yufIbLNTb9MPIWoH9VNyaaL/jsbudratwz6n201UEvZ6PbWI?=
+ =?iso-8859-1?Q?Evn9DnczMFL50ACcxtUBbkPVtBGDxCaaFhsJkgQjIouvmMfe3n3x52iIuR?=
+ =?iso-8859-1?Q?BZYwurCo58Qz+rQDEmIAJWKtt4cVBrsUoFseo2DiF+I4rSM2gGePZnkrtH?=
+ =?iso-8859-1?Q?XfpvSYmyrtYNldTN53zeNpuoI9oK4i33wMAB9vjAxYVa4UYuQxrvTR4abU?=
+ =?iso-8859-1?Q?gN4ShwXCWBP79a1ya0Ct9AokejXop8W+Tbl7PRG/TSid4VD9NSG8rRJLrK?=
+ =?iso-8859-1?Q?SbQBhH5DscXBOz/ICmTp0CPH236196L9ItIAVTMWiK4/EKz6SIy93wkxZt?=
+ =?iso-8859-1?Q?SKQGW2/E+96NVfUjyFTobtaPPQtTL37OrAneLeFubgH3HZpmUay/Qb0gMz?=
+ =?iso-8859-1?Q?lG8y7CdLwsgwUtcBcQXOb1UvozXeDB+UPB8jvONnTN+U5IXDVwWqesHcmI?=
+ =?iso-8859-1?Q?cuQuzCrtwFZgqrIBLpDZ2z3N56Kp2dSj/tTmFsfNWw4n88HpoN+Hf90M7W?=
+ =?iso-8859-1?Q?oeqmQPdYQTsQ37CWTXnoAxACDLNB4FDYIbOcLLm57j2uxSU=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?izRHd4247rKI4sNhWyVoOi1x1MZUKJcgT0wYt7A9nWNVacP3He4jcqJ2GO?=
+ =?iso-8859-1?Q?bECxv5vo4OWCZv1KpG9rNS9FlIxwfOzv/ZcZZYgTyzl11usjdxcvP4jmAD?=
+ =?iso-8859-1?Q?dZYuplnenKhoXnbMt6wKcDHHv9tBCQaaI1gaXnfyLVkFLPTgb9sIcMsRG8?=
+ =?iso-8859-1?Q?42+sG/HRFcQgxz8epbFcdOSZROrJiz7MfNo8ATSWbpTAbuc7xEmN4nchqC?=
+ =?iso-8859-1?Q?YVVAkqTy/1DX8w6wgslqdgHkt+c/yz4C7bNHXr2jjfEx/QwHXR3CcaAodE?=
+ =?iso-8859-1?Q?fGX/uBv58Vdmo+1mGbCgMC5QDsUgEPLlNpoQdCRzJkkJ6UiYKqxeKh3hCF?=
+ =?iso-8859-1?Q?eOifrmuHonjGXnn34qGI0WgVi6nLAf52fHy/gAQZeYt6Uw8NbFb0V+XqQW?=
+ =?iso-8859-1?Q?YDDRduLF9RBJMviKFC31B+XHifUGU+erpeza3YtYfvVxC+cTbSJkuYGrnW?=
+ =?iso-8859-1?Q?U/ozivNJDntUPo5D7VbMOiRvf65RVcz4p1foFVtjLQC3FFdUrCxj1tNfwK?=
+ =?iso-8859-1?Q?lhvd7kJI7/A2VeWZArmPBkqrUyIBDsCHOIAGvFNbU+wMLkSvT/1Ok/UVRX?=
+ =?iso-8859-1?Q?LbuLwpyug7uYgoagbtFELWXxgET2TmbN/UhEdfliz8fGASmDMAi7JNuym6?=
+ =?iso-8859-1?Q?h8KbCjEC9DQrWGlx/KuzaJNzxNRrqnkgWOFTzMGoobF6IS/fJFADGv9z7L?=
+ =?iso-8859-1?Q?ELmMNCcxyz5fffGc8exsCy5SONRKdFDEgx/XJSXAHUpD8K1wDiu9F6uplY?=
+ =?iso-8859-1?Q?kt0GULdqrRfUZd/Il3xe2C47zMLdd099H6jdgLR+HGapMWQ4pTVsgBhesh?=
+ =?iso-8859-1?Q?J5luD945XOGarl7e6kEAqX1fsCt5wwnzBbKvrMynltXk0+7T17w41/+v+P?=
+ =?iso-8859-1?Q?kVSqRQpqLqPCu9b2wStkUR0Y+3+BEKo1kC1gT6RVU5/uLXUDhJAYQGATwo?=
+ =?iso-8859-1?Q?MMyGJGJLw9K7UbHf6HKZ/DCTtvFR+2SIkJp1OQhfKPS1W8tQ1w9y1Zb0yE?=
+ =?iso-8859-1?Q?diyuDakw4OS4ndqvZeTSJ5GZ6AYUtY0uYgVwAGOIxlHzSCVsRuvSFRZkx+?=
+ =?iso-8859-1?Q?AuiOEl8EFuOpj2Ol76ZfuwlbmIGeKmN6yU5Q7+mkMNVWpfg1oQzR9qeIGP?=
+ =?iso-8859-1?Q?hwgsfLGQQNTOWfSkJg55DFr27b+zTTPWqTLUDjLF8MsrTvWiTzQ+/4aVWB?=
+ =?iso-8859-1?Q?mJUv6RAvGiI/QfJh9wy0tzhH7YyCnMtVW1aDqvdp7fUTKLDQniFQs598FF?=
+ =?iso-8859-1?Q?YdBRtZSm9SGzqvVVT+BXk+fxh+x+RJ0EJOnHh5Mvyezm7HwCGi6uBE8dW3?=
+ =?iso-8859-1?Q?8yiDZoCcSrGBtd4PUw8iJUHP2iHwxPkrrIpoJ7SjREiPEVQ87VCeDql/1y?=
+ =?iso-8859-1?Q?fI7d6CmYnyyJOCY7PiUIU7YPYnJR1VpdraxdtjFp6OEV37NOJ4bxoUFpQB?=
+ =?iso-8859-1?Q?Q5by9Tw3LxJFlw4+?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
 List-Subscribe: <mailto:landlock+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <2a681b48-bc6e-4257-8e0f-3b6aff25ac67@gmail.com>
-X-Infomaniak-Routing: alpha
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MM0P280MB0897.SWEP280.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0dadcc23-2209-4d26-ece6-08de547e9c5d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Jan 2026 21:39:49.8504
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVYP280MB0816
 
-On Mon, Dec 15, 2025 at 03:54:25AM -0500, Demi Marie Obenour wrote:
-> On 12/15/25 03:20, Günther Noack wrote:
-> > On Sun, Dec 14, 2025 at 08:50:45PM +0100, Mickaël Salaün wrote:
-> >> On Sat, Dec 13, 2025 at 11:49:11PM -0500, Demi Marie Obenour wrote:
-> >>> On 12/13/25 20:39, Alyssa Ross wrote:
-> >>>> Demi Marie Obenour <demiobenour@gmail.com> writes:
-> >>>>
-> >>>>> On 12/13/25 16:42, Alyssa Ross wrote:
-> >>>>>> Demi Marie Obenour <demiobenour@gmail.com> writes:
-> >>>>>>
-> >>>>>>> On 12/13/25 14:12, Alyssa Ross wrote:
-> >>>>>>>> Demi Marie Obenour <demiobenour@gmail.com> writes:
-> >>>>>>>>
-> >>>>>>>>> It is quite possible that these Landlock rules are unnecessarily
-> >>>>>>>>> permissive, but all of the paths to which read and execute access is
-> >>>>>>>>> granted are part of the root filesystem and therefore assumed to be
-> >>>>>>>>> public knowledge.  Removing access from any of them would only increase
-> >>>>>>>>> the risk of accidental breakage in the future, and would not provide any
-> >>>>>>>>> security improvements.  seccomp *could* provide some improvements, but
-> >>>>>>>>> the effort needed is too high for now.
-> >>>>>>>>>
-> >>>>>>>>> Signed-off-by: Demi Marie Obenour <demiobenour@gmail.com>
-> >>>>>>>>> ---
-> >>>>>>>>>  .../template/data/service/xdg-desktop-portal-spectrum-host/run    | 8 ++++++++
-> >>>>>>>>>  1 file changed, 8 insertions(+)
-> >>>>>>>>
-> >>>>>>>> Are you sure this is working as intended?  There's no rule allowing
-> >>>>>>>> access to Cloud Hypervisor's VSOCK socket, and yet it still seems to be
-> >>>>>>>> able to access that.  Don't you need to set a rule that *restricts*
-> >>>>>>>> filesystem access and then add holes?  Did you ever see this deny
-> >>>>>>>> anything?
-> >>>>>>>
-> >>>>>>> 'man 1 setpriv' states that '--landlock-access fs' blocks all
-> >>>>>>> filesystem access unless a subsequent --landlock-rule permits it.
-> >>>>>>> I tried running with no --landlock-rule flags and the execve of
-> >>>>>>> xdg-desktop-portal-spectrum-host failed as expected.
-> >>>>>>>
-> >>>>>>> The socket is passed over stdin, and I'm pretty sure Landlock
-> >>>>>>> doesn't restrict using an already-open file descriptor.
-> >>>>>>> xdg-desktop-portal-spectrum-host does need to find the path to the
-> >>>>>>> socket, but I don't think it ever accesses that path.
-> >>>>>>
-> >>>>>> I've been looking into this a bit myself, and from what I can tell
-> >>>>>> Landlock just doesn't restrict connecting to sockets at all, even if
-> >>>>>> they're inside directories that would otherwise be inaccessible.  It's
-> >>>>>> able to connect to both Cloud Hypervisor's VSOCK socket and the D-Bus
-> >>>>>> socket even with a maximally restrictive landlock rule.  So you were
-> >>>>>> right after all, sorry!
-> >>>>>
-> >>>>> That's not good at all!  It's a trivial sandbox escape in so many cases.
-> >>>>> For instance, with access to D-Bus I can just call `systemd-run`.
-> >>>>>
-> >>>>> I'm CCing the Landlock and LSM mailing lists because if you are
-> >>>>> correct, then this is a bad security hole.
-> >>>>
-> >>>> I don't find it that surprising given the way landlock works.  "connect"
-> >>>> (to a non-abstract AF_UNIX socket) is not an operation there's a
-> >>>> landlock action for, and it's not like the other actions care about
-> >>>> access to parent directories and the like — I was able to execute a
-> >>>> program via a symlink after only giving access to the symlink's target,
-> >>>> without any access to the directory containing the symlink or the
-> >>>> symlink itself, for example.  Landlock, as I understand it, is intended
-> >>>> to block a specified set of operations (on particular file hierarchies),
-> >>>> rather than to completely prevent access to those hierarchies like
-> >>>> permissions or mount namespaces could, so the lack of a way to block
-> >>>> connecting to a socket is more of a missing feature than a security
-> >>>> hole.
-> >>>
-> >>> 'man 7 unix' states:
-> >>>
-> >>> On  Linux,  connecting to a stream socket object requires write
-> >>> permission on that socket; sending a datagram to a datagram socket
-> >>> likewise requires write permission on that socket.
-> >>>
-> >>> Landlock is definitely being inconsistent with DAC here.  Also, this
-> >>> allows real-world sandbox breakouts.  On systemd systems, the simplest
-> >>> way to escape is to use systemd-run to execute arbitrary commands.
-> >>
-> >> The Linux kernel is complex and the link between the VFS and named UNIX
-> >> sockets is "special" (see the linked GitHub issue).  Landlock doesn't
-> >> handle named UNIX sockets yet for the same reason it doesn't handle some
-> >> other kind of kernel resources or access rights: someone needs to
-> >> implement it (including tests, doc...).  There is definitely interest to
-> >> add this feature, it has been discussed for some time, but it's not
-> >> trivial.  It is a work in progress though:
-> >> https://github.com/landlock-lsm/linux/issues/36
-> > 
-> > Agreed, this would be the change that would let us restrict connect()
-> > on AF_UNIX sockets.
-> > 
-> > Additionally, *in the case that you do not actually need* Unix
-> > sockets, the other patch set that would be of interest is the one for
-> > restricting the creation of new socket FDs:
-> > https://github.com/landlock-lsm/linux/issues/6
-> > 
-> > In this talk in 2014, I explained my mental model around the
-> > network-related restrictions:
-> > https://youtu.be/K2onopkMhuM?si=LCObEX6HhGdzPnks&t=2030
-> > 
-> > The discussed socket control feature continues to be a central missing
-> > piece, as the TCP port restrictions do not make much sense as long as
-> > you can still create sockets for other protocol types.
-> > 
-> > Issue #6 that should fix this is still under active development -- an
-> > updated version of the patch was posted just last month.
-> > 
-> > To bridge the gap, the same thing can also be emulated with seccomp,
-> > but as you noted above as well in this thread, this is harder.
-> > 
-> > –Günther
-> 
-> I'm a bit surprised that this needs to be separate from other access
-> controls.  To me, it seems like a bit of a misdesign in the core kernel
-> (not Landlock).
-> 
-> I would go as far as to state that enabling other filesystem
-> restrictions should also restrict AF_UNIX filesystem sockets
-> automatically, as that is what users and administrators will expect.
-
-I agree, that would be nice, but it's legacy.
-
-> 
-> What surprises me somewhat is that Linux does not have any sort of
-> unified hook for filesystem path walks.  My mental model of Landlock
-> is that from a filesystem perspective, the result should be equivalent
-> to creating an empty mount namespace, putting a tmpfs on its root,
-> and bind-mounting the allowed paths.  That this mental model does
-> not match reality was quite surprising.
-
-The approach taken by Landlock is to not break user space with kernel
-updates, follow an incremental approach, and have a nice compatibility
-story.  This is why a ruleset is created with a set of well-defined
-"handled" access rights and restrictions.  Each new handled access right
-or restriction must come with an explicit request from user space (e.g.
-set new bits in struct landlock_ruleset_attr).
-
-It would have been appealing to start from scratch, drop all access
-rights, and then gradually implement access rights, but that would have
-make Landlock unusable in most use cases.  Instead, we gradually extend
-the scope of Landlock with well-defined and well-tested restrictions.
-This approach eases the integration of Landlock and when new kernel
-features are available, it's easy to update an integration to leverage
-the new features.  From day one, Landlock has been useful, even if it
-doesn't cover all use cases and environments.  When sandboxing a program
-(or properly securing an OS), most of the time, the difficult part is to
-get a good security architecture with proper privilege separation.  Once
-this is done, it's much easier to gradually improve it.
-
-We should probably improve the Landlock documentation, especially by
-extending the warning block with some other relevant syscalls:
-https://docs.kernel.org/userspace-api/landlock.html#filesystem-flags
+Good day,=0A=
+=0A=
+I am investigating the feasibility of integrating Landlock into a container=
+ sandboxing utility that I am developing (https://github.com/Gerharddc/litt=
+erbox). Essentially Litterbox just makes it easier to setup sandboxed conta=
+iners for use as reproducible development environments. The idea here is to=
+ shield a host system from anything malicious that might show up inside a d=
+evelopment environment.=0A=
+=0A=
+Since Litterbox is built on Podman, my original plan was to use it's built-=
+in support for SELinux policies in conjunction with Udica for policy genera=
+tion. However, since learning about Landlock, it seems that it would be muc=
+h easier to integrate and also more cross-platform (given that SELinux supp=
+ort is rare amongst distros). =A0=0A=
+=0A=
+After reading https://landlock.io/talks/2024-06-06_landlock-article.pdf, La=
+ndlock seems very well suited for this purpose. The only thing I am still s=
+truggling to wrap my head around is how Landlock integrates with mount name=
+spaces and the implication of that for containers. If I understand correctl=
+y, it is currently not possible to enter a mount namespace after entering a=
+ sandbox. Hence, I would somehow enter the sandbox only after entering the =
+container. Is this understanding correct? If so, I suspect I would need to =
+extend Podman itself to do so properly since relying on code inside the con=
+tainer to enter the sandbox on startup seems like something that could easi=
+ly be attacked.=0A=
+=0A=
+Any additional thoughts or suggestions on this endeavour would be greatly a=
+ppreciated!=0A=
+=0A=
+Kind regards,=0A=
+Gerhard de Clercq=
