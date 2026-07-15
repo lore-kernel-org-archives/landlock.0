@@ -1,153 +1,138 @@
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8BEE3F8706
-	for <landlock@lists.linux.dev>; Wed,  8 Jul 2026 21:48:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1783547330; cv=pass; b=or59i3WFuA0hoH2RYSTdys/pWFldAH0rJBeqTD171Y1bLuWyzYcPvYjIXzc/JO5kfrqBkhbKNQRV+9CB/owo5Wd6BWloFvIBiVPBM5DHzgPGLd66r9GxD/4tv4zI/f/p9saDBxm7WbwOj1rudXHa9DXLEaOBLGDEPAYD4NM4jOk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1783547330; c=relaxed/simple;
-	bh=NLMDF7I6FstMAQAeirtdi6wuSf+np5zuq01Umjpc8ow=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=obVHnW8/YoH+dxL1jf6KavFcS9Gq4t/z0OQIZ0pwA+7f8hchXlGQ2S+KNePlG9VlRvwPwp4g52t8BfAyMUWZNxSILs7UsTjlewS3GEOUZ2CgWS4uZaxDRl8GKqONiW6mmFrw+1uyL543w3Nof5Fdc3HMxLS4Q5LF7eIYv8dnSos=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=wcn+V662; arc=pass smtp.client-ip=209.85.208.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF4FE1FFC59
+	for <landlock@lists.linux.dev>; Wed, 15 Jul 2026 08:39:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784104780; cv=none; b=f3ViI+rxtmx1miYo0c48jn/D6EZ2RqWfxEXDqJ/QNmIwpC6MskO2Is2q0X/48wjs2wfAJa4gBY4Cy1A/wo+uIlHbwXyYUM2OdSX2kLlgqyvHu0H4kbrMRIj93y9LQYzXWV6uWu+ZkHuOE+eT6wQ2huPmk0Ho3QLCFIoXT+XpI+I=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784104780; c=relaxed/simple;
+	bh=cEm/qTnAzZOqSTvTREY+WKNkOF2thKgKBFQSaQ9uI4E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qhgFLIJF9Z7vrWR4E2ibh0bK0+PKK8f5yjdFvnWPVuza3QxRl/2BKtRW7Y+E3VSfOnPGbTnmXfh7B83BtFFaMUfr6h/4pdvteGQcWJ7Dj6oL/RqJ1n/Dmj1QccxpgFq2YOmQKtOxHv4x4b6dpWs59HOoA43Ny8qbDMAsizwGBEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=mcCtA7N6; arc=none smtp.client-ip=209.85.221.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="wcn+V662"
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-698411099d6so4153a12.0
-        for <landlock@lists.linux.dev>; Wed, 08 Jul 2026 14:48:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1783547327; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sy3cs59ex6M33xTqJWGnrdpfuJ+GLO06yP4ehiN/9P3tVbu4eAamXIgzYrTWiyS6hs
-         Y82WhQ9g8DkB6cJwBfxNC8SHmYqidcdFrN/i1Xanlnf7RxvTBJPMDfSai/gX2JHTdhTl
-         bJhT78kxvo50zdKuQYbAO/B4NfFBT3htVU0AL0hN73IuO0uXXePJwyXMtCuAQFuNaCgU
-         lv05pZ9EfSk341W3RIrF5eOqyVyFvMBBlWIh4Y4RRHC9BjtkCSkwlKkqC+kLyfRAEBvH
-         0Ll/Vd8Ksy4lpJYW9crzIM94QPgJs+3MPlNU43JODf2lzUp3RRgAVXGl3R+vIVLMX03O
-         06xQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=DKUZ0lFg17Mh7sHmvQEAtUOIrfiiXO1vlZnioYWzL2U=;
-        fh=zDYU1OGP7IpOB0pDThJg5lkZNSCxmtYpeHHIoeMX67Y=;
-        b=PYwwMCMBX5NllhlR2JHrAM7CrWvfHwDsdhxDgZzYGG/3gbWSUpJc7hPGg2IzP/muE9
-         BIrL/T2x60YfnHFgsRsfOVzKb0QXVwNspvBXSJZsY/GLwvfEqyDOJq8lo3OLp3IRzwxZ
-         /rP1BuL2oilOIZWcYZd6zPWpiwKlBmgACNL2zXt3kXywblJkWmtnq/LkVoZNL8NXXjDg
-         8Ll00snnMI1KoEqL/QQpv21TBpoTI9XWE71NeYNqOUljaXWMpugB56z+o/EWF/XSFvB4
-         a0SazCIek1nvW8MShFYKrcfjmRX15vKrTpooOBIwhTnGVl0OPPV+m9jxUaglFz5rBaJw
-         x7sQ==;
-        darn=lists.linux.dev
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="mcCtA7N6"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47f3e6cc44aso2698609f8f.3
+        for <landlock@lists.linux.dev>; Wed, 15 Jul 2026 01:39:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1783547327; x=1784152127; darn=lists.linux.dev;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DKUZ0lFg17Mh7sHmvQEAtUOIrfiiXO1vlZnioYWzL2U=;
-        b=wcn+V662eMIlvXMjCikyoZeQXSWd0bjcUmNM1ufTBE6R3mnMtdEHB1EaHFyaMWuOs/
-         svcdD9Tt26vXRXm8U7VbW/IZtprrF2DMrqL2aWZrleaIjOIQgjUd7I01PKI2Bn6tmafX
-         L4vy9SW3DHGVoOpet6/0z8OGsnfdmb1TmgOvOEbK6LPVEG4LKXbty871V5vT15OyySns
-         BTuR8d/T6fHNotknXCtzMLdNnOEoHz7IP2/vlUhJEtC6tASjtblp8IZlbArb17f0bkmh
-         rA0q76Y0S+5MiHLhz6zTVOAcGJ6GsgyEOPJwPVdLhq9/yzDWL840tdU9x3j0pYYw4/7m
-         OL7Q==
+        d=google.com; s=20251104; t=1784104777; x=1784709577; darn=lists.linux.dev;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WLOCq+q4901QS8UaLFpDknPRI2/Dvm2Tx9StZNFHsJw=;
+        b=mcCtA7N6SfccxnXDEUok5360vnp1K+FnoiUog+KbnprzrN+EDfpJGbZzKN2GyuOUVG
+         sAQOcbbUujaNXea4zxHTfNUveYxTq62MDvFEz8MW5gtvZ0c9P4tXJ/tYY6uQddh3LqnG
+         KU/IEN0E84TaHV/K09E6evHC5Th01xFgJrHFlpevU5ZOuSlN1MkXqIQLfQYgoDjYp3HP
+         8Xq8p0N59ccTsQiR7ag3UGmU9BAjXgO7fAe2zU4gSyggJVPgaQai0lHgEvoZixK1G+t2
+         ySYboMbzMTyvX3agHn9KznXHa+jpv/QJAnPmw+02pd2QtNQK63fWENX0QT6HYBvv9FHu
+         93kQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1783547327; x=1784152127;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DKUZ0lFg17Mh7sHmvQEAtUOIrfiiXO1vlZnioYWzL2U=;
-        b=ZcKOR5e6pKosuemcaWqOi+UFnyA/JDIBwBosik0Xxa+U6towIqe4nFF4MPKAghJcOh
-         CAG+FpGyee87PSD4UBjDqiin8yX8tI9JbN23O60Mnfjo3/ip4ETVTG6EdAdnbUC71IF2
-         1WGMNcK1U5t/dVBa/U1bXFD2IUuAY2p5ruFKQ0l4+l94CJO0vhcX3jaVjRHVCgEftVg7
-         bebQEyN/vb8lMj+R5ziVoUbU3/uTWXFnyjIeuUuEwtWg7UCFmXjo+yz2jku8YG8kx4aT
-         xG2jOKrt9yovxOn1DIKwiYPAglS03omo4uRltAYkQ2uJWChjxDxZ+HXnTgOKtYYPKyPV
-         CsZA==
-X-Forwarded-Encrypted: i=1; AHgh+Rrj6MBrhyG0DYHnPgw3biGaz5TNpENqb9I5c1GARln2OiPaBbbpQKkw2zAT+Rh5vZnH17R+0xq3Yg==@lists.linux.dev
-X-Gm-Message-State: AOJu0YzCxjhla3abJ2IoZrU1cQzia8pIUswzXr3dr6+KlUsjZuwjuxZD
-	IWaEtJU5i1Y6wtPurgVD0Rmj56KK2ODE+ZIo0nmzYtmRLN50zTfLKd/o3TN6TrimlkR1GZeCn07
-	O8kedfgmvxdooBqoHAS/PYBhvdTc5JeM0mQ3Sjk35
-X-Gm-Gg: AfdE7cm9tklUCXKlaREGEeVT2OUL2T7w0puuhVev7sk71/zWJYvKMCCdpvbYvtL5V4W
-	r0jHI/PCitf+fTIRDOC7VWCYyilk25hWnlCIF5+kCqwe9jDQ+P66WrTjNliZEi8GlbkygHIrDK+
-	d+BnToYmoSnxaUpseOJDcquADioTPYZ/VLHIWLbHncMsdueqAufsXX6iMGE0h7/EfNR2xgwmPBl
-	zS4ip752tWVMfmmWQLipLnTiXoG4mMlxcLB6IL90q21M+bvg1lxyZ03z3Ld9R2X+QsfidNqvCJQ
-	ZK45YteHHBSdLXdF2fOl4nDze6nuQT6qhsvrRaItBANkqVvc4ePX7XBWpX6cUkePOOQH
-X-Received: by 2002:a05:6402:2053:b0:69a:fb2d:e84b with SMTP id
- 4fb4d7f45d1cf-69bff1b2bacmr4833a12.9.1783547326726; Wed, 08 Jul 2026 14:48:46
- -0700 (PDT)
+        d=1e100.net; s=20251104; t=1784104777; x=1784709577;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=WLOCq+q4901QS8UaLFpDknPRI2/Dvm2Tx9StZNFHsJw=;
+        b=l4Y0X0dOPSrwT5kKvtBT5Wegsg9aZm+WFKBHRpipi9VvNs6GzOyryJN1apYAOOrgFf
+         noytPBN0MFseq25dNYuJIY2/nYJxA7LZ/VogXqhaG5SReibEa9lGPs6d7PzQxeuHpeKu
+         BB0t4/6nTUTpAnfbDikhUkoKZ2E6zWgGnIVsr7beKZJxlrzLbHblYad6BMHqSaG7ljJD
+         1PuzGYsAN0uXAaGn9J0rD+59zotPGuoCEr8XBqoQLRaiSqiilqlJuKz0HNdJoU7zfPeW
+         jz3QhOO5tb+s7yOcd21v7KXeW7Dlro6Bal4i+RxmEUk8mJEd1Ml4Rp+ZAdRycJJWkj8z
+         ofmQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rra0bBb0S2WIGhdwjkCTvCP4BoHBo4sKd2jLELBj8DnA3iv9Dp76LJm/XEuo8ySbkzoqyQirbdCKg==@lists.linux.dev
+X-Gm-Message-State: AOJu0YxCZxLru06StQsCHhgUphX1fwLCwdb9irgMJV1VhgR+lNfHGDT/
+	wZCPFkMxzD8yKio5tSlbf2HYdx3y6sk7KEDrkhYa2VGeuaLlNuDviM58VgMD2URdPQ==
+X-Gm-Gg: AfdE7cn1eWQf7n/8QrbyNkrOPd34VD8ZNJlWX28Gw7Hske7gm4cqNbNWb42f/0s+sS2
+	VIcSPmn4QyZujq0De25K8NQKm+/4alkacMCnMdKGj2A6b5a09VD8CEvJoJVbzAkU/rGRZrpbJb7
+	S7W0pyEXHWNDjbIK/uDJNyQbvO6DPRRIHm0F2vnPMdHvhkJUY2iyX7bz/Mf1QIwWKxPxyv3ruRx
+	EcTHCB/++KY61YRZKGRmmUHdpj0n4rTOsi+PTk0rbaC/+stsPTnOOG4odLrvAhfkik90Xuy0xq9
+	za1Qyl6ab4IGNYeSZ9jp7mxMhMytk5cCCWUox1LugTk7Mc1/f2q6bKac94chiC9iI+yny45QgfM
+	R2sTCInXep/3blPG7dRuOMEV9Wn+p4LJmNP9YGYT1R9Dz+wWPfzqbWtYyqdHaTawO8vOwhWhUiQ
+	tl3FiigB07Y2r0g3zsfXLp0flMw6WbUxwUbd4RkDfJMhw=
+X-Received: by 2002:a05:600c:699a:b0:493:b783:ad59 with SMTP id 5b1f17b1804b1-495389dc078mr58391605e9.14.1784104776541;
+        Wed, 15 Jul 2026 01:39:36 -0700 (PDT)
+Received: from google.com ([2a00:79e0:288a:8:53b8:23d6:e5b4:dc54])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4950a32b9f3sm154561155e9.13.2026.07.15.01.39.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 15 Jul 2026 01:39:35 -0700 (PDT)
+Date: Wed, 15 Jul 2026 10:39:29 +0200
+From: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
+To: Ken Grimes <ken@kengrimes.com>
+Cc: "linux-security-module@vger.kernel.org" <linux-security-module@vger.kernel.org>,
+	=?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>,
+	landlock@lists.linux.dev
+Subject: Re: [BUG] Landlock denies LANDLOCK_ACCESS_FS_EXECUTE despite a
+ correctly-anchored PathBeneath rule (contradicts selftest layout1.execute)
+Message-ID: <aldGXyfBQz8GsAMn@google.com>
+References: <P8RYlSi7C7oum2lk1F3PumYSvaUyd0Sn_VwUYAcWwjbQxSt_Rau30Aa1oLIEnLZ2iafcsFmEG5C4LTeBWCyd9vCx94FYeTX_OJdHoERcWSI=@kengrimes.com>
 Precedence: bulk
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
 List-Subscribe: <mailto:landlock+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-References: <20260707210336.2060040-1-mic@digikod.net>
-In-Reply-To: <20260707210336.2060040-1-mic@digikod.net>
-From: Jann Horn <jannh@google.com>
-Date: Wed, 8 Jul 2026 23:48:09 +0200
-X-Gm-Features: AVVi8Cd70VXTPmi6Yd7YJ6QWdP__iVuKDOVFxgYsM6z5t2MksbTZvyWjknkN4Wk
-Message-ID: <CAG48ez3ywK8FZ-TZFzp1GwiW6Wb+DeO3OFt3Ys4QAeGTS0jv6g@mail.gmail.com>
-Subject: Re: [PATCH v1] landlock: Document the threat model
-To: =?UTF-8?B?TWlja2HDq2wgU2FsYcO8bg==?= <mic@digikod.net>
-Cc: =?UTF-8?Q?G=C3=BCnther_Noack?= <gnoack@google.com>, 
-	Bryam Vargas <hexlabsecurity@proton.me>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Jens Axboe <axboe@kernel.dk>, Jonathan Corbet <corbet@lwn.net>, Justin Suess <utilityemal77@gmail.com>, 
-	Konstantin Meskhidze <konstantin.meskhidze@huawei.com>, Leon Romanovsky <leon@kernel.org>, 
-	Matthieu Buffet <matthieu@buffet.re>, Mikhail Ivanov <ivanov.mikhail1@huawei-partners.com>, 
-	Nicolas Bouchinet <nicolas.bouchinet@oss.cyber.gouv.fr>, Paul Moore <paul@paul-moore.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Tingmao Wang <m@maowtm.org>, 
-	Ubisectech Sirius <bugreport@ubisectech.com>, Willy Tarreau <w@1wt.eu>, 
-	Yuxian Mao <maoyuxian@cqsoftware.com.cn>, kernel-team@cloudflare.com, 
-	landlock@lists.linux.dev, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <P8RYlSi7C7oum2lk1F3PumYSvaUyd0Sn_VwUYAcWwjbQxSt_Rau30Aa1oLIEnLZ2iafcsFmEG5C4LTeBWCyd9vCx94FYeTX_OJdHoERcWSI=@kengrimes.com>
 
-On Tue, Jul 7, 2026 at 11:03=E2=80=AFPM Micka=C3=ABl Sala=C3=BCn <mic@digik=
-od.net> wrote:
-> +Sandboxing is layered
-> +---------------------
-> +
-> +Landlock is the access-control layer of a sandbox, not the whole sandbox=
-.  A
-> +robust sandbox also needs steps that are the program's responsibility: s=
-witching
-> +to an unprivileged user, dropping capabilities, setting ``PR_SET_NO_NEW_=
-PRIVS``,
-> +and confining all threads of the process with the same domain.  A
-> +single-threaded process gets the latter for free; a multithreaded one ca=
-n
-> +enforce a ruleset atomically on all its threads, or must otherwise synch=
-ronize
-> +them before any untrusted work.  Landlock is typically applied last, to =
-tighten
-> +access and make the domain identifiable and auditable.
-> +
-> +Stronger isolation can come from combining Landlock with other mechanism=
-s in a
-> +defense-in-depth approach, notably seccomp-bpf (see
-> +Documentation/userspace-api/seccomp_filter.rst) for what Landlock does n=
-ot yet
-> +cover.  A long-term goal of Landlock is to control access to any kind of=
- kernel
-> +resource in a way suited to sandboxing.
+Hello Ken!
 
-I think this part is something that should go near the top of the
-document, and should have a title like "How to securely use landlock"
-- most of the document is focused on telling kernel developers or
-security researchers what the boundaries of the threat model are, but
-I think it is also important (and maybe even more important) to
-present this from the perspective of "if I want to design a sandbox
-using landlock, what do I need to pay attention to".
+(Also adding landlock@lists.linux.dev to CC)
 
-I think it would also make sense to give more specific guidance on
-which sets of syscalls, with what argument restrictions, can be
-permitted in a seccomp policy because landlock covers any accesses
-that these syscalls can perform to objects to which the process
-doesn't already hold file descriptors or such.
-I think it would be helpful to have instructions like "you can safely
-allow socket operations if you ensure that socket creation (socket())
-only works for AF_UNIX, and that the process has no existing socket
-file descriptors for non-covered socket types, and you have fs_access
-rules, and the kernel is sufficiently recent".
+On Tue, Jul 14, 2026 at 09:07:56PM +0000, Ken Grimes wrote:
+> Hey all, this is my first bug report for linux. The issue was discovered 
+> alongside llm-assisted coding on a downstream project. The 
+> investigation/testing of the bug was a mostly manual process so I could 
+> be sure this was something real. Please let me know if I can provide any
+> further details or assistance. Hope this is helpful, thank you for all of your
+> hard work!
+
+Welcome and thanks for reporting your first issue!
+
+I believe the issue you are observing is that the /bin/true program you are
+starting is a dynamically linked executable.  As such, executing it requires
+both the LANDLOCK_ACCESS_FS_EXECUTE right on the binary itself and on
+the system's dynamic loader binary, which usually lives in /lib/ld-linux.so.*
+(but there are symlinks and 32/64-bit differences at play as well, which
+influence the actual final location).
+
+You can try this out with the following experiments:
+
+(1) Compile a "true" program statically and try using that:
+
+    $ echo 'int main() { return 0; }' > true.c
+    $ CFLAGS=-static make true
+
+    This can be started with the test you have,
+    unlike the dynamically linked version.
+
+(2) Alternatively, add execute permissions for the dynamic loader:
+
+    Add an additional "path beneath" rule that allow-lists the execution
+    access right on /lib/ld-linux.so.2, /lib64/ld-linux-x86-64.so.2 or
+    wherever else your dynamic loader is.  (You can discover the actual
+    location using "ldd /bin/true".)
+
+With either one of these two changes, your standalone reproducer program
+starts working again.  Or at least it does on my machine.  If it still doesn't
+work on your end that way, please let us know. :)
+
+I admit that we should probably point this out in the Landlock documentation
+for the LANDLOCK_ACCESS_FS_EXECUTE right, as dynamic linking is common and it
+is a potential issue that many people might run into.
+
+For background on the dynamic loading mechanism, see the man page ld.so(8) [1]
+and the LWN article "How programs get run: ELF binaries" [2] (specifically the
+section "Dynamically linked programs").
+
+—Günther
+
+
+[1] https://man7.org/linux/man-pages/man8/ld.so.8.html
+[2] https://lwn.net/Articles/631631/
+
