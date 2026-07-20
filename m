@@ -1,226 +1,241 @@
-Received: from mail-106100.protonmail.ch (mail-106100.protonmail.ch [79.135.106.100])
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11013061.outbound.protection.outlook.com [52.101.127.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1836034F24C
-	for <landlock@lists.linux.dev>; Thu, 16 Jul 2026 20:15:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.100
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784232904; cv=none; b=KQukQP4MXO55vMJ6kjwEjgZdf/LomPF6fyid0ad5XYflizqVcLOWF9xbRLnj6E2EocjcLAFCnvH6OV9vVDu1Z3l2sEBbWXaHsGNdx8ZQ7P0wiw2/SSf3LiWA2P0WI4J6OetWtAL2c5nqmMg8W8zy4LO76tBHFYn9WWZ+e+Tf7yE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784232904; c=relaxed/simple;
-	bh=8spo3j6W+8H0sPv+ALQUEJdJsCkkbN7yc3jeXC4j5RY=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VaxdqEnakxMhZGMbYowhuS7/LYN1QuZL3zxMoDXyu/whnPI6ylzgERo2hQovaAbKCRWazsvvQNf9ENn4O+in6gM5T024B+PH4SRmLYQybAaPCkfG/8q4iTy0OuCnSse4REhZySA0ALU8VjjVrudFBHNksXeNZ9AOwh9/ou1Gwh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kengrimes.com; spf=pass smtp.mailfrom=kengrimes.com; dkim=pass (2048-bit key) header.d=kengrimes.com header.i=@kengrimes.com header.b=X+15YEN+; arc=none smtp.client-ip=79.135.106.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kengrimes.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kengrimes.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C57D37AA79
+	for <landlock@lists.linux.dev>; Mon, 20 Jul 2026 02:56:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.127.61
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784516175; cv=fail; b=c8jdF5f8AOHXcUxbOHOG5gAnSJDdTEak8cMpBtRp48ymyvz8ldc2QLGyuuQFgvVY2lDQxAhfpG1PtguXu6VK0GQLUP68lxIwfTAxwydkQx6DBgFvARTQ8PtwTrOI9FR6JzuPeZ6bVJ9ZTunDg1ywxsPguu0A14Hwc/v3uhDigTE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784516175; c=relaxed/simple;
+	bh=OUHQrXMwVrcar1wEFObbc4px7xFgSmgmclbYaH3GjV4=;
+	h=From:To:Subject:Date:Message-ID:Content-Type:MIME-Version; b=Sj0cqGARLeKeOYFvxzjesD/VI1D1pAOKyNLCElq7sMIs4wAIxsQZQpkdpBqoPjxR77Scanf1Z9Hy73UXBR1KNxlHL6V3M+48v1jStDz52OLPPG6/hM5+c/RN1IAcBakZm1+5YvDkDfJC1vmpDsfj4OF6XI2b336YDG42xiYFDnM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vivo.com; spf=pass smtp.mailfrom=vivo.com; dkim=pass (2048-bit key) header.d=vivo.com header.i=@vivo.com header.b=gUVhaLkz; arc=fail smtp.client-ip=52.101.127.61
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vivo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vivo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kengrimes.com header.i=@kengrimes.com header.b="X+15YEN+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kengrimes.com;
-	s=protonmail3; t=1784232898; x=1784492098;
-	bh=hlIlaGIRAbsk4+mR01t1Wh0yZsocDwo9hxJdVdQSLEo=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=X+15YEN+rQP+I9prMidFPLIkWfVSJYc94/Vmkktmy5THBZ8Bw20rPIwBhvh/EdKJF
-	 fwtAHNmpFt6eF9jEOAHDz1gWTEiKmitrvRxpDvYnv9TfcTaQP61i8YW60BF1bNa3dk
-	 GqUq+tWz9WOZ3w6wyA9ZBm/wACq7LgltbWR/H578FuiuQyW+n7tgbYek0XUnnd3Wea
-	 Iv0LnS4LPwrtq7wFb4pp7P5aMOktwXsszI/B33zq8RqEy/7LBFCLTXwv5/MQwd9fKE
-	 dbFrIMRleIJCStpTkltejWShYNFRXIyy03Ch9cJvtDiZZCqAh3FpZlLjRI4ygWHl0f
-	 adLkWVWbtP6aA==
-Date: Thu, 16 Jul 2026 20:14:55 +0000
-To: =?utf-8?Q?G=C3=BCnther_Noack?= <gnoack@google.com>, =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-From: Ken Grimes <ken@kengrimes.com>
-Cc: "linux-security-module@vger.kernel.org" <linux-security-module@vger.kernel.org>, landlock@lists.linux.dev
-Subject: Re: [BUG] Landlock denies LANDLOCK_ACCESS_FS_EXECUTE despite a correctly-anchored PathBeneath rule (contradicts selftest layout1.execute)
-Message-ID: <kDUhcqAqpOGRVoTEYarGa-jMnCbwREPlvCWcJ8gmPH7wZ8CHdDWEJ-nL8j0LnjiffeNtG9_kE0XjRsUZ-hHfXZA0m1zpdTofgNXTcqMqBRs=@kengrimes.com>
-In-Reply-To: <20260716.eijohyi0ieZa@digikod.net>
-References: <P8RYlSi7C7oum2lk1F3PumYSvaUyd0Sn_VwUYAcWwjbQxSt_Rau30Aa1oLIEnLZ2iafcsFmEG5C4LTeBWCyd9vCx94FYeTX_OJdHoERcWSI=@kengrimes.com> <aldGXyfBQz8GsAMn@google.com> <20260716.eijohyi0ieZa@digikod.net>
-Feedback-ID: 26299838:user:proton
-X-Pm-Message-ID: 1ba93b729c0aac8aae946e779a0858eb13a4c588
+	dkim=pass (2048-bit key) header.d=vivo.com header.i=@vivo.com header.b="gUVhaLkz"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VFYCUPkH0cgYLCKSfySNwA4IkIqTGvT9MCyyyY1P4cgGytb7r3rONBazm1/tclKl+1NDKZqoo0m7HeVOBAkY1WJd1tiZhegW7EzCVoCy/CHIkf+5ednZJ2gbjaYLi0yIDibCBJ0hSPoaYCGP3WhfgCIs0nJ3FIVFF2Z9ODzB25eZh/6gRG23qB+Te3CEIMQXwnWNJB7Ezfa8q5MYrA7/Jmd/mUx3Sbom0S9AMkLuclVrbtJuaAZycpky4FFGHzqtiwQDiLSnUrBwddSQiSBxG4zyPSrUrbQ2R8wE0aCYJB6YNF3+fd0mReydPu43XK4PUzvgwBz3rZkoh42i3KAf5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OUHQrXMwVrcar1wEFObbc4px7xFgSmgmclbYaH3GjV4=;
+ b=S/Jl1G8rlxi1mpxl65wksmZqz77kJbVw+Ksy6/MO/gpUqe2ITK3jbl59/qL3rDQbXXhFRXaI4i12roPHFcVlmyZu1taCwjhztMIHFQ4/JG4A9fOkq5ih+1MZ0VGJIGX75yMdbfHMWncGq3BgpZHBWm7iCH4q58e/VOA4/9epPXkFGJHubgCtU/c7AO/6Lx+OIxj0ExwhCj4OmKfuk4mJi1F6yvE1vxleu9ZGiv22pjf2rP1aXspywSwBHd9cCLpty9KONuupz/dS1x12aazU1JcG55NyIbTHSz1fQAL3SRic4crOv4hBCGZgRB51yY5RkXZEr2Wa1LyPefC8+Vv4Tw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
+ dkim=pass header.d=vivo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OUHQrXMwVrcar1wEFObbc4px7xFgSmgmclbYaH3GjV4=;
+ b=gUVhaLkzMg8g1auK6sfl//JdnHe0xalKwABDOwUDdQ9WSigP/n9Wc/EbLGRgFtiGwtvI+geJfbJ1fazlQVXRgIYjfkeqf8x4B1I6OT1+bqSRLSqlfI50OFGa/4ZyYlLhcBifW6wKvh4Tk2r0VoCZcG9faNsrnz1ICJh4bRhfixmM0r/u7/YkEPjf/gb4WM09qcKtoXAZNrEGzpuMeOqR5KKdUvVK1eiAAIO3E6TuZRTX5h2jyGHf8eUV727C4yYr50jUvuQf01i7EdEs7QGmLx9D+gBrF/ZO4fFo8BJybT2icFJbbGuLRcfPE3gcqbTkjwnNDaa5hUzZ9kgDhVsOcw==
+Received: from OSQPR06MB7181.apcprd06.prod.outlook.com (2603:1096:604:291::7)
+ by KL1PR0601MB5600.apcprd06.prod.outlook.com (2603:1096:820:c4::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.16; Mon, 20 Jul
+ 2026 02:56:05 +0000
+Received: from OSQPR06MB7181.apcprd06.prod.outlook.com
+ ([fe80::9e09:6027:8ac:7be6]) by OSQPR06MB7181.apcprd06.prod.outlook.com
+ ([fe80::9e09:6027:8ac:7be6%4]) with mapi id 15.21.0223.015; Mon, 20 Jul 2026
+ 02:56:04 +0000
+From: =?gb2312?B?0qbGvQ==?= <yaoping@vivo.com>
+To: "landlock@lists.linux.dev" <landlock@lists.linux.dev>
+Subject: Feature Request: Support Landlock rules on FUSE filesystems with
+ backing files
+Thread-Topic: Feature Request: Support Landlock rules on FUSE filesystems with
+ backing files
+Thread-Index: Ad0X8Itm9wr1DEBkS+6hmMp+/1b/hw==
+Date: Mon, 20 Jul 2026 02:56:04 +0000
+Message-ID:
+ <OSQPR06MB71812EAF67B6A65D85918F62D4C32@OSQPR06MB7181.apcprd06.prod.outlook.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vivo.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: OSQPR06MB7181:EE_|KL1PR0601MB5600:EE_
+x-ms-office365-filtering-correlation-id: a5e7a47e-4502-4295-37d8-08dee60a7094
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|42112799006|23010399003|366016|376014|1800799024|38070700021|56012099006|11063799006|10067099003|6133799003|18002099003;
+x-microsoft-antispam-message-info:
+ /zjEX5ym4PZ9EJMsxOVWgfbBjbjypoeQ8FmVSm993LU7JEZM3CekWpE/nmHRHrJ54wlwRXqLnR+nR702CMwgRkVq3lqVtBxxAq0L823uFRiYAx7k5QapoRR/iirk9Ynugs9yJE32uwSBbHAq4/gaQzn+ZtcHdbnr7dyaJjKs4U+ZJhMk4nS23sHVgANktD9l51050ig6SgOqX+J3nikGaZARsw7mfnwgoUHCBOvXpRgXXd+gPvArt2zJrC3JJp8eDAlHWkQzHwkYQQMEAKlo69xMWgAsgVzywx9nmKnL0ZT7e5E4QXE8z+PU/t/XlC5afSZIPY5RpxuOi6NLY3abAKqLFXZF3Ye65BHlKf7AnsnYdeyPanr35lMRJQE9mJb6r5H59QkuUM2DbykdCorXRKjRiFk2en8ATPHPJwyJrxhBO9kX9hye3errQmGH7bkypaCSnsEEHjZez1WcHUNgMrXDcsdoQrS6FQ8jTcIienbpGm7g5N9hFYJq1cTEWyUeuz/mdrhRkhnZ3MJuM6+jGmkVEhc/Vcdm8qqSe66DfwQJGQx7bgBO90CLKuo3WZVwmIa/RumON4YRtmE3zDq6xJSHxJAZ+39wAy1hcZZuGuq1iaay9G6amaKcH189tKN9NCa09CUy3bEAIus1K/3oxFh7TLWoU9PEK6VV1+2Ve1DHZBjJQzRKFcjdXfccVTuC15TX4oWVIuvNy0jNUcWLijwaGwePRZTCFQsRJGutJcI=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OSQPR06MB7181.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(42112799006)(23010399003)(366016)(376014)(1800799024)(38070700021)(56012099006)(11063799006)(10067099003)(6133799003)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?gb2312?B?dWVxR0xiZzNUL3EvcEl3bllIOWc2ZEltanZBOXRXUG9XVGw2M3lSS1BEaTBP?=
+ =?gb2312?B?YThRWTRWWnQ2bU5kWEMyVUphTThJYWFKL2s2MHMyYXI4WlJubTZVL3lXbDNk?=
+ =?gb2312?B?NnFTU0ZZeHJoOXR2aHlRSGZ4eHQxTk1VUzczcTdQUkdNL2FDcEJBdnIxbVUr?=
+ =?gb2312?B?Y2FEa3l6cmloakJrSldGRERhcWZ2czEzOENJeE1LcDhrQ0ZvelZWaWZ3elBX?=
+ =?gb2312?B?ZmJnSFZLenJTRVZhZEorckVHTzhrREpVZjVOVndvb09XZ0wxb2JkQVZyQktH?=
+ =?gb2312?B?UWJYRVUyK004RWpPaElMYTNDNUhjNzcvd3oyUzd6T0M1a0xDcG4rdDFEVElW?=
+ =?gb2312?B?b2pWNFM2T2NBcUJYMDJla1J0MTVxTzRtRkRwa01MT25sYzNvRUxEL1dBaFU5?=
+ =?gb2312?B?NlZuZU54QjF3alJVakYvN0FUV2M5NndqMXBYekdGY2NmeXlKb1FEbldTa29t?=
+ =?gb2312?B?cS82TU42dXYyU0ZaSjhwR2UwMm1UNlk1cXE5VU03ekZVNFVuQlVsMjVBMFow?=
+ =?gb2312?B?bDJ0OFA1V3AwTGgyRVFLNnVuMWlnUUUrOExxVGZzUnYxNkpoM2dacll4aXNM?=
+ =?gb2312?B?aWhTSVNkUU52bHdVbjFCeTJNUnlaaS9VWDYxRlp5MGl6bUZZM2FxWXVHQnNx?=
+ =?gb2312?B?eG5FTGJqZzNRdE4rM0hadVhPVDU2aldCTThTOUs4c3VqQ1hSUi8vbjBWMlNK?=
+ =?gb2312?B?L1draTAyMGlWbXBSYzdyeHg5MlhJaXFnTHBEYmY1SFFtSCtVME9ZdkttV1Fm?=
+ =?gb2312?B?UDVvUUc1VU5pekkxbCsybURad2xTMnJCWVNTU3orUFByaWJBNnRxUkpyeERX?=
+ =?gb2312?B?MURRanRRUGV5RWg5dko4dmZoR1FpdGhLNGMwLy9LU0VPKzB6d1NaRlI1M0VO?=
+ =?gb2312?B?b2l6clA1QUt0c0xpS2FxM1BxUGZwck1KaG9zUkJxRCtuY09YRElZWkhSMEJS?=
+ =?gb2312?B?blgyZjdGSEdoclRRbXlLU1pGNHlsNEwrc1V6ZktDNHlxUUx2akZ4T2tqRjFo?=
+ =?gb2312?B?c3J5NFFRd2Jhell6M2pzMzRRM2VoMklER0xJV1R0cGFqSjhrSklJcGJ3eloy?=
+ =?gb2312?B?aTFvWkdxdmczRGtMVkQ1blBSUnFGWjVxZWpnb01CREJ0MjBrYzZXRWcvbTRY?=
+ =?gb2312?B?Y3JsUE1BRVpFMHRYYi9VRHQ4NVhHWElnanRPaDRaZ3c1ZWxjSlIzUSthZXNQ?=
+ =?gb2312?B?WXJqNE5Vcms4Y2JYMTl1MU9vLy9GYzdkUzE2Q3BVNEVDalRKeWY5MzA4MVZG?=
+ =?gb2312?B?c2FWdTZGZUtsSkJ4d05oaStwZ2Z2UFVwVUU0Qmg5ekV1bnlhY1I4TUxLYmtz?=
+ =?gb2312?B?TVdEdEtDWGNGTUgyNi96Z0lGOXpkdGYwU0sxTlpRR3Y3ZXpwRlZWREdXb2ww?=
+ =?gb2312?B?cmlhcDN6eWd2YXFPRytmYnpKVDBDWlFFT0Zkcyt4RWhPK2l1QXg1d0o3MFVX?=
+ =?gb2312?B?UVozZ0xmZWw4TXZkRjgzV1c3VFNxVklVQ1IrdS8rZC9zTWpBKzBuVXdFK0E3?=
+ =?gb2312?B?YXl3UlZOOFFwNW5Kd0RlV2lsZnRaODNPY3dRcE4wcmVxOE5QalV6QTRQUUc2?=
+ =?gb2312?B?eTl1a3BjSHE3eHFuVlFvTHQwRWVTMXlsaXdnQmh5ZHpWTy83M3hyUnJ0YlIx?=
+ =?gb2312?B?YnRsNm5RalA0TTY5ZnZKL0pKQm81Q2w4d3REOEExVEswY1Vhc3hHd25ZWEht?=
+ =?gb2312?B?OXNuZVFaZGptczRqWGk1K0pXTUtZUUllZ01rcDB5UUkveVhJd2lYdnZUMHBx?=
+ =?gb2312?B?aUlHd0orQm0raitmT0hWWk1MMUpYYnY5Ykc5d2daeVFEOGdjVlNGZ1NwQ0ph?=
+ =?gb2312?B?RUtnckYweStVbzZlNTRrTnk1cEYzNVNlNEE5bE5rTHRFa3NRRkhTYktnZWNn?=
+ =?gb2312?B?M0dLeWt6dXFVTG9lcVpUOG5aQjJkdDZGL292RnhpZUJQMlpNMVZUVWhObEly?=
+ =?gb2312?B?RTY1TWhlVlhVTGFTeGp1V3daSGJvZDlSY1pZUkdIR3ZtUCtueFFrM21wNE5L?=
+ =?gb2312?B?WlkrNXFTbzlhQ0NnRVE0Y0Zic29MOFNxRkdMR0Q5Sk4xMWFmRllrMVBhakY4?=
+ =?gb2312?B?MkxQN1FZRE5JZkEwV2lMd055MUZ2NndTU0R6WUtkcUYraUZXK1U2STBXdEMz?=
+ =?gb2312?B?cUFMS2xTZVB3NTd6eTZsbDdEYnBOd3pFOWRqaEppdDlubWtmcHFtTGc3ZnNL?=
+ =?gb2312?B?MmVYV2d0enpVZXU5ODJOVTJrdFRXSnU1dGdXLzE2TGhwU0x5Z3FPWllWRVN0?=
+ =?gb2312?B?aGNCWG1mcjFnSWJpajZOdnhoTnh5bUxJeUJMMXpOTmdLRmJzWTJHcmt0azFm?=
+ =?gb2312?Q?9cW33gs7v1WF42XrSi?=
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
 List-Subscribe: <mailto:landlock+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha512; boundary="------2f7f1da9d424bbe2d2614ee39d537deb578b41753b2512c4ba507b9bfce6f796"; charset=utf-8
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: OSQPR06MB7181.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a5e7a47e-4502-4295-37d8-08dee60a7094
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Jul 2026 02:56:04.5389
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: waET12Qy51Y9MQzrBmQo5o5FS3cc0jNWpDgva7X+lEZ74KBuywS7SpadxaaCpJO3wdFuKVayogVXyIiWlrwC9Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR0601MB5600
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------2f7f1da9d424bbe2d2614ee39d537deb578b41753b2512c4ba507b9bfce6f796
-Content-Type: multipart/mixed;boundary=---------------------6df0a0c3e6879956554f423df853ee97
-
------------------------6df0a0c3e6879956554f423df853ee97
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;charset=utf-8
-
-Thanks so much G=C3=BCnther & Micka=C3=ABl for the fast and thorough respo=
-nses, it's very appreciated!
-
-G=C3=BCnther, that's exactly what I found. I went down the path of 2; file=
--scoped LANDLOCK_ACCESS_FS_EXECUTE grant on dynamic loader, discovered at =
-runtime since the loader's path varies across distros (/lib64/ld-linux-x86=
--64.so.2 here, but that's obviously not portable).
-
-The fix resolves the target binary's PT_INTERP entry from ELF headers, the=
-n runs the interpreter in its own --list mode (invoked in a privilege-drop=
-ped, sandboxed child) to get the full shared-object closure. Not just the =
-loader itself, but the DT_NEEDED dependencies (/etc/ld.so.cache and /etc/l=
-d.so.preload) when present. I grant Execute|ReadFile on the interpreter an=
-d ReadFile on everything else, each file-scoped instead of directory wide,=
- so not opening up all of /lib64. Just the files the loader will actually =
-touch for the binary. I reproduced the failure standalone first (execveat =
-under a single rule landlock domain, EACCESS, adding the loader's file as =
-a second rule) before building the real fix, so I feel confident this is w=
-hat you're describing.
-
-Regarding the docs, yes please do add a note about this to LANDLOCK_ACCESS=
-_FS_EXECUTE docs! That would have definitely saved a decent amount of effo=
-rt, and I could see others running into the same issue.
-
-Micka=C3=ABl, thank you! I hadn't looked into the audit log support closel=
-y, I'll be sure to use this instead of building standalone reproductions, =
-very helpful!
-
-Thanks again for the help and all the great work you do.
-
--Ken
-
-
-On Thursday, July 16th, 2026 at 2:37 AM, Micka=C3=ABl Sala=C3=BCn <mic@dig=
-ikod.net> wrote:
-
-> Hi!
-> =
-
-
-> You should also get a look at the audit logs:
-> https://docs.kernel.org/admin-guide/LSM/landlock.html#audit
-> =
-
-
->  Micka=C3=ABl
-> =
-
-
-> On Wed, Jul 15, 2026 at 10:39:29AM +0200, G=C3=BCnther Noack wrote:
-> > Hello Ken!
-> >
-> > (Also adding landlock@lists.linux.dev to CC)
-> >
-> > On Tue, Jul 14, 2026 at 09:07:56PM +0000, Ken Grimes wrote:
-> > > Hey all, this is my first bug report for linux. The issue was discov=
-ered =
-
-
-> > > alongside llm-assisted coding on a downstream project. The =
-
-
-> > > investigation/testing of the bug was a mostly manual process so I co=
-uld =
-
-
-> > > be sure this was something real. Please let me know if I can provide=
- any
-> > > further details or assistance. Hope this is helpful, thank you for a=
-ll of your
-> > > hard work!
-> >
-> > Welcome and thanks for reporting your first issue!
-> >
-> > I believe the issue you are observing is that the /bin/true program yo=
-u are
-> > starting is a dynamically linked executable.  As such, executing it re=
-quires
-> > both the LANDLOCK_ACCESS_FS_EXECUTE right on the binary itself and on
-> > the system's dynamic loader binary, which usually lives in /lib/ld-lin=
-ux.so.*
-> > (but there are symlinks and 32/64-bit differences at play as well, whi=
-ch
-> > influence the actual final location).
-> >
-> > You can try this out with the following experiments:
-> >
-> > (1) Compile a "true" program statically and try using that:
-> >
-> >     $ echo 'int main() { return 0; }' > true.c
-> >     $ CFLAGS=3D-static make true
-> >
-> >     This can be started with the test you have,
-> >     unlike the dynamically linked version.
-> >
-> > (2) Alternatively, add execute permissions for the dynamic loader:
-> >
-> >     Add an additional "path beneath" rule that allow-lists the executi=
-on
-> >     access right on /lib/ld-linux.so.2, /lib64/ld-linux-x86-64.so.2 or
-> >     wherever else your dynamic loader is.  (You can discover the actua=
-l
-> >     location using "ldd /bin/true".)
-> >
-> > With either one of these two changes, your standalone reproducer progr=
-am
-> > starts working again.  Or at least it does on my machine.  If it still=
- doesn't
-> > work on your end that way, please let us know. :)
-> >
-> > I admit that we should probably point this out in the Landlock documen=
-tation
-> > for the LANDLOCK_ACCESS_FS_EXECUTE right, as dynamic linking is common=
- and it
-> > is a potential issue that many people might run into.
-> >
-> > For background on the dynamic loading mechanism, see the man page ld.s=
-o(8) [1]
-> > and the LWN article "How programs get run: ELF binaries" [2] (specific=
-ally the
-> > section "Dynamically linked programs").
-> >
-> > =E2=80=94G=C3=BCnther
-> >
-> >
-> > [1] https://man7.org/linux/man-pages/man8/ld.so.8.html
-> > [2] https://lwn.net/Articles/631631/
-> >
-> >
-> =
-
-
------------------------6df0a0c3e6879956554f423df853ee97
-Content-Type: application/pgp-keys; filename="publickey - ken@kengrimes.com - 0xEDFCC5BC.asc"; name="publickey - ken@kengrimes.com - 0xEDFCC5BC.asc"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="publickey - ken@kengrimes.com - 0xEDFCC5BC.asc"; name="publickey - ken@kengrimes.com - 0xEDFCC5BC.asc"
-
-LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCgp4ak1FWDIvT0xSWUpLd1lCQkFI
-YVJ3OEJBUWRBMGIwS2EwWlVWWEpSenNtNG05bFM5blZ0ODlhM1RKQjMKMU9yVEtSS3lKZ1hOSld0
-bGJrQnJaVzVuY21sdFpYTXVZMjl0SUR4clpXNUFhMlZ1WjNKcGJXVnpMbU52CmJUN0Nqd1FRRmdv
-QUlBVUNYMi9PTFFZTENRY0lBd0lFRlFnS0FnUVdBZ0VBQWhrQkFoc0RBaDRCQUNFSgpFRk0rYjdl
-S1piZ2hGaUVFN2Z6RnZDc2Y0bURSTVBtNVV6NXZ0NHBsdUNGWE1BRCtPNGRCS2RoTGNVWFcKbGx0
-eFp4MXNZNjFnRVVYNEVId0s1UUdHTjg4VHRjVUJBTU9qMDFQclcrZVI2dWhkZ3M4enlDZ1hTa2xl
-CkVNVlplcDBMeTVMWUkwd1B6amdFWDIvT0xSSUtLd1lCQkFHWFZRRUZBUUVIUUxvU2ptbG10Z01j
-akFMUwpLMWE5OEZnWURzRDloK3B0SFBNM05XNmFiaUI3QXdFSUI4SjRCQmdXQ0FBSkJRSmZiODR0
-QWhzTUFDRUoKRUZNK2I3ZUtaYmdoRmlFRTdmekZ2Q3NmNG1EUk1QbTVVejV2dDRwbHVDRlR5QUQv
-UUlvbC9nVUJjZXBlCkVHdjJnZXd3L0hmV0tYY2d2K2VLZ3dib0YvRFpuc2tBLzN0cm56V201QzBp
-S3ovajdJRzFwUFNpZmJKcwp3QzZGR1FxOE80ZVlvSHdGCj1GRlVoCi0tLS0tRU5EIFBHUCBQVUJM
-SUMgS0VZIEJMT0NLLS0tLS0K
------------------------6df0a0c3e6879956554f423df853ee97--
-
---------2f7f1da9d424bbe2d2614ee39d537deb578b41753b2512c4ba507b9bfce6f796
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: ProtonMail
-
-wrsEARYKAG0FgmpZO7AJEFM+b7eKZbghRRQAAAAAABwAIHNhbHRAbm90YXRp
-b25zLm9wZW5wZ3Bqcy5vcmfHBPla/wGR38Zz0/z8o0ubXOCA8FyEEIt8d9ev
-xSZG1xYhBO38xbwrH+Jg0TD5uVM+b7eKZbghAAAAUAD/XxwdjhG0BpoVfIJI
-OmctLe3mZcntuysNS0eKySqk0z4A/R594kkkoCz+8KYGBZoxosUfTY9VO2xJ
-09S5cfd56TQK
-=klzG
------END PGP SIGNATURE-----
-
-
---------2f7f1da9d424bbe2d2614ee39d537deb578b41753b2512c4ba507b9bfce6f796--
-
+IyBGZWF0dXJlIFJlcXVlc3Q6IFN1cHBvcnQgTGFuZGxvY2sgcnVsZXMgb24gRlVTRSBmaWxlc3lz
+dGVtcyB3aXRoIGJhY2tpbmcgZmlsZXMNCg0KIyMgQmFja2dyb3VuZA0KDQpGVVNFIGFsbG93cyB1
+c2Vyc3BhY2UgZGFlbW9ucyB0byBpbXBsZW1lbnQgZmlsZXN5c3RlbXMuIEluIHNvbWUgY29uZmln
+dXJhdGlvbnMsIGEgRlVTRSBkYWVtb24gbWF5IHNldCB1cCBhICoqYmFja2luZyBmaWxlKiogoaog
+YSBmaWxlIGRlc2NyaXB0b3IgcG9pbnRpbmcgdG8gYSBsb3dlciBmaWxlc3lzdGVtIChlLmcuLCBl
+eHQ0LCBmMmZzKSChqiBzbyB0aGF0IHN1YnNlcXVlbnQgSS9PIG9uIGNlcnRhaW4gRlVTRSBpbm9k
+ZXMgaXMgcmVkaXJlY3RlZCBkaXJlY3RseSB0byB0aGUgYmFja2luZyBmaWxlc3lzdGVtLCBieXBh
+c3NpbmcgdGhlIEZVU0UgZGFlbW9uLiBUaGlzIG1lY2hhbmlzbSBleGlzdHMgaW4gdHdvIGZvcm1z
+Og0KDQoxLiAqKlVwc3RyZWFtIEZVU0UgcGFzc3Rocm91Z2gqKiAoTGludXggNi45Kyk6IFRoZSBG
+VVNFIGRhZW1vbiBjYWxscyBgZnVzZV9wYXNzdGhyb3VnaF9vcGVuKClgIHRvIGFzc29jaWF0ZSBh
+IGJhY2tpbmcgZmlsZSB3aXRoIGEgRlVTRSBmaWxlLCBlbmFibGluZyBkaXJlY3QgSS9PIG9uIHRo
+ZSBiYWNraW5nIGlub2RlLg0KDQoyLiAqKkFuZHJvaWQgRlVTRS1CUEYqKiAoQW5kcm9pZCBDb21t
+b24gS2VybmVsIGV4dGVuc2lvbik6IER1cmluZyBGVVNFIGxvb2t1cCwgdGhlIGRhZW1vbiBwcm92
+aWRlcyBhIGBiYWNraW5nX2ZkYCBmb3IgY2VydGFpbiBkaXJlY3RvcmllcywgYW5kIHRoZSBrZXJu
+ZWwgRlVTRS1CUEYgZHJpdmVyIHJlZGlyZWN0cyBhbGwgc3Vic2VxdWVudCBJL08gb24gdGhvc2Ug
+RlVTRSBpbm9kZXMgdG8gdGhlIGJhY2tpbmcgZmlsZXN5c3RlbS4NCg0KSW4gYm90aCBjYXNlcywg
+dGhlIHVzZXIgcHJvY2VzcyBpbnRlcmFjdHMgd2l0aCB0aGUgRlVTRSBwYXRoIChlLmcuLCBgL21u
+dC9mdXNlL2Zvby9maWxlLnR4dGApLCBidXQgdGhlIGFjdHVhbCBJL08gb3BlcmF0ZXMgb24gdGhl
+IGJhY2tpbmcgZmlsZXN5c3RlbSdzIGlub2RlIChlLmcuLCBhbiBleHQ0IGlub2RlKS4gVGhpcyBj
+cmVhdGVzIGEgKipzcGxpdCBiZXR3ZWVuIHRoZSBwYXRoIHRoZSB1c2VyIHNlZXMgYW5kIHRoZSBp
+bm9kZSB0aGF0IExhbmRsb2NrIGNoZWNrcyoqLg0KDQojIyBQcm9ibGVtDQoNCkxhbmRsb2NrIHJ1
+bGVzIGVzdGFibGlzaGVkIG9uIEZVU0UgcGF0aHMgYmVjb21lICoqaW5lZmZlY3RpdmUqKiB3aGVu
+IGEgYmFja2luZyBmaWxlIGlzIGluIHVzZSBhbmQgdGhlIHVzZXIgcHJvY2VzcyBkb2VzIG5vdCBo
+YXZlIGFjY2VzcyB0byB0aGUgYmFja2luZyBwYXRoLg0KDQoqKlJ1bGUgZXN0YWJsaXNobWVudCoq
+OiBBIHNhbmRib3hlZCBwcm9jZXNzIG9wZW5zIHRoZSBGVVNFIHBhdGggd2l0aCBgb3BlbihPX1BB
+VEgpYCBhbmQgcmVnaXN0ZXJzIGl0IHZpYSBgbGFuZGxvY2tfYWRkX3J1bGUoTEFORExPQ0tfUlVM
+RV9QQVRIX0JFTkVBVEgpYC4gVGhlIHJ1bGUgaXMgYm91bmQgdG8gdGhlICoqRlVTRSBpbm9kZSoq
+IChlLmcuLCBgZnVzZV9kZXY6aW5vPVlgKS4NCg0KKipBY3R1YWwgSS9PKio6IFdoZW4gdGhlIHBy
+b2Nlc3MgYWNjZXNzZXMgYSBmaWxlIHVuZGVyIHRoYXQgcGF0aCwgdGhlIGtlcm5lbCByZWRpcmVj
+dHMgdGhlIEkvTyB0byB0aGUgKipiYWNraW5nIGZpbGVzeXN0ZW0gaW5vZGUqKiAoZS5nLiwgYGV4
+dDRfZGV2Omlubz1aYCkgdmlhIHRoZSBiYWNraW5nIGZpbGUuIExhbmRsb2NrJ3MgYGhvb2tfZmls
+ZV9vcGVuYCBjaGVja3MgdGhlIGV4dDQgaW5vZGUncyBhbmNlc3RvciBjaGFpbiwgYnV0IHRoZSBy
+dWxlIGlzIGJvdW5kIHRvIHRoZSBGVVNFIGlub2RlIKGqIHdoaWNoICoqZG9lcyBub3QgYXBwZWFy
+KiogaW4gdGhlIGV4dDQgaW5vZGUgYW5jZXN0b3IgY2hhaW4uIFRoZSBydWxlIG5ldmVyIG1hdGNo
+ZXMsIHJlc3VsdGluZyBpbiAqKkRFTlkgcmVnYXJkbGVzcyBvZiB3aGV0aGVyIHRoZSBwYXRoIGlz
+IGluY2x1ZGVkIGluIHRoZSBydWxlc2V0KiouDQoNCmBgYA0KUnVsZSBlc3RhYmxpc2htZW50Og0K
+ICBvcGVuKCIvbW50L2Z1c2UvZGF0YS8iLCBPX1BBVEgpDQogICAgLT4gRlVTRSBsb29rdXAgLT4g
+RlVTRSBkYWVtb24gbWF5IHNldCBiYWNraW5nX2ZkDQogICAgLT4gcmV0dXJucyBGVVNFIGlub2Rl
+IFkNCiAgbGFuZGxvY2tfYWRkX3J1bGUoKSAtPiBydWxlIGJvdW5kIHRvIEZVU0UgaW5vZGUgWQ0K
+DQpBY3R1YWwgSS9POg0KICBvcGVuKCIvbW50L2Z1c2UvZGF0YS9maWxlLmRhdCIpDQogICAgLT4g
+a2VybmVsIHJlZGlyZWN0cyB0byBleHQ0IGlub2RlIFogdmlhIGJhY2tpbmcgZmlsZQ0KICAgIC0+
+IExhbmRsb2NrIGNoZWNrcyBleHQ0IGlub2RlIFoncyBhbmNlc3RvciBjaGFpbg0KICAgIC0+IEZV
+U0UgaW5vZGUgWSBub3QgZm91bmQgaW4gZXh0NCBpbm9kZSBjaGFpbg0KICAgIC0+IERFTlkgKEVB
+Q0NFUykNCmBgYA0KDQpUaGlzIGFmZmVjdHMgYW55IEZVU0UgY29uZmlndXJhdGlvbiB3aGVyZSBi
+YWNraW5nIGZpbGVzIGFyZSB1c2VkLiBOb24tYmFja2VkIEZVU0UgcGF0aHMgd29yayBjb3JyZWN0
+bHkgYmVjYXVzZSBhbGwgSS9PIHN0YXlzIHdpdGhpbiB0aGUgRlVTRSBmaWxlc3lzdGVtIKGqIHRo
+ZSBydWxlIGlub2RlIGFuZCBJL08gaW5vZGUgYmVsb25nIHRvIHRoZSBzYW1lIGZpbGVzeXN0ZW0g
+aW5zdGFuY2UuDQoNCiMjIyBUaGUgY29yZSBpc3N1ZTogdXNlciBjYW5ub3Qgc2V0IHJ1bGVzIG9u
+IHRoZSBiYWNraW5nIHBhdGgNCg0KQSBuYXR1cmFsIHdvcmthcm91bmQgd291bGQgYmUgdG8gYWRk
+IExhbmRsb2NrIHJ1bGVzIGZvciAqKmJvdGgqKiB0aGUgRlVTRSBwYXRoIGFuZCB0aGUgYmFja2lu
+ZyBwYXRoLiBIb3dldmVyLCB0aGlzIHJlcXVpcmVzIHRoZSB1c2VyIHByb2Nlc3MgdG8gYG9wZW4o
+T19QQVRIKWAgdGhlIGJhY2tpbmcgcGF0aCwgd2hpY2ggbWF5IG5vdCBiZSBwb3NzaWJsZToNCg0K
+LSBUaGUgYmFja2luZyBwYXRoIG1heSByZXNpZGUgaW4gYSBkaXJlY3RvcnkgdGhhdCB0aGUgdXNl
+ciBwcm9jZXNzIGNhbm5vdCB0cmF2ZXJzZSBkdWUgdG8gKipEQUMgcGVybWlzc2lvbnMqKiAoZS5n
+LiwgdGhlIGJhY2tpbmcgZGlyZWN0b3J5IGlzIGBkcnd4cndzLS0tIG93bmVyIGdyb3VwYCwgYW5k
+IHRoZSB1c2VyIGlzIG5laXRoZXIgdGhlIG93bmVyIG5vciBpbiB0aGUgZ3JvdXApLg0KLSBUaGUg
+RlVTRSBkYWVtb24gaXMgdHlwaWNhbGx5IGEgcHJpdmlsZWdlZCBwcm9jZXNzIHRoYXQgY2FuIGFj
+Y2VzcyB0aGUgYmFja2luZyBwYXRoLCBidXQgdGhlIHNhbmRib3hlZCBwcm9jZXNzIGlzIG5vdC4N
+Cg0KVGhpcyBpcyBub3QgYW4gZWRnZSBjYXNlIKGqIGl0IGlzIHRoZSAqKmV4cGVjdGVkIGRlc2ln
+bioqIG9mIEZVU0Ugd2l0aCBiYWNraW5nIGZpbGVzOiB0aGUgRlVTRSBkYWVtb24gYWN0cyBhcyBh
+IHByaXZpbGVnZWQgaW50ZXJtZWRpYXJ5LCBleHBvc2luZyBmaWxlcyB2aWEgdGhlIEZVU0UgbW91
+bnQgd2hpbGUga2VlcGluZyB0aGUgYmFja2luZyBwYXRoIGluYWNjZXNzaWJsZSB0byB1bnByaXZp
+bGVnZWQgcHJvY2Vzc2VzLiBMYW5kbG9jaydzIGN1cnJlbnQgYmVoYXZpb3IgYnJlYWtzIHRoaXMg
+bW9kZWw6IHRoZSB1c2VyIGNhbiBvbmx5IHNldCBydWxlcyBvbiB0aGUgRlVTRSBwYXRoIHRoZXkg
+Y2FuIHNlZSwgYnV0IExhbmRsb2NrIGNoZWNrcyB0aGUgYmFja2luZyBpbm9kZSB0aGV5IGNhbm5v
+dCBhY2Nlc3MuDQoNCiMjIyBDb25jcmV0ZSBleGFtcGxlOiBBbmRyb2lkIEZVU0UtQlBGDQoNCkFu
+ZHJvaWQncyBNZWRpYVByb3ZpZGVyIHVzZXMgRlVTRSB0byBleHBvc2UgYC9zdG9yYWdlL2VtdWxh
+dGVkLzAvYCB0byBhcHBsaWNhdGlvbnMuIE9uIGRldmljZXMgd2l0aCBGVVNFLUJQRiBzdXBwb3J0
+IFthbmRyb2lkIDE3LCBrZXJuZWwgNi4xOF0sIHRoZSBkYWVtb24gc2V0cyBgYmFja2luZ19mZGAg
+Zm9yIGBBbmRyb2lkL2RhdGEve3BrZ30vYCBhbmQgYEFuZHJvaWQvb2JiL3twa2d9L2AgZGlyZWN0
+b3JpZXMsIHJlZGlyZWN0aW5nIEkvTyB0byBgL2RhdGEvbWVkaWEvMC9BbmRyb2lkL2RhdGEve3Br
+Z30vYCBvbiBleHQ0L2YyZnMuDQoNClRoZSBiYWNraW5nIHBhdGggYC9kYXRhL21lZGlhLzAvYCBo
+YXMgREFDIHBlcm1pc3Npb25zIGBkcnd4cndzLS0tIG1lZGlhX3J3IG1lZGlhX3J3YCAoNzcwKS4g
+T3JkaW5hcnkgYXBwcyBhcmUgbmVpdGhlciB0aGUgb3duZXIgbm9yIGluIHRoZSBgbWVkaWFfcndg
+IGdyb3VwLCBzbyB0aGV5IGxhY2sgdGhlIGB4YCAodHJhdmVyc2UpIHBlcm1pc3Npb24gcmVxdWly
+ZWQgZm9yIHBhdGggcmVzb2x1dGlvbi4gYG9wZW4oIi9kYXRhL21lZGlhLzAvLi4uIiwgT19QQVRI
+KWAgZmFpbHMgd2l0aCBgRUFDQ0VTYC4gKFNFTGludXggcG9saWN5IGRvZXMgYWxsb3cgYHVudHJ1
+c3RlZF9hcHBfYWxsYCB0byBhY2Nlc3MgYG1lZGlhX3J3X2RhdGFfZmlsZWAgoaogREFDIGlzIHRo
+ZSBhY3R1YWwgYmxvY2tlci4pDQoNClRoaXMgbWVhbnMgdGhlIGR1YWwtcGF0aCB3b3JrYXJvdW5k
+IG9ubHkgd29ya3MgZm9yIHByaXZpbGVnZWQgcHJvY2Vzc2VzICh0aGUgRlVTRSBkYWVtb24gaXRz
+ZWxmLCByb290KSwgYnV0IG5vdCBmb3Igb3JkaW5hcnkgdW5wcml2aWxlZ2VkIHByb2Nlc3NlcyCh
+qiB3aGljaCBpcyBleGFjdGx5IHRoZSB1c2UgY2FzZSB3aGVyZSBMYW5kbG9jayBpcyBtb3N0IHZh
+bHVhYmxlLg0KDQojIyBQb3NzaWJsZSBzb2x1dGlvbiBkaXJlY3Rpb24NCg0KT25lIHBvc3NpYmxl
+IGFwcHJvYWNoOiB3aGVuIExhbmRsb2NrJ3MgYWNjZXNzIGNoZWNrIG9uIHRoZSBiYWNraW5nIGlu
+b2RlIGNoYWluIGZhaWxzLCBmYWxsIGJhY2sgdG8gY2hlY2tpbmcgdGhlIGNvcnJlc3BvbmRpbmcg
+KipGVVNFIHZpcnR1YWwgcGF0aCoqIGlmIHRoZSBmaWxlIHdhcyBvcGVuZWQgdGhyb3VnaCBhIEZV
+U0UgYmFja2luZyBtZWNoYW5pc20uIFRoaXMgd291bGQgcmVxdWlyZSB0aGUgRlVTRSBsYXllciB0
+byByZWNvcmQgdGhlIHZpcnR1YWwgcGF0aCBhc3NvY2lhdGVkIHdpdGggYSBiYWNrZWQgaW5vZGUs
+IGFuZCBleHBvc2UgYSBoZWxwZXIgZm9yIExhbmRsb2NrIHRvIHJldHJpZXZlIGl0Lg0KDQpUaGlz
+IGFwcHJvYWNoIHdvdWxkIHJlcXVpcmUgKipubyB1c2Vyc3BhY2UgQVBJIGNoYW5nZXMqKiChqiBl
+eGlzdGluZyBMYW5kbG9jayB1c2Vyc3BhY2UgY29kZSB3b3VsZCBjb250aW51ZSB0byB3b3JrIHVu
+Y2hhbmdlZCwgYXMgdGhlIHByb2Nlc3Mgb25seSBldmVyIGludGVyYWN0cyB3aXRoIEZVU0UgcGF0
+aHMuDQoNClRoZSBrZXkgcHJpbmNpcGxlIGlzIHRoYXQgdXNlcnMgc2hvdWxkIG9ubHkgbmVlZCB0
+byB0aGluayBhYm91dCB0aGUgZmlsZSBoaWVyYXJjaGllcyB0aGV5IGNhbiBzZWUgKHRoZSBGVVNF
+IHBhdGhzKSwgYW5kIHRoZSBrZXJuZWwgc2hvdWxkIHRyYW5zcGFyZW50bHkgaGFuZGxlIHRoZSBi
+YWNraW5nIGZpbGVzeXN0ZW0gbWFwcGluZyChqiBjb25zaXN0ZW50IHdpdGggTGFuZGxvY2sncyBk
+b2N1bWVudGVkIGd1aWRhbmNlIHRoYXQgIkxhbmRsb2NrIHVzZXJzIHNob3VsZCB0aGVuIG9ubHkg
+dGhpbmsgYWJvdXQgZmlsZSBoaWVyYXJjaGllcyB0aGV5IHdhbnQgdG8gYWxsb3cgYWNjZXNzIHRv
+LCByZWdhcmRsZXNzIG9mIHRoZSB1bmRlcmx5aW5nIGZpbGVzeXN0ZW0uIg0KDQpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXw0Ksb7Tyrz+vLDG5Li9vP7E2sjdv8nE3Lqs09C7+sPcus0v
+u/LS/su90MXPoqOsvfa5qda4tqi49sjLu/K7+rm5yrnTw6GjyPTE+rfHt6K8/sjL1ri2qMrVvP7I
+y7vyxuS0+sDtyMujrMfrzvDKudPDoaK0q7KloaK4tNbGu/K05rSitMvTyrz+1q7IzrrOxNrI3bvy
+xuS4vbz+oaPI58T6zvPK1bG+08q8/qOsx+u8tNLUu9i4tLvytee7sLe9yr3NqNaqt6K8/sjLo6yy
+or2r1K3KvNPKvP6hori9vP68sMbky/nT0Li0sb7JvrP9oaPQu9C7oaMNClRoZSBjb250ZW50cyBv
+ZiB0aGlzIG1lc3NhZ2UgYW5kIGFueSBhdHRhY2htZW50cyBtYXkgY29udGFpbiBjb25maWRlbnRp
+YWwgYW5kL29yIHByaXZpbGVnZWQgaW5mb3JtYXRpb24gYW5kIGFyZSBpbnRlbmRlZCBleGNsdXNp
+dmVseSBmb3IgdGhlIGFkZHJlc3NlZShzKS4gSWYgeW91IGFyZSBub3QgdGhlIGludGVuZGVkIHJl
+Y2lwaWVudCBvZiB0aGlzIG1lc3NhZ2Ugb3IgdGhlaXIgYWdlbnQsIHBsZWFzZSBub3RlIHRoYXQg
+YW55IHVzZSwgZGlzc2VtaW5hdGlvbiwgY29weWluZywgb3Igc3RvcmFnZSBvZiB0aGlzIG1lc3Nh
+Z2Ugb3IgaXRzIGF0dGFjaG1lbnRzIGlzIG5vdCBhbGxvd2VkLiBJZiB5b3UgcmVjZWl2ZSB0aGlz
+IG1lc3NhZ2UgaW4gZXJyb3IsIHBsZWFzZSBub3RpZnkgdGhlIHNlbmRlciBieSByZXBseSB0aGUg
+bWVzc2FnZSBvciBwaG9uZSBhbmQgZGVsZXRlIHRoaXMgbWVzc2FnZSwgYW55IGF0dGFjaG1lbnRz
+IGFuZCBhbnkgY29waWVzIGltbWVkaWF0ZWx5Lg0KVGhhbmsgeW91DQo=
