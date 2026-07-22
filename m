@@ -1,62 +1,62 @@
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4D202D5A19
-	for <landlock@lists.linux.dev>; Wed, 22 Jul 2026 12:30:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9049830DD00
+	for <landlock@lists.linux.dev>; Wed, 22 Jul 2026 12:30:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784723406; cv=none; b=ZZoYTK48iOjwiaO1aYNI/bVr5/So0evg9iI/wJjruHT4cyGLvgLgdmE+eZ38u0FNwjLJhUY1U5e02UU7VqczEMi0xdmAmmoPHw6U7ee5n7BDhcTlRtYgNmP15QeR162omw4vV2NCXmalFrO8JPnMWc/m18H8SbtsvQzi/jYTZQU=
+	t=1784723409; cv=none; b=NJvkZgytxt8sANAhiXqExAP5AA7v6TwSbPpDo7A2D1iBQKjbVfO5sAaVNmhYux4YmnexjmRyGqoFmrznqFtwwKWBe43oouGm1haduIOwGZdPL+n9HZejsZ906E1hMWcHfsroGHxM3/iClt5mrvxJqfAD1lOSpF3EluJkMNsXS9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784723406; c=relaxed/simple;
-	bh=vX8NKo3tbkJYOQsFzvM0VcQFAQ/YMO+PXjFya3Ljz74=;
+	s=arc-20240116; t=1784723409; c=relaxed/simple;
+	bh=JAKHu8YyBELteSv8ooj1Pp3j9g6YVHHeCe1BMryEs6o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kvJNg8JxCjBey2oJwWPvaZ+Fs0oZdTfkjx6iYJFj+S2cTglhmHx0I78DeQv5RgSajOozFKAASygbFU6336A25piMkPbLUyCi/fPxa0+8JtiZ0WV42ztSLTpiBcp+ZBU1rfj880DQUToOVgoqqg/lMN861xYcQ+IVVTT/7Ms0xeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com; spf=pass smtp.mailfrom=cloudflare.com; dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b=gExNQQjQ; arc=none smtp.client-ip=209.85.208.43
+	 MIME-Version; b=A6WSn8mPd3tt46wNREYN1Fo1SqjiO/k/jAWh+M/52yiDUzaHOftZqmWe0LJka67uPG8NCmz1vqGhRqdtWPEtpMtjGVkXdH/lVkLphtNmWRrwKT+p0vAlMBNm5Uzy4G/gh1uLsw+8vEOO+ZJ0BD8PQVdta6fedJkuBwDMB3rI40Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com; spf=pass smtp.mailfrom=cloudflare.com; dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b=UTLr8qcG; arc=none smtp.client-ip=209.85.218.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b="gExNQQjQ"
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-698acd36d67so22881811a12.0
-        for <landlock@lists.linux.dev>; Wed, 22 Jul 2026 05:30:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b="UTLr8qcG"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c15cd3fd760so1406181466b.2
+        for <landlock@lists.linux.dev>; Wed, 22 Jul 2026 05:30:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloudflare.com; s=google09082023; t=1784723403; x=1785328203; darn=lists.linux.dev;
+        d=cloudflare.com; s=google09082023; t=1784723406; x=1785328206; darn=lists.linux.dev;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=KFGI0FiCjKbyURDhEKHwGm5SarWbwG22EAg474C66q0=;
-        b=gExNQQjQ+O0pSaxcvPsRFaqQhNHIxSZU2qTUP5YlY69m8Bdgle+FyGU6SST8stPq+p
-         UDfPXum12J8GIMmzjZQ1jQFuU6jpulDsidg2pCqWXB9PR+PY2IjQJCuOKXNdo5LLQT6S
-         nCFpN3wVUQhLqz68/YyoQ/v3Px7VjNj9F9McnV7Ewjs3UWL6qc5zGGGyojk9NuIDPnug
-         cdOYztoojtvnw24OeSZhcIsMvwv2ZUo69mpbeZol19vr7zyQ3ScVBXTNC8ClRmj9Ariu
-         fHUA/A48tlXghIQ2zk30pVhPg5FrnfeATR7yI6t7nsc+DQr93z1///Jf2ZRZ8CpH8T1s
-         fxiQ==
+        bh=zbtWhBehxkVPlnfWLUPZXxKYcYCTq6s9Hilnw7lNtrM=;
+        b=UTLr8qcGzYmRFvbSfbYH8lGXonT7JStnXoCkceklTSNMF6RBJsAudnaf9N5gItk9sX
+         p71BttXgf5m8vVaoE6FbOYp/wuCeYPh54g0WhMx3cydzhjTiLquthR9mTNLFMqoyNp9G
+         ID3/W4FItZnZMrSruYCMBguYOvjsO5IoI50uUS6nJuKC2jUcSwPa7ShWTZt7vbc0mxkc
+         pnHXQu05qclSLdKawHLrENc4TSfdPUVWrZ/Ei2gJuC6FZz7wEqW1H0j9KuB3om6Dv3ov
+         bpMWojmlIgIkCmZ1YdGimvIOGDKpux0ZbmTQjd8eD5dgp4Iyc4hNqRmLnoF7AzY39jLA
+         ivYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784723403; x=1785328203;
+        d=1e100.net; s=20251104; t=1784723406; x=1785328206;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KFGI0FiCjKbyURDhEKHwGm5SarWbwG22EAg474C66q0=;
-        b=kNRaTosu+LxTRTwwdQaubQRwkjcjXcnPPQgEzxfUPiwMcclxS+uvchs2yr5DtvVfIt
-         c2lSnR5eYTKHmnwYitSlFstgNz2Xn4K+AxmoMhQsPn3Jy/mbEDaCa1F3kAl4S+yYLHZL
-         Mcet09sHdtwKMk41MZUFref9O5sYRM6NqacU+WrQvPtcLdPt80WSRrD16y0qnWxVWgOm
-         dr+aOL1G56vEXhMTv5LmybC2NHXWASYbyFAiQnkqE1PImUGMbJBLnBQOKV36imUj2f9T
-         OqZlDqtwdOe7z9WjJ7d48I8WmkcfNYSdkFD6+C36e+TvoJNQl7IwyvXocgk2vSCBtWGW
-         SBTg==
-X-Forwarded-Encrypted: i=1; AHgh+RqRhP8YzUF74H2F7FFJ83vrlRxXS0hjGxlUlYuwvu1oKtlsEVqOYj3XLUw3W13fIm8gUTAEiLrOqw==@lists.linux.dev
-X-Gm-Message-State: AOJu0YwYsCvHNVi25FeRnMyLxQXBOlZII8ZdwWRThy4UWlE9LtWryPJa
-	aVumuk7ma5Eipe7VMPExKMcnsPznCinOT0Ogr2Po6JJ6vym4jgDdkKKHamNwhMaNWBA=
-X-Gm-Gg: AR+sD10fBPKJMibM/VBunpZZ+k5pHkTUsrRBklyplivnTETib7G0vL7WDiKnzCUQ5U8
-	sMkBkamCoyHIt9Tx0fMHS6B6dKim0VIpzONIxJLJdBoNJEHzeWLYrLMZe573LHmHR47JtmCbK58
-	AOwZu+meGFPXddxu2TnVBh2XtUw9Foxl0Rc3a3FNg6+1Je2jW1l2wnRzsWw4JDs8kB6Plg/Sn9W
-	DEtVFeR4OO6qpyiWZ6xnjBbjRa3JyEg5eQw7/HFnoFKOuC2co0QE5a+lJJUoRtJy5ZICdgp+FAs
-	hLhtwSgQXVNfGJvX9mXHClRbEKnDjQHl+mV8zYy+HO566qIw2THtd3bWTdq8/fuNHzlfYU+xUAB
-	7UKLdczXWQ/ov77qHh+kHQ/5hJyF0ZjnL44ty4yLM/zMzHb0MPz4++GRl0kyk6ng=
-X-Received: by 2002:a17:907:3f8b:b0:c12:5e3d:4023 with SMTP id a640c23a62f3a-c16b457b127mr1033077166b.10.1784723402875;
-        Wed, 22 Jul 2026 05:30:02 -0700 (PDT)
+        bh=zbtWhBehxkVPlnfWLUPZXxKYcYCTq6s9Hilnw7lNtrM=;
+        b=SLWCmh+t1TtJJNQ/Uq0LXYhvhsG+q6xhsYhjRhVGEB2DNaFIwy1DjhecUXeWtGxaOJ
+         rUNq2qCKnFCXZgAaIwV5IZgIjfazj/EaE7QpPzTlBRxICe599a28RqBmzORQDDYiuqkY
+         gkzUgT4HvMxWvhGD0e+z6kRvT1TLefkFyzFPdvZjz18wKsuBKvycNJ4Z6vsqN7x/abcK
+         WbuWz6fM0BLD4yR8hpFRZxbAwTQ4fTNSvA8EdQH1OjLS6cLLXCkKdGVzcOni4m3wO+CE
+         h+HJYckZESHOdDpmE2zZFIgyjveyJIBQlY44Z96moZBWAaJO7nBUIXORasXomLtkGrU6
+         trtg==
+X-Forwarded-Encrypted: i=1; AHgh+RrDn+hhB9LwXITkP1t+1bEJtawqNvmMKewmxa8Cgww+zspgrYqIbcP21PLHzr0XraeAlnNE+Fa8CQ==@lists.linux.dev
+X-Gm-Message-State: AOJu0YxlbvYOnxiXxfEkgoWQBR3/KnlQeN/cctn/Jt6l+nb0YvXfMgd/
+	YKBT8R3vMldCB+I8VwzXUzOZUl100a8VM5vLJkYaUPJQSWvtM+Sp0xmVp9XHQmz/YRk=
+X-Gm-Gg: AR+sD10Bxu4CjZXbtB+u26DmdNG194S2pwbd1PhWCiOnpBqffRdVUNAKThsPy2f5+t4
+	JjjQGx3MtEs9MtM67IS/VZ6PU5bRD11MaOypmhFFRlkWlmOVQ1xuyPlAXIhGyvmmU8qmTeKH9Xo
+	le9fh28Xex7crk7P5gMFhhYucRVLpVyinsS8st6Q7zi1FzlA20st7ziKs8mW3o5wdz7+Eg8NVC3
+	VP8KcG6J+cVC/1UEPZYrgmiGdZ6F3VV1CnNXRkFqs4b54g7PEh6Xu34KJnMfcDLyGjkKKkn3MPJ
+	oWz90hqw3Uy7Ci4Q+9dEeOVht8dDKdQUJ7c5fc+ZdqTq8oZ5u5nNkMMW8IEqYe9N/NQWHG7UQ5D
+	6NJBoWJ0hgilbKiSbe0Od3fV5fP1o/HbJP0y3JwrqUAb1EZJZJOOeqTZFWyr/6es=
+X-Received: by 2002:a17:907:980a:b0:c16:2f5d:6153 with SMTP id a640c23a62f3a-c16b46d2c3dmr987958966b.20.1784723405581;
+        Wed, 22 Jul 2026 05:30:05 -0700 (PDT)
 Received: from DW927H4LGF ([2a09:bac6:37e6:1e5a::306:2])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69f34f1b867sm835007a12.14.2026.07.22.05.30.01
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69f34f1b867sm835007a12.14.2026.07.22.05.30.03
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 22 Jul 2026 05:30:01 -0700 (PDT)
+        Wed, 22 Jul 2026 05:30:04 -0700 (PDT)
 From: Oxana Kharitonova <oxana@cloudflare.com>
 To: mic@digikod.net,
 	gnoack@google.com
@@ -69,9 +69,9 @@ Cc: paul@paul-moore.com,
 	landlock@lists.linux.dev,
 	oxana@cloudflare.com,
 	webprosto@gmail.com
-Subject: [PATCH 2/6] landlock: Scope POSIX message queue opens
-Date: Wed, 22 Jul 2026 13:29:38 +0100
-Message-ID: <20260722122952.42149-3-oxana@cloudflare.com>
+Subject: [PATCH 3/6] landlock: Bump ABI for LANDLOCK_SCOPE_POSIX_MSG_QUEUE
+Date: Wed, 22 Jul 2026 13:29:39 +0100
+Message-ID: <20260722122952.42149-4-oxana@cloudflare.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260722122952.42149-1-oxana@cloudflare.com>
 References: <20260722122952.42149-1-oxana@cloudflare.com>
@@ -83,288 +83,41 @@ List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add support for enforcing LANDLOCK_SCOPE_POSIX_MSG_QUEUE when opening
-POSIX message queues.
-
-Tag mqueuefs inodes at instantiation time with the landlock domain of
-the task that created the queue. This domain is stored in the landlock
-inode security blob and kept alive until the inode security blob is
-released.
-
-On file open, detect mqueuefs regular files and compare the queue
-creator's domain with the opener's scoped domain. Deny the open when
-the opener is restricted by LANDLOCK_SCOPE_POSIX_MSG_QUEUE and the queue
-was created outside of an allowed parent domain.
-
-This makes POSIX message queues follow the same scoped-domain model as
-the existing landlock IPC restrictions, while keeping the queue creator
-domain tied to the lifetime of the queue inode.
+Increase the landlock ABI version so userspace can detect support for
+LANDLOCK_SCOPE_POSIX_MSG_QUEUE.
 
 Signed-off-by: Oxana Kharitonova <oxana@cloudflare.com>
 ---
- include/uapi/linux/landlock.h |  1 +
- security/landlock/audit.c     |  9 ++++++++
- security/landlock/audit.h     |  1 +
- security/landlock/fs.c        | 35 ++++++++++++++++++++++++++++
- security/landlock/fs.h        | 15 ++++++++++++
- security/landlock/limits.h    |  2 +-
- security/landlock/ruleset.c   |  1 -
- security/landlock/task.c      | 43 +++++++++++++++++++++++++++++++++++
- security/landlock/task.h      |  4 ++++
- 9 files changed, 109 insertions(+), 2 deletions(-)
+ security/landlock/syscalls.c                 | 2 +-
+ tools/testing/selftests/landlock/base_test.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/include/uapi/linux/landlock.h b/include/uapi/linux/landlock.h
-index 272f047df438..96d0c3b423ac 100644
---- a/include/uapi/linux/landlock.h
-+++ b/include/uapi/linux/landlock.h
-@@ -491,6 +491,7 @@ struct landlock_net_port_attr {
- /* clang-format off */
- #define LANDLOCK_SCOPE_ABSTRACT_UNIX_SOCKET		(1ULL << 0)
- #define LANDLOCK_SCOPE_SIGNAL		                (1ULL << 1)
-+#define LANDLOCK_SCOPE_POSIX_MSG_QUEUE		        (1ULL << 2)
- /* clang-format on*/
- 
- #endif /* _UAPI_LINUX_LANDLOCK_H */
-diff --git a/security/landlock/audit.c b/security/landlock/audit.c
-index 50536c568526..895397b5cbca 100644
---- a/security/landlock/audit.c
-+++ b/security/landlock/audit.c
-@@ -82,6 +82,10 @@ get_blocker(const enum landlock_request_type type,
- 	case LANDLOCK_REQUEST_SCOPE_SIGNAL:
- 		WARN_ON_ONCE(access_bit != -1);
- 		return "scope.signal";
-+
-+	case LANDLOCK_REQUEST_SCOPE_POSIX_MSG_QUEUE:
-+		WARN_ON_ONCE(access_bit != -1);
-+		return "scope.posix_msg_queue";
- 	}
- 
- 	WARN_ON_ONCE(1);
-@@ -646,6 +650,11 @@ void landlock_log_denial(const struct landlock_cred_security *const subject,
- 				!!(quiet_mask &
- 				   LANDLOCK_SCOPE_ABSTRACT_UNIX_SOCKET);
- 			break;
-+		case LANDLOCK_REQUEST_SCOPE_POSIX_MSG_QUEUE:
-+			quiet_applicable_to_access =
-+				!!(quiet_mask &
-+				   LANDLOCK_SCOPE_POSIX_MSG_QUEUE);
-+			break;
- 		/*
- 		 * Leave LANDLOCK_REQUEST_PTRACE and
- 		 * LANDLOCK_REQUEST_FS_CHANGE_TOPOLOGY unhandled for now - they
-diff --git a/security/landlock/audit.h b/security/landlock/audit.h
-index 620f8a24291d..ce85417548fa 100644
---- a/security/landlock/audit.h
-+++ b/security/landlock/audit.h
-@@ -21,6 +21,7 @@ enum landlock_request_type {
- 	LANDLOCK_REQUEST_NET_ACCESS,
- 	LANDLOCK_REQUEST_SCOPE_ABSTRACT_UNIX_SOCKET,
- 	LANDLOCK_REQUEST_SCOPE_SIGNAL,
-+	LANDLOCK_REQUEST_SCOPE_POSIX_MSG_QUEUE,
- };
- 
- /*
-diff --git a/security/landlock/fs.c b/security/landlock/fs.c
-index f7e5e4ef9eac..c6558b448a06 100644
---- a/security/landlock/fs.c
-+++ b/security/landlock/fs.c
-@@ -51,6 +51,7 @@
- #include "object.h"
- #include "ruleset.h"
- #include "setup.h"
-+#include "task.h"
- 
- /* Underlying object management */
- 
-@@ -1268,6 +1269,33 @@ static void hook_inode_free_security_rcu(void *inode_security)
- 	 */
- 	inode_sec = inode_security + landlock_blob_sizes.lbs_inode;
- 	WARN_ON_ONCE(inode_sec->object);
-+
-+	landlock_put_ruleset_deferred(inode_sec->mq_domain);
-+}
-+
-+/*
-+ * Tag a newly created POSIX message queue with its creator's domain.
-+ *
-+ * This is the earliest reachable point with both the creator's context and a
-+ * fully initialized inode.
-+ */
-+static void hook_d_instantiate(struct dentry *const dentry,
-+			       struct inode *const inode)
-+{
-+	struct landlock_ruleset *dom;
-+
-+	if (!landlock_is_posix_mqueue_inode(inode))
-+		return;
-+
-+	dom = landlock_get_current_domain();
-+	if (!dom)
-+		return;
-+
-+	if (WARN_ON_ONCE(landlock_inode(inode)->mq_domain))
-+		return;
-+
-+	landlock_get_ruleset(dom);
-+	landlock_inode(inode)->mq_domain = dom;
- }
- 
- /* Super-block hooks */
-@@ -1756,6 +1784,12 @@ static int hook_file_open(struct file *const file)
- 	const struct landlock_cred_security *const subject =
- 		landlock_get_applicable_subject(file->f_cred, any_fs, NULL);
- 	struct landlock_request request = {};
-+	int err;
-+
-+	/* POSIX message queue scoping is independent of FS access rights. */
-+	err = landlock_check_posix_mqueue_open(file);
-+	if (err)
-+		return err;
- 
- 	if (!subject)
- 		return 0;
-@@ -1979,6 +2013,7 @@ static void hook_file_free_security(struct file *file)
- 
- static struct security_hook_list landlock_hooks[] __ro_after_init = {
- 	LSM_HOOK_INIT(inode_free_security_rcu, hook_inode_free_security_rcu),
-+	LSM_HOOK_INIT(d_instantiate, hook_d_instantiate),
- 
- 	LSM_HOOK_INIT(sb_delete, hook_sb_delete),
- 	LSM_HOOK_INIT(sb_mount, hook_sb_mount),
-diff --git a/security/landlock/fs.h b/security/landlock/fs.h
-index b4421d9df68f..aefe078845fa 100644
---- a/security/landlock/fs.h
-+++ b/security/landlock/fs.h
-@@ -14,6 +14,7 @@
- #include <linux/fs.h>
- #include <linux/init.h>
- #include <linux/rcupdate.h>
-+#include <uapi/linux/magic.h>
- 
- #include "access.h"
- #include "cred.h"
-@@ -38,6 +39,14 @@ struct landlock_inode_security {
- 	 * performed by get_inode_object().
- 	 */
- 	struct landlock_object __rcu *object;
-+	/**
-+	 * @mq_domain: Domain of the task that created POSIX message queue.
-+	 * Only set for mqueuefs inodes (i.e. s_magic == MQUEUE_MAGIC) at
-+	 * creation time by hook_d_instantiate(), never modified afterwards.
-+	 * Used to check LANDLOCK_SCOPE_POSIX_MSG_QUEUE against the
-+	 * accessing task's domain.
-+	 */
-+	struct landlock_ruleset *mq_domain;
- };
+diff --git a/security/landlock/syscalls.c b/security/landlock/syscalls.c
+index 36b02892c62f..84521a31bf75 100644
+--- a/security/landlock/syscalls.c
++++ b/security/landlock/syscalls.c
+@@ -169,7 +169,7 @@ static const struct file_operations ruleset_fops = {
+  * If the change involves a fix that requires userspace awareness, also update
+  * the errata documentation in Documentation/userspace-api/landlock.rst .
+  */
+-const int landlock_abi_version = 10;
++const int landlock_abi_version = 11;
  
  /**
-@@ -141,6 +150,12 @@ landlock_inode(const struct inode *const inode)
- 	return inode->i_security + landlock_blob_sizes.lbs_inode;
- }
+  * sys_landlock_create_ruleset - Create a new ruleset
+diff --git a/tools/testing/selftests/landlock/base_test.c b/tools/testing/selftests/landlock/base_test.c
+index cbd3c1669951..b8b5fa1042ba 100644
+--- a/tools/testing/selftests/landlock/base_test.c
++++ b/tools/testing/selftests/landlock/base_test.c
+@@ -76,7 +76,7 @@ TEST(abi_version)
+ 	const struct landlock_ruleset_attr ruleset_attr = {
+ 		.handled_access_fs = LANDLOCK_ACCESS_FS_READ_FILE,
+ 	};
+-	ASSERT_EQ(10, landlock_create_ruleset(NULL, 0,
++	ASSERT_EQ(11, landlock_create_ruleset(NULL, 0,
+ 					      LANDLOCK_CREATE_RULESET_VERSION));
  
-+static inline bool
-+landlock_is_posix_mqueue_inode(const struct inode *const inode)
-+{
-+	return S_ISREG(inode->i_mode) && inode->i_sb->s_magic == MQUEUE_MAGIC;
-+}
-+
- static inline struct landlock_superblock_security *
- landlock_superblock(const struct super_block *const superblock)
- {
-diff --git a/security/landlock/limits.h b/security/landlock/limits.h
-index 08d5f2f6d321..70a7c5c7af85 100644
---- a/security/landlock/limits.h
-+++ b/security/landlock/limits.h
-@@ -27,7 +27,7 @@
- #define LANDLOCK_MASK_ACCESS_NET	((LANDLOCK_LAST_ACCESS_NET << 1) - 1)
- #define LANDLOCK_NUM_ACCESS_NET		__const_hweight64(LANDLOCK_MASK_ACCESS_NET)
- 
--#define LANDLOCK_LAST_SCOPE		LANDLOCK_SCOPE_SIGNAL
-+#define LANDLOCK_LAST_SCOPE		LANDLOCK_SCOPE_POSIX_MSG_QUEUE
- #define LANDLOCK_MASK_SCOPE		((LANDLOCK_LAST_SCOPE << 1) - 1)
- #define LANDLOCK_NUM_SCOPE		__const_hweight64(LANDLOCK_MASK_SCOPE)
- 
-diff --git a/security/landlock/ruleset.c b/security/landlock/ruleset.c
-index 4dd09ea22c84..aa37d50ead87 100644
---- a/security/landlock/ruleset.c
-+++ b/security/landlock/ruleset.c
-@@ -520,7 +520,6 @@ static void free_ruleset_work(struct work_struct *const work)
- 	free_ruleset(ruleset);
- }
- 
--/* Only called by hook_cred_free(). */
- void landlock_put_ruleset_deferred(struct landlock_ruleset *const ruleset)
- {
- 	if (ruleset && refcount_dec_and_test(&ruleset->usage)) {
-diff --git a/security/landlock/task.c b/security/landlock/task.c
-index 55522a601367..d65e43550b26 100644
---- a/security/landlock/task.c
-+++ b/security/landlock/task.c
-@@ -453,6 +453,49 @@ static int hook_file_send_sigiotask(struct task_struct *tsk,
- 	return -EPERM;
- }
- 
-+static const struct access_masks posix_mqueue_scope = {
-+	.scope = LANDLOCK_SCOPE_POSIX_MSG_QUEUE,
-+};
-+
-+/**
-+ * landlock_check_posix_mqueue_open - Deny opening a POSIX message queue
-+ * created by a task from a different (non-ancestor) domain
-+ *
-+ * @file: The mqueuefs file being opened.
-+ *
-+ * Return: -EPERM if the open must be denied, 0 otherwise.
-+ */
-+int landlock_check_posix_mqueue_open(struct file *const file)
-+{
-+	const struct inode *const inode = file_inode(file);
-+	const struct landlock_cred_security *subject;
-+	size_t handle_layer;
-+
-+	if (!landlock_is_posix_mqueue_inode(inode))
-+		return 0;
-+
-+	subject = landlock_get_applicable_subject(file->f_cred,
-+						  posix_mqueue_scope,
-+						  &handle_layer);
-+	if (!subject)
-+		return 0;
-+
-+	if (!domain_is_scoped(subject->domain,
-+			      landlock_inode(inode)->mq_domain,
-+			      LANDLOCK_SCOPE_POSIX_MSG_QUEUE))
-+		return 0;
-+
-+	landlock_log_denial(subject, &(struct landlock_request) {
-+		.type = LANDLOCK_REQUEST_SCOPE_POSIX_MSG_QUEUE,
-+		.audit = {
-+			.type = LSM_AUDIT_DATA_FILE,
-+			.u.file = file,
-+		},
-+		.layer_plus_one = handle_layer + 1,
-+	});
-+	return -EPERM;
-+}
-+
- static struct security_hook_list landlock_hooks[] __ro_after_init = {
- 	LSM_HOOK_INIT(ptrace_access_check, hook_ptrace_access_check),
- 	LSM_HOOK_INIT(ptrace_traceme, hook_ptrace_traceme),
-diff --git a/security/landlock/task.h b/security/landlock/task.h
-index 7c00360219a2..0b031dc17bbf 100644
---- a/security/landlock/task.h
-+++ b/security/landlock/task.h
-@@ -9,6 +9,10 @@
- #ifndef _SECURITY_LANDLOCK_TASK_H
- #define _SECURITY_LANDLOCK_TASK_H
- 
-+#include <linux/fs.h>
-+
- __init void landlock_add_task_hooks(void);
- 
-+int landlock_check_posix_mqueue_open(struct file *const file);
-+
- #endif /* _SECURITY_LANDLOCK_TASK_H */
+ 	ASSERT_EQ(-1, landlock_create_ruleset(&ruleset_attr, 0,
 -- 
 2.50.1 (Apple Git-155)
 
