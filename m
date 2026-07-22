@@ -1,177 +1,144 @@
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09A10371895
-	for <landlock@lists.linux.dev>; Wed, 22 Jul 2026 12:30:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB89440F725
+	for <landlock@lists.linux.dev>; Wed, 22 Jul 2026 12:43:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784723415; cv=none; b=b9aBagNM6HpLI9XHpTDUr00cKvX0T+2uvViB+cCkaWalHHgIiI+64CMD3A+YObVFbsEZL+RCWyLGkdatsyxIxaSHeG0HsEhrForF8y1JzCpl7diX1mmjUfEIcrGWMK/gOuIKyTYevdSALN4y0rZSut5i8D0vwaV7A3a9NOM9P5g=
+	t=1784724221; cv=none; b=V3TS6gFxJ00Q2PEx5bIQJr+TdaJzyiMzdmcB9Jen7CbmUN7eHr0g9f8+dCLh2cqIM22+msGwSFoJoOmSDHoiDtUcw7K+6CEOaVNKReE4qIXbl5+e6qWR/Zv7J33d+r9p1YGqPWV9JXkV3gDgCqLf59taLZ8LqWD6F9lJ+cipxmo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784723415; c=relaxed/simple;
-	bh=XXP6So6EytIRNbavWUyVFlypJEjg8u4P/XJmPMsD3mg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XHyS03eJgEHr2HilL7NqVNrUqCJ6J4Kl8foJkUJQoxih1UyO69ieaoFLu3RjObGx3DH2s9Og05hmt6G+VOpTELkFD0p5iA/W5p7sE0lr4X5jLUoMD5fe6arnKelXVvsSQrnCqmzJlUs7O5GikpY5ld0Uau7USmo474hIAAEF2tY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com; spf=pass smtp.mailfrom=cloudflare.com; dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b=JkGQSUSe; arc=none smtp.client-ip=209.85.208.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
+	s=arc-20240116; t=1784724221; c=relaxed/simple;
+	bh=rOf3yOeoPaV8GbB0UMhEnSZ3ceLJXttM7TqE80KO8Q0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SeGjwJ+cFossHtkp90a6kL0UKdud5x/X7s1xjciwW0IkKeY9eqPtl9pzZ60u398xVIsUYN3qKQzvKtbq/N92zQrw8zmfd2TwOepazkOJdNR9uc5DWwGH2n+gURu1HYN6Ho+lrjQowDLOoKHvTVkUuCWZ41uTf1KzTmOS0oWuUwE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eZpzfcU+; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b="JkGQSUSe"
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6986287534eso22872054a12.3
-        for <landlock@lists.linux.dev>; Wed, 22 Jul 2026 05:30:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eZpzfcU+"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-493f75f7172so97074565e9.1
+        for <landlock@lists.linux.dev>; Wed, 22 Jul 2026 05:43:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloudflare.com; s=google09082023; t=1784723411; x=1785328211; darn=lists.linux.dev;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=P42HCFpkq11qC2COB01ikocfGvftDj76wdm0yvbU3UM=;
-        b=JkGQSUSeGb9yrLpON2qtX2MTnhvXA3yh3OHAW3XirknUGfKr9fK0vlHOmR9DSLLNiR
-         2KBzYKHGf/HRSUjqO/KasLvFf51iPPeJ9B468+61UAUB5QY0fTSAlgFTNfNMc1Z69bvv
-         216oFzvZtrFTrtFhrwuMIZGCtTYW/6I3eiUX/ZQMoZCQA/92h4A6+A+dSXHHBjsbjj00
-         12rkDafiWM9BmM7kipKzvFyo+oy/zgIt0Y3LomY89oX4nKYySDtLX5K8OnTMK+scCOUX
-         u8EF4/Ph+b+KeWWRBvtrK5a7KaCIZPK41OM9pXv4LrdaHM4QPhiy30z0eSxXwB6SuFhX
-         8ScA==
+        d=google.com; s=20251104; t=1784724218; x=1785329018; darn=lists.linux.dev;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BnYnNtKTZhp3m/Ur7bxY+P2OLpfTbrGdAo3NRWVmIRE=;
+        b=eZpzfcU+zl9+rlbOy0rSRpw7RObBmMIGXwNT1c1u0MOpY6MNkWoy6xJQZsTDFQmsd8
+         S0GUfRcHWwHFbwWeRu88CuvxCi/6mfw/VRyfTLYnsAEgKzwYtSI2rjYTuQcHJSDnRfSY
+         j97uNJuqX9m6QH+lkSdbmL9MF7RHBJhZkw/9or8MytXvoEd1gPogf/kScbK+BwOvRlcs
+         vycaYVZwUBGLFU3ieR46EpCGawV74gH2+0me+slsLP58sFuOImH9q/qLxJoHMWb36z1J
+         XvS6ElATqYbK+/YrwW/5ZdZJ/pNcgHH1hkOY55a0/eCbwEIIobmNgZhYffJb3QEZKJmU
+         UvLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784723411; x=1785328211;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=P42HCFpkq11qC2COB01ikocfGvftDj76wdm0yvbU3UM=;
-        b=UQoJHeWOJPyovouXtLFBUfexZfgeglQo2n856X/57MMWFS469XGkhHC3SHcJXEJqvx
-         LnrBUrvEwFOcJxpPgr5K/I4Cb1knmQ1hnd957d0VZArV7khxB82CcaydCEj09pl3/tWd
-         1FQbliXQfkKOzV1EVZVp7LSn5qfzRsVsBQc0NqIS0TOq0kBNBZxa+abj1lzhaCrwqkf2
-         w3StS1Dz4b7pdo3VKEpa1zIXtRCudwsDVoSB20kEpAvFoSyrW5K0W6tB6xr/RFKeGDUY
-         NaYaOfKWHTKhkJCamdPPhsX8eFcDAuP20/+e7FGwIvCxkQko2ALuD+/s3K5FK3g+Q4r7
-         Y/Bw==
-X-Forwarded-Encrypted: i=1; AHgh+Rr3Tsn3ctAWwTg7U5RKoyMSLPIFwTy/YKRcLDrT0E4FnGwxboCt0uZVgEq/Zc/+0k6c25+/s6ugFg==@lists.linux.dev
-X-Gm-Message-State: AOJu0YxDaeQ6VtIQ/tWb/xeenLP4wVZz5aHaUMSkunUMGdzkhRFs5ehS
-	FP5pLV/Q3oEXPB0qZ+nUZtknfIoHMmR4LfNDIOb6BQrBGNMc+i7iVBciAQEK+Et4oH8=
-X-Gm-Gg: AR+sD13xGSMz0mxta/yY3fyuthJtd/2K7f6K9y9C7ufuGMOtKwLx61rvYqtPZRCQvAK
-	X282eaYvRLgkSRGYjmczDxxfO9v6sWvWE+J4Hld+NZjyIbwdY5osrNRcfYw7wT3PVXRp2YJNZbu
-	sG2iLX6mggGJXWos5xZBC5pM48Z4LkEEqdEe7t+nwh3EAdwBBPtGgH0nViK8OGlpmOyxz4cJ8GV
-	vj6EVEVnWASwsrgpK8e4V8C99zeItkqVh9/+jlgJvHDreQ48an8NiL2SWjCNJVbiyP8qfERge71
-	kt8Sm9O9ScEztN3rlJEQbws4t7g4mPMZ9Lu8yEGrAaUs+BztLUrtdopUXIz5vS6Na3GJJc/eA9a
-	X40X6HoermWrF65lBeXXXt1m7u1uJEmlhNJCVv/CGBIH1NhqnjuLSDYgN8U0b1mANuBFSz3lT6w
-	==
-X-Received: by 2002:a05:6402:4402:b0:69c:9197:4413 with SMTP id 4fb4d7f45d1cf-69e652dfccemr9233139a12.36.1784723410993;
-        Wed, 22 Jul 2026 05:30:10 -0700 (PDT)
-Received: from DW927H4LGF ([2a09:bac6:37e6:1e5a::306:2])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69f34f1b867sm835007a12.14.2026.07.22.05.30.09
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 22 Jul 2026 05:30:10 -0700 (PDT)
-From: Oxana Kharitonova <oxana@cloudflare.com>
-To: mic@digikod.net,
-	gnoack@google.com
-Cc: paul@paul-moore.com,
-	jmorris@namei.or,
-	serge@hallyn.com,
-	wangyan01@kylinos.cn,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	landlock@lists.linux.dev,
-	oxana@cloudflare.com,
-	webprosto@gmail.com
-Subject: [PATCH 6/6] landlock: Document POSIX message queue scoping
-Date: Wed, 22 Jul 2026 13:29:42 +0100
-Message-ID: <20260722122952.42149-7-oxana@cloudflare.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260722122952.42149-1-oxana@cloudflare.com>
+        d=1e100.net; s=20251104; t=1784724218; x=1785329018;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=BnYnNtKTZhp3m/Ur7bxY+P2OLpfTbrGdAo3NRWVmIRE=;
+        b=eHi8XQCGo+d0HJGdie2pb2IP+/3H/4zfnliPNzw5KwCTC7sdHe5lhKtbXU/stCwCyl
+         H3/pQ394ah9CZNtB7618mlTiZTLkJEThy4RM2mwYaAFRFggfHl6GNa8NhqDFtXiqBnZi
+         krAWnbBCxnkWHbeUn+DmwpuJXKDJA09us+DZMybjrykw6l0J/f+OHXZXNMzBoAYvvUqZ
+         Een8fuJmGPC7WQ8NDDeRE2OMe+ESnDFbxdw8IYD+H3h5KpdJkDOAxAd9pndcy22jL4Po
+         PoBu8+T4hA+sDo1poM+Oa8vIGdVRDK71OB3fmmrlw9bnL6LP92f9Bygmi9XahBQHpFku
+         Gs4w==
+X-Forwarded-Encrypted: i=1; AHgh+RqDmVpydcAhPDgCCVY++ZyC0InTeOonNAXZrYAEv9QWP8lK1oB5xPNzQxVnVnCJulGRyozj2gEb2A==@lists.linux.dev
+X-Gm-Message-State: AOJu0Yw+K3sBVA34XEctdsG1m/P4zO9dvE4QHNmOMJIas9yKTQ30qHLz
+	4c2cxIRpbVMa3Xdy+jwNNXuPt+50PPcJjmuY9zEjdQn6JyYJkAfPKxaMptLJSCvlyw==
+X-Gm-Gg: AR+sD13Pp3rnjNDwR3G1NaFvzUIQ+rNH+oBklTshzWb+EWbsoaVHNEoj9gvvEpmubos
+	7JVzDo/2aF38jU964HjlBjCPvpCkurF8EPZ2ZT7RAygLCu/77XyiAf+YHcuL10hzf6V5DflHNAc
+	2BTrM4FfICQXA1BtmIctLDvlab5DxpdWn8AjEq4hPbaV/naJ5jbk86jB134uhVqy23THV3ukaJA
+	78WpiE/PjGbNme553ZicCPLF1xasDvxqWPvBbqyMKW3myq9+NFoow7VmfpE2MtWanh9NyE54Zmi
+	+oAlTzmUKcTg/tQSHql8zn8KOEVMewK2u0ttuf3zJY7cwDEJYCDII+OH7ODeYx2V9gFWTY2QWzz
+	vb8nxN3cXxIMvsLMZHo85OlsvAc8DwQzWtLIYwDHxEtKn0Vjg9UVWr00RxClxA7SMDEh8USqm9T
+	K9Iark4knODQlhaVPaB7+zQ1DEXiCss/XxH9AYt1lTqg==
+X-Received: by 2002:a05:600c:1d25:b0:495:6c44:633f with SMTP id 5b1f17b1804b1-4956c4463c8mr23451755e9.31.1784724217695;
+        Wed, 22 Jul 2026 05:43:37 -0700 (PDT)
+Received: from google.com ([2a00:79e0:288a:8:b091:e7a3:a71:4447])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4956a4f9a11sm64818665e9.4.2026.07.22.05.43.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 22 Jul 2026 05:43:37 -0700 (PDT)
+Date: Wed, 22 Jul 2026 14:43:32 +0200
+From: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
+To: Oxana Kharitonova <oxana@cloudflare.com>
+Cc: mic@digikod.net, paul@paul-moore.com, jmorris@namei.or,
+	serge@hallyn.com, wangyan01@kylinos.cn,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	landlock@lists.linux.dev, webprosto@gmail.com
+Subject: Re: [PATCH 1/6] ipc: Move mqueue fs magic to uapi magic header
+Message-ID: <amC69LnwcgG7xo-5@google.com>
 References: <20260722122952.42149-1-oxana@cloudflare.com>
+ <20260722122952.42149-2-oxana@cloudflare.com>
 Precedence: bulk
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
 List-Subscribe: <mailto:landlock+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260722122952.42149-2-oxana@cloudflare.com>
 
-Document LANDLOCK_SCOPE_POSIX_MSG_QUEUE in the userspace API and UAPI
-kernel-doc.
+Hello!
 
-Signed-off-by: Oxana Kharitonova <oxana@cloudflare.com>
----
- Documentation/admin-guide/LSM/landlock.rst |  6 ++++--
- Documentation/userspace-api/landlock.rst   | 11 ++++++++++-
- include/uapi/linux/landlock.h              |  6 +++++-
- 3 files changed, 19 insertions(+), 4 deletions(-)
+On Wed, Jul 22, 2026 at 01:29:37PM +0100, Oxana Kharitonova wrote:
+> Move MQUEUE_MAGIC from ipc/mqueue.c to include/uapi/linux/magic.h so
+> it can be shared by code outside of ipc/mqueue.c without duplicating
+> the constant.
+> 
+> Signed-off-by: Oxana Kharitonova <oxana@cloudflare.com>
+> ---
+>  include/uapi/linux/magic.h | 2 ++
+>  ipc/mqueue.c               | 2 +-
+>  2 files changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/include/uapi/linux/magic.h b/include/uapi/linux/magic.h
+> index 4f2da935a76c..8e5d33bb1453 100644
+> --- a/include/uapi/linux/magic.h
+> +++ b/include/uapi/linux/magic.h
+> @@ -78,6 +78,8 @@
+>  
+>  #define V9FS_MAGIC		0x01021997
+>  
+> +#define MQUEUE_MAGIC		0x19800202
+> +
+>  #define BDEVFS_MAGIC            0x62646576
+>  #define DAXFS_MAGIC             0x64646178
+>  #define BINFMTFS_MAGIC          0x42494e4d
+> diff --git a/ipc/mqueue.c b/ipc/mqueue.c
+> index 4798b375972b..9515597d45ce 100644
+> --- a/ipc/mqueue.c
+> +++ b/ipc/mqueue.c
+> @@ -22,6 +22,7 @@
+>  #include <linux/sysctl.h>
+>  #include <linux/poll.h>
+>  #include <linux/mqueue.h>
+> +#include <linux/magic.h>
+>  #include <linux/msg.h>
+>  #include <linux/skbuff.h>
+>  #include <linux/vmalloc.h>
+> @@ -47,7 +48,6 @@ struct mqueue_fs_context {
+>  	bool			 newns;	/* Set if newly created ipc namespace */
+>  };
+>  
+> -#define MQUEUE_MAGIC	0x19800202
+>  #define DIRENT_SIZE	20
+>  #define FILENT_SIZE	80
+>  
+> -- 
+> 2.50.1 (Apple Git-155)
+> 
 
-diff --git a/Documentation/admin-guide/LSM/landlock.rst b/Documentation/admin-guide/LSM/landlock.rst
-index 8eb85c9381ff..1ecb2017271b 100644
---- a/Documentation/admin-guide/LSM/landlock.rst
-+++ b/Documentation/admin-guide/LSM/landlock.rst
-@@ -60,9 +60,11 @@ AUDIT_LANDLOCK_ACCESS
-         - net.bind_udp - UDP port binding was denied
-         - net.connect_send_udp - UDP connection and send was denied
- 
--    **scope.*** - IPC scoping restrictions (ABI 6+):
-+    **scope.*** - IPC scoping restrictions:
-         - scope.abstract_unix_socket - Abstract UNIX socket connection denied
--        - scope.signal - Signal sending denied
-+          (ABI 6+)
-+        - scope.signal - Signal sending denied (ABI 6+)
-+        - scope.posix_msg_queue - POSIX message queue opening denied (ABI 11+)
- 
-     Multiple blockers can appear in a single event (comma-separated) when
-     multiple access rights are missing. For example, creating a regular file
-diff --git a/Documentation/userspace-api/landlock.rst b/Documentation/userspace-api/landlock.rst
-index 5a63d4476c1c..c4fa84e6d281 100644
---- a/Documentation/userspace-api/landlock.rst
-+++ b/Documentation/userspace-api/landlock.rst
-@@ -86,7 +86,8 @@ to be explicit about the denied-by-default access rights.
-             LANDLOCK_ACCESS_NET_CONNECT_SEND_UDP,
-         .scoped =
-             LANDLOCK_SCOPE_ABSTRACT_UNIX_SOCKET |
--            LANDLOCK_SCOPE_SIGNAL,
-+            LANDLOCK_SCOPE_SIGNAL |
-+            LANDLOCK_SCOPE_POSIX_MSG_QUEUE,
-     };
- 
- Because we may not know which kernel version an application will be executed
-@@ -140,6 +141,10 @@ version, and only use the available subset of access rights:
-         ruleset_attr.handled_access_net &=
-             ~(LANDLOCK_ACCESS_NET_BIND_UDP |
-               LANDLOCK_ACCESS_NET_CONNECT_SEND_UDP);
-+        __attribute__((fallthrough));
-+    case 10:
-+        /* Removes LANDLOCK_SCOPE_POSIX_MSG_QUEUE for ABI < 11 */
-+        ruleset_attr.scoped &= ~LANDLOCK_SCOPE_POSIX_MSG_QUEUE;
-     }
- 
- This enables the creation of an inclusive ruleset that will contain our rules.
-@@ -420,6 +425,10 @@ The operations which can be scoped are:
-     A :manpage:`sendto(2)` on a socket which was previously connected will not
-     be restricted.  This works for both datagram and stream sockets.
- 
-+``LANDLOCK_SCOPE_POSIX_MSG_QUEUE``
-+    This limits opening POSIX message queues to queues created by a process in
-+    the same or a nested Landlock domain.
-+
- IPC scoping does not support exceptions via :manpage:`landlock_add_rule(2)`.
- If an operation is scoped within a domain, no rules can be added to allow access
- to resources or processes outside of the scope.
-diff --git a/include/uapi/linux/landlock.h b/include/uapi/linux/landlock.h
-index 96d0c3b423ac..21ba31ad4d4b 100644
---- a/include/uapi/linux/landlock.h
-+++ b/include/uapi/linux/landlock.h
-@@ -478,7 +478,9 @@ struct landlock_net_port_attr {
-  * Setting a flag for a ruleset will isolate the Landlock domain to forbid
-  * connections to resources outside the domain.
-  *
-- * This is supported since Landlock ABI version 6.
-+ * This is supported since Landlock ABI version 6.  The
-+ * %LANDLOCK_SCOPE_POSIX_MSG_QUEUE scope is supported since Landlock ABI version
-+ * 11.
-  *
-  * Scopes:
-  *
-@@ -487,6 +489,8 @@ struct landlock_net_port_attr {
-  *   related Landlock domain (e.g., a parent domain or a non-sandboxed process).
-  * - %LANDLOCK_SCOPE_SIGNAL: Restrict a sandboxed process from sending a signal
-  *   to another process outside the domain.
-+ * - %LANDLOCK_SCOPE_POSIX_MSG_QUEUE: Restrict a sandboxed process from opening
-+ *   a POSIX message queue created outside the domain.
-  */
- /* clang-format off */
- #define LANDLOCK_SCOPE_ABSTRACT_UNIX_SOCKET		(1ULL << 0)
--- 
-2.50.1 (Apple Git-155)
+The only reference to MQUEUE_MAGIC that I find in your patchset is from
+Landlock's kernel code -- For a value that gets serialized to disk, like
+for the other file systems, I think there is actually a legitimate use
+case for userspace to use that value, when dealing with raw images?  But
+that's not the case here, I think?
 
+Should this live in include/linux/ipc_namespace.h instead?  Or even be
+exposed as a helper function that lets you check whether an inode is
+referring to an mqueue?
+
+—Günther
