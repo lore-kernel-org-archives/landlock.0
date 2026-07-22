@@ -1,117 +1,146 @@
-Received: from smtp-42ad.mail.infomaniak.ch (smtp-42ad.mail.infomaniak.ch [84.16.66.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D870441DEC2
-	for <landlock@lists.linux.dev>; Mon, 20 Jul 2026 12:59:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.16.66.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E4D12367D3
+	for <landlock@lists.linux.dev>; Wed, 22 Jul 2026 12:29:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784552394; cv=none; b=KCwfCGRcewoQQB0td1vJvsxqW5ZW86qiBk3cauDu+GHD0aaie8bvilvXdr6+d2iUIanxL7Rf9SELsbSFE+HQYSUQgZ3S6ntTP1IHkNzx7uTBZD67LPIoMQDiYa7HIVII7KQoxKaiUcFyOyo7HQr/3JyaXB2eZZwJaHT0RkZytLs=
+	t=1784723401; cv=none; b=AsyQD7kpH3Ifz21rtZ56nWlog2MsXO8e3WjPuUROn2fsM0mxoheXzIJ5cDl0rXsoxv19MNgtmKBkb32u97licaTpxhddzbgVPjFCM5WDpgLTDAJ2k3l/PgGbXc3KQ2jLO9LOA2qMO9fD2kJUT9fprzDYpwcdX67va+FkwYYPciM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784552394; c=relaxed/simple;
-	bh=yoczCrZLH3m6/Piugp4sSlD0UbvSuhUnAIOk+aELQJI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XNLnLqW8ZgpZSfFwfhXF9prDg6WHazUt9mIulobx3slpbvxnRZWNHuGOl8eW9AGxlhCRVF5fE8b8YmdCi4tHUG336fZMpcl8ShwAtzsjJtcRwGfPMpl1UfcS6v6sIU0jbAT9zhs5eZbLtHp0eLk0TG/JDolCS3N69mUEiUtBVkE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=QJl1Mhuh; arc=none smtp.client-ip=84.16.66.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+	s=arc-20240116; t=1784723401; c=relaxed/simple;
+	bh=BGaFEx/f8mWLlH9deEEI1cp74nO5obRywMCSftusmHc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pX9HVRvK7uhKy02O9TaoN7NRZcgq1fkOuCDQhR2PRGMdMr/7uZavkMDSAZU4r6p2BD2N7Byrw/m+n3YTyP+ZbcsBiD6iWQzyl7kbCWQDzfgZuu5jEexjrzn/qOWysJsdwjud3jbQ23aTqEUFWk3sOzoIuqZ8hL/7sLZs5R6s6Zw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com; spf=pass smtp.mailfrom=cloudflare.com; dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b=eKI88goN; arc=none smtp.client-ip=209.85.208.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="QJl1Mhuh"
-Received: from smtp-4-0001.mail.infomaniak.ch (smtp-4-0001.mail.infomaniak.ch [10.7.10.108])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4h3gb52rCLz1G5;
-	Mon, 20 Jul 2026 14:59:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1784552385;
-	bh=Nz5gOh3J4r65petlwUyj+D42IUdV73zSCFDjsTRAO3M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=QJl1MhuhRt4M4pmWO8GyS/npYUnZ8hgvtyl0LUZp7Z44s44tU3QMMTzOivCfUaIVj
-	 yoFeGjQD+CYCk8MmwJqt45DHmbUw9+nXIFsn5QvvAL24CjmFS0db68yABLvNvY8eTw
-	 hANMfxAnnkCoXv+d5XmMHuRxmaWaaHOSw8fyXrNc=
-Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4h3gb129xdz2Wk;
-	Mon, 20 Jul 2026 14:59:41 +0200 (CEST)
-Date: Mon, 20 Jul 2026 14:59:37 +0200
-From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-To: Jann Horn <jannh@google.com>
-Cc: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>, 
-	Bryam Vargas <hexlabsecurity@proton.me>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Jens Axboe <axboe@kernel.dk>, Jonathan Corbet <corbet@lwn.net>, 
-	Justin Suess <utilityemal77@gmail.com>, Konstantin Meskhidze <konstantin.meskhidze@huawei.com>, 
-	Leon Romanovsky <leon@kernel.org>, Matthieu Buffet <matthieu@buffet.re>, 
-	Mikhail Ivanov <ivanov.mikhail1@huawei-partners.com>, Nicolas Bouchinet <nicolas.bouchinet@oss.cyber.gouv.fr>, 
-	Paul Moore <paul@paul-moore.com>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Tingmao Wang <m@maowtm.org>, Ubisectech Sirius <bugreport@ubisectech.com>, 
-	Willy Tarreau <w@1wt.eu>, Yuxian Mao <maoyuxian@cqsoftware.com.cn>, 
-	kernel-team@cloudflare.com, landlock@lists.linux.dev, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org, 
-	Kees Cook <kees@kernel.org>
-Subject: Re: [PATCH v1] landlock: Document the threat model
-Message-ID: <20260720.veefeidoh5Ee@digikod.net>
-References: <20260707210336.2060040-1-mic@digikod.net>
- <CAG48ez3ywK8FZ-TZFzp1GwiW6Wb+DeO3OFt3Ys4QAeGTS0jv6g@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b="eKI88goN"
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-69ea0595598so4271220a12.0
+        for <landlock@lists.linux.dev>; Wed, 22 Jul 2026 05:29:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloudflare.com; s=google09082023; t=1784723398; x=1785328198; darn=lists.linux.dev;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CGBJ0cI+WS5k0v0KKJxbb2IZYZWx9jLy469rhtaxBA8=;
+        b=eKI88goNp7HOEYe0eJFByVxv9oVhFw73R6yTVyanwxRIkFEgOxOv9HA636trrirpxi
+         rIBnALFicedUAOTnGteEMFC5Iw101oVoGVJHOFV6I9cieb9rI+G0582Xc2gntuhsfx7J
+         RbT0QIAlGvGDAjtAHTRXVG5z/gy48UtAGPkEOiR9DEpjtW2OYCp3KQaMaupzWxAU3H6h
+         g7OhdQIOQdk8M7wDiKCTC6I1VCBLEArJhd2LxckU299sTWLQ35TAfKEHuTsf79PF+NFQ
+         VZCCTyvH4zZ4Np+2r5eVBzJyLK39RSX9g5cNUCF56MRK2fOwl6fBcoW7bgQIaaHEZIdi
+         weOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784723398; x=1785328198;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CGBJ0cI+WS5k0v0KKJxbb2IZYZWx9jLy469rhtaxBA8=;
+        b=KCX1OB5GqU4lOJSLILu1CNbYgOUF9HG5LeBJGRokt2xPrVDQ2arpV1B+MiYd3ih+2U
+         YiwPjh7pdSIpm1q0fwP5X19jAVxiy6u7xa0W0ILQiVMJMsISM8T+5PTiGxexNfJ/6Uld
+         1J3BSI3AIsiQpqu+lCmm/Pp7pmDZPvh9RSDhlphsXWdQog2rXImAjgmGokARDfUAbTCU
+         /+uYRhR05BJIyw32UXlFDeqAusFY+R4jT9lOlEdjPMNt3C/jiHeEy6zP2tMRkh3FWCJ3
+         VJbHLQp/TAEWx7c+hg9B1pDcchgRJ6fGnOkWVQTZVTuNr7RVQKrqjO6baxhRDw46z4Rw
+         RW9w==
+X-Forwarded-Encrypted: i=1; AHgh+RqXPIqgHhLACCdgnG1fCzInWSjUa84vnlBhaPFWYR7R8p6ssmUBkkNipO2nTtcVyXvuZUy5+EXBbg==@lists.linux.dev
+X-Gm-Message-State: AOJu0YziTaISpThd9Yuk0G27WBkc5N+Fr9rGHzqGoozEZaa+Vu6R/cEn
+	Vg6escmkAGF3Te4dbx9G00uCJduGwKCEWR21WL5bhwvBqkuPLfpLqqLDeAzOnMgQ7bQ=
+X-Gm-Gg: AR+sD104i49dXNx36i60osLIAK3soAx8ujkSVgv7HfTQGqMrPfwJG6YxyGvG1tbb5NB
+	pnPU3UA9dIsId6o+WRubx326lhZu9TAoFPc5F8fjA6qpaTSKLjYvuCwCaCHBD3+6O7UGNtJB1D0
+	6qDpV1SknVSO23A8NoLnVsTFCEIGUD8B9xFO7x2bXtOC4wKFuJLvml+rqsrWnDdr9tdk5BSqq7i
+	DnNxz9+zvOvvTfPpNyG2Zzym03FqdoSZRQaYMuI6tUfNq1BDG9D3tB/bLRQM1cGiklbr/i5iB8p
+	rMjb68CeIGlzP2cgLO/bUL9+Cu5/gvbqEtgspcYwsSBsQL7Vlv8kM5/JcB+84NIHmBW9sD+n1no
+	fXP7LlEKZ7XuHYPoGMU9TUNKk9pdSESxCg+viUluPpAF5py/Bx7yzoAQJCkqLNlM=
+X-Received: by 2002:a05:6402:324c:b0:69a:9c4a:3d63 with SMTP id 4fb4d7f45d1cf-69e652995cfmr5743320a12.17.1784723398316;
+        Wed, 22 Jul 2026 05:29:58 -0700 (PDT)
+Received: from DW927H4LGF ([2a09:bac6:37e6:1e5a::306:2])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69f34f1b867sm835007a12.14.2026.07.22.05.29.55
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 22 Jul 2026 05:29:57 -0700 (PDT)
+From: Oxana Kharitonova <oxana@cloudflare.com>
+To: mic@digikod.net,
+	gnoack@google.com
+Cc: paul@paul-moore.com,
+	jmorris@namei.or,
+	serge@hallyn.com,
+	wangyan01@kylinos.cn,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	landlock@lists.linux.dev,
+	oxana@cloudflare.com,
+	webprosto@gmail.com
+Subject: [PATCH 0/6] landlock: Add POSIX message queue scoping
+Date: Wed, 22 Jul 2026 13:29:36 +0100
+Message-ID: <20260722122952.42149-1-oxana@cloudflare.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
 List-Subscribe: <mailto:landlock+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAG48ez3ywK8FZ-TZFzp1GwiW6Wb+DeO3OFt3Ys4QAeGTS0jv6g@mail.gmail.com>
-X-Infomaniak-Routing: alpha
 
-On Wed, Jul 08, 2026 at 11:48:09PM +0200, Jann Horn wrote:
-> On Tue, Jul 7, 2026 at 11:03 PM Mickaël Salaün <mic@digikod.net> wrote:
-> > +Sandboxing is layered
-> > +---------------------
-> > +
-> > +Landlock is the access-control layer of a sandbox, not the whole sandbox.  A
-> > +robust sandbox also needs steps that are the program's responsibility: switching
-> > +to an unprivileged user, dropping capabilities, setting ``PR_SET_NO_NEW_PRIVS``,
-> > +and confining all threads of the process with the same domain.  A
-> > +single-threaded process gets the latter for free; a multithreaded one can
-> > +enforce a ruleset atomically on all its threads, or must otherwise synchronize
-> > +them before any untrusted work.  Landlock is typically applied last, to tighten
-> > +access and make the domain identifiable and auditable.
-> > +
-> > +Stronger isolation can come from combining Landlock with other mechanisms in a
-> > +defense-in-depth approach, notably seccomp-bpf (see
-> > +Documentation/userspace-api/seccomp_filter.rst) for what Landlock does not yet
-> > +cover.  A long-term goal of Landlock is to control access to any kind of kernel
-> > +resource in a way suited to sandboxing.
-> 
-> I think this part is something that should go near the top of the
-> document, and should have a title like "How to securely use landlock"
-> - most of the document is focused on telling kernel developers or
-> security researchers what the boundaries of the threat model are, but
+Hi,
 
-This patch is really about the threat model, to make it clear to
-kernel developers, security researchers, and especially to AI agents
-(not sure it will work but at least we can point to a specific doc),
-what is not a Landlock security bug and why.
+This series adds landlock support for scoping POSIX message queuesi [1].
+ 
+Landlock already supports scoped IPC restrictions for signals and abstract
+UNIX sockets. These restrictions make it possible to prevent a sandboxed
+task from interacting with IPC objects outside of its Landlock domain,
+while still allowing communication within the same domain or with nested
+domains.
+ 
+This series extends the same model to POSIX message queues with a new
+LANDLOCK_SCOPE_POSIX_MSG_QUEUE scope. When this scope is enforced, a task
+can only open POSIX message queues that were created by a task in the same
+landlock domain or in a nested domain.
+ 
+The implementation tags mqueuefs inodes at creation time with the creator's
+landlock domain. This domain is kept alive for the lifetime of the inode
+and is checked when the queue is opened.
+ 
+The series also exposes the mqueuefs magic number through the shared UAPI
+magic header, bumps the Landlock ABI, updates documentation, adds sandboxer
+support, and adds selftests.
+ 
+The new behavior is:
+ 
+- a task restricted with LANDLOCK_SCOPE_POSIX_MSG_QUEUE cannot open a queue
+  created outside of its Landlock scope;
+- a task can still open a queue created within its own Landlock domain;
+- queues created outside of any Landlock domain are treated as outside the
+  scope for a scoped opener.
 
-> I think it is also important (and maybe even more important) to
-> present this from the perspective of "if I want to design a sandbox
-> using landlock, what do I need to pay attention to".
+[1] https://man7.org/linux/man-pages/man7/mq_overview.7.html
 
-I agree that it's more important, but the correct doc for that would be
-the userspace API doc, which already describes how to use Landlock.
-That would be an independent patch though.
+Oxana Kharitonova (6):
+  ipc: Move mqueue fs magic to uapi magic header
+  landlock: Scope POSIX message queue opens
+  landlock: Bump ABI for LANDLOCK_SCOPE_POSIX_MSG_QUEUE
+  selftests/landlock: Test POSIX message queue scoping
+  samples/landlock: Support POSIX message queue scoping
+  landlock: Document POSIX message queue scoping
 
-> 
-> I think it would also make sense to give more specific guidance on
-> which sets of syscalls, with what argument restrictions, can be
-> permitted in a seccomp policy because landlock covers any accesses
-> that these syscalls can perform to objects to which the process
-> doesn't already hold file descriptors or such.
-> I think it would be helpful to have instructions like "you can safely
-> allow socket operations if you ensure that socket creation (socket())
-> only works for AF_UNIX, and that the process has no existing socket
-> file descriptors for non-covered socket types, and you have fs_access
-> rules, and the kernel is sufficiently recent".
+ Documentation/admin-guide/LSM/landlock.rst    |   6 +-
+ Documentation/userspace-api/landlock.rst      |  11 +-
+ include/uapi/linux/landlock.h                 |   7 +-
+ include/uapi/linux/magic.h                    |   2 +
+ ipc/mqueue.c                                  |   2 +-
+ samples/landlock/sandboxer.c                  |  16 +-
+ security/landlock/audit.c                     |   9 +
+ security/landlock/audit.h                     |   1 +
+ security/landlock/fs.c                        |  35 +++
+ security/landlock/fs.h                        |  15 ++
+ security/landlock/limits.h                    |   2 +-
+ security/landlock/ruleset.c                   |   1 -
+ security/landlock/syscalls.c                  |   2 +-
+ security/landlock/task.c                      |  43 ++++
+ security/landlock/task.h                      |   4 +
+ tools/testing/selftests/landlock/base_test.c  |   2 +-
+ .../landlock/scoped_posix_msg_queue_test.c    | 223 ++++++++++++++++++
+ .../testing/selftests/landlock/scoped_test.c  |   2 +-
+ 18 files changed, 371 insertions(+), 12 deletions(-)
+ create mode 100644 tools/testing/selftests/landlock/scoped_posix_msg_queue_test.c
 
-I'm wondering how we could have such a doc without gaps, make it simple
-to read, and keep it up-to-date for all kernel versions and
-architectures.  Another challenge would also be to map these syscalls
-and arguments to the evolving set of Landlock access rights.  I think
-the most pragmatic approach would be to rely on a dedicated library, but
-maintaining it with a complete test coverage looks like a nightmare.
+-- 
+2.50.1 (Apple Git-155)
+
