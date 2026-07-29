@@ -1,145 +1,103 @@
-Received: from smtp-bc0a.mail.infomaniak.ch (smtp-bc0a.mail.infomaniak.ch [45.157.188.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 367543AF677
-	for <landlock@lists.linux.dev>; Tue, 28 Jul 2026 11:04:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.157.188.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D2247F2CD
+	for <landlock@lists.linux.dev>; Wed, 29 Jul 2026 12:43:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785236677; cv=none; b=rHhR1cLRg3wZFowmVX8BGGmMLo05Y6ueKvKrVcgQwNCzfXuNPsi2FPPRF3QF+aiQ0r288lPc+h1OOq9dXa75ay9P1Za5pe1+doUlRi7IAMZHzxogmxe5PBqZ3SsiXE9unuVm8E3tJEI9TeYACQyCYmcIkrjQJPCxQbVB//lBcLQ=
+	t=1785329027; cv=none; b=chNgRwfahFR9UzGeHCVjQ5RFgp34TppB23caNuPuQL6oH0IH5FVWwoASRSbc7JWCFvR1Ev7z5VPSlf0F9TEuKD/J0T6M9N9U5HR/0bJNg25ggr7Gzq3dhgZnN2KEQvX+g86FOl8d67ezzJwxOaqQEkcvnNcWvBsxPFbo+irHRuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785236677; c=relaxed/simple;
-	bh=5IFxQcG32HM7Ko6hjDGZeWs5YP5H5OjDIRhQFk4PCFQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fyjvoVg+CEb7DhR5+gSbOHoxIckE4M84vdqW8uTq2/1ngCNmlLheNk4kacQHQzohjL9bEc0WGbkh+XbnLhEARzWFJWqf/xCzS09nf2ZGUDAVdN8rwlvJHJ83lsXqyrsw/r5W7STyXI+AuyCa3dAD/chIVo5TLBHmckVkuN6WHnU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=173KHmow; arc=none smtp.client-ip=45.157.188.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+	s=arc-20240116; t=1785329027; c=relaxed/simple;
+	bh=5EHl2dbMLZ3AccGJ8Fu0EBLUJpuZtxxjd0tZw966sh4=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=O+8zOCdz1oL8pwISsHG/mu9D8w/ZuQKoppBHS6yVh7KUbTdgZukB6F9a6aVN4+WvVHmigfcb2TDKfTIFWbg/IgFW5GjmfmR05j3Mz64jRDc+EkSHwawn5bVpurJYZ0frl6GHAOQiALVd3eItHD0jmwB0XAOAoMAMmsOWBG8l3r8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JEeasUSZ; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="173KHmow"
-Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch [10.7.10.107])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4h8XfK5L4zzsSy;
-	Tue, 28 Jul 2026 13:04:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1785236665;
-	bh=xLD7GVG+ucS1KPkHrDWDO/hNWXwCYWJMVWtzfhIW390=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=173KHmowe+xcynApCK8XzoqWJupaSr9L8bEYUi3AD9xAEokjgaBFxzeCp6tN+tOQB
-	 EknX6yLvhjBFIiymb7981W+ZfiCKVvv/ECDU7/oAfohs+H5Ewk/7VdKkw03pmma85o
-	 zRZmSPvVMEibU3ijLugkrRRWxVTTkaQuJUP3VglM=
-Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4h8XfJ6pm3zhmN;
-	Tue, 28 Jul 2026 13:04:24 +0200 (CEST)
-Date: Tue, 28 Jul 2026 13:04:24 +0200
-From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-To: Oxana Kharitonova <oxana@cloudflare.com>
-Cc: gnoack@google.com, paul@paul-moore.com, serge@hallyn.com, 
-	wangyan01@kylinos.cn, linux-security-module@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, landlock@lists.linux.dev, webprosto@gmail.com
-Subject: Re: [PATCH 5/6] samples/landlock: Support POSIX message queue scoping
-Message-ID: <20260728.Ro3ni9Cee9es@digikod.net>
-References: <20260722122952.42149-1-oxana@cloudflare.com>
- <20260722122952.42149-6-oxana@cloudflare.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JEeasUSZ"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49553515a8bso11660305e9.1
+        for <landlock@lists.linux.dev>; Wed, 29 Jul 2026 05:43:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785329018; x=1785933818; darn=lists.linux.dev;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=G4/EsKrPykPMUjkQSazyjrWyo/mw3UZZuj2/aHPNW7Q=;
+        b=JEeasUSZMC04yAHgt60v5vdMf1f7rF7QINDL83GFs/ZYMSOSfmEf7psHoY6p15DTH/
+         SpMNbkUxkk84IoXyKiZwY/DJi0k0NxDCZmMo9KmNBuaQDA+cyRWV1ipLCsls/a/Nvzz/
+         RVaGS+/J6/9yebprTmkxVaMB1sHeNkUC9jg/ODiDetMNRSlwBCeikG0In/c8GGEY5MxB
+         18Jkth1+8PUfuhku+0IncyyAhAwfzMz2bJKm7It/qNB67xt41YZW+qaZ21ovNFKBF6DF
+         ssfa7udPInQlM/P+PYF1qMDppQT/s8nFytsRn0Rq8OiHehHra2pl8ydmBITuO+BJxplI
+         mvdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785329018; x=1785933818;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=G4/EsKrPykPMUjkQSazyjrWyo/mw3UZZuj2/aHPNW7Q=;
+        b=WwAGqE015H4GfznWlJCFTO2pl6FwrxH2mkzWHrWkXGbKlIhfw43FgD+N2N3tkkVAET
+         fwcoBwLmk8eRMY2+FCW3x7khFNM9XtHhXyBX//Gp48pl7yP0T/I/puc1avC7C2orTkt8
+         WndhG68TP0yvgZasHOuQNyQXZxIdv7vUzWz482sFjtVm5LKdRntaUWBsJFfI+9aKwjCk
+         rZAm1CG8b5Mvs1AWUeFnwm79M+/IaQ2u2+Rabe5HL98bXSrtJj2acbbmI4tRME5i7a+o
+         yOpPWCrinnqeM4nzBUvxY9vu0Biib5+UoIpK3omufHMnl2vjvTN1xOdSh99DUWcsZqOS
+         Togg==
+X-Forwarded-Encrypted: i=1; AHgh+RoRyfjaMwMPAfudcuQ9Z3U4LZ9t8rkS8cdC+8ZmDSpQl9yy5GXFyJPwTOjN6ZZ0h1x80jYLh8y9mw==@lists.linux.dev
+X-Gm-Message-State: AOJu0Ywt5O+6U9qye/+Zx0Ig09iG/VqB4+e6BE74046KJlcvzXo2M6fS
+	g/+mfvsRF5W4c5nAaP/GQZ7FoOBhpctfKTmlkHar7e+2YMleO3tJrRrx
+X-Gm-Gg: AR+sD13NfQg0vYt/NHqDWVPqV/7E4CU6ZyWbZRgCYuXj97b1J5XA3KRsRtvJIQhVEML
+	11jJkmeTwX2teq1v52XUI0mqTdPn2XBLPbgLbX/xx8CUGvC/q1zb9/Yd0MRt67y8wBTs+kq9tMj
+	Fdbs5IqDh/PGSoknC1/8uCmW6Dzy69O6OvcWUtwqe9EvyoU1juuLAeYf5V6NT9K6I/7lrKRUHTn
+	AuXJ7sE+9GJIKAPBROifRgDa0EoakOOenn0Ax4uDqv1HGp5LIGgJogPtYcNBXs+zGs9IcVyyfFW
+	eovlOFAZVzOvhch5ZWoPRxxxBb9DxBEJEU+VXwrHcXbVMYcB6lGXR4Q4qQFCo7bGiRcDgvDg2Z1
+	SrQCkF7tBsntRs8fPru1PXm/Q1Ywg2hFb2JmpR4ZG38Giih+SAl9MRPAJUBTZwa6x0FnHMl6PLd
+	u2g+kzd/21ZBphdydOHuMC1k9+W1vvmfGSdnsOYcuqb2+Ci0x8qoym8pdPWMLjzwah3JDQAgvEY
+	Z6/xXRezI6Av2m8Qcs24g==
+X-Received: by 2002:a05:600c:46cc:b0:492:68bc:3237 with SMTP id 5b1f17b1804b1-496c6586337mr72739245e9.32.1785329017863;
+        Wed, 29 Jul 2026 05:43:37 -0700 (PDT)
+Received: from localhost.localdomain ([2a00:23c6:647b:ba01:60ae:5bf3:4eae:ab18])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496c46160dfsm137177215e9.10.2026.07.29.05.43.36
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 29 Jul 2026 05:43:36 -0700 (PDT)
+From: Oxana Kharitonova <webprosto@gmail.com>
+To: mic@digikod.net
+Cc: brauner@kernel.org,
+	gnoack@google.com,
+	kernel-team@cloudflare.com,
+	landlock@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	oxana@cloudflare.com,
+	paul@paul-moore.com,
+	serge@hallyn.com,
+	viro@zeniv.linux.org.uk,
+	wangyan01@kylinos.cn,
+	webprosto@gmail.com
+Subject: Re: [PATCH 0/6] landlock: Add POSIX message queue scoping
+Date: Wed, 29 Jul 2026 13:43:35 +0100
+Message-Id: <20260729124335.3160-1-webprosto@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20260728.Heephie1tai3@digikod.net>
+References: <20260728.Heephie1tai3@digikod.net>
 Precedence: bulk
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
 List-Subscribe: <mailto:landlock+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260722122952.42149-6-oxana@cloudflare.com>
-X-Infomaniak-Routing: alpha
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 22, 2026 at 01:29:41PM +0100, Oxana Kharitonova wrote:
-> Teach the sandboxer sample to request LANDLOCK_SCOPE_POSIX_MSG_QUEUE
-> through LL_SCOPED.
-> 
-> Add the "q" scope selector for POSIX message queues and document it in
-> the sample help text. Also allow POSIX message queue denials to be
-> quieted with "posix_msg_queue" through LL_QUIET_ACCESS.
+On Tue, Jul 28, 2026 at 12:03 PM Mickaël Salaün <mic@digikod.net> wrote:
+>
+> Hi Oxana,
+>
+> Thanks for this patch series.  Overall it looks good but you'll find
+> some feedback to improve and send a v2, following Günther's and Justin's
+> ones.
+>
 
-This commit message should contains an example to prove with this
-sandboxer that the scope actually works, or at least to show how to use
-it.
+Thank you all for the reviews!
 
-> 
-> Signed-off-by: Oxana Kharitonova <oxana@cloudflare.com>
-> ---
->  samples/landlock/sandboxer.c | 16 ++++++++++++++--
->  1 file changed, 14 insertions(+), 2 deletions(-)
-> 
-> diff --git a/samples/landlock/sandboxer.c b/samples/landlock/sandboxer.c
-> index ac71019e6212..59024ca53398 100644
-> --- a/samples/landlock/sandboxer.c
-> +++ b/samples/landlock/sandboxer.c
-> @@ -240,10 +240,12 @@ static bool check_ruleset_scope(const char *const env_var,
->  	bool error = false;
->  	bool abstract_scoping = false;
->  	bool signal_scoping = false;
-> +	bool posix_mqueue_scoping = false;
->  
->  	/* Scoping is not supported by Landlock ABI */
->  	if (!(ruleset_attr->scoped &
-> -	      (LANDLOCK_SCOPE_ABSTRACT_UNIX_SOCKET | LANDLOCK_SCOPE_SIGNAL)))
-> +	      (LANDLOCK_SCOPE_ABSTRACT_UNIX_SOCKET | LANDLOCK_SCOPE_SIGNAL |
-> +	       LANDLOCK_SCOPE_POSIX_MSG_QUEUE)))
->  		goto out_unset;
->  
->  	env_type_scope = getenv(env_var);
-> @@ -260,6 +262,9 @@ static bool check_ruleset_scope(const char *const env_var,
->  		} else if (strcmp("s", ipc_scoping_name) == 0 &&
->  			   !signal_scoping) {
->  			signal_scoping = true;
-> +		} else if (strcmp("q", ipc_scoping_name) == 0 &&
-> +			   !posix_mqueue_scoping) {
-> +			posix_mqueue_scoping = true;
->  		} else {
->  			fprintf(stderr, "Unknown or duplicate scope \"%s\"\n",
->  				ipc_scoping_name);
-> @@ -276,6 +281,8 @@ static bool check_ruleset_scope(const char *const env_var,
->  		ruleset_attr->scoped &= ~LANDLOCK_SCOPE_ABSTRACT_UNIX_SOCKET;
->  	if (!signal_scoping)
->  		ruleset_attr->scoped &= ~LANDLOCK_SCOPE_SIGNAL;
-> +	if (!posix_mqueue_scoping)
-> +		ruleset_attr->scoped &= ~LANDLOCK_SCOPE_POSIX_MSG_QUEUE;
->  
->  	unsetenv(env_var);
->  	return error;
-> @@ -354,6 +361,9 @@ static int add_quiet_access(const char *const env_var,
->  				LANDLOCK_SCOPE_ABSTRACT_UNIX_SOCKET;
->  		else if (strcmp(str_access, "signal") == 0)
->  			ruleset_attr->quiet_scoped |= LANDLOCK_SCOPE_SIGNAL;
-> +		else if (strcmp(str_access, "posix_msg_queue") == 0)
-> +			ruleset_attr->quiet_scoped |=
-> +				LANDLOCK_SCOPE_POSIX_MSG_QUEUE;
->  		else {
->  			fprintf(stderr, "Unknown quiet access \"%s\"\n",
->  				str_access);
-> @@ -400,6 +410,7 @@ static const char help[] =
->  	"* " ENV_SCOPED_NAME ": actions denied on the outside of the landlock domain\n"
->  	"  - \"a\" to restrict opening abstract unix sockets\n"
->  	"  - \"s\" to restrict sending signals\n"
-> +	"  - \"q\" to restrict opening POSIX message queues\n"
->  	"\n"
->  	"A sandboxer should not log denied access requests to avoid spamming logs, "
->  	"but to test audit we can set " ENV_FORCE_LOG_NAME "=1\n"
-> @@ -416,6 +427,7 @@ static const char help[] =
->  	"  - \"udp_connect\" to quiet udp connect / send denials\n"
->  	"  - \"abstract_unix_socket\" to quiet abstract unix socket denials\n"
->  	"  - \"signal\" to quiet signal denials\n"
-> +	"  - \"posix_msg_queue\" to quiet POSIX message queue denials\n"
->  	"\n"
->  	"Example:\n"
->  	ENV_FS_RO_NAME "=\"${PATH}:/lib:/usr:/proc:/etc:/dev/urandom\" "
-> @@ -423,7 +435,7 @@ static const char help[] =
->  	ENV_TCP_BIND_NAME "=\"9418\" "
->  	ENV_TCP_CONNECT_NAME "=\"80:443\" "
->  	ENV_UDP_CONNECT_SEND_NAME "=\"53\" "
-> -	ENV_SCOPED_NAME "=\"a:s\" "
-> +	ENV_SCOPED_NAME "=\"a:s:q\" "
->  	"%1$s bash -i\n"
->  	"\n"
->  	"This sandboxer can use Landlock features up to ABI version "
-> -- 
-> 2.50.1 (Apple Git-155)
-> 
-> 
+Just a quick heads-up: I'll be on vacation for the next few weeks, but I'll continue working on this once I'm back. Also, any further communication will come from my personal email, as I've left my current job.
