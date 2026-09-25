@@ -1,65 +1,116 @@
-Received: from mta1.migadu.com (out-109.mta1.migadu.com [95.215.58.109])
+Received: from mail-yx2-f41.google.com (mail-yx2-f41.google.com [74.125.224.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA337579822
-	for <landlock@lists.linux.dev>; Wed, 23 Sep 2026 22:28:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.109
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 351873F7A9A
+	for <landlock@lists.linux.dev>; Fri, 25 Sep 2026 18:19:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790202541; cv=none; b=CH1xKBv2gjDAA9OyhZNQYBgX4lM4DiUi8NMG4zWaDD9O/TqtQC3FaIdtPXsR9zQrjumF9R69XVpVSI6G+rPIIoGaBemEmpwwWb/t+bO0/+l7EusDhYFS8p49vn7xUmmr07DdSxSHJj+RtvsLo5v8O2cGI8gO4GelgkyrAtfKQAY=
+	t=1790360364; cv=none; b=iXA319lCrj1XOsCVV8fOA1v5P3Wzcb0qaz7pLcDa/Hf0ifQwQveqfEor/lgaKlzMH+WAUkHHGCFRp05H87osvLDfZR4L+IeCrMlPS3I7FiplmN3X7/5g964RajGOuKh8q6DFwnW8cCqxgpz6ac7BrtDyTWvSq2C+aJuUFr9XHOA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790202541; c=relaxed/simple;
-	bh=RbtlqGUeKIdZUvRD7rvmaY79VrC9WdPHTvCUzcXI5Oo=;
-	h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type; b=J6eHiKTTgNTY2AJHRLvxLxJUrC7TdhZRXmVW7UiqqYk8UxKn/rgWwvwj+ALgk3MMmSfZeorpA7NgAbKcztEAOQ0BzYQdRjHHjNkYeH2jHptwxn3Y+Yn8TOv6igdzUA89kms9jAcGB+OFyneauIHw02+EeaZKa2GYPDIGOIqXGY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=exn.st; spf=pass smtp.mailfrom=exn.st; dkim=pass (2048-bit key) header.d=exn.st header.i=@exn.st header.b=c4qaVwdh; arc=none smtp.client-ip=95.215.58.109
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=exn.st
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=exn.st
+	s=arc-20240116; t=1790360364; c=relaxed/simple;
+	bh=C5uOoSM0vQaIiGRLqEu5g/IapqjhyqSh9xKZKI5jm6U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=b0sWyPYGSWeGrhRp+Xa28qkQlCBdoJGrb18hBynJsDVlIJLWYAYozLZM+KhLJXZOrSfH6/huaayn0Lpbd0xXrVxXifZu55lctvs7WnRLY9FOEInAFjuKO9xiej4gbCc7s6J/M4Ro/P75VYpIBt+Uwukks8CmOsijaLRz5+z9U04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q0jGQJU3; arc=none smtp.client-ip=74.125.224.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=exn.st header.i=@exn.st header.b="c4qaVwdh"
-X-Envelope-To: landlock@lists.linux.dev
-DKIM-Signature: a=rsa-sha256; bh=RbtlqGUeKIdZUvRD7rvmaY79VrC9WdPHTvCUzcXI5Oo=;
- c=simple/simple; d=exn.st;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790202537; v=1; x=1790807337;
- b=c4qaVwdhTk6DVD907YiYojIUDtBCD3Sp/G0bcGYDvU5yFWAmgLV6dnaxGWnxX51bbucsUz3S
- dhM0s53xNymcf55eKnQ4NVjbl/sKR8D89W3OJ0rlbARABTbJefPaAEGSQ7Q+FBySYQHGFzaiJtP
- juZq/J66AsoVLAyDg/3Z0t2ScFUre957lqVvUUrmFHB65SdUevVfhniJdk54jufBsHaFcX5r8nC
- EIkDhDGk/QQ8op2QPDcvCC//m4XdzvPi/ytMzrhMDT8/nT0Hlg9gdBuJ2chaQ3zcgRkS4e8grtR
- kuBBBN2Clt2UDENUcqKZr+nyS5HTWOLKlbBtsBCpIYGcg==
-X-Envelope-To: landlock@lists.linux.dev
-Received: by smtp.migadu.com with ESMTPS id 4b4ea7e0a45daa3f;
-	Wed, 23 Sep 2026 22:28:57 +0000
-X-Mizu-Trace-ID: 4b4ea7e0a45daa3f
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <bff77061-37e3-4361-b021-3d1e46be3b87@exn.st>
-Date: Wed, 23 Sep 2026 23:28:57 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q0jGQJU3"
+Received: by mail-yx2-f41.google.com with SMTP id 956f58d0204a3-673ba589d0dso1248789d50.1
+        for <landlock@lists.linux.dev>; Fri, 25 Sep 2026 11:19:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790360362; x=1790965162; darn=lists.linux.dev;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+Pgzm+oGmx9IFr7YX9pLOyiGg97pLaKByt5qjz5Pzhc=;
+        b=Q0jGQJU32JllgggCvyDf3mqfqxjVVAOxk7WAU9wWWZmY6g0wnfgZgHnwOng0+ZvCgN
+         vVK05xPReMEIxgYWMSWaNRkeXoVEmruCF2afw0hHiPT7w28MoORqkHhjIp1E2xEJps9o
+         Ts+ATg5lR2XIIHTzPVI9Ddf55hwJ1cMit0AiUNQAY1LcibKZfkU6OhIvvc0IgcV3Xn+9
+         lOrt+AH5QAMrUns8tINnI5nl0tJVFAaaevwPNHEz5O/QsG9yZmLZjY0Q/tb2RXbMsSmQ
+         LvdFpULPHxZNywIZx8NDW+HKHyQFYK1SMxKkGwyVWITV7DeW2d84nnYhSfj2QICA8r8Q
+         WHOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790360362; x=1790965162;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+Pgzm+oGmx9IFr7YX9pLOyiGg97pLaKByt5qjz5Pzhc=;
+        b=g+59YJ7+/GOLdRwtiNBpFPUaFW3wWNY9dDbI6GKAjplw6T7JxTlidSvbMB0wyKwa5B
+         vYJN11m5qq/+fInLUraP8fgYVnDCu7zWT524OafDUDtPKWOaLIyepw/kPm3KXGQxUaO5
+         9uyDyKAX+5noHjna+uVCfdQj+Nl4Tr7hErFXBqzkBvO+3qWyTNCJ2NIt0HyxkdSWPhzR
+         EKwEkRW6H9/k7+B3W76boBdyK58s6J0LdX5XX6D8uAvs3dVDW6wmL7HThUWhCDlGP4SU
+         yROPSTBQSS302ex+88j9YMsO83O5zgSJsqB63NsuXQxml52pmU9zJT4oeS8lRYlaRexc
+         iwRQ==
+X-Gm-Message-State: AFuF++mNH7+GfBRFUdbWmbdF55K0xh7fqb0dgFwBac24yOjWWIUJZHXz
+	vOU+6ytxfqVOta8S3uEVKI2dPag0k8CNDC3ELid4f05/u+vNcGzVPhL0hWKmUiATSfM=
+X-Gm-Gg: AYBFou2BHKmZys7Jr6q2nDB2VHS93qK5nSJ0rsHiRhID6IxKoHdPoh0PPGNwd/4vkfn
+	g13Ezs3kfrolGTb8l/Sw8Z8uezyw5N/LcemSGm1BM8OcSPmJ2+UBHlAegS0JUQ1bjK2BH4/NpxT
+	HeB/qWKss+nSJfwKVhgqr4AKgrBwepm7oHlxba6aUnQ+HiP/W4r9/kE9mUeG/7bl0vIuZ3FTVnj
+	cGkL/JAf/hAOZNhJ1kOdljmxe8zC1JeFIc2dwjzkNBH2v7HWK3wmf2+2df5usXrKFIZIINrFHB4
+	0Ya1rEHJ3s3/uGXnqwkCttySmsyB0uhHpqUQvWdaaR9EmOfVG1/iyGyclo95Dy6HGmRsr4OUB4e
+	lOyOlCnXRjFl9Rp4fSQrV/zrGfXSy/6cdF7lSzlCxqHAFs7i6UvBhd0SFh4/c4BuHS33S/koJD5
+	nSZaRln5uM4SCcsbCzrczZgxPfJUmZMVHY8FWTk/WOnfXeBjxBCMm7bCubXWxbvn/vjE84qRvFq
+	cg=
+X-Received: by 2002:a05:690e:4141:b0:673:5043:ab33 with SMTP id 956f58d0204a3-6735043b074mr2459368d50.28.1790360361793;
+        Fri, 25 Sep 2026 11:19:21 -0700 (PDT)
+Received: from suesslenovo ([71.132.185.69])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6740ee92ebcsm1325006d50.6.2026.09.25.11.19.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 25 Sep 2026 11:19:21 -0700 (PDT)
+Date: Fri, 25 Sep 2026 14:18:50 -0400
+From: Justin Suess <utilityemal77@gmail.com>
+To: Kate <kit-ty-kate@exn.st>
+Cc: landlock@lists.linux.dev
+Subject: Re: Restricting all (ICMP included) network access
+Message-ID: <ara5OnFKQCidTeWx@suesslenovo>
+References: <bff77061-37e3-4361-b021-3d1e46be3b87@exn.st>
 Precedence: bulk
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
 List-Subscribe: <mailto:landlock+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-GB, fr, de-DE
-To: landlock@lists.linux.dev
-From: Kate <kit-ty-kate@exn.st>
-Subject: Restricting all (ICMP included) network access
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <bff77061-37e3-4361-b021-3d1e46be3b87@exn.st>
 
+On Wed, Sep 23, 2026 at 11:28:57PM +0100, Kate wrote:
+> Hi,
+> 
+> I'd like to use landlock and i've tested the sample/landlock/sandboxer.c
+> example from the linux sources, however while TCP and UDP (if i had linux >=
+> 7.2 / API >= 10) are correctly restricted from what i can see, ICMP (ping)
+> is still able to communicate with the rest of the world. I suspect other
+> protocols not based on TCP/UDP are able to do so as well.
+> 
+> I've read somewhere that ICMP can be handled by BFP instead but that API
+> seems a lot more complicated than necessary for what i need (maybe i've
+> looked in the wrong places though?), so i'm wondering:
+> 
+> Does anyone has any tips on how to make sure no network access of any kind
+> is able leave the sandbox?
+>
 Hi,
 
-I'd like to use landlock and i've tested the sample/landlock/sandboxer.c 
-example from the linux sources, however while TCP and UDP (if i had 
-linux >= 7.2 / API >= 10) are correctly restricted from what i can see, 
-ICMP (ping) is still able to communicate with the rest of the world. I 
-suspect other protocols not based on TCP/UDP are able to do so as well.
+This doesn't use Landlock, but you can use unshare and create a new
+user namespace and an empty network namespace without root.
 
-I've read somewhere that ICMP can be handled by BFP instead but that API 
-seems a lot more complicated than necessary for what i need (maybe i've 
-looked in the wrong places though?), so i'm wondering:
+You can demonstrate this with the unshare -Un command.
 
-Does anyone has any tips on how to make sure no network access of any 
-kind is able leave the sandbox?
+For ICMP specifically, it already requires CAP_NET_RAW if I'm
+not mistaken. (usually the ping binary is setuid or has file
+capabilities for CAP_NET_RAW which is what allows unprivileged ping).
+So you can drop that capability if you already have it, or set no new
+privs (already required for non-root Landlock usage) to prevent
+regaining it through the ping / other setuid binaries.
 
-Cheers,
-Kate
+There's currently no ICMP right specifically for Landlock.
+
+But yes, you can achieve this, without even needing BPF or Landlock.
+
+Justin
+> Cheers,
+> Kate
+> 
