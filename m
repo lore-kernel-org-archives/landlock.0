@@ -1,116 +1,145 @@
-Received: from mail-yx2-f41.google.com (mail-yx2-f41.google.com [74.125.224.169])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 351873F7A9A
-	for <landlock@lists.linux.dev>; Fri, 25 Sep 2026 18:19:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 322A24E433A
+	for <landlock@lists.linux.dev>; Mon, 28 Sep 2026 15:50:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790360364; cv=none; b=iXA319lCrj1XOsCVV8fOA1v5P3Wzcb0qaz7pLcDa/Hf0ifQwQveqfEor/lgaKlzMH+WAUkHHGCFRp05H87osvLDfZR4L+IeCrMlPS3I7FiplmN3X7/5g964RajGOuKh8q6DFwnW8cCqxgpz6ac7BrtDyTWvSq2C+aJuUFr9XHOA=
+	t=1790610607; cv=none; b=CjcYM/qmD0Q12xNyqa7PJ6VVfDMrjfb3BUsf3UONJiZgJV6yHtorHdJ5ZitRE+eGIC1DDnQ0Rp0snGtqOeQ+VHp/L+hE6+QcaMGKErcQNlfPYO1YtF76WkzDq87nv2J0O0/CD2+mItaNFg2f1n4y86fBPmPi2CFP+LUrCcabtcE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790360364; c=relaxed/simple;
-	bh=C5uOoSM0vQaIiGRLqEu5g/IapqjhyqSh9xKZKI5jm6U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b0sWyPYGSWeGrhRp+Xa28qkQlCBdoJGrb18hBynJsDVlIJLWYAYozLZM+KhLJXZOrSfH6/huaayn0Lpbd0xXrVxXifZu55lctvs7WnRLY9FOEInAFjuKO9xiej4gbCc7s6J/M4Ro/P75VYpIBt+Uwukks8CmOsijaLRz5+z9U04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q0jGQJU3; arc=none smtp.client-ip=74.125.224.169
+	s=arc-20240116; t=1790610607; c=relaxed/simple;
+	bh=eK/eJ3hguVN3HC5ZratOGBwPh0MmUBHZAM2stBK3p20=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=QPk1x60RI7LvkSHPCo9xF6mcNhC4+YT6WsEpbmU0yTk5vix61Zwaui14tAocFKI/UkH/RSxtLtVPC6B1itpfUXMZ/vXNL63A7DRKrEP+DYGrEYTvx4dlLXpD92aOmKjKgeY7oSQJucBQOz3t3VChVGaltMYuD+o/RjRjE0CprBo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JmXbRgWi; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q0jGQJU3"
-Received: by mail-yx2-f41.google.com with SMTP id 956f58d0204a3-673ba589d0dso1248789d50.1
-        for <landlock@lists.linux.dev>; Fri, 25 Sep 2026 11:19:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JmXbRgWi"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd5462b69so18430155e9.1
+        for <landlock@lists.linux.dev>; Mon, 28 Sep 2026 08:50:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790360362; x=1790965162; darn=lists.linux.dev;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1790610604; x=1791215404; darn=lists.linux.dev;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=+Pgzm+oGmx9IFr7YX9pLOyiGg97pLaKByt5qjz5Pzhc=;
-        b=Q0jGQJU32JllgggCvyDf3mqfqxjVVAOxk7WAU9wWWZmY6g0wnfgZgHnwOng0+ZvCgN
-         vVK05xPReMEIxgYWMSWaNRkeXoVEmruCF2afw0hHiPT7w28MoORqkHhjIp1E2xEJps9o
-         Ts+ATg5lR2XIIHTzPVI9Ddf55hwJ1cMit0AiUNQAY1LcibKZfkU6OhIvvc0IgcV3Xn+9
-         lOrt+AH5QAMrUns8tINnI5nl0tJVFAaaevwPNHEz5O/QsG9yZmLZjY0Q/tb2RXbMsSmQ
-         LvdFpULPHxZNywIZx8NDW+HKHyQFYK1SMxKkGwyVWITV7DeW2d84nnYhSfj2QICA8r8Q
-         WHOw==
+        bh=TUupXe47hKEwtrJAakpSRuAqpv3FGIO9UcE3gl7qRpw=;
+        b=JmXbRgWi8bxIvzEBbS7j3PL8alYaPWxiAMTrRJCxzFE0cUo35tzYHRA9Gvj5XEWENo
+         x2oRthp0y8C8ED7wx8LUN2B97s1g1F2XVp4Gixt3k/mF84Bectaf8yE93qfZAGOC8h+O
+         3wvwb74sRM1zhOnTe0n2bdMLkWG88YvwhBVEqkaMg1LXZ2/clrTn2czWsmGlROKxXBzp
+         fGFnNT5gmxBHFy9xcsWPc3oHenq/ji/IBvmod6gHhJCOCnv7Zp2Hqd/VmqUCjDZdJkxo
+         EHxA1PUHc5PkJ14Yys3SXLNgQ7DSJvRdbMPDXB2JIzrHdWMbAhmNhO/mCeM9cNXwaa7n
+         hfTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790360362; x=1790965162;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790610604; x=1791215404;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+Pgzm+oGmx9IFr7YX9pLOyiGg97pLaKByt5qjz5Pzhc=;
-        b=g+59YJ7+/GOLdRwtiNBpFPUaFW3wWNY9dDbI6GKAjplw6T7JxTlidSvbMB0wyKwa5B
-         vYJN11m5qq/+fInLUraP8fgYVnDCu7zWT524OafDUDtPKWOaLIyepw/kPm3KXGQxUaO5
-         9uyDyKAX+5noHjna+uVCfdQj+Nl4Tr7hErFXBqzkBvO+3qWyTNCJ2NIt0HyxkdSWPhzR
-         EKwEkRW6H9/k7+B3W76boBdyK58s6J0LdX5XX6D8uAvs3dVDW6wmL7HThUWhCDlGP4SU
-         yROPSTBQSS302ex+88j9YMsO83O5zgSJsqB63NsuXQxml52pmU9zJT4oeS8lRYlaRexc
-         iwRQ==
-X-Gm-Message-State: AFuF++mNH7+GfBRFUdbWmbdF55K0xh7fqb0dgFwBac24yOjWWIUJZHXz
-	vOU+6ytxfqVOta8S3uEVKI2dPag0k8CNDC3ELid4f05/u+vNcGzVPhL0hWKmUiATSfM=
-X-Gm-Gg: AYBFou2BHKmZys7Jr6q2nDB2VHS93qK5nSJ0rsHiRhID6IxKoHdPoh0PPGNwd/4vkfn
-	g13Ezs3kfrolGTb8l/Sw8Z8uezyw5N/LcemSGm1BM8OcSPmJ2+UBHlAegS0JUQ1bjK2BH4/NpxT
-	HeB/qWKss+nSJfwKVhgqr4AKgrBwepm7oHlxba6aUnQ+HiP/W4r9/kE9mUeG/7bl0vIuZ3FTVnj
-	cGkL/JAf/hAOZNhJ1kOdljmxe8zC1JeFIc2dwjzkNBH2v7HWK3wmf2+2df5usXrKFIZIINrFHB4
-	0Ya1rEHJ3s3/uGXnqwkCttySmsyB0uhHpqUQvWdaaR9EmOfVG1/iyGyclo95Dy6HGmRsr4OUB4e
-	lOyOlCnXRjFl9Rp4fSQrV/zrGfXSy/6cdF7lSzlCxqHAFs7i6UvBhd0SFh4/c4BuHS33S/koJD5
-	nSZaRln5uM4SCcsbCzrczZgxPfJUmZMVHY8FWTk/WOnfXeBjxBCMm7bCubXWxbvn/vjE84qRvFq
-	cg=
-X-Received: by 2002:a05:690e:4141:b0:673:5043:ab33 with SMTP id 956f58d0204a3-6735043b074mr2459368d50.28.1790360361793;
-        Fri, 25 Sep 2026 11:19:21 -0700 (PDT)
-Received: from suesslenovo ([71.132.185.69])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6740ee92ebcsm1325006d50.6.2026.09.25.11.19.21
+        bh=TUupXe47hKEwtrJAakpSRuAqpv3FGIO9UcE3gl7qRpw=;
+        b=q5q6lyPLh50fErD7H+vV6hAz9mGOv7xK8glEDJcWoVgPSlG9wrYuhpExk/wa6lIqlY
+         qaTfiAZAkH2oDZdi6+8SJjl7eSr9nnxfMGJhuQ3JHtgznR17FHbo9mfTNWnNXwbC5wRu
+         2+P9L6jyyGA5yEWPI+w4RSPKXCfgIiGqrUqO945XfIMW/XYHNQ6R1dbi14+m/C7OSszD
+         q3MEKtj5nadutaoiV1+niDIKDD/EhTASEqlheJWaVpnJ5PFKK7CosHqscqK9BUKj/cew
+         NAkGor7cRu+34TO8v8kAkaJT789hAqSmaYG5V+MlTnzlcnMBbS/HdnSD29EbyzD9QJy/
+         OXfg==
+X-Forwarded-Encrypted: i=1; AKwUvBzxexknTRz7lNZ8DUslXdAGHtYH/9UYnwCMmlZMMhMN47me+5HL2DJaBPWIhsD9kGlT5vhy9ShcFA==@lists.linux.dev
+X-Gm-Message-State: AFuF++kDF1H/3LGSyo/HXA9Eg1kndZ7VoA1+XZ1AJtPS4NpbPhoZX+ut
+	Y8UfsPnWJxPAc9Svh55Ph4tHyDC0pxsrn0rmr/S4Q2bDlG6o3jR27LFM
+X-Gm-Gg: AYBFou2QmSlMPYvZ/hDK2dW2kAaO/ejtgJJLmZRA8wjZ+YgtTJIgKjp6L1X4u6Hwlii
+	wfMBvBxkJLL81/sQnhYTaw1+FilY4F0UmlqXjpPaBIMk8QhvleuUJjXLpRe/qwt8CXJVnLGU2m6
+	op9wWdsr2gAcJw7c+H3iYALSMRW0fNdfVEpvSotwgTt1pac9tiTz/v7rU7Hn5NKXLdlDplrzCSX
+	DKJOJirE3XUjjISNcwBsRtXN3uYs6yZnE5mV4U7tGMVje/bwUKdvebFcqsmrykEKVgQQuKQZfHb
+	YVpCqLHcUAd3WP6BG1p7KMAxB3PS8982ClUxfGdxFeM7ndZgWAQB441yBz8pYOWWnyG4mZ71JKw
+	dMGtpKX5b0z5mIHy5NLRR6UAIvhFQWI0y95Cz79QZ/RFM0HKmIOlJnbqKRPiVRUdGyvIDzVQ6Ln
+	tiTFokG2yRvy39hjQKAsbRE1ok+4Ay4Ba/MtnvgO5xeluXxVK8MEdtV07YLF8eLSv9e5jjBtnVc
+	mcDGPk5ztlc7INtxoYI
+X-Received: by 2002:a05:600d:6402:10b0:4a0:c01:1902 with SMTP id 5b1f17b1804b1-4a00c011a5fmr9990865e9.2.1790610603593;
+        Mon, 28 Sep 2026 08:50:03 -0700 (PDT)
+Received: from penguin-ubuntu.lan ([2a00:23c6:6405:9301:5b51:b317:1deb:4845])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4887a354c47sm29772532f8f.15.2026.09.28.08.50.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 25 Sep 2026 11:19:21 -0700 (PDT)
-Date: Fri, 25 Sep 2026 14:18:50 -0400
-From: Justin Suess <utilityemal77@gmail.com>
-To: Kate <kit-ty-kate@exn.st>
-Cc: landlock@lists.linux.dev
-Subject: Re: Restricting all (ICMP included) network access
-Message-ID: <ara5OnFKQCidTeWx@suesslenovo>
-References: <bff77061-37e3-4361-b021-3d1e46be3b87@exn.st>
+        Mon, 28 Sep 2026 08:50:02 -0700 (PDT)
+From: Oxana Kharitonova <webprosto@gmail.com>
+To: webprosto@gmail.com
+Cc: gnoack3000@gmail.com,
+	gnoack@google.com,
+	jmorris@namei.or,
+	landlock@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	mic@digikod.net,
+	oxana@cloudflare.com,
+	paul@paul-moore.com,
+	serge@hallyn.com,
+	wangyan01@kylinos.cn,
+	utilityemal77@gmail.com
+Subject: Re: [PATCH 0/6] landlock: Add POSIX message queue scoping
+Date: Mon, 28 Sep 2026 16:47:34 +0100
+Message-ID: <20260928155002.742984-1-webprosto@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260914141156.258282-1-webprosto@gmail.com>
+References: <20260914141156.258282-1-webprosto@gmail.com>
 Precedence: bulk
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
 List-Subscribe: <mailto:landlock+subscribe@lists.linux.dev>
 List-Unsubscribe: <mailto:landlock+unsubscribe@lists.linux.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <bff77061-37e3-4361-b021-3d1e46be3b87@exn.st>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 23, 2026 at 11:28:57PM +0100, Kate wrote:
-> Hi,
+Hi Günther!
+
+As promissed, I'm following up with a more complete answer.  
+
+On 14/09/2026 15:10, Oxana Kharitonova wrote:
+> On 21/08/2026 09:46, GÃ¼nther Noack wrote:
+>> What *might* still be interesting to restrict though: While mq_open()
+>> checks the READ_FILE and WRITE_FILE rights, it checks none of the
+>> LANDLOCK_ACCESS_FS_MAKE_* rights -- the message queue gets still
+>> created, even when the mq_open() is denied and returns with an error.
+
+I revisited my changes and noticed the gap you mentioned regarding
+mqueue creation. Thanks for highlighting it. I'll address it in v2.
+
+>> To expand on Justin's comment in [1] -- it feels that there are maybe
+>> still some gaps in the "lifecycle management" of these message queues
+>> that might be worth thinking systematically about, because both
+>> mq_unlink() and the creation of the message queue entries are
+>> currently apparently not restrictable yet?  It makes me wonder whether
+>> hijacking of message queue names (creating same-named queues in other
+>> Landlock domains) is a problem then?  Do you have thoughts on this?
 > 
-> I'd like to use landlock and i've tested the sample/landlock/sandboxer.c
-> example from the linux sources, however while TCP and UDP (if i had linux >=
-> 7.2 / API >= 10) are correctly restricted from what i can see, ICMP (ping)
-> is still able to communicate with the rest of the world. I suspect other
-> protocols not based on TCP/UDP are able to do so as well.
-> 
-> I've read somewhere that ICMP can be handled by BFP instead but that API
-> seems a lot more complicated than necessary for what i need (maybe i've
-> looked in the wrong places though?), so i'm wondering:
-> 
-> Does anyone has any tips on how to make sure no network access of any kind
-> is able leave the sandbox?
->
-Hi,
+> I need to think about it more and check how the mq_unlink works, taking
+> into account the comment from Justin and Mickaël.
+> I'll follow up with a more complete answer.
 
-This doesn't use Landlock, but you can use unshare and create a new
-user namespace and an empty network namespace without root.
+Regarding the lifecycle management of POSIX message queues, I haven’t
+found a good solution yet. I experimented with test programs, but the
+main constraints come from the POSIX message-queue semantics. A queue is
+independent of its creator’s lifetime and remains until mq_unlink() is
+called explicitly and all open descriptors are closed. Its name must be
+unique within the IPC namespace, but the same name can be reused after
+the existing queue has been unlinked.
 
-You can demonstrate this with the unshare -Un command.
+If mq_unlink() is restricted for a process, a stale queue could remain
+and that process might be unable to clean it up. This seems to be the
+concern Mickaël raised in [2]. However, Landlock restrictions apply to
+the restricted process or domain, rather than globally to the queue, so
+another process might still be able to access or unlink it if its
+permissions allow. Therefore, I don’t currently see how to restrict this
+correctly through a Landlock policy, other than documenting the
+limitation. Let me know if you have other thoughts or I'm missing
+something.
 
-For ICMP specifically, it already requires CAP_NET_RAW if I'm
-not mistaken. (usually the ping binary is setuid or has file
-capabilities for CAP_NET_RAW which is what allows unprivileged ping).
-So you can drop that capability if you already have it, or set no new
-privs (already required for non-root Landlock usage) to prevent
-regaining it through the ping / other setuid binaries.
+>>
+>> Thanks,
+>> –Günther
+>>
+>> [1] https://lore.kernel.org/all/amKDYoOSvHMzVbKX@suesslenovo/
 
-There's currently no ICMP right specifically for Landlock.
+Thanks,
+Oxana
 
-But yes, you can achieve this, without even needing BPF or Landlock.
-
-Justin
-> Cheers,
-> Kate
-> 
+[2] https://lore.kernel.org/all/20260728.Heephie1tai3@digikod.net/
