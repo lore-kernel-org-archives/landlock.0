@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793630855;
-	b=jsQkpUw1K3g76MMmO4gU15eLLY6NoSYFg02EKTModCbIh9NnZCGHY90C6uVMgNFcA10m
-	 Xxv0gbfDMFnicSkq6oHXx/CnSMNrGyGpd9KiOISNQLeY62nqDGRmbFjnDEtFgLneZFKxo
-	 vsz4YT7hut3vFoBEkxenRwKlADuzo1SdPxTbQLTiiUz5xGy+lsn44P+ExjovSLNCI6bN4
-	 sr1zAKrfYKJrL1Ytt6bLo9DtfwQAJtZOrN5wTNDMkNm2cZxPisz0u6YE2FwDdih/vh7oA
-	 GxxJY4K5a7g3x6EXNknoUJ8MJvYlMLic6KLAuWOINJN5Th3oIvrgyPaDvAtALp9O7og==
+	t=1793630856;
+	b=K4edzLzhavQDUEvLzxwswWQqOHmecPMYGnfHohCE6v9C5YQOT/uLhWgRhd6qzoz0PBNE
+	 T512aK92WzR2sbPKs4EDa0efCg81ha5nNxK3m7jnhplFJwr6368QxKzIFnNlWMaOZweT0
+	 qjts8T9EsDbtrG8Obx4e0dWnXYIwzY1R+wkBEer7xFAPxa7WFE0F4u08j39oavyq+OTH2
+	 GgC7Uq/lHMgU1uy9eSNPTvIuFmZhbxlP+8vSDET55gCSLDrBHcQCmXPJkW9ocSwO7MYgi
+	 CLACg6q8V8dOsRhbEWzS15lA60v7cRYyy/nFTXs4NsIM+ONqtcZolB7GYIvgtktJOew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793630855;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793630856;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=oT4Jbe6Fru25zhLhLEJ1T9RC7Hvj88zj5H1iBQsA278=;
-	b=wNa6orek0jLxp9w3ta5Zqchf/BgMQMCVOWxoBV/+f27PcHSyfurkLN9KPglRyApiHIEE
-	 oz2hYfMNlCYC8CnV94Q9ZTUHoKhhpHtDCtXaUbZ/K70NxfDrMumsKlbgAI/LTTqM6ZZf1
-	 SyrNO9/f/VDWVbI9M2x0Y38Ks8Tz7x/64rL3N6fcjvzw5oUFpO01AwgXYwA8ZUWod4THe
-	 6iEhoSy6HoytOnvM93QB4XsSTTtOA0hxrkt6mcUeBEym/mWPmU5YV5CMJZabE6kpaBYk8
-	 3GZlDVaEKgYSYVR4+Q7IbaJvTEScd7QXf6JtPhgDhmo4fMMov+ZpdADfPMuSIYj3ixw==
+	bh=AAHuS3hfhCxtXIIZ0jwHiKwyzjzaw8v+z2uwDWG8rMQ=;
+	b=IrsChHJTXls0MO+1rq1ktQe7HSg0ssiKRTBh6GRDZcajk9utylSCNk6TDA0F2/sKw/zC
+	 stsZjUwkcGpuIr8yMOoOODUoBV7J2u235Qt9IzEgNVGQ2F55gIaHkDW5T9LbUPZZTNpzA
+	 lZraiRIoCCiSycSxdpUPQ+NBe4mh1aCfhxHiMJDg5+6t7cChE9UYb9mbr75+yLKegICOA
+	 SaRxdCVqAFSJgaLimKL2nqCBjbKqK1+ezj34ApkQHVRILeE+qNPna/Ou0g4KAWqXZ0/fK
+	 BZOzrxXtmyxMxiHVLHl0hF/r3ihfbCKmT9he1IZbuF126AsgBMs5BNMSOLyln4chRKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lJ65kPf6;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zSPf3MMB;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C48DA606A906
-	for <landlock@lists.linux.dev>; Mon,  2 Nov 2026 14:47:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C48DA606A906
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D135260A6F74
+	for <landlock@lists.linux.dev>; Mon,  2 Nov 2026 14:47:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D135260A6F74
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lJ65kPf6
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso25772735e9.1
-        for <landlock@lists.linux.dev>; Mon, 02 Nov 2026 06:47:34 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zSPf3MMB
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a214af2076so23716335e9.0
+        for <landlock@lists.linux.dev>; Mon, 02 Nov 2026 06:47:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793630853; x=1794235653; darn=lists.linux.dev;
+        d=gmail.com; s=20260707; t=1793630854; x=1794235654; darn=lists.linux.dev;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=oT4Jbe6Fru25zhLhLEJ1T9RC7Hvj88zj5H1iBQsA278=;
-        b=lJ65kPf6nR4Ywtuza9J8MmzO8lh/kiq7pbh5qtj3V5Z54rl7FlNhEbtCmtyOSEIoK7
-         ITmrv7pE/5h+FvcfE0OUtuozyz4TMcoyw9eR/KJ6vMh9a/m/xrGi8Wa0EWz1753JnweJ
-         ekCZmBc6hE3WjV3DebAkosR8Y6BFgol95QRADuqp4cb7FgbDzGwhl+J+CVRKxTDssdd3
-         DwqcGR+DaS/8dnlPiIUHQUqdn/99TAItm70g9yedlPbaRq9pm+K+krH4HGe+8G2TGA8K
-         JuiRX06+Mg0/GWul7Iy6Gze80F0NtdINMg6M+lKgLrn4FzPkB8zau7JiPTCEcFwFUz+2
-         nuNQ==
+        bh=AAHuS3hfhCxtXIIZ0jwHiKwyzjzaw8v+z2uwDWG8rMQ=;
+        b=zSPf3MMBSfPxiCQ+I4y2Qsm8CTKNvG6TeEdjOK7rKUehVXwLRKnsrVHTXQHhDyvOEH
+         LbkUzD26ovAyNHXf7q+S0pV0W6eBNP9B84ieSErPpExNkOzP6ruf/C5UpXgW9H3l4udG
+         YVKV1qQTyxHSNsDG9pjyeE2FaEvOOgXDGBvB7jBtselkoJl2Uzmou0QG2vNAP7tGsJlc
+         5gGeyn9E+Ep8aI+GEhtR/J8ZNskjX3vXkEup9zGv6zBrAhgQvJegBX04EepPghdhyKxs
+         aD6KfLDYXRTWvQ3Mh6HJ4pTVws0ZuMkoQ6SOc04b0LlmdRgO1RyD+7Nu3nmw3Y3UkVL6
+         tf1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793630853; x=1794235653;
+        d=1e100.net; s=20260707; t=1793630854; x=1794235654;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oT4Jbe6Fru25zhLhLEJ1T9RC7Hvj88zj5H1iBQsA278=;
-        b=nGPlzQt4p2v1E7vW5e/ug9XNa+9ZqpH9UXgYiryhJjQPRZG5pIR7hFaXcAzpQLAWOu
-         z1MooTBBHR3DbTVOB2o2YMPo/cX8KeVftqZa8kvyTApS4uOMDAPWLPVuOdL1RgK3Arps
-         SL+RB1dPcUH6ZDppiWyxOUcrnhOwufOTo9LQHd1Aslmp9g4LaqGqBMUyI/YhuyfTsahW
-         udLpteHWm14M25E6FVt6SBRiSN7pGltm5oZ2GTjChurkP5kylZgAgiFMdSLd8FHwfWXn
-         kTt+SSmdk3r1KU/XPRA5+aTGfNKj8kNuhfR9uW0rn5itKKjYnsbu/mXxCOFTdzhAczOg
-         yMMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwBC47oF+Z6K2HKzW6Og6ENAOqnkQOFe12hDaPeewcaBh/U9A7w9iwzPZhMmx/+sIaq8Taxu+9iJw==@lists.linux.dev
-X-Gm-Message-State: AFq9FYLRCmzlSybGxx+6IJouIR9E2GyQhPSSMDAOwdytD1OHqUJl7Xba
-	HtSIrFDsTh4//5Lqi/CBiytprWiCX8r5SSteYSXjONNqBVl5ab/qnyQuOFhwlZx7
-X-Gm-Gg: AYBFou0R45a89O7Wl+kmoRxTPf+BSiqe8XsknkuSuIf+ZNSRRP9EBvUyiG+/6nIpszl
-	9LC2pwRCEt50jb39schSK3D45urk8a8NP5tyVULsGrcLn4TsN7cpRIKx6URnIuWxgRNwEIZnT9u
-	cModEXBslgRLOU81PmrKDmYPjRdaLo12PL5VLKp08zOLrYwqJVEXttMFoZKqHnE9XlIPon3jy4i
-	hXMjVCG4B06B+KHaY4tGP8FBoNbNjHX6ezhoN7yukN9MIUdz/gqkCtcNOOlqTBMeMSzjqpbznfZ
-	5aq91ha2BOO6BG5wBcvZuSq2eTbZYVr7EKC+vQ5CmDOSxtwaKpNRskawYbLJ1cwr7y9LqZe2Tk8
-	oOh/0+yn2VWPsobIJG1JaLs2f5pkdpEJeZfEnIzWB500EgGip7Bi9VLmuIOBEkdWQOij+chYPN0
-	5bU6stIFq6urdWaUQ8t7tYLw38JktySiQkh0MS0qg7do7jBF+VhYzbYHRBKIh1f8WbJmRtMX1mU
-	XhSuYo7DGQuUDCV4Z/kzQLW2vCsuYSHklgNFDcb+T8Go6ai4piFuZpgseIaPmAxP+WxLfd0lRfQ
-	bpA0yQjinIFa3zZa1fgMgljmxyuBmCPho2X2hpoM
-X-Received: by 2002:a05:600c:1387:b0:4aa:2339:a375 with SMTP id 5b1f17b1804b1-4ac1793fa6bmr245939905e9.13.1793630853040;
-        Mon, 02 Nov 2026 06:47:33 -0800 (PST)
+        bh=AAHuS3hfhCxtXIIZ0jwHiKwyzjzaw8v+z2uwDWG8rMQ=;
+        b=vjcBUgFjFMNwwxfyNZF2mcl5jH/kQ0lJWu9GekBOc/noSVN52BJLJ/IGUaYe1XeNQ7
+         ORQU2QsuE0PqfisD4/caS4Jvn98zYUgbo9yGSbcJWHl0DcFswDhekhTaaCKV1j4UEZ8H
+         5ksf7JwWoundXOHO4CDrBT4V+79UIGzq9NSXXj/Z88ScsB9XBtqxQN9EyHkfPmFwQGl2
+         pFcMbphPdF1v1l+qJv4+svnEtJGNOQLiMoGG7Rlkjjn3Jocsr9AW7EFPqtdnDdBnFTPZ
+         cFutgtrucc5HF6SSfop0fkOx6/dwgftQy6yvAEbeCYOIiYchfIuGS9zOVVkVA/bwcaLA
+         Do1A==
+X-Forwarded-Encrypted: i=1; AKwUvBz3AUh5YBhhKh6l4kMgpF5dOL8d/+163aUMh9bAZVdpY0ohM+dAmfKlMw7hoetHl9yW5Di5nVwCSQ==@lists.linux.dev
+X-Gm-Message-State: AFq9FYInzrzgvguknkav78KyGwBZQ9rTLkL+UHtG4E5UKcTIEBFDT8Qz
+	XcgtIcCk/AA2wCw0f5Rk2pDF1RN3Y3oedpgPd1WtpF5WL2Gg3C65uUSe
+X-Gm-Gg: AYBFou2p917hSHkYzhs3HHzLV7RP9prXrARPJpbeeZ3yzTcAlKdXiPXUkShUE512Wei
+	ihwHnLduCuYlcME0FFamj9/rCJ4GA5tMs0bjJ511vzlBDHm+GB9HN5qktDhxPqQwbADvJ+72vsf
+	heHt3pJtj9ijE5m/sKLJBda0N3vH7ssKrVfCxrrDpAYFKchwGzZgFsn3tSNMZ3VAykw5eKAhp4T
+	TvraIFdnqWQoqd2ZUrEhSUqAc4Q8ZTdyCSl3TnhkEhObAyrPn5nafvEqYkhB0n7OKf0iFUi8muo
+	BaJ8Csaj7grTQ+XwuQ8bPpC8XVi248BeWUgAb1eBhtHKK9gDeFb+sPvMY7r3M7yaPPpeS5YxjX6
+	Bt5/OXdTJeNkfeAt8sSbVURi1lM2icE+v6UPSlUYJVdW4BW56WHzKRW5crThpYW5dck3v63J7ZX
+	9Z90JcKrRBwmNyN3xjC1vrZW76Mh3d06IZvWkuA5A0fn95lHMK5ZvonOnsDgiAEJvqPhFJGB0OO
+	IbxdcJ+6JnBNolFyuCvrT+w28c+UX2GebNxB991ORq3ltYtr66LjqdqpHtjcsNAJNpLtdG72tiH
+	hXlReBrKQbIxwbZOEAe4CjZDadwXWZaMsqAh6cywTQ==
+X-Received: by 2002:a05:600c:6087:b0:49f:f099:6fb1 with SMTP id 5b1f17b1804b1-4ac17753befmr232386105e9.15.1793630854017;
+        Mon, 02 Nov 2026 06:47:34 -0800 (PST)
 Received: from penguin-ubuntu.lan ([2a00:23c6:6410:5d01:8464:9a6f:2d42:8827])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abe7700c3bsm254289965e9.0.2026.11.02.06.47.32
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abe7700c3bsm254289965e9.0.2026.11.02.06.47.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 06:47:32 -0800 (PST)
+        Mon, 02 Nov 2026 06:47:33 -0800 (PST)
 From: Oxana Kharitonova <webprosto@gmail.com>
 To: mic@digikod.net,
 	brauner@kernel.org,
@@ -88,9 +88,9 @@ Cc: linux-security-module@vger.kernel.org,
 	linux-fsdevel@vger.kernel.org,
 	webprosto@gmail.com,
 	landlock@lists.linux.dev
-Subject: [PATCH v2 1/4] ipc: Move MQUEUE_MAGIC to a shared header
-Date: Mon,  2 Nov 2026 14:45:57 +0000
-Message-ID: <20261102144708.920232-2-webprosto@gmail.com>
+Subject: [PATCH v2 2/4] Landlock: Enforce MAKE_REG for POSIX message queue creation
+Date: Mon,  2 Nov 2026 14:45:58 +0000
+Message-ID: <20261102144708.920232-3-webprosto@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261102144708.920232-1-webprosto@gmail.com>
 References: <20261102144708.920232-1-webprosto@gmail.com>
@@ -105,41 +105,433 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Move MQUEUE_MAGIC from ipc/mqueue.c to include/linux/ipc_namespace.h so
-it can be shared by code outside of ipc/mqueue.c without duplicating
-the constant.
+POSIX message queues are represented by files in the mqueue filesystem.
+Landlock's existing READ_FILE and WRITE_FILE restrictions can deny
+mq_open() through hook_file_open(). However, these checks occur after
+queue creation, so mq_open() with O_CREAT may create a queue before
+access is denied, leaving the queue behind despite the failed call.
+
+Add an inode_create hook to enforce LANDLOCK_ACCESS_FS_MAKE_REG before
+queue creation. Use the mqueue mount associated with the current IPC
+namespace to construct the parent path. Opening an existing queue does
+not require MAKE_REG.
+
+Add selftests covering denied creation without leaving a queue behind,
+explicitly allowed creation, opening existing queues when MAKE_REG is
+denied, and existing read/write restrictions. Enable POSIX message queues
+in the selftest configuration and link the tests with librt.
+
+Document the creation and opening checks, including that a queue may
+still remain if creation is allowed but the subsequent open is denied.
 
 Signed-off-by: Oxana Kharitonova <webprosto@gmail.com>
 ---
- include/linux/ipc_namespace.h | 2 ++
- ipc/mqueue.c                  | 1 -
- 2 files changed, 2 insertions(+), 1 deletion(-)
+ Documentation/userspace-api/landlock.rst      |  24 ++
+ include/uapi/linux/landlock.h                 |   1 +
+ security/landlock/fs.c                        |  31 +++
+ security/landlock/fs.h                        |   6 +
+ tools/testing/selftests/landlock/Makefile     |   4 +-
+ tools/testing/selftests/landlock/config       |   1 +
+ .../selftests/landlock/posix_mqueue_test.c    | 233 ++++++++++++++++++
+ 7 files changed, 298 insertions(+), 2 deletions(-)
+ create mode 100644 tools/testing/selftests/landlock/posix_mqueue_test.c
 
-diff --git a/include/linux/ipc_namespace.h b/include/linux/ipc_namespace.h
-index 12faca29bbb9..8a15ffe38e9a 100644
---- a/include/linux/ipc_namespace.h
-+++ b/include/linux/ipc_namespace.h
-@@ -15,6 +15,8 @@
+diff --git a/Documentation/userspace-api/landlock.rst b/Documentation/userspace-api/landlock.rst
+index 3d45b956b640..1fb91884cb8a 100644
+--- a/Documentation/userspace-api/landlock.rst
++++ b/Documentation/userspace-api/landlock.rst
+@@ -458,6 +458,30 @@ OverlayFS layer will not restrict the resulted merged hierarchy, and vice versa.
+ Landlock users should then only think about file hierarchies they want to allow
+ access to, regardless of the underlying filesystem.
  
- struct user_namespace;
- 
-+#define MQUEUE_MAGIC 0x19800202
++POSIX message queues
++--------------------
 +
- struct ipc_ids {
- 	int in_use;
- 	unsigned short seq;
-diff --git a/ipc/mqueue.c b/ipc/mqueue.c
-index d1dd36a651b0..0f00e4efcb60 100644
---- a/ipc/mqueue.c
-+++ b/ipc/mqueue.c
-@@ -47,7 +47,6 @@ struct mqueue_fs_context {
- 	bool			 newns;	/* Set if newly created ipc namespace */
- };
++POSIX message queues are represented by regular files in the mqueue
++filesystem.  Opening a queue with :manpage:`mq_open(3)` is subject to
++``LANDLOCK_ACCESS_FS_READ_FILE`` and ``LANDLOCK_ACCESS_FS_WRITE_FILE``,
++according to the requested access mode, when these rights are handled by an
++enforced ruleset.  These checks also apply to opening queue files through a
++mounted mqueue filesystem with :manpage:`open(2)`.
++
++Creating a new queue with :manpage:`mq_open(3)` and ``O_CREAT`` is checked
++separately.  When an enforced ruleset handles
++``LANDLOCK_ACCESS_FS_MAKE_REG``, creation is denied unless an applicable
++filesystem rule allows this right on the queue's parent directory.  Such a
++rule can refer to the root of the mqueue filesystem for the calling process's
++IPC namespace, commonly mounted at ``/dev/mqueue``.  Opening an existing queue,
++including with ``O_CREAT``, does not require this right.
++
++The creation check occurs before the file-open check.  If creation is allowed
++but the subsequent read or write access check denies the open, the newly
++created queue remains even though :manpage:`mq_open(3)` fails.  In particular,
++handling only ``LANDLOCK_ACCESS_FS_READ_FILE`` or
++``LANDLOCK_ACCESS_FS_WRITE_FILE`` does not prevent queue creation.
++
+ Inheritance
+ -----------
  
--#define MQUEUE_MAGIC	0x19800202
- #define DIRENT_SIZE	20
- #define FILENT_SIZE	80
+diff --git a/include/uapi/linux/landlock.h b/include/uapi/linux/landlock.h
+index 24510e5d8479..04a18824c700 100644
+--- a/include/uapi/linux/landlock.h
++++ b/include/uapi/linux/landlock.h
+@@ -450,6 +450,7 @@ struct landlock_capability_attr {
+  *   device.
+  * - %LANDLOCK_ACCESS_FS_MAKE_DIR: Create (or rename) a directory.
+  * - %LANDLOCK_ACCESS_FS_MAKE_REG: Create (or rename or link) a regular file.
++ *   This also controls POSIX message queue creation with mq_open(3).
+  *   This also guards the creation of whiteout objects as used in OverlayFS.
+  * - %LANDLOCK_ACCESS_FS_MAKE_SOCK: Create (or rename or link) a UNIX domain
+  *   socket.
+diff --git a/security/landlock/fs.c b/security/landlock/fs.c
+index 2ab67bcad198..d5dcb19d5eb1 100644
+--- a/security/landlock/fs.c
++++ b/security/landlock/fs.c
+@@ -29,6 +29,7 @@
+ #include <linux/mount.h>
+ #include <linux/namei.h>
+ #include <linux/net.h>
++#include <linux/nsproxy.h>
+ #include <linux/path.h>
+ #include <linux/pid.h>
+ #include <linux/rcupdate.h>
+@@ -1676,6 +1677,35 @@ static int hook_path_truncate(const struct path *const path)
+ 	return current_check_access_path(path, LANDLOCK_ACCESS_FS_TRUNCATE);
+ }
  
++/*
++ * Unlike regular file creation, mq_open(2) calls vfs_mkobj() directly and
++ * therefore does not trigger the path_mknod hook.  Use the mqueuefs mount
++ * associated with the current IPC namespace to recover the parent path.
++ */
++static int hook_inode_create(struct inode *const dir,
++			     struct dentry *const dentry, const umode_t)
++{
++	struct ipc_namespace *ipc_ns;
++	struct vfsmount *mnt;
++	struct path parent;
++
++	if (!landlock_is_posix_mqueue_fs(dir))
++		return 0;
++
++	if (!current->nsproxy)
++		return 0;
++	ipc_ns = current->nsproxy->ipc_ns;
++	if (!ipc_ns)
++		return 0;
++	mnt = ipc_ns->mq_mnt;
++	if (WARN_ON_ONCE(!mnt || mnt->mnt_sb != dir->i_sb))
++		return 0;
++
++	parent.mnt = mnt;
++	parent.dentry = dentry->d_parent;
++	return current_check_access_path(&parent, LANDLOCK_ACCESS_FS_MAKE_REG);
++}
++
+ /**
+  * unmask_scoped_access - Remove access right bits in @masks in all layers
+  *                        where @client and @server have the same domain
+@@ -2084,6 +2114,7 @@ static void hook_file_free_security(struct file *file)
+ 
+ static struct security_hook_list landlock_hooks[] __ro_after_init = {
+ 	LSM_HOOK_INIT(inode_free_security_rcu, hook_inode_free_security_rcu),
++	LSM_HOOK_INIT(inode_create, hook_inode_create),
+ 
+ 	LSM_HOOK_INIT(sb_delete, hook_sb_delete),
+ 	LSM_HOOK_INIT(sb_mount, hook_sb_mount),
+diff --git a/security/landlock/fs.h b/security/landlock/fs.h
+index 50b3ddb8ac1c..05e36ef1acf7 100644
+--- a/security/landlock/fs.h
++++ b/security/landlock/fs.h
+@@ -14,6 +14,7 @@
+ #include <linux/cleanup.h>
+ #include <linux/fs.h>
+ #include <linux/init.h>
++#include <linux/ipc_namespace.h>
+ #include <linux/rcupdate.h>
+ 
+ #include "access.h"
+@@ -144,6 +145,11 @@ landlock_inode(const struct inode *const inode)
+ 	return inode->i_security + landlock_blob_sizes.lbs_inode;
+ }
+ 
++static inline bool landlock_is_posix_mqueue_fs(const struct inode *const inode)
++{
++	return inode->i_sb->s_magic == MQUEUE_MAGIC;
++}
++
+ static inline struct landlock_superblock_security *
+ landlock_superblock(const struct super_block *const superblock)
+ {
+diff --git a/tools/testing/selftests/landlock/Makefile b/tools/testing/selftests/landlock/Makefile
+index fc43225d319a..80da63f4251d 100644
+--- a/tools/testing/selftests/landlock/Makefile
++++ b/tools/testing/selftests/landlock/Makefile
+@@ -18,11 +18,11 @@ TEST_GEN_PROGS_EXTENDED := \
+ 	wait-pipe-sandbox
+ 
+ # Short targets:
+-$(TEST_GEN_PROGS): LDLIBS += -lcap -lpthread
++$(TEST_GEN_PROGS): LDLIBS += -lcap -lpthread -lrt
+ $(TEST_GEN_PROGS_EXTENDED): LDFLAGS += -static
+ 
+ include ../lib.mk
+ 
+ # Targets with $(OUTPUT)/ prefix:
+-$(TEST_GEN_PROGS): LDLIBS += -lcap -lpthread
++$(TEST_GEN_PROGS): LDLIBS += -lcap -lpthread -lrt
+ $(TEST_GEN_PROGS_EXTENDED): LDFLAGS += -static
+diff --git a/tools/testing/selftests/landlock/config b/tools/testing/selftests/landlock/config
+index 5568d7a4b2d7..7761916db48b 100644
+--- a/tools/testing/selftests/landlock/config
++++ b/tools/testing/selftests/landlock/config
+@@ -14,6 +14,7 @@ CONFIG_NET=y
+ CONFIG_NET_NS=y
+ CONFIG_OVERLAY_FS=y
+ CONFIG_PID_NS=y
++CONFIG_POSIX_MQUEUE=y
+ CONFIG_PROC_FS=y
+ CONFIG_SECURITY=y
+ CONFIG_SECURITY_LANDLOCK=y
+diff --git a/tools/testing/selftests/landlock/posix_mqueue_test.c b/tools/testing/selftests/landlock/posix_mqueue_test.c
+new file mode 100644
+index 000000000000..9a8b56e2dbda
+--- /dev/null
++++ b/tools/testing/selftests/landlock/posix_mqueue_test.c
+@@ -0,0 +1,233 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Landlock tests - POSIX message queue filesystem access */
++
++#define _GNU_SOURCE
++#include <errno.h>
++#include <fcntl.h>
++#include <limits.h>
++#include <linux/landlock.h>
++#include <mqueue.h>
++#include <stdio.h>
++#include <sys/stat.h>
++#include <unistd.h>
++
++#include "common.h"
++
++static void set_mq_name(char *const name, const size_t size)
++{
++	snprintf(name, size, "/selftests-landlock-mq-tid%d", sys_gettid());
++}
++
++/* Denied creation must not leave a queue behind. */
++TEST(posix_mqueue_make_reg)
++{
++	const struct landlock_ruleset_attr ruleset_attr = {
++		.handled_access_fs = LANDLOCK_ACCESS_FS_MAKE_REG,
++	};
++	char name[64];
++	int fd;
++
++	drop_caps(_metadata);
++	ASSERT_LT(0, snprintf(name, sizeof(name), "landlock-%d", getpid()));
++
++	/* Check that POSIX message queues are supported by the running kernel. */
++	fd = syscall(__NR_mq_open, name, O_CREAT | O_EXCL | O_RDONLY, 0600,
++		     NULL);
++	if (fd < 0 && errno == ENOSYS)
++		SKIP(return, "POSIX message queues are not supported");
++	ASSERT_LE(0, fd);
++	ASSERT_EQ(0, close(fd));
++	ASSERT_EQ(0, syscall(__NR_mq_unlink, name));
++
++	drop_access_rights(_metadata, &ruleset_attr);
++
++	EXPECT_EQ(-1, syscall(__NR_mq_open, name, O_CREAT | O_EXCL | O_RDONLY,
++			      0600, NULL));
++	EXPECT_EQ(EACCES, errno);
++
++	/* A denied mq_open() must not leave the message queue behind. */
++	EXPECT_EQ(-1, syscall(__NR_mq_unlink, name));
++	EXPECT_EQ(ENOENT, errno);
++}
++
++/*
++ * A process restricted by LANDLOCK_ACCESS_FS_MAKE_REG must still be able to
++ * create a POSIX message queue when this access right is explicitly allowed
++ * on the mqueue filesystem mounted at /dev/mqueue.
++ */
++TEST(posix_mqueue_make_reg_allowed)
++{
++	const struct landlock_ruleset_attr ruleset_attr = {
++		.handled_access_fs = LANDLOCK_ACCESS_FS_MAKE_REG,
++	};
++	struct landlock_path_beneath_attr path_beneath = {
++		.allowed_access = LANDLOCK_ACCESS_FS_MAKE_REG,
++	};
++	char mq_name[NAME_MAX], mq_path[PATH_MAX];
++	int ruleset_fd;
++	int check_fd;
++	mqd_t mq;
++
++	drop_caps(_metadata);
++	set_mq_name(mq_name, sizeof(mq_name));
++	ASSERT_LT(0,
++		  snprintf(mq_path, sizeof(mq_path), "/dev/mqueue%s", mq_name));
++	mq_unlink(mq_name);
++
++	/* Makes sure the current IPC namespace is visible through this path. */
++	mq = mq_open(mq_name, O_CREAT | O_EXCL | O_RDONLY, 0600, NULL);
++	if (mq < 0 && errno == ENOSYS)
++		SKIP(return, "POSIX message queues are not supported");
++	ASSERT_LE(0, mq);
++	check_fd = open(mq_path, O_PATH | O_CLOEXEC);
++	if (check_fd < 0) {
++		EXPECT_EQ(0, mq_close(mq));
++		EXPECT_EQ(0, mq_unlink(mq_name));
++		SKIP(return,
++			   "/dev/mqueue is not mounted for this IPC namespace");
++	}
++	EXPECT_EQ(0, close(check_fd));
++	EXPECT_EQ(0, mq_close(mq));
++	EXPECT_EQ(0, mq_unlink(mq_name));
++
++	ruleset_fd =
++		landlock_create_ruleset(&ruleset_attr, sizeof(ruleset_attr), 0);
++	ASSERT_LE(0, ruleset_fd);
++	path_beneath.parent_fd = open("/dev/mqueue", O_PATH | O_CLOEXEC);
++	ASSERT_LE(0, path_beneath.parent_fd);
++	ASSERT_EQ(0, landlock_add_rule(ruleset_fd, LANDLOCK_RULE_PATH_BENEATH,
++				       &path_beneath, 0));
++	EXPECT_EQ(0, close(path_beneath.parent_fd));
++	enforce_ruleset(_metadata, ruleset_fd);
++	EXPECT_EQ(0, close(ruleset_fd));
++
++	mq = mq_open(mq_name, O_CREAT | O_EXCL | O_RDONLY, 0600, NULL);
++	ASSERT_LE(0, mq);
++	EXPECT_EQ(0, mq_close(mq));
++	EXPECT_EQ(0, mq_unlink(mq_name));
++}
++
++/*
++ * LANDLOCK_ACCESS_FS_MAKE_REG controls the creation of POSIX message queues,
++ * but must not prevent opening a queue that already exists.
++ */
++TEST(posix_mqueue_make_reg_existing)
++{
++	const struct landlock_ruleset_attr ruleset_attr = {
++		.handled_access_fs = LANDLOCK_ACCESS_FS_MAKE_REG,
++	};
++	char existing_name[NAME_MAX], new_name[NAME_MAX];
++	mqd_t existing_mq, reopened_mq;
++
++	drop_caps(_metadata);
++	ASSERT_LT(0, snprintf(existing_name, sizeof(existing_name),
++			      "/selftests-landlock-mq-existing-tid%d",
++			      sys_gettid()));
++	ASSERT_LT(0,
++		  snprintf(new_name, sizeof(new_name),
++			   "/selftests-landlock-mq-new-tid%d", sys_gettid()));
++	mq_unlink(existing_name);
++	mq_unlink(new_name);
++
++	existing_mq =
++		mq_open(existing_name, O_CREAT | O_EXCL | O_RDWR, 0600, NULL);
++	if (existing_mq < 0 && errno == ENOSYS)
++		SKIP(return, "POSIX message queues are not supported");
++	ASSERT_LE(0, existing_mq);
++
++	drop_access_rights(_metadata, &ruleset_attr);
++
++	reopened_mq = mq_open(existing_name, O_RDWR);
++	ASSERT_LE(0, reopened_mq);
++	EXPECT_EQ(0, mq_close(reopened_mq));
++
++	EXPECT_EQ(-1, mq_open(new_name, O_CREAT | O_EXCL | O_RDWR, 0600, NULL));
++	EXPECT_EQ(EACCES, errno);
++
++	EXPECT_EQ(0, mq_close(existing_mq));
++	EXPECT_EQ(0, mq_unlink(existing_name));
++	EXPECT_EQ(-1, mq_unlink(new_name));
++	EXPECT_EQ(ENOENT, errno);
++}
++
++/* Filesystem rules must continue to restrict queue opens. */
++TEST(posix_mqueue_path_access)
++{
++	const struct landlock_ruleset_attr ruleset_attr = {
++		.handled_access_fs = LANDLOCK_ACCESS_FS_READ_FILE |
++				     LANDLOCK_ACCESS_FS_WRITE_FILE,
++	};
++	struct landlock_path_beneath_attr path_beneath = {
++		.allowed_access = LANDLOCK_ACCESS_FS_READ_FILE,
++	};
++	const int modes[] = { O_RDONLY, O_WRONLY, O_RDWR };
++	char name[NAME_MAX], path[PATH_MAX];
++	struct stat queue_stat, path_stat;
++	int ruleset_fd, fd;
++	mqd_t mq;
++
++	drop_caps(_metadata);
++	set_mq_name(name, sizeof(name));
++	ASSERT_LT(0, snprintf(path, sizeof(path), "/dev/mqueue%s", name));
++	mq_unlink(name);
++	mq = mq_open(name, O_CREAT | O_EXCL | O_RDWR, 0600, NULL);
++	if (mq < 0 && errno == ENOSYS)
++		SKIP(return, "POSIX message queues are not supported");
++	ASSERT_LE(0, mq);
++	ASSERT_EQ(0, fstat(mq, &queue_stat));
++	if (stat(path, &path_stat) || queue_stat.st_dev != path_stat.st_dev ||
++	    queue_stat.st_ino != path_stat.st_ino) {
++		EXPECT_EQ(0, mq_close(mq));
++		EXPECT_EQ(0, mq_unlink(name));
++		SKIP(return, "/dev/mqueue does not expose this IPC namespace");
++	}
++
++	/* Establish that ordinary permissions allow every tested open mode. */
++	for (size_t i = 0; i < ARRAY_SIZE(modes); i++) {
++		fd = open(path, modes[i] | O_CLOEXEC);
++		ASSERT_LE(0, fd);
++		EXPECT_EQ(0, close(fd));
++		fd = mq_open(name, modes[i]);
++		ASSERT_LE(0, fd);
++		EXPECT_EQ(0, mq_close(fd));
++	}
++
++	ruleset_fd =
++		landlock_create_ruleset(&ruleset_attr, sizeof(ruleset_attr), 0);
++	ASSERT_LE(0, ruleset_fd);
++	path_beneath.parent_fd = open("/dev/mqueue", O_PATH | O_CLOEXEC);
++	ASSERT_LE(0, path_beneath.parent_fd);
++	ASSERT_EQ(0, landlock_add_rule(ruleset_fd, LANDLOCK_RULE_PATH_BENEATH,
++				       &path_beneath, 0));
++	EXPECT_EQ(0, close(path_beneath.parent_fd));
++	enforce_ruleset(_metadata, ruleset_fd);
++	EXPECT_EQ(0, close(ruleset_fd));
++
++	/* Allow reads through /dev/mqueue, but deny writes through both APIs. */
++	for (size_t i = 0; i < ARRAY_SIZE(modes); i++) {
++		fd = open(path, modes[i] | O_CLOEXEC);
++		if (modes[i] == O_RDONLY) {
++			EXPECT_LE(0, fd);
++		} else {
++			EXPECT_EQ(-1, fd);
++			EXPECT_EQ(EACCES, errno);
++		}
++		if (fd >= 0)
++			EXPECT_EQ(0, close(fd));
++
++		fd = mq_open(name, modes[i]);
++		if (modes[i] == O_RDONLY) {
++			EXPECT_LE(0, fd);
++		} else {
++			EXPECT_EQ(-1, fd);
++			EXPECT_EQ(EACCES, errno);
++		}
++		if (fd >= 0)
++			EXPECT_EQ(0, mq_close(fd));
++	}
++
++	EXPECT_EQ(0, mq_close(mq));
++	EXPECT_EQ(0, mq_unlink(name));
++}
++
++TEST_HARNESS_MAIN
 -- 
 2.43.0
 
