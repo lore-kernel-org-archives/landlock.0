@@ -1,83 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793673784;
-	b=uN3m1coRjTnrC5PJ2c37/kH4Gf67xn4xMnqd7Z6J8gxf9I/BWLMBx+pigMqJhkNWi5Hw
-	 4v9677Xs+pOA88GzbpdANpO/O9rL2yJbrnQnnqvbKg8Fx3yWftzEGMn4RecD4VBd/4vEl
-	 88FRe128CWTRmn85KqbR5ovDyFeMLmu+OBnUyPoQXCg23j7Il9yeF7or9ulvA02QPMHak
-	 VoskZnrfvP4e6P4vjEEXT5jN6Ynwl/IS06OWLZAcar177R326c7BhSPo0xtZ7V93U1Bff
-	 4DMeV5OkV9xEKkhutaDD3EJhVwY2ZQ6QcFsZDylFePC7G1VdnIoeqfYQNm9+cWFpFBg==
+	t=1793681791;
+	b=K7AZCEGGF+yRQp9DTev0+qfDhdtn3Fvgzy46wdWKsUKmjLIIYb5Ggl3aAvqc5QZ4e8iA
+	 sALEIJeo0DS7+PVMBegShVtjUZbxc0R9SCDwuiDS38C/A8e1EC628E1b7zY1r0qfTMXmr
+	 CKyoIaWNXmnviWbnCm4PmUZwnCwHfcEPUZ696cf7Ceu9v5iOYzqzUNrHNZhdOQO+3EukC
+	 G5p7gXaNicC5GMvTiYAefW8L2eqQE3i4TkccIKo3vvWbOqfghyhS5JiMRov0wORpbIwTH
+	 X5GhxvauQEy2pw1wpAPSWTRHk8kbAVxAjHwQij5N56cabZmvhynkgo1O7gWIY8SMiOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793673784;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793681791;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
 	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To;
-	bh=GHRb85n1Foh7KgznphB1XwN4hpwluA6wCCK9oDJFt+0=;
-	b=R7zo4z6oMjqk8Z6xYN65a1SK/KUv/6fX45329kM56YZPTR2QnnA5lhGOoa8ZixfKcpUT
-	 LoLwYNX5R6xy/pSbpZlYHW6N89JSyaPx+iY4j/OfTUbRTv9s4SkMJN83dnXKtz1wybUTy
-	 JmPNsK5glfbcKLcr0OS4G54aekFRXZ474Z7lZFc0cp6eBephK7ZaeJxTls2JSuYUwpfBG
-	 0AIf3tZtGl1MqJ7QBwu6LR8uA4BaZurwQ+cjyE5WzeAkLNXcr8vBYSFKIMXstExjjO2kC
-	 K6Lj7orN7OXM+7y8aKGCBzwLpo+a92UYOGgdbGh05ae7MLY3RGMl/N2FlI5QWsFmtZg==
+	bh=QKqJB95B3xM1yXLGq6ZKJkPFTWUW4kEAaA6Evoxuu4Q=;
+	b=eh+nfttQEhz91LCBlmvptC4RpXsfQ/PDJW3HYebfvUaWfnrIzrG5vFiZzqgPDD6lsf61
+	 C6LEgiXFnyoNECCQ1rzxizUJ0yYQIk/nV3KMf3Uqh3Kpy3un+N4ttaeAyjDdT93Zd/iHJ
+	 zORZ08saMt4a+Au9pmV8HMNz11Fr+dbnuyl+YMRCaGY+rm9bkopOXQQ6YcwRiw8J9rqu8
+	 rRyHqsdWX50rVMZASilHcesnptiyN1jBjLUb0FJPgkPVRXvGoE3RQ5jFHnJvhwX736ahp
+	 aKoTO6+CM4BM1qzwHaFch0H7Uv3VTgKCYkoDP60pwzygUk+dHmbmhhOWSjSHZNwT9bQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Hhn1ZKeT;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TPXyLiNz;
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9213B606A324;
-	Tue,  3 Nov 2026 02:43:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9213B606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F740606A326;
+	Tue,  3 Nov 2026 04:56:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F740606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Hhn1ZKeT
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TPXyLiNz
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793673783; x=1825209783;
+  t=1793681789; x=1825217789;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=iESoaevwqTMSuhIUPaAMKfLpXgQKRSiqlSV8Jn8HSos=;
-  b=Hhn1ZKeTm189WkThts+MO5iKAtLd7YssKxrMA9soBKkGYg4A5XbtENoE
-   nuyhy/UHSlonKGT/X5CXK+aY30Y3HjFY+WHjlxWAFC3W5gNTY8YiAz4rJ
-   1P20Q2z/DpSG+LpYIJNuA0kTRz3MgvtWv9dcZh+GLkEvmVO7GJdO0IurM
-   NmIE5Vbtp9+LX3MFA6VbthFUSyus+VFKS7+m5YHe30kCLUauzvD+0lve/
-   jNt2bfMRmW2LEdDWcpz4eExj+JowrT2Rm6j7M4x14PkBPMbwhNWF9mmdX
-   CyNmw3txlHrU5y2c7k4/2PUN+LleKiMj1fHfkAKdxKTAf7TDmtb5qiHI6
-   Q==;
-X-CSE-ConnectionGUID: ag+rJl7fRBm2aRoF1QKlow==
-X-CSE-MsgGUID: A/8suxzeQH6QsPqmn/I2mw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2264643"
+  bh=lCD1UoGaBAd8VaiHfFf8MOSoSmyKD980JlNHOxuzq08=;
+  b=TPXyLiNzyM/mdx/5NWDnynLkPsaoMFzTN8vLpNgrKalLMVhHX1XSzSU2
+   SLyglw0bF+8kQ/0TQO/JHTsKmQZ0+BoIIjYvQyJLkRp/W1gtETTwF87kE
+   NxVmfZ+uX1Tsmcr9zF04y+es4SPCoFmXBGZ3hWqu9lVksiMpEPT5+RGvl
+   WXI8SfdjLZOw9sbMrp3klrJNJwxe5LhCDk1vldIEbPsLo9zj2Jlx/UTju
+   9ocnzXIaqOfp9ulk4Fdey3ubAolsNJrf+2iwPnXlE6aUAO0a3wRYw3r45
+   MmT9bFtFHiKkeYUFb9316GTiVlLJm+n3HVV/N5vXeRDS1e1bA5qqRrZ2E
+   A==;
+X-CSE-ConnectionGUID: 7lsN84T+Tye9wajoXVDTpQ==
+X-CSE-MsgGUID: Y9rp1azvTOK1EqCYb0NSTw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2269876"
 X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="2264643"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 18:43:03 -0800
-X-CSE-ConnectionGUID: GY5dtudzRe+l1yJICGtbMg==
-X-CSE-MsgGUID: M0Qwd2mOQqi1UUrelqyqBA==
+   d="scan'208";a="2269876"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 20:56:28 -0800
+X-CSE-ConnectionGUID: 7tI6NU7NQXSEJGacSe6FoA==
+X-CSE-MsgGUID: M6nOKmUzTOSJgONiNDWXzQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="6619852"
+   d="scan'208";a="6664743"
 Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa009.fm.intel.com with ESMTP; 02 Nov 2026 18:43:00 -0800
+  by fmviesa001.fm.intel.com with ESMTP; 02 Nov 2026 20:56:25 -0800
 Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
 	(envelope-from <lkp@intel.com>)
-	id 1xO4UD-00000000iCu-19Sb;
-	Tue, 03 Nov 2026 02:42:57 +0000
-Date: Tue, 3 Nov 2026 10:42:35 +0800
+	id 1xO6ZL-00000000iJk-1DAi;
+	Tue, 03 Nov 2026 04:56:23 +0000
+Date: Tue, 3 Nov 2026 12:55:35 +0800
 From: kernel test robot <lkp@intel.com>
 To: Oxana Kharitonova <webprosto@gmail.com>, mic@digikod.net,
 	brauner@kernel.org, viro@zeniv.linux.org.uk, gnoack@google.com,
 	utilityemal77@gmail.com
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	linux-security-module@vger.kernel.org,
+Cc: oe-kbuild-all@lists.linux.dev, linux-security-module@vger.kernel.org,
 	linux-fsdevel@vger.kernel.org, webprosto@gmail.com,
 	landlock@lists.linux.dev
-Subject: Re: [PATCH v2 2/4] Landlock: Enforce MAKE_REG for POSIX message
- queue creation
-Message-ID: <202611031036.3r5EL9TN-lkp@intel.com>
-References: <20261102144708.920232-3-webprosto@gmail.com>
+Subject: Re: [PATCH v2 3/4] Landlock: Add POSIX message queue scoping
+Message-ID: <202611031209.bINuNiz5-lkp@intel.com>
+References: <20261102144708.920232-4-webprosto@gmail.com>
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
 List-Post: <mailto:landlock@lists.linux.dev>
@@ -89,14 +87,14 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261102144708.920232-3-webprosto@gmail.com>
+In-Reply-To: <20261102144708.920232-4-webprosto@gmail.com>
 
 Hi Oxana,
 
-kernel test robot noticed the following build warnings:
+kernel test robot noticed the following build errors:
 
-[auto build test WARNING on shuah-kselftest/next]
-[also build test WARNING on linus/master next-20261030]
+[auto build test ERROR on shuah-kselftest/next]
+[also build test ERROR on linus/master next-20261030]
 [cannot apply to shuah-kselftest/fixes trace/for-next brauner-vfs/vfs.all v7.3]
 [If your patch is applied to the wrong git tree, kindly drop us a note.
 And when submitting patch, we suggest to use '--base' as documented in
@@ -104,63 +102,90 @@ https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
 url:    https://github.com/intel-lab-lkp/linux/commits/Oxana-Kharitonova/ipc-Move-MQUEUE_MAGIC-to-a-shared-header/20261102-144557
 base:   https://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest.git next
-patch link:    https://lore.kernel.org/r/20261102144708.920232-3-webprosto%40gmail.com
-patch subject: [PATCH v2 2/4] Landlock: Enforce MAKE_REG for POSIX message queue creation
-config: s390-defconfig (https://download.01.org/0day-ci/archive/20261103/202611031036.3r5EL9TN-lkp@intel.com/config)
-compiler: clang version 18.1.8 (https://github.com/llvm/llvm-project 3b5b5c1ec4a3095ab096dd780e84d7ab81f3d7ff)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261103/202611031036.3r5EL9TN-lkp@intel.com/reproduce)
+patch link:    https://lore.kernel.org/r/20261102144708.920232-4-webprosto%40gmail.com
+patch subject: [PATCH v2 3/4] Landlock: Add POSIX message queue scoping
+config: nios2-allmodconfig (https://download.01.org/0day-ci/archive/20261103/202611031209.bINuNiz5-lkp@intel.com/config)
+compiler: nios2-linux-gcc (GCC) 11.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261103/202611031209.bINuNiz5-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611031036.3r5EL9TN-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611031209.bINuNiz5-lkp@intel.com/
 
-All warnings (new ones prefixed by >>):
+All errors (new ones prefixed by >>):
 
->> security/landlock/fs.c:1686:51: warning: omitting the parameter name in a function definition is a C23 extension [-Wc23-extensions]
-    1686 |                              struct dentry *const dentry, const umode_t)
-         |                                                                        ^
-   security/landlock/fs.c:2117:30: error: incompatible function pointer types initializing 'int (*)(const struct mnt_idmap *, struct inode *, struct dentry *, umode_t)' (aka 'int (*)(const struct mnt_idmap *, struct inode *, struct dentry *, unsigned short)') with an expression of type 'int (struct inode *const, struct dentry *const, const umode_t)' (aka 'int (struct inode *const, struct dentry *const, const unsigned short)') [-Wincompatible-function-pointer-types]
-    2117 |         LSM_HOOK_INIT(inode_create, hook_inode_create),
-         |                                     ^~~~~~~~~~~~~~~~~
-   include/linux/lsm_hooks.h:141:21: note: expanded from macro 'LSM_HOOK_INIT'
-     141 |                 .hook = { .NAME = HOOK }                \
-         |                                   ^~~~
-   1 warning and 1 error generated.
+   security/landlock/task.c: In function 'landlock_check_posix_mqueue_open':
+>> security/landlock/task.c:579:18: error: 'struct landlock_request' has no member named 'other_domain_id'
+     579 |                 .other_domain_id = creator_domain ? creator_domain->hierarchy->id : 0,
+         |                  ^~~~~~~~~~~~~~~
 
 
-vim +1686 security/landlock/fs.c
+vim +579 security/landlock/task.c
 
-  1679	
-  1680	/*
-  1681	 * Unlike regular file creation, mq_open(2) calls vfs_mkobj() directly and
-  1682	 * therefore does not trigger the path_mknod hook.  Use the mqueuefs mount
-  1683	 * associated with the current IPC namespace to recover the parent path.
-  1684	 */
-  1685	static int hook_inode_create(struct inode *const dir,
-> 1686				     struct dentry *const dentry, const umode_t)
-  1687	{
-  1688		struct ipc_namespace *ipc_ns;
-  1689		struct vfsmount *mnt;
-  1690		struct path parent;
-  1691	
-  1692		if (!landlock_is_posix_mqueue_fs(dir))
-  1693			return 0;
-  1694	
-  1695		if (!current->nsproxy)
-  1696			return 0;
-  1697		ipc_ns = current->nsproxy->ipc_ns;
-  1698		if (!ipc_ns)
-  1699			return 0;
-  1700		mnt = ipc_ns->mq_mnt;
-  1701		if (WARN_ON_ONCE(!mnt || mnt->mnt_sb != dir->i_sb))
-  1702			return 0;
-  1703	
-  1704		parent.mnt = mnt;
-  1705		parent.dentry = dentry->d_parent;
-  1706		return current_check_access_path(&parent, LANDLOCK_ACCESS_FS_MAKE_REG);
-  1707	}
-  1708	
+   528	
+   529	/**
+   530	 * landlock_check_posix_mqueue_open - Deny opening a POSIX message queue
+   531	 * created by a task from a different (non-ancestor) domain
+   532	 *
+   533	 * @file: The mqueuefs file being opened.
+   534	 *
+   535	 * Return: -EPERM if the open must be denied, 0 otherwise.
+   536	 */
+   537	int landlock_check_posix_mqueue_open(struct file *const file)
+   538	{
+   539		const struct inode *const inode = file_inode(file);
+   540		const struct landlock_cred_security *subject;
+   541		struct landlock_object *object;
+   542		struct landlock_domain *creator_domain = NULL;
+   543		bool is_scoped;
+   544		size_t handle_layer;
+   545	
+   546		if (!landlock_is_posix_mqueue_inode(inode))
+   547			return 0;
+   548	
+   549		subject = landlock_get_applicable_subject(
+   550			file->f_cred, posix_mqueue_scope, &handle_layer);
+   551		if (!subject)
+   552			return 0;
+   553	
+   554		rcu_read_lock();
+   555		object = rcu_dereference(landlock_inode(inode)->object);
+   556		/* The temporary reference protects against concurrent object release. */
+   557		if (object && !refcount_inc_not_zero(&object->usage))
+   558			object = NULL;
+   559		rcu_read_unlock();
+   560	
+   561		if (object) {
+   562			spin_lock(&object->lock);
+   563			creator_domain = object->domain;
+   564			landlock_get_domain(creator_domain);
+   565			spin_unlock(&object->lock);
+   566		}
+   567	
+   568		/* Untagged queues were created outside any Landlock domain. */
+   569		is_scoped = domain_is_scoped(subject->domain, creator_domain,
+   570					     LANDLOCK_SCOPE_POSIX_MSG_QUEUE);
+   571		if (!is_scoped) {
+   572			landlock_put_domain_deferred(creator_domain);
+   573			landlock_put_object(object);
+   574			return 0;
+   575		}
+   576	
+   577		landlock_log_denial(subject, &(struct landlock_request) {
+   578			.type = LANDLOCK_REQUEST_SCOPE_POSIX_MSG_QUEUE,
+ > 579			.other_domain_id = creator_domain ? creator_domain->hierarchy->id : 0,
+   580			.audit = {
+   581				.type = LSM_AUDIT_DATA_FILE,
+   582				.u.file = file,
+   583			},
+   584			.layer_plus_one = handle_layer + 1,
+   585		});
+   586		landlock_put_domain_deferred(creator_domain);
+   587		landlock_put_object(object);
+   588		return -EPERM;
+   589	}
+   590	
 
 --
 0-DAY CI Kernel Test Service
