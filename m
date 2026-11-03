@@ -1,71 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793681791;
-	b=K7AZCEGGF+yRQp9DTev0+qfDhdtn3Fvgzy46wdWKsUKmjLIIYb5Ggl3aAvqc5QZ4e8iA
-	 sALEIJeo0DS7+PVMBegShVtjUZbxc0R9SCDwuiDS38C/A8e1EC628E1b7zY1r0qfTMXmr
-	 CKyoIaWNXmnviWbnCm4PmUZwnCwHfcEPUZ696cf7Ceu9v5iOYzqzUNrHNZhdOQO+3EukC
-	 G5p7gXaNicC5GMvTiYAefW8L2eqQE3i4TkccIKo3vvWbOqfghyhS5JiMRov0wORpbIwTH
-	 X5GhxvauQEy2pw1wpAPSWTRHk8kbAVxAjHwQij5N56cabZmvhynkgo1O7gWIY8SMiOg==
+	t=1793683352;
+	b=DOIA9WOzfnfKkjCdKUVDyV9dmIi1i6y9BRodEypKWKomAShmu6ID4DlKd4rbYreoWHJK
+	 2p1IREvFYv3P3HsLOorYPP2s65pagks4+O3GmLdZoM0jhdOyzkdiZTbrdvVKZjr8yHCMU
+	 65AxkNGIyxhlYTWk3+UVKX/QzKYXvUBwtvjSkWQZ3inhGM/d2VfuLPCjQdoLn6ynkLWBt
+	 b34jpvCRoBk3dfQm6s1erpCcDX349EPSWSYSgnPnrKnCFeOoJCbyfj5iHQUtiuzbH/2Zh
+	 IwwswzIxAaLc8uD41G5By/3Po/zkJaBe/p3DNLPzIPVk5LIaoMKeDM5wIBzJCtDw/fg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793681791;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793683352;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
 	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To;
-	bh=QKqJB95B3xM1yXLGq6ZKJkPFTWUW4kEAaA6Evoxuu4Q=;
-	b=eh+nfttQEhz91LCBlmvptC4RpXsfQ/PDJW3HYebfvUaWfnrIzrG5vFiZzqgPDD6lsf61
-	 C6LEgiXFnyoNECCQ1rzxizUJ0yYQIk/nV3KMf3Uqh3Kpy3un+N4ttaeAyjDdT93Zd/iHJ
-	 zORZ08saMt4a+Au9pmV8HMNz11Fr+dbnuyl+YMRCaGY+rm9bkopOXQQ6YcwRiw8J9rqu8
-	 rRyHqsdWX50rVMZASilHcesnptiyN1jBjLUb0FJPgkPVRXvGoE3RQ5jFHnJvhwX736ahp
-	 aKoTO6+CM4BM1qzwHaFch0H7Uv3VTgKCYkoDP60pwzygUk+dHmbmhhOWSjSHZNwT9bQ==
+	bh=cXrwTRaFh730XU9FBjkOIkE8uahxHCf45WfqpSbWrTY=;
+	b=Hq9FvhXsnuVtUiGXy6XlCgRvW3BipEji/kYxhvzRNdugqRIvXeSzprW6eCcZm/hmVA27
+	 O3/1csc2RVh8h6iVKP7dysJHdrc+7aNtN0rBwDOq4TN1OB2XiDEVd+sXt6zyHv4D8OmqB
+	 I5RB663OmjKC81SZM6Reo8QXQRkSB+QvZijj0xYQD1Fc+Yct3fs+quvm1FkSGyG+iyh3r
+	 Vyeqa/rB6pgzClUg6kRw09WEtLS6UZrxMjhJAeg0ynhSau8SAAabnpufEpwDZio0a3bTz
+	 iIgc5phSZqv3HhA1dtro4fIITIksxa05mWQephmg5oksiPo12wGk5M6/gFl+H5Dr8eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TPXyLiNz;
-	arc=none smtp.remote-ip=198.175.65.13
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b+OLuOjC;
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F740606A326;
-	Tue,  3 Nov 2026 04:56:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F740606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF482606A324;
+	Tue,  3 Nov 2026 05:22:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF482606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TPXyLiNz
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b+OLuOjC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793681789; x=1825217789;
+  t=1793683350; x=1825219350;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=lCD1UoGaBAd8VaiHfFf8MOSoSmyKD980JlNHOxuzq08=;
-  b=TPXyLiNzyM/mdx/5NWDnynLkPsaoMFzTN8vLpNgrKalLMVhHX1XSzSU2
-   SLyglw0bF+8kQ/0TQO/JHTsKmQZ0+BoIIjYvQyJLkRp/W1gtETTwF87kE
-   NxVmfZ+uX1Tsmcr9zF04y+es4SPCoFmXBGZ3hWqu9lVksiMpEPT5+RGvl
-   WXI8SfdjLZOw9sbMrp3klrJNJwxe5LhCDk1vldIEbPsLo9zj2Jlx/UTju
-   9ocnzXIaqOfp9ulk4Fdey3ubAolsNJrf+2iwPnXlE6aUAO0a3wRYw3r45
-   MmT9bFtFHiKkeYUFb9316GTiVlLJm+n3HVV/N5vXeRDS1e1bA5qqRrZ2E
-   A==;
-X-CSE-ConnectionGUID: 7lsN84T+Tye9wajoXVDTpQ==
-X-CSE-MsgGUID: Y9rp1azvTOK1EqCYb0NSTw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2269876"
+  bh=bMatKSt4uMBT5J2fCIlLezQmGdMHSyDkTfNuNe6/7NE=;
+  b=b+OLuOjCHEXnCtpFxZ6xV+8I9IcVrudOsS561jxeWMrbyS+VJhb7Su2Y
+   bDJmF2Dk8yz4IQPQnM9WBQASNoy5D8nyucE5E87WHAziVrJt9Nk1xvR2F
+   CBCGK4FlOOExGjsjZUUVpTzZyRfM+OHO+7336Ve5UhuQFGgt68HxbtVjk
+   sBrT1SZwlnGgSOsk88VJN2giUzcdiBWVBMDQOHShYabFFHucRpvG6IamM
+   AuAToaaJQKXR+ggi94bdEmxic4IZDwr4t7Z1AEOWs7DJkA3BRSokk0hwS
+   RyeN6fg0b+P/kFCbnLrhioebLK286vC5laSM9BH1OYj/cr/BrZR27YcHD
+   g==;
+X-CSE-ConnectionGUID: O+j5DFIZT3KUh8vDm0pLxg==
+X-CSE-MsgGUID: rQCAR35QTVC+5wR0A2qpnA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2283395"
 X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="2269876"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 20:56:28 -0800
-X-CSE-ConnectionGUID: 7tI6NU7NQXSEJGacSe6FoA==
-X-CSE-MsgGUID: M6nOKmUzTOSJgONiNDWXzQ==
+   d="scan'208";a="2283395"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 21:22:30 -0800
+X-CSE-ConnectionGUID: ZmmZyUYuR8GtXBR9RhPIBw==
+X-CSE-MsgGUID: nPEiGOL7TayBCbJ9Tfahvw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
-   d="scan'208";a="6664743"
+   d="scan'208";a="6180891"
 Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa001.fm.intel.com with ESMTP; 02 Nov 2026 20:56:25 -0800
+  by orviesa005.jf.intel.com with ESMTP; 02 Nov 2026 21:22:27 -0800
 Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
 	(envelope-from <lkp@intel.com>)
-	id 1xO6ZL-00000000iJk-1DAi;
-	Tue, 03 Nov 2026 04:56:23 +0000
-Date: Tue, 3 Nov 2026 12:55:35 +0800
+	id 1xO6yW-00000000iKO-2rOm;
+	Tue, 03 Nov 2026 05:22:24 +0000
+Date: Tue, 3 Nov 2026 13:22:01 +0800
 From: kernel test robot <lkp@intel.com>
 To: Oxana Kharitonova <webprosto@gmail.com>, mic@digikod.net,
 	brauner@kernel.org, viro@zeniv.linux.org.uk, gnoack@google.com,
@@ -74,7 +74,7 @@ Cc: oe-kbuild-all@lists.linux.dev, linux-security-module@vger.kernel.org,
 	linux-fsdevel@vger.kernel.org, webprosto@gmail.com,
 	landlock@lists.linux.dev
 Subject: Re: [PATCH v2 3/4] Landlock: Add POSIX message queue scoping
-Message-ID: <202611031209.bINuNiz5-lkp@intel.com>
+Message-ID: <202611031330.RRP6ch5h-lkp@intel.com>
 References: <20261102144708.920232-4-webprosto@gmail.com>
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
@@ -104,21 +104,24 @@ url:    https://github.com/intel-lab-lkp/linux/commits/Oxana-Kharitonova/ipc-Mov
 base:   https://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest.git next
 patch link:    https://lore.kernel.org/r/20261102144708.920232-4-webprosto%40gmail.com
 patch subject: [PATCH v2 3/4] Landlock: Add POSIX message queue scoping
-config: nios2-allmodconfig (https://download.01.org/0day-ci/archive/20261103/202611031209.bINuNiz5-lkp@intel.com/config)
+config: nios2-randconfig-1000-20261103 (https://download.01.org/0day-ci/archive/20261103/202611031330.RRP6ch5h-lkp@intel.com/config)
 compiler: nios2-linux-gcc (GCC) 11.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261103/202611031209.bINuNiz5-lkp@intel.com/reproduce)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261103/202611031330.RRP6ch5h-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611031209.bINuNiz5-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611031330.RRP6ch5h-lkp@intel.com/
 
 All errors (new ones prefixed by >>):
 
    security/landlock/task.c: In function 'landlock_check_posix_mqueue_open':
->> security/landlock/task.c:579:18: error: 'struct landlock_request' has no member named 'other_domain_id'
+   security/landlock/task.c:579:18: error: 'struct landlock_request' has no member named 'other_domain_id'
      579 |                 .other_domain_id = creator_domain ? creator_domain->hierarchy->id : 0,
          |                  ^~~~~~~~~~~~~~~
+>> security/landlock/task.c:579:78: error: 'struct landlock_hierarchy' has no member named 'id'
+     579 |                 .other_domain_id = creator_domain ? creator_domain->hierarchy->id : 0,
+         |                                                                              ^~
 
 
 vim +579 security/landlock/task.c
