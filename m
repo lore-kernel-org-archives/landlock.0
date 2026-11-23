@@ -1,48 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=140.205.208.109
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=43.163.128.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795220140;
-	b=M6o9HUt6bIUfCjq/iKAihr4a4ZfEVnnt6Kyhpva/RC0aBsfGNQ7z2/1JwOxNikOwZBC+
-	 Ts54btnLxLba9XtuL0l0s8BEA0kUN7jYUaFZUp8hilJM0Kj59gW2wfxW4Y9MUy3Av0YNh
-	 COPGrxcdk3dZjN57eFv/kS9rKXJiLgAuSswCsZrRNcFkt5XhbSujnIrqDlnqHpDA6UCCt
-	 INALZvc37MptZI0yC0U8dKuSiB8FQBq3id/PTNSKSrLPbOzw9/pu3nfmDL7ZRUrTKD6oL
-	 tFdi9ip6GAuZZYG1DW+x4LZYJr4YjZz44m25p0zj/XYseHDV+KVzIeiJXJlEyn6cVpQ==
+	t=1795395071;
+	b=cRH47WPnz/5JSrPDuAmPgyZFso9r3eETOXYMGEMFIgcc3LKV1KF8rUjenKk9HYez36OV
+	 ZADlCsaXaJteHqX8Kqyzso8T+WB42YSGovD/AOC6+LdWjKbwNm6BWzldqHBLuJZLoHjMW
+	 QoWG46Q8nOBXCmFyV+AIgFNkDyTqA2ZlsNheQUZ0Fe/1K/1n8MVCElwfdrQFh1jcy0OMa
+	 gXwlZbJNalNfZdGdS1zj5KlKCp9la/0vjYqqtcoEWTqc9AcIk5TL58nUpUn3Wj0WR6ZJO
+	 p6qRRv9eGQkHnaYlv8P2kfgIOEMuc9AjBUnvN78tm6S5F88bOL+uCPZi2wDYZklPrfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795220140;
-	h=DMARC-Filter:X-AliDM-RcptTo:Feedback-ID:Received:X-EnvId:Date:From:
-	 Reply-To:To:Message-ID:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=6h4OCnRWYBdbDhq7wtOufDSVXo/Ub7dOrvhMgBzqYV8=;
-	b=W1WJb1L+qfvHq8C5UUYMvxQ+LdRF2EyGfKpI3Ej92vDs5aF5h9scNE2QcW9zcbDO068W
-	 ey1WAZ6sKRKYtohCWsQPwCEyifKiw6etPhDpBY6xzk5D6u57SOPvxQ0Uua0f+z31u643P
-	 baEUFCxAFdZ+4kLGlzkMCuwUJ7kZF5rPW+jj9JBxrRjVIc3bqq8RxUl9Yel+5yD7jRJ0n
-	 KixFRS7GRK3Lw2quXdK3jHbGVvjVfVPaKSZGMW2HPc3El/GUwzo7S4rcW+jMmlXHvCum2
-	 vxa/6G5k4ZfB9kywfaVYavchrM1a47wQCUoHwPusQIkt7UKICptsV7zNL13uxn6Lvyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795395071;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:Date:From:To:X-OQ-MSGID:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=ol2lb5fxCjexFvqhzfEV6DvhEakCIkM/eh+4eooMDjk=;
+	b=1FesqQh3mEAPbHyVyX2hkv+ENb09RpxqMCGcoqtKTHDsOU6m7l5DEYtyZ3rdAqg/Z+Es
+	 EM+McCoU9n8nzFRpL0CGvCJ1V58s3lE3PS/DPlrIk0kzQEG4M4K9AHm1Qw6vZHhEGfjkO
+	 8BbUXj/YNVFE9SgoERCgnwTUiuxH6py34HjsDoq5e2K/Y8+xOUASONjk9zfhPxDepRN7g
+	 5POk6+RBrpYPlZgk3zoit97rmBUqmZSs+EWpworrqW+UKGL+OYlgoi7NCeUBogaMtiJ3Y
+	 /28yxMxgGi8m47AxHpsSHIL1TGAscXJelZmvp0+vk1wW88xnfapqLGtkxVzlLrGVWmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mail.wang.market;
-	spf=pass smtp.mailfrom=mail.wang.market;
-	arc=none smtp.remote-ip=140.205.208.109
-Received: from out208-109.dm.aliyun.com (out208-109.dm.aliyun.com [140.205.208.109])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Ekv3LzQk;
+	arc=none smtp.remote-ip=43.163.128.55
+Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.55])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B5260A2607
-	for <landlock@lists.linux.dev>; Sat, 21 Nov 2026 00:15:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86B5260A2607
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mail.wang.market
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.wang.market
-X-AliDM-RcptTo: bGFuZGxvY2tAbGlzdHMubGludXguZGV2
-Feedback-ID: default:hezuo@mail.wang.market:alibabak_SmtpBatch:23154
-Received: from 677b208b2007(mailfrom:hezuo@mail.wang.market fp:SMTPD_-VHcGa8Xr0H cluster:AY35D)
-          by smtpdm.aliyun.com(127.0.0.1);
-          Sat, 21 Nov 2026 08:15:34 +0800
-X-EnvId: 600000375160795301
-Date: Sat, 21 Nov 2026 08:15:34 +0800 (CST)
-From: hezuo@mail.wang.market
-Reply-To: 921153866@qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEB14606A33B
+	for <landlock@lists.linux.dev>; Mon, 23 Nov 2026 00:51:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEB14606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Ekv3LzQk
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1795395060; bh=ol2lb5fxCjexFvqhzfEV6DvhEakCIkM/eh+4eooMDjk=;
+	h=Date:From:To:Subject;
+	b=Ekv3LzQkOOB2zlrHpMdJu3I4ExwRrPSw/qgiWs3OsKtgsXv3+Kkh9ZY6MLiv8cw7I
+	 iMQoeRZ449d6OPtXnl+RmsDKfy9rw3grM0B2MPf4I6ywokCBAI0NIZHpLU0bGTKh2D
+	 +5JV0mlMXbJo38OzAsME7kGE8Zk8ENVxyh6FDDU8=
+Received: from ed522b6a8414 ([144.255.82.85])
+	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
+	id CBA8D47D; Mon, 23 Nov 2026 08:50:58 +0800
+X-QQ-mid: xmsmtpt1795395058tcuh2pqlh
+Message-ID: <tencent_5599D3FAC76821CE19A3B0FAFA3916EB0007@qq.com>
+X-QQ-XMAILINFO: OATpkVjS499u18PpHYCyVc5WvAXoV1HjscaY95yUWFu2BTCw9FAxstKG279PDt
+	 7f7JOCNG565t674oDgAo0PwsLzr48EsLIt7fRVWlJn+iJt/iR7o+K76cGSQWwp4TajE8kZRYJDP5
+	 eU6IOzVmyQr8KwQ5cVA5fufhdXPnXsjOC49pTKcCu5citLq3bKgpFoaFjEjR2y3kVvcPcRYYMDSd
+	 9PsQgHQavyb6vSoAqakj6pMI8SrjxYsqoF8AAxBDmyPXvenmbmYoAL3rhXkESzI0MDZ9bh9gDYXi
+	 IroQu2c47riwMZAtzSyT6g2XXHA5+hwrZ6b46KJTWIjwhwv4HA15bkwtPnX9QdLHlIfESvJDtFF7
+	 sZH0/prQrl0QQWeHMguEk/0/6V87Ak0FI/XzRjO7iKAyQbIJ9zWGIxp6s0/4t6QgB8RCFn1jfYTo
+	 XR1fDZ/0vWSzNsE93fYFpm0sX0xlm2iSRuRNSqqeeQwFYsWTe2THypKAoE/Zhb4wVxNXxtCjK7fB
+	 6VCT+gjbr15bXzCpezR9s8Y0epTSilXSk4mBCN0ISCc0Yw6l6185+6ielrCeeKZH6jm39TqSXtmX
+	 Qe/Qzty8IkOHCn31SNijrTUz+iTyVX3U2PrZnBu3iSeVZbX/0Xgy2/6WzJqEMq6LZDH/aI6lqvdd
+	 eVD614knLTMvozvs+pmEKWzn4QgqvqZqJMDsbMOmIWlJZ7D/fXjVklkWklPAEz8aL50wazyIQU6C
+	 CuXp+gjyE81nu1VbBZyXACJhciHcMwayr2ep3ZlArxM95pgTG/ZtPTCO42/mlpR1XhK3P2Z78/e6
+	 XfdQDiCwO9bhN728KDzdLhKHyEMylX7um6Qu7YHF6IQ4cZ5Gb18z6mCQY4lCSe7MRYy4XqgYa1OG
+	 NEVT70LYL+4axXe6NLudYr2nTpqYm0nOlM0GZiXm6ShX0GVdlXuowJRIqUZsaBfUcXznI0pBQq64
+	 6+Eb3E3SQWVZJ1+qWXZm8voglfFhiDGMF8HeZz7DeZQwx26sIwyfg8/ZyXnG2hooYf2P2YyMr2sz
+	 5BQ3bc/RMsqIwJEc0nZMDZsMl1Q37YVQ+m0pUO3qhfztJ6HZNxyO0mKECZzMM=
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+Date: Mon, 23 Nov 2026 08:50:58 +0800 (CST)
+From: 2234810978@qq.com
 To: landlock@lists.linux.dev
-Message-ID: <1401749758.1813.1795220134638@677b208b2007>
-Subject: The technical value of the Go-Landlock project deserves to be seen
- by more people
+X-OQ-MSGID: <192651008.3696.1795395058374@ed522b6a8414>
+Subject: Add multi-language support to go-landlock documentation
 X-Mailing-List: landlock@lists.linux.dev
 List-Id: <landlock.lists.linux.dev>
 List-Post: <mailto:landlock@lists.linux.dev>
@@ -55,8 +76,15 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hello Landlock. I noticed that the Go-Landlock project you maintain has received 374 stars on GitHub. It is currently one of the most complete implementations of the Linux Landlock sandbox mechanism in the Go ecosystem. This design idea is very solid, especially providing a clear technical path for safe and controllable context isolation.
+Hello Landlock.
 
- Our team has been helping open source developers solve a common problem: Even if truly valuable technological achievements are made, it is often difficult to reach the people who really need it. BizBot is an independently operating AI promotion system that can automatically scan the entire network for developers or teams that match your technology stack (Go/Rust/Linux/sandboxing). After identifying potential points of interest, it initiates automated communication to help you push your project to users who may actually use it.
+ I noticed that the go-landlock project you maintain has 374 stars on GitHub. It focuses on the field of Linux security sandbox and builds underlying security capabilities for the developer community. Such projects usually require clear technical documentation to reach global users, and multi-language support can effectively lower the barriers to use for non-native Chinese speakers.
 
- This tool is completely free and can be used immediately after installation. You can search xnx3/bizbot on GitHub to find the project homepage and try it out at any time. If you're interested, I can send you a quick deployment guide for reference.
+ I am translate.js  The author of this MIT-licensed open source JS plug-in can access web pages or README files with one click and automatically translate HTML content, SEO attributes and page elements without changing the original code structure. For open source projects like go-landlock that emphasize readability and dissemination, it can help more international developers understand document content without any barriers.
+
+ if you feel translate.js  It has the potential to help improve the international experience of project documents. You are welcome to try to access it. The project is completely free and can be obtained by searching xnx3/translate on GitHub. If you find it useful, you are sincerely invited to click a star on the project page. This is the greatest support for our continued maintenance.
+
+
+----------
+Email management powered by https://github.com/xnx3/bizbot
+
